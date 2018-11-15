@@ -42,6 +42,7 @@ public class Board extends JPanel implements Runnable{
         kAdapt = new KAdapter();
         mAdapt = new MAdapter();
         
+        int a = 10;
         this.addKeyListener(kAdapt);
         this.addMouseListener(mAdapt);
         this.addMouseMotionListener(mAdapt);
