@@ -20,6 +20,7 @@ public class JavaApplication35 {
         int c = 20;
         int d = 30;
         String a = "Ciao";
+        String e = "Mondo";
     }
     
 }
