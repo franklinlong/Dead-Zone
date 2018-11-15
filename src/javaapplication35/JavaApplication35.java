@@ -26,6 +26,7 @@ public class JavaApplication35 {
     
     public void fun(){
         int a = 1;
+        String f = "f";
     }
             
     
