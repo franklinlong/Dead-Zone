@@ -24,6 +24,7 @@ public class JavaApplication35 {
         String f = "!";
         int g = 90;
         int l = 89;
+        int h = 20;
     }
     
     public void fun(){
