@@ -21,6 +21,7 @@ public class JavaApplication35 {
         int d = 30;
         String a = "Ciao";
         String e = "Mondo";
+        String f = "!";
     }
     
     public void fun(){
