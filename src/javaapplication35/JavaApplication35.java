@@ -19,7 +19,13 @@ public class JavaApplication35 {
         int b = 10;
         int c = 20;
         int d = 30;
-        String a= "Ciao";
+        String a = "Ciao";
+        String e = "Mondo";
     }
+    
+    public void fun(){
+        int a = 1;
+    }
+            
     
 }
