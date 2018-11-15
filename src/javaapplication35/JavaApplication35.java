@@ -17,6 +17,7 @@ public class JavaApplication35 {
     public static void main(String[] args) {
         // TODO code application logic here
         int b = 10;
+        int c = 20;
     }
     
 }
