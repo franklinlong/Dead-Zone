@@ -19,6 +19,8 @@ public class JavaApplication35 {
         int b = 10;
         int c = 20;
         int d = 30;
+        
+        String e = "Mondo";
     }
     
 }
