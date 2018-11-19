@@ -20,9 +20,7 @@ public class Menu extends javax.swing.JFrame {
 
     Dimension dim;
     
-    /**
-     * Creates new form ManuFine
-     */
+    
     private ImageIcon ridimensionaImageIcon(URL url, int nuovaW, int nuovaH){
         ImageIcon image = new ImageIcon(url);
         Image immagineScalata = image.getImage().getScaledInstance(nuovaW, nuovaH, Image.SCALE_DEFAULT);
