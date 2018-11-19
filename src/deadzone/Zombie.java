@@ -33,6 +33,8 @@ public class Zombie extends AnimatedSprite{
     private Animation walkAnimation, attackAnimation;
     private Animation currentAnimation;
     
+    private Sound biteSound;
+    
     private Timer attackDelay;
     private boolean attacking = false;
       
@@ -47,16 +49,17 @@ public class Zombie extends AnimatedSprite{
         this.player = player;
         this.handler = handler;
         this.initialVelocity = velX;
+        biteSound = new Sound(Assets.zombieBite);
         
         attackDelay = new Timer(350, new ActionListener(){
 
             @Override
             public void actionPerformed(ActionEvent e) {
-//                if(distanceToPlayer < Player.PLAYERSIZE)
-//                {
-//                    zombieBite.playSound();
+                if(distanceToPlayerX < Player.PLAYERSIZE && distanceToPlayerY < Player.PLAYERSIZE)
+                {
+                    biteSound.playSound();
 //                    player.hit();
-//                }
+                }
 
                 attackDelay.stop();
                 attacking = false;
@@ -148,9 +151,7 @@ public class Zombie extends AnimatedSprite{
             default:
                 break;
              }
-        
-        System.out.println("Ascissa zombie:" + this.getX());
-        
+                
         currentAnimation.update();
     }
     

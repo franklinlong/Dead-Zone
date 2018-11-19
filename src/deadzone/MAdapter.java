@@ -47,6 +47,7 @@ public class MAdapter implements MouseMotionListener,MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent me) {
+        
     }
 
     @Override

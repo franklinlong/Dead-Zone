@@ -136,8 +136,6 @@ public abstract class Sprite {
     
     public int collision() {
         int xx, yy;
-        System.out.println(x);
-        System.out.println(y);
         boolean destra = false;
         boolean sinistra = false;
         boolean sopra = false;

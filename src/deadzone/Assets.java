@@ -103,6 +103,8 @@ public class Assets {
 			pistolReloadSound = Utilities.LoadSound("pistolreload.wav");
 			rifleReloadSound = Utilities.LoadSound("rifleReload.wav");
 			emptyGun = Utilities.LoadSound("emptygun.wav");
+                        zombieBite = Utilities.LoadSound("zombieBite.wav");
+                        zombieHit = Utilities.LoadSound("zombiehit.wav");
 			
 		}
 }

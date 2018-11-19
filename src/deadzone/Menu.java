@@ -29,8 +29,6 @@ public class Menu extends javax.swing.JFrame {
     
     
     public Menu() {
-        this.setVisible(true);
-        
         Image iconaFrame;
         iconaFrame = new ImageIcon(getClass().getResource("icona_frame.png")).getImage(); //TEMPORANEO(?)
         this.setIconImage(iconaFrame);  

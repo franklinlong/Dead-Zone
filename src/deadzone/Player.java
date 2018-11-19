@@ -19,6 +19,8 @@ import javax.swing.ImageIcon;
  */
 public class Player extends AnimatedSprite{
     
+        private Handler handler;
+    
         public static final int PLAYERSIZE = 60;
     
         // pistol animations
@@ -45,7 +47,7 @@ public class Player extends AnimatedSprite{
 	
         int xx,yy;
         
-    public Player(int x, int y, int velX, int velY, int health) {
+    public Player(int x, int y, int velX, int velY, int health, Handler handler) {
         super(x, y, 100);
         height=PLAYERSIZE;
         width=PLAYERSIZE;
@@ -53,6 +55,7 @@ public class Player extends AnimatedSprite{
         this.velX = velX;
         this.velY = velY;
         this.initialVelocity = velX;
+        this.handler = handler;
         
         pistolIdle = new Animation(Assets.pistolIdle,20);
 		pistolReload = new Animation(Assets.pistolReload, 100);
@@ -78,15 +81,15 @@ public class Player extends AnimatedSprite{
         pistol = new Gun(Assets.pistolSkin, pistolIdle, pistolReload, pistolShoot,pistolShootSound,
 				pistolReloadSound, this, 400,
 				9, 2700);
-		rifle = new Gun(Assets.ak47, rifleIdle, rifleReload, rifleShoot, rifleShootSound,
-				rifleReloadSound, this, 100,
-				30, 9000);
+        rifle = new Gun(Assets.ak47, rifleIdle, rifleReload, rifleShoot, rifleShootSound,
+                        rifleReloadSound, this, 100,
+                        30, 9000);
+
+        shotgun = new Gun(Assets.pistolSkin,shotgunIdle, shotgunReload, shotgunShoot, pistolShootSound,
+                        pistolReloadSound, this,800,
+                        5, 1000);
 		
-		shotgun = new Gun(Assets.pistolSkin,shotgunIdle, shotgunReload, shotgunShoot, pistolShootSound,
-				pistolReloadSound, this,800,
-				5, 1000);
-		
-		currentGun = pistol;
+        currentGun = pistol;
     }
 
     private void initPlayer(){
@@ -95,6 +98,7 @@ public class Player extends AnimatedSprite{
         setY(y);
     }
     
+    @Override
     public void drawImage(Graphics g,int offsetX, int offsetY){
         xx=this.getX()-offsetX;
         yy=this.getY()-offsetY;
@@ -186,7 +190,6 @@ public class Player extends AnimatedSprite{
             y = 2;
         }
         int k = collision();
-        System.out.println(k); 
         switch (k) {
             case 1:
                 x += velX * -1;
@@ -233,14 +236,15 @@ public class Player extends AnimatedSprite{
                         currentGun.getTotalBullets() > 0)
             currentGun.reload();
 
-        System.out.println("Velocita: " + this.initialVelocity);
-        if(MAdapter.left){
-                double xbullet = Math.cos(angle);
-                double ybullet = Math.sin(angle);
-                double bulletdirectionX = xbullet/Math.sqrt(xbullet*xbullet+ybullet*ybullet);
-                double bulletdirectionY = ybullet/Math.sqrt(ybullet*ybullet+xbullet*xbullet);
-                Projectile p = new Projectile(x,y,bulletdirectionX,bulletdirectionY);
-                currentGun.shoot(p);
+        if(MAdapter.left && !currentGun.isShooting() && !currentGun.isEmpty()){
+            double xbullet = Math.cos(angle);
+            double ybullet = Math.sin(angle);
+            double bulletdirectionX = xbullet/Math.sqrt(xbullet*xbullet+ybullet*ybullet);
+            double bulletdirectionY = ybullet/Math.sqrt(ybullet*ybullet+xbullet*xbullet);
+            
+            Projectile p = new Projectile(xx+this.width/2,yy+this.height/2,bulletdirectionX,bulletdirectionY, 100); //100 è la vita del proiettile
+            this.handler.addSprite(p);
+            currentGun.shoot(p);
         }
         currentGun.update();
     }
