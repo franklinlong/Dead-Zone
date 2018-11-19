@@ -312,7 +312,7 @@ public class SinglePlayer extends javax.swing.JFrame {
             int w = new ImageIcon(getClass().getResource("LogoBiancoENero.png")).getIconWidth()*1/6;
             int h = new ImageIcon(getClass().getResource("LogoBiancoENero.png")).getIconHeight()*1/6;
             ImageIcon i = ridimensionaImageIcon(getClass().getResource("LogoBiancoENero.png"),w,h);
-            JOptionPane.showConfirmDialog(rootPane, "Please select the properties of the character", "Settings DeadZone", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_OPTION, i);
+            JOptionPane.showConfirmDialog(rootPane, "Please select the properties of the character", "Player selection DeadZone", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_OPTION, i);
 
         }
         

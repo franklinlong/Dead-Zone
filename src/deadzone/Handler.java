@@ -24,10 +24,10 @@ public class Handler {
         }
     }
     
-    public void drawImage(Graphics g){
+    public void drawImage(Graphics g,int offsetX,int offsetY){
         for(int i=0;i<sprite.size();i++){
             Sprite s = sprite.get(i);
-            s.drawImage(g);
+            s.drawImage(g,offsetX,offsetY);
         }
     }
     

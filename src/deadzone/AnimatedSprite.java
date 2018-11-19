@@ -5,6 +5,7 @@
  */
 package deadzone;
 
+import java.awt.Graphics;
 import java.awt.geom.AffineTransform;
 
 
@@ -35,4 +36,6 @@ public abstract class AnimatedSprite extends Sprite{
     public void setHealth(int health){
         this.health=health;
     }
+    
+    public abstract void drawImage(Graphics g, int offsetX, int offsetY);
 }

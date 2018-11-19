@@ -11,6 +11,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -162,8 +163,19 @@ public class MapFrame extends javax.swing.JFrame {
 
     private void jButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlayActionPerformed
         // TODO add your handling code here:
-        new Window().setVisible(true);
-        this.dispose();
+        if(jButtonStandardMap.isBorderPainted()){
+            new Window().setVisible(true);
+            this.setVisible(false);
+            
+            
+        }
+        else{
+            int w = new ImageIcon(getClass().getResource("LogoBiancoENero.png")).getIconWidth()*1/6;
+            int h = new ImageIcon(getClass().getResource("LogoBiancoENero.png")).getIconHeight()*1/6;
+            ImageIcon i = ridimensionaImageIcon(getClass().getResource("LogoBiancoENero.png"),w,h);
+            JOptionPane.showConfirmDialog(rootPane, "Please select the map", "Selection map DeadZone", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_OPTION, i);
+
+        }
     }//GEN-LAST:event_jButtonPlayActionPerformed
 
     private void jButtonStandardMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStandardMapActionPerformed

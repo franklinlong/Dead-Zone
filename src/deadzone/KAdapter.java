@@ -27,10 +27,11 @@ public class KAdapter extends KeyAdapter{
     }
     
     public void update(){
-        up = keys[KeyEvent.VK_UP];
-        left = keys[KeyEvent.VK_LEFT];
-        right = keys[KeyEvent.VK_RIGHT];
-        down = keys[KeyEvent.VK_DOWN];
+        
+        up = keys[KeyEvent.VK_W];
+        left = keys[KeyEvent.VK_A];
+        right = keys[KeyEvent.VK_D];
+        down = keys[KeyEvent.VK_S];
         one = keys[KeyEvent.VK_1];
         two = keys[KeyEvent.VK_2];
         three = keys[KeyEvent.VK_3];

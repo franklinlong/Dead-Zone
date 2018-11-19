@@ -50,7 +50,7 @@ public abstract class Sprite {
     
 }
     
-    public abstract void drawImage(Graphics g);
+    public abstract void drawImage(Graphics g, int offsetX, int offsetY);
     
     public abstract void animationCycle();
 
@@ -111,6 +111,13 @@ public abstract class Sprite {
 
     public int getVelY() {
         return velY;
+    }
+    
+     public int getCenterY() {
+        return y + height/2;
+    }
+      public int getCenterX() {
+        return x + width/2;
     }
     
     

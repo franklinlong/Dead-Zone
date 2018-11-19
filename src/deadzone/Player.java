@@ -19,7 +19,9 @@ import javax.swing.ImageIcon;
  */
 public class Player extends AnimatedSprite{
     
- // pistol animations
+        public static final int PLAYERSIZE = 112;
+    
+        // pistol animations
 	
  	private Animation pistolIdle, pistolReload, pistolShoot;
  	
@@ -47,8 +49,8 @@ public class Player extends AnimatedSprite{
         
     public Player(int x, int y,int health) {
         super(x, y, 100);
-        height=112;
-        width=112;
+        height=PLAYERSIZE;
+        width=PLAYERSIZE;
         xx=yy=0;
         
         pistolIdle = new Animation(Assets.pistolIdle,20);
@@ -91,61 +93,78 @@ public class Player extends AnimatedSprite{
         setX(x);
         setY(y);
     }
+    
+    public void drawImage(Graphics g,int offsetX, int offsetY){
+        xx=this.getX()-offsetX;
+        yy=this.getY()-offsetY;
+        
+        double wR = MAdapter.x - xx - width/2;
+        double hR = MAdapter.y - yy - height/2;
 
-    @Override
-    public void drawImage(Graphics g) {
-            //System.out.println("x="+player.getX()+"  y="+player.getY());
-
-            if (getX()<=w_frame/2 && getY()<=h_frame/2){ //zona1
-                xx = getX();
-                yy = getY();
-            }
-            else if (getX()>w_frame/2 && getX()<w_map-w_frame/2 && getY()<=h_frame/2){ //zona 2
-                xx = w_frame/2;
-                yy=getY();
-            }
-            else if (getX()>=w_map-w_frame/2 && getY()<=h_frame/2){ //zona3
-                xx =getX()-(w_map-w_frame);
-                yy = getY();
-            }
-            else if (getX()<=w_frame/2 && getY()>h_frame/2 && getY()<h_map-h_frame/2){ //zona4
-                xx = getX();
-                yy = h_frame/2;
-            }
-            else if (getX()>=w_map-w_frame/2 && getY()>h_frame/2 && getY()<h_map-h_frame/2){ //zona6
-                xx = getX() - (w_map - w_frame);
-                yy = h_frame/2;
-            }
-            else if (getX()<=w_frame/2 && getY()>=h_map-h_frame/2){ //zona7
-                xx = getX();
-                yy = getY() - (h_map - h_frame);
-            }
-            else if (getX()>w_frame/2 && getX()<w_map-w_frame/2 && getY()>=h_map-h_frame/2){ //zona 8
-                xx = w_frame/2;
-                yy = getY() - (h_map - h_frame);
-            }
-            else if (getX()>=w_map-w_frame/2 && getY()>=h_map-h_frame/2){ //zona 9
-                xx = getX()-(w_map-w_frame);
-                yy = getY()-(h_map-h_frame);
-            }
-            else{ //zona5
-                xx = w_frame/2;
-                yy = h_frame/2;
-            }
-            
-            double wR = MAdapter.x - xx - width/2;
-        	double hR = MAdapter.y - yy - height/2;
-        		
-        	angle = Math.atan(hR / wR);
-                if(wR < 0)
-                    angle = -Math.PI + angle;
+        angle = Math.atan(hR / wR);
+        if(wR < 0)
+            angle = -Math.PI + angle;
                 
         at = AffineTransform.getTranslateInstance(xx,yy);
         at.rotate(angle,width/2,height/2);
         Graphics2D g2d = (Graphics2D)g;
         g2d.drawImage(currentGun.getCurrentAnimation().getCurrentFrame(), at, null);
     }
-    
+
+//    @Override
+//    public void drawImage(Graphics g) {
+//            //System.out.println("x="+player.getX()+"  y="+player.getY());
+//
+//            if (getX()<=w_frame/2 && getY()<=h_frame/2){ //zona1
+//                xx = getX();
+//                yy = getY();
+//            }
+//            else if (getX()>w_frame/2 && getX()<w_map-w_frame/2 && getY()<=h_frame/2){ //zona 2
+//                xx = w_frame/2;
+//                yy=getY();
+//            }
+//            else if (getX()>=w_map-w_frame/2 && getY()<=h_frame/2){ //zona3
+//                xx =getX()-(w_map-w_frame);
+//                yy = getY();
+//            }
+//            else if (getX()<=w_frame/2 && getY()>h_frame/2 && getY()<h_map-h_frame/2){ //zona4
+//                xx = getX();
+//                yy = h_frame/2;
+//            }
+//            else if (getX()>=w_map-w_frame/2 && getY()>h_frame/2 && getY()<h_map-h_frame/2){ //zona6
+//                xx = getX() - (w_map - w_frame);
+//                yy = h_frame/2;
+//            }
+//            else if (getX()<=w_frame/2 && getY()>=h_map-h_frame/2){ //zona7
+//                xx = getX();
+//                yy = getY() - (h_map - h_frame);
+//            }
+//            else if (getX()>w_frame/2 && getX()<w_map-w_frame/2 && getY()>=h_map-h_frame/2){ //zona 8
+//                xx = w_frame/2;
+//                yy = getY() - (h_map - h_frame);
+//            }
+//            else if (getX()>=w_map-w_frame/2 && getY()>=h_map-h_frame/2){ //zona 9
+//                xx = getX()-(w_map-w_frame);
+//                yy = getY()-(h_map-h_frame);
+//            }
+//            else{ //zona5
+//                xx = w_frame/2;
+//                yy = h_frame/2;
+//            }
+//            
+//            double wR = MAdapter.x - xx - width/2;
+//        	double hR = MAdapter.y - yy - height/2;
+//        		
+//        	angle = Math.atan(hR / wR);
+//                if(wR < 0)
+//                    angle = -Math.PI + angle;
+//                
+//        at = AffineTransform.getTranslateInstance(xx,yy);
+//        at.rotate(angle,width/2,height/2);
+//        Graphics2D g2d = (Graphics2D)g;
+//        g2d.drawImage(currentGun.getCurrentAnimation().getCurrentFrame(), at, null);
+//    }
+//    
     public int getXX(){
         return xx;
     }
@@ -185,26 +204,26 @@ public class Player extends AnimatedSprite{
             velX = 0;
  
         if(KAdapter.one)
-			currentGun = pistol;
-		if(KAdapter.two)
-			currentGun = rifle;
-		if(KAdapter.three)
-			currentGun = shotgun;
-		
-		if(KAdapter.reload && currentGun.getRound() != currentGun.getBulletsPerRound() &&
-				currentGun.getTotalBullets() > 0)
-			currentGun.reload();
-		
-		
-		if(MAdapter.left){
-			double xbullet = Math.cos(angle);
-			double ybullet = Math.sin(angle);
-			double bulletdirectionX = xbullet/Math.sqrt(xbullet*xbullet+ybullet*ybullet);
-			double bulletdirectionY = ybullet/Math.sqrt(ybullet*ybullet+xbullet*xbullet);
-			Projectile p = new Projectile(x,y,bulletdirectionX,bulletdirectionY);
-			currentGun.shoot(p);
-		}
-		currentGun.update();
+                currentGun = pistol;
+        if(KAdapter.two)
+                currentGun = rifle;
+        if(KAdapter.three)
+                currentGun = shotgun;
+
+        if(KAdapter.reload && currentGun.getRound() != currentGun.getBulletsPerRound() &&
+                        currentGun.getTotalBullets() > 0)
+                currentGun.reload();
+
+
+        if(MAdapter.left){
+                double xbullet = Math.cos(angle);
+                double ybullet = Math.sin(angle);
+                double bulletdirectionX = xbullet/Math.sqrt(xbullet*xbullet+ybullet*ybullet);
+                double bulletdirectionY = ybullet/Math.sqrt(ybullet*ybullet+xbullet*xbullet);
+                Projectile p = new Projectile(x,y,bulletdirectionX,bulletdirectionY);
+                currentGun.shoot(p);
+        }
+        currentGun.update();
     }
     
   

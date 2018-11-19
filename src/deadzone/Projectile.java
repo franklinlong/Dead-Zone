@@ -16,7 +16,7 @@ public class Projectile extends Sprite{
 	}
 	
 	@Override
-	public void drawImage(Graphics g) {
+	public void drawImage(Graphics g, int offsetX, int offsetY) {  //non aggiornato rispetto alla camera
 		g.setColor(Color.BLACK);
 		g.fillOval(this.x-BULLETDIAMETER/2, this.y-Projectile.BULLETDIAMETER/2, Projectile.BULLETDIAMETER, BULLETDIAMETER);
 	}

@@ -30,6 +30,7 @@ public class Board extends JPanel implements Runnable{
     private final int h_frame = 700;
     private int w_map;
     private int h_map;
+    private Camera camera;
     
     public Board(){
         initBoard();
@@ -47,8 +48,9 @@ public class Board extends JPanel implements Runnable{
         this.addMouseMotionListener(mAdapt);
         this.setFocusable(true);
         player = new Player(60,60,100);
+        camera = new Camera(player);
         handler.addSprite(player);
-        handler.addSprite((new Zombie(800, 500, 32, 48, 1, 1, 100, player, handler)));
+        handler.addSprite((new Zombie(60, 500, 1, 1, 100, player, handler)));
         initGame();
     }
 
@@ -124,41 +126,45 @@ public class Board extends JPanel implements Runnable{
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawMap(g);
-        handler.drawImage(g);        
+        handler.drawImage(g,camera.getOffset_x(),camera.getOffset_y());        
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
     }
     
     public void drawMap(Graphics g){
-        //System.out.println("x="+player.getX()+"  y="+player.getY());
-    	g.drawImage(mapImage, 0, 0, this);
-        if (player.getX()<=w_frame/2 && player.getY()<=h_frame/2){ //zona1
-            g.drawImage(mapImage, 0, 0, this);
-        }
-        else if (player.getX()>w_frame/2 && player.getX()<w_map-w_frame/2 && player.getY()<=h_frame/2){ //zona 2
-            g.drawImage(mapImage,-(player.getX()-w_frame/2), 0, this);
-        }
-        else if (player.getX()>=w_map-w_frame/2 && player.getY()<=h_frame/2){ //zona3
-            g.drawImage(mapImage,-(w_map-w_frame), 0, this); 
-        }
-        else if (player.getX()<=w_frame/2 && player.getY()>h_frame/2 && player.getY()<h_map-h_frame/2){ //zona4
-            g.drawImage(mapImage,0,-(player.getY()-h_frame/2) , this);
-        }
-        else if (player.getX()>=w_map-w_frame/2 && player.getY()>h_frame/2 && player.getY()<h_map-h_frame/2){ //zona6
-            g.drawImage(mapImage,-(w_map-w_frame),-(player.getY()-h_frame/2) , this);
-        }
-        else if (player.getX()<=w_frame/2 && player.getY()>=h_map-h_frame/2){ //zona7
-            g.drawImage(mapImage,0,-(h_map-h_frame) , this);
-        }
-        else if (player.getX()>w_frame/2 && player.getX()<w_map-w_frame/2 && player.getY()>=h_map-h_frame/2){ //zona 8
-            g.drawImage(mapImage,-(player.getX()-w_frame/2), -(h_map-h_frame), this);
-        }
-        else if (player.getX()>=w_map-w_frame/2 && player.getY()>=h_map-h_frame/2){ //zona 9
-            g.drawImage(mapImage,-(w_map-w_frame), -(h_map-h_frame), this);
-        }
-        else{ //zona5
-            g.drawImage(mapImage,-(player.getX()-w_frame/2) ,-(player.getY()-h_frame/2), this);
-        }
+        g.drawImage(mapImage, -camera.getOffset_x(), -camera.getOffset_y(), this);
     }
+    
+//    public void drawMap(Graphics g){
+//        //System.out.println("x="+player.getX()+"  y="+player.getY());
+//    	g.drawImage(mapImage, 0, 0, this);
+//        if (player.getX()<=w_frame/2 && player.getY()<=h_frame/2){ //zona1
+//            g.drawImage(mapImage, 0, 0, this);
+//        }
+//        else if (player.getX()>w_frame/2 && player.getX()<w_map-w_frame/2 && player.getY()<=h_frame/2){ //zona 2
+//            g.drawImage(mapImage,-(player.getX()-w_frame/2), 0, this);
+//        }
+//        else if (player.getX()>=w_map-w_frame/2 && player.getY()<=h_frame/2){ //zona3
+//            g.drawImage(mapImage,-(w_map-w_frame), 0, this); 
+//        }
+//        else if (player.getX()<=w_frame/2 && player.getY()>h_frame/2 && player.getY()<h_map-h_frame/2){ //zona4
+//            g.drawImage(mapImage,0,-(player.getY()-h_frame/2) , this);
+//        }
+//        else if (player.getX()>=w_map-w_frame/2 && player.getY()>h_frame/2 && player.getY()<h_map-h_frame/2){ //zona6
+//            g.drawImage(mapImage,-(w_map-w_frame),-(player.getY()-h_frame/2) , this);
+//        }
+//        else if (player.getX()<=w_frame/2 && player.getY()>=h_map-h_frame/2){ //zona7
+//            g.drawImage(mapImage,0,-(h_map-h_frame) , this);
+//        }
+//        else if (player.getX()>w_frame/2 && player.getX()<w_map-w_frame/2 && player.getY()>=h_map-h_frame/2){ //zona 8
+//            g.drawImage(mapImage,-(player.getX()-w_frame/2), -(h_map-h_frame), this);
+//        }
+//        else if (player.getX()>=w_map-w_frame/2 && player.getY()>=h_map-h_frame/2){ //zona 9
+//            g.drawImage(mapImage,-(w_map-w_frame), -(h_map-h_frame), this);
+//        }
+//        else{ //zona5
+//            g.drawImage(mapImage,-(player.getX()-w_frame/2) ,-(player.getY()-h_frame/2), this);
+//        }
+//    }
    
 }
