@@ -19,7 +19,7 @@ import javax.swing.Timer;
  */
 public class Zombie extends AnimatedSprite{
 
-    public static final int ZOMBIESIZE = 112;
+    public static final int ZOMBIESIZE = 70;
     
     private double distanceToPlayerX;
     private double distanceToPlayerY;
@@ -130,13 +130,26 @@ public class Zombie extends AnimatedSprite{
         this.setX((int) this.x);
         this.setY((int) this.y);
         
-        
-        if(this.collision()){
-            this.x -= a[0] ;
-            this.y -= a[1];
-            this.setX((int) this.x);
-            this.setY((int) this.y);
-        }
+        //Se c'è una collisione non posso passare
+        int k = collision();
+        switch (k) {
+            case 1:
+                this.x -= a[0] ;
+                this.setX((int) this.x);
+                break;
+            case 2:
+                this.y -= a[1];
+                this.setY((int) this.y);
+                break;
+            case 3:
+                this.x -= a[0] ;
+                this.y -= a[1];
+                this.setX((int) this.x);
+                this.setY((int) this.y);
+                break;
+            default:
+                break;
+             }
         
         System.out.println("Ascissa zombie:" + this.getX());
         

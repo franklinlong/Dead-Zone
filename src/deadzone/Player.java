@@ -19,7 +19,7 @@ import javax.swing.ImageIcon;
  */
 public class Player extends AnimatedSprite{
     
-        public static final int PLAYERSIZE = 112;
+        public static final int PLAYERSIZE = 70;
     
         // pistol animations
 	
@@ -176,10 +176,28 @@ public class Player extends AnimatedSprite{
         x+=velX;
         y+=velY;
         
-        if(collision()){
-            x += velX*-1;
-            y += velY*-1;
+        if (x < 0) {
+            x = 2;
         }
+        if (y < 0) {
+            y = 2;
+        }
+        int k = collision();
+        System.out.println(k); 
+        switch (k) {
+            case 1:
+                x += velX * -1;
+                break;
+            case 2:
+                y += velY * -1;
+                break;
+            case 3:
+                y += velY * -1;
+                x += velX * -1;
+                break;
+            default:
+                break;
+             }
         
         if(KAdapter.up)
             velY = -5;

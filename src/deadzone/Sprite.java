@@ -133,20 +133,44 @@ public abstract class Sprite {
         return image;
     }
     
-    public boolean collision(){
+    public int collision() {
         int xx, yy;
-        for(xx = x; xx < x+width ; xx++){
-            for(yy = y; yy < y+height ; yy++){
-                int pixel = mapRGB.getRGB(xx, yy);
-                int red = (pixel >> 16) & 0xff;
-                int green  = (pixel >> 8) & 0xff;
-                int blue = (pixel) & 0xff;
-                
-                if (red == 255)
-                    return true;
+        System.out.println(x);
+        System.out.println(y);
+        boolean destra = false;
+        boolean sinistra = false;
+        boolean sopra = false;
+        boolean sotto = false;
+        for (xx = x; xx < x + width; xx++) {
+            for (yy = y; yy < y + height; yy++) {
+                if ((xx < x+5 && yy < y+5) || (xx > x + width - 6 && yy < y + 5) || (xx < x + 5 && yy > y + height - 6) || (xx > x + width - 6 && yy > y + height - 6)) {}
+                else if(xx >= x + 6 && yy >= y + 6 && xx <=x + width -6 && yy <= y + height -6) {}
+                else{
+                    //System.out.println(x);
+                    int pixel = mapRGB.getRGB(xx, yy);
+                    int red = (pixel >> 16) & 0xff;
+
+                    if (red == 255) {
+                        if(xx >= x + 6 && yy < y + 6 && xx <= x + width -6 && xx <= x + width -6)
+                            sopra = true;
+                        else if(xx < x + 6 && yy >= y +6 && yy <= y + height -6)
+                            sinistra = true;
+                        else if(xx >= x+ 6 && yy >y + height -6 && xx <= x + width -6)
+                            sotto = true;
+                        else if(xx > x + width -6 && yy >= y+6 && yy <= y + height -6)
+                            destra = true;
+                    }
+                }
             }
         }
-        return false;
+        if ((sopra==true && destra == true) || (sopra==true && sinistra == true) || (sotto==true && sinistra == true) || (sotto==true && destra == true) || (sopra==true && sinistra == true && destra == true) || (sopra==true && sinistra == true && destra == true))
+            return 3;
+        else if( sopra==true || sotto == true)
+            return 2;
+        else if (sinistra == true || destra == true)
+            return 1;
+        else
+            return 0;
     }
     
 }
