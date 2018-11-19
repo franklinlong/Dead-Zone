@@ -45,11 +45,14 @@ public class Player extends AnimatedSprite{
 	
         int xx,yy;
         
-    public Player(int x, int y,int health) {
+    public Player(int x, int y, int velX, int velY, int health) {
         super(x, y, 100);
         height=PLAYERSIZE;
         width=PLAYERSIZE;
         xx=yy=0;
+        this.velX = velX;
+        this.velY = velY;
+        this.initialVelocity = velX;
         
         pistolIdle = new Animation(Assets.pistolIdle,20);
 		pistolReload = new Animation(Assets.pistolReload, 100);
@@ -200,22 +203,22 @@ public class Player extends AnimatedSprite{
              }
         
         if(KAdapter.up)
-            velY = -5;
+            velY = -initialVelocity;
         else if(!KAdapter.down)
             velY = 0;
         
         if(KAdapter.down)
-            velY = 5;
+            velY = initialVelocity;
         else if(!KAdapter.up)
             velY = 0;
         
         if(KAdapter.right)
-            velX = 5;
+            velX = initialVelocity;
         else if(!KAdapter.left)
             velX = 0;
         
         if(KAdapter.left)
-            velX = -5;
+            velX = -initialVelocity;
         else if(!KAdapter.right)
             velX = 0;
  
@@ -228,9 +231,9 @@ public class Player extends AnimatedSprite{
 
         if(KAdapter.reload && currentGun.getRound() != currentGun.getBulletsPerRound() &&
                         currentGun.getTotalBullets() > 0)
-                currentGun.reload();
+            currentGun.reload();
 
-
+        System.out.println("Velocita: " + this.initialVelocity);
         if(MAdapter.left){
                 double xbullet = Math.cos(angle);
                 double ybullet = Math.sin(angle);

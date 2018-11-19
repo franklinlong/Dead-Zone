@@ -21,6 +21,7 @@ public abstract class Sprite {
     
     protected int x,y;
     protected int velX=0,velY=0;
+    protected int initialVelocity=0;
     protected int width,height;
     public static BufferedImage mapRGB = Sprite.caricaMappaRGB();
     

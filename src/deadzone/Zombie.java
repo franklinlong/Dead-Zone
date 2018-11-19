@@ -19,7 +19,7 @@ import javax.swing.Timer;
  */
 public class Zombie extends AnimatedSprite{
 
-    public static final int ZOMBIESIZE = 70;
+    public static final int ZOMBIESIZE = 60;
     
     private double distanceToPlayerX;
     private double distanceToPlayerY;
@@ -35,9 +35,7 @@ public class Zombie extends AnimatedSprite{
     
     private Timer attackDelay;
     private boolean attacking = false;
-    
-    private int initialVelocity;
-    
+      
         
     private int w_map = 3200;
     private int h_map = 3200;

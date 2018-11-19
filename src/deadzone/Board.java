@@ -47,7 +47,7 @@ public class Board extends JPanel implements Runnable{
         this.addMouseListener(mAdapt);
         this.addMouseMotionListener(mAdapt);
         this.setFocusable(true);
-        player = new Player(60,60,100);
+        player = new Player(60,60,2,2,100);
         camera = new Camera(player);
         handler.addSprite(player);
         handler.addSprite((new Zombie(60, 500, 1, 1, 100, player, handler)));
