@@ -81,16 +81,15 @@ public class MapFrame extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Papyrus", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Fisciano");
         jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(520, 90, 120, 39);
+        jLabel3.setBounds(510, 80, 120, 39);
 
         jLabel4.setFont(new java.awt.Font("Papyrus", 1, 28)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel4.setText("Coming soon...");
         jLabel4.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         getContentPane().add(jLabel4);
         jLabel4.setBounds(460, 40, 216, 39);
@@ -125,7 +124,6 @@ public class MapFrame extends javax.swing.JFrame {
         getContentPane().add(jButtonFisciano);
         jButtonFisciano.setBounds(400, 140, 350, 250);
 
-        jButtonStandardMap.setText("jButton1");
         jButtonStandardMap.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jButtonStandardMap.setBorderPainted(false);
         jButtonStandardMap.setMaximumSize(new java.awt.Dimension(200, 200));
@@ -180,14 +178,12 @@ public class MapFrame extends javax.swing.JFrame {
 
     private void jButtonStandardMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStandardMapActionPerformed
         // TODO add your handling code here:
-        jButtonFisciano.setBorderPainted(false);
         jButtonStandardMap.setBorderPainted(true);
     }//GEN-LAST:event_jButtonStandardMapActionPerformed
 
     private void jButtonFiscianoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFiscianoActionPerformed
         // TODO add your handling code here:
         jButtonStandardMap.setBorderPainted(false);
-        jButtonFisciano.setBorderPainted(true);
     }//GEN-LAST:event_jButtonFiscianoActionPerformed
 
     

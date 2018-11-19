@@ -21,7 +21,6 @@ import javax.swing.JOptionPane;
  */
 public class SinglePlayer extends javax.swing.JFrame {
     
-    Immagine pannello;
 
     private ImageIcon ridimensionaImageIcon(URL url, int nuovaW, int nuovaH){
         ImageIcon image = new ImageIcon(url);
@@ -282,16 +281,14 @@ public class SinglePlayer extends javax.swing.JFrame {
 
     private void jButtonUomoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUomoActionPerformed
         // TODO add your handling code here:
-        jButtonDonna.setBorderPainted(false);
         jButtonUomo.setBorderPainted(true);
         System.out.println("Selezionato Uomo");
     }//GEN-LAST:event_jButtonUomoActionPerformed
 
     private void jButtonDonnaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDonnaActionPerformed
         // TODO add your handling code here:
-        jButtonUomo.setBorderPainted(false);
-        jButtonDonna.setBorderPainted(true);
         System.out.println("Selezionato Donna");
+        jButtonUomo.setBorderPainted(false);
     }//GEN-LAST:event_jButtonDonnaActionPerformed
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
