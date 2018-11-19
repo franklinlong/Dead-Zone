@@ -26,8 +26,8 @@ public class Board extends JPanel implements Runnable{
     private MAdapter mAdapt; 
     private Player player;
     private Image mapImage;
-    private final int w_frame = 1000;
-    private final int h_frame = 700;
+    private final int w_frame = Camera.w_frame;
+    private final int h_frame = Camera.h_frame;
     private int w_map;
     private int h_map;
     private Camera camera;

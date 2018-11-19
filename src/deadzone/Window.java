@@ -7,6 +7,7 @@ package deadzone;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 /**
@@ -16,14 +17,14 @@ import javax.swing.JFrame;
 public class Window extends JFrame{
 
 	public Window() {
-
         initUI();
     }
 
     private void initUI() {
         setTitle("Dead zone");
         add(new Board());
-        this.setSize(new Dimension(1000,700));
+        Dimension dimensioneSchermo = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setSize(dimensioneSchermo);
         setResizable(false);
         setTitle("Dead Zone");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

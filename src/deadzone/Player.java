@@ -40,8 +40,6 @@ public class Player extends AnimatedSprite{
 	private static Gun currentGun;
 	private Gun pistol,rifle,shotgun;
 	
-	private int w_frame = 1000;
-	private int h_frame = 700;
 	private int w_map = 3200;
 	private int h_map = 3200;
 	

@@ -5,6 +5,8 @@
  */
 package deadzone;
 
+import java.awt.Toolkit;
+
 /**
  *
  * @author Enrico
@@ -13,8 +15,8 @@ public class Camera {
     private Player p;
     private int offset_x;
     private int offset_y;
-    private int w_frame = 1000;
-    private int h_frame = 700;
+    public static int w_frame = Toolkit.getDefaultToolkit().getScreenSize().width;
+    public static int h_frame = Toolkit.getDefaultToolkit().getScreenSize().height;
     private int w_map = 3200;
     private int h_map = 3200;
 
