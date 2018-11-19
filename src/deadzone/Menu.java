@@ -29,8 +29,6 @@ public class Menu extends javax.swing.JFrame {
     
     
     public Menu() {
-        this.setVisible(true);
-        
         Image iconaFrame;
         iconaFrame = new ImageIcon(getClass().getResource("icona_frame.png")).getImage(); //TEMPORANEO(?)
         this.setIconImage(iconaFrame);  
@@ -39,7 +37,6 @@ public class Menu extends javax.swing.JFrame {
         System.out.println(dim.getWidth());
         dim.setSize(1920*2/5, 575);
         this.setPreferredSize(dim.getSize());
-        
         ImageIcon immagineSfondo = ridimensionaImageIcon(getClass().getResource("sfondo_senza_logo.png"),dim.width,dim.height);
 
         int w = new ImageIcon(getClass().getResource("mano_zombie3.gif")).getIconWidth()*1/3;
