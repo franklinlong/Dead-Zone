@@ -19,7 +19,7 @@ import javax.swing.ImageIcon;
  */
 public class Player extends AnimatedSprite{
     
-        public static final int PLAYERSIZE = 70;
+        public static final int PLAYERSIZE = 60;
     
         // pistol animations
 	
