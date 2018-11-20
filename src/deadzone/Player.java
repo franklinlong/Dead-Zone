@@ -242,7 +242,9 @@ public class Player extends AnimatedSprite{
             double bulletdirectionX = xbullet/Math.sqrt(xbullet*xbullet+ybullet*ybullet);
             double bulletdirectionY = ybullet/Math.sqrt(ybullet*ybullet+xbullet*xbullet);
             
-            Projectile p = new Projectile(xx+this.width/2,yy+this.height/2,bulletdirectionX,bulletdirectionY, 100); //100 è la vita del proiettile
+            double angoloPistola = angle + Math.PI/4;
+            Projectile p = new Projectile((int) (xx+this.width/2 + 22*Math.cos(angoloPistola)),(int) (yy+this.height/2 + 22*Math.sin(angoloPistola)),
+                                    bulletdirectionX, bulletdirectionY, 100); //100 è la vita del proiettile
             this.handler.addSprite(p);
             currentGun.shoot(p);
         }

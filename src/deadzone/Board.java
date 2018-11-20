@@ -5,9 +5,11 @@
  */
 package deadzone;
 
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
@@ -51,6 +53,14 @@ public class Board extends JPanel implements Runnable{
         camera = new Camera(player);
         handler.addSprite(player);
         handler.addSprite((new Zombie(60, 500, 1, 1, 100, player, handler)));
+        
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        ImageIcon image = new ImageIcon(getClass().getResource("mirino_trasparente.png"));
+        Image immagine = image.getImage();
+        System.out.println(immagine);
+        Cursor c = toolkit.createCustomCursor(immagine, new Point(), "Cursore mirino");
+        this.setCursor (c);
+        
         initGame();
     }
 
