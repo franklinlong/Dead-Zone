@@ -22,7 +22,7 @@ public class MAdapter implements MouseMotionListener,MouseListener{
     public void mouseMoved(MouseEvent e) {
         x=e.getX();
         y=e.getY();
-
+        System.out.println("moved ," + this.x + " " + this.y);
     }
 
     @Override
@@ -43,6 +43,9 @@ public class MAdapter implements MouseMotionListener,MouseListener{
 
     @Override
     public void mouseDragged(MouseEvent me) {
+        this.x = me.getX();
+        this.y = me.getY();
+        System.out.println("dragged ," + this.x + " " + this.y);
     }
 
     @Override

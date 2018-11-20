@@ -117,13 +117,14 @@ public class Assets {
                     //sounds
                     pistolShoot = Utilities.LoadSound("pistol.wav");
                     rifleShoot = Utilities.LoadSound("machinegun.wav");
-                    shotgunShoot = Utilities.LoadSound("shotgun.wav");
                     pistolReloadSound = Utilities.LoadSound("pistolReload.wav");
                     rifleReloadSound = Utilities.LoadSound("rifleReload.wav");                   
-                    shotgunReloadSound = Utilities.LoadSound("shotgunReload.wav");
                     emptyGun = Utilities.LoadSound("emptygun.wav");
                     zombieBite = Utilities.LoadSound("zombieBite.wav");
                     zombieHit = Utilities.LoadSound("zombiehit.wav");
-			
+                    
+                    shotgunReloadSound = Utilities.LoadSound("pistolReload.wav");
+                    shotgunShoot = Utilities.LoadSound("pistol.wav");
+
 		}
 }

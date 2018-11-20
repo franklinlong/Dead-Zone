@@ -58,7 +58,8 @@ public class Board extends JPanel implements Runnable{
         ImageIcon image = new ImageIcon(getClass().getResource("mirino_trasparente.png"));
         Image immagine = image.getImage();
         System.out.println(immagine);
-        Cursor c = toolkit.createCustomCursor(immagine, new Point(), "Cursore mirino");
+        System.out.println(immagine.getWidth(this));
+        Cursor c = toolkit.createCustomCursor(immagine, new Point(immagine.getWidth(this)/2, immagine.getHeight(this)/2), "Cursore mirino");
         this.setCursor (c);
         
         initGame();

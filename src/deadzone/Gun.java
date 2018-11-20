@@ -32,14 +32,17 @@ public class Gun {
     private int bulletsPerRound, round, totalBullets;
 
     // player
-    private boolean shooting = false, reloading = false, empty = false;
+    private boolean shooting = false, reloading = false;
 
     private Player player;
 
+    // handler
+    private Handler handler;
     public Gun(BufferedImage skin, Animation idle, Animation reloadAnimation, Animation shoot,
                     Sound shootSound, Sound reloadSound, Player player, int firingDelay,
-                    int bulletsPerRound, int totalBullets){
-
+                    int bulletsPerRound, int totalBullets, Handler handler){
+                    
+            this.handler = handler;
             this.skin = skin;
             this.idle = idle;
             this.reloadAnimation = reloadAnimation;
@@ -79,32 +82,38 @@ public class Gun {
             return currentAnimation;
     }
 
-    public void shoot(Projectile p){
+    public void shoot(double angle, double xx, double yy){
             if(round <= 0){
                     if(!emptyGunDelay.isRunning())
                     {
-                        empty = true;
                         emptyGun.playSound();
                         emptyGunDelay.start();
-                        System.out.println(round);
                     }
                     return;
             }
             if(reloading){
-                    empty = true;
                     return;
             }
-
-            if(!shootAminDelay.isRunning() && shooting && !reloading){
-                    shootAminDelay.start();
-                    currentAnimation = shoot;
-            }
+           
 
             if(!firingDelay.isRunning()){
                     shooting = true;
                     firingDelay.start();
                     shootSound.playSound();
                     round--;
+                    
+                    double xbullet = Math.cos(angle);
+                    double ybullet = Math.sin(angle);
+                    double bulletdirectionX = xbullet/Math.sqrt(xbullet*xbullet+ybullet*ybullet);
+                    double bulletdirectionY = ybullet/Math.sqrt(ybullet*ybullet+xbullet*xbullet);
+
+                    double angoloPistola = angle + Math.PI/4;
+                    Projectile p = new Projectile((int) (xx+Player.PLAYERSIZE/2 + 22*Math.cos(angoloPistola)),(int) (yy+Player.PLAYERSIZE/2 + 22*Math.sin(angoloPistola)),
+                                            bulletdirectionX, bulletdirectionY, 100); //100 è la vita del proiettile
+                    shootAminDelay.start();
+                    currentAnimation = shoot;
+                    this.handler.addSprite(p);
+
             }
             
     }
@@ -144,10 +153,6 @@ public class Gun {
             }
     }
 
-    public boolean isEmpty() {
-        return empty;
-    }
-
     boolean isShooting() {
         return shooting;
     }
@@ -156,24 +161,21 @@ public class Gun {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                    if(e.getActionCommand() == firingDelay.getActionCommand()){
+                    if(e.getActionCommand().equals(firingDelay.getActionCommand())){
                             shootSound.stopSound();
                             firingDelay.stop();
-                            shooting =false;
+                            shooting = false;
                     }else if(e.getActionCommand() == shootAminDelay.getActionCommand()){ //Serve per rimettere a idle 
                             shoot.setIndex();											//l'animazione dopo lo sparo
                             currentAnimation = idle;
                             shootAminDelay.stop();
-                            //shooting = false;
                     }else if(e.getActionCommand() == reloadDelay.getActionCommand()){
                             reloading = false;
                             reloadAnimation.setIndex();
                             currentAnimation = idle;
                             reloadDelay.stop();
-                            empty = false;
                     }else if(e.getActionCommand() == emptyGunDelay.getActionCommand()){
                             emptyGunDelay.stop();
-                            //empty = false;
                     }else if(e.getActionCommand() == reloadLimit.getActionCommand()){
                             reloadLimit.stop();
                     }

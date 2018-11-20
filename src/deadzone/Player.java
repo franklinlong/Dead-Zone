@@ -24,15 +24,15 @@ public class Player extends AnimatedSprite{
     
         // pistol animations
 	
- 	private Animation pistolIdle, pistolReload, pistolShoot;
+ 	private Animation pistolIdle, pistolReload, pistolShoot, pistolMove;
  	
  	// rifle animations
  	
- 	private Animation rifleIdle, rifleReload, rifleShoot;
+ 	private Animation rifleIdle, rifleReload, rifleShoot, rifleMove;
  	
  	//shotgun animations
  	
- 	private Animation shotgunIdle, shotgunReload, shotgunShoot;
+ 	private Animation shotgunIdle, shotgunReload, shotgunShoot, shotgunMove;
 	// sounds
 	
 	private Sound rifleShootSound, rifleReloadSound;
@@ -63,33 +63,36 @@ public class Player extends AnimatedSprite{
 		pistolShootSound = new Sound(Assets.pistolShoot);
 		pistolShootSound.changeVolume(-10);
 		pistolReloadSound = new Sound(Assets.pistolReloadSound);
-		
+		pistolMove = new Animation(Assets.pistolMove,50);
+                
 		rifleIdle = new Animation(Assets.rifleIdle, 20);
 		rifleReload = new Animation(Assets.rifleReload, 100);
 		rifleShoot = new Animation(Assets.rifleShootAnim, 80);
 		rifleShootSound = new Sound(Assets.rifleShoot);
 		rifleShootSound.changeVolume(-5);
 		rifleReloadSound = new Sound(Assets.rifleReloadSound);
-		
+                rifleMove = new Animation(Assets.rifleMove,50);
+                                
 		shotgunIdle = new Animation(Assets.shotgunIdle,20);
 		shotgunReload = new Animation(Assets.shotgunReload,100);
 		shotgunShoot = new Animation(Assets.shotgunShootAnim,80);
                 shotgunShootSound = new Sound(Assets.shotgunShoot);
                 shotgunReloadSound = new Sound(Assets.shotgunReloadSound);
-		
+		shotgunMove = new Animation(Assets.shotgunMove,50);
+
         initPlayer();
         
 
         pistol = new Gun(Assets.pistolSkin, pistolIdle, pistolReload, pistolShoot,pistolShootSound,
 				pistolReloadSound, this, 400,
-				9, 2700);
+				9, 2700, handler);
         rifle = new Gun(Assets.ak47, rifleIdle, rifleReload, rifleShoot, rifleShootSound,
                         rifleReloadSound, this, 100,
-                        30, 9000);
+                        30, 9000, handler);
 
         shotgun = new Gun(Assets.pistolSkin,shotgunIdle, shotgunReload, shotgunShoot, shotgunShootSound,
                         shotgunReloadSound, this,800,
-                        5, 1000);
+                        5, 1000, handler);
 		
         currentGun = pistol;
     }
@@ -102,12 +105,12 @@ public class Player extends AnimatedSprite{
     
     @Override
     public void drawImage(Graphics g,int offsetX, int offsetY){
-        xx=this.getX()-offsetX;
-        yy=this.getY()-offsetY;
+        xx=this.x-offsetX;
+        yy=this.y-offsetY;
         
         double wR = MAdapter.x - xx - width/2;
         double hR = MAdapter.y - yy - height/2;
-
+        
         angle = Math.atan(hR / wR);
         if(wR < 0)
             angle = -Math.PI + angle;
@@ -118,60 +121,6 @@ public class Player extends AnimatedSprite{
         g2d.drawImage(currentGun.getCurrentAnimation().getCurrentFrame(), at, null);
     }
 
-//    @Override
-//    public void drawImage(Graphics g) {
-//            //System.out.println("x="+player.getX()+"  y="+player.getY());
-//
-//            if (getX()<=w_frame/2 && getY()<=h_frame/2){ //zona1
-//                xx = getX();
-//                yy = getY();
-//            }
-//            else if (getX()>w_frame/2 && getX()<w_map-w_frame/2 && getY()<=h_frame/2){ //zona 2
-//                xx = w_frame/2;
-//                yy=getY();
-//            }
-//            else if (getX()>=w_map-w_frame/2 && getY()<=h_frame/2){ //zona3
-//                xx =getX()-(w_map-w_frame);
-//                yy = getY();
-//            }
-//            else if (getX()<=w_frame/2 && getY()>h_frame/2 && getY()<h_map-h_frame/2){ //zona4
-//                xx = getX();
-//                yy = h_frame/2;
-//            }
-//            else if (getX()>=w_map-w_frame/2 && getY()>h_frame/2 && getY()<h_map-h_frame/2){ //zona6
-//                xx = getX() - (w_map - w_frame);
-//                yy = h_frame/2;
-//            }
-//            else if (getX()<=w_frame/2 && getY()>=h_map-h_frame/2){ //zona7
-//                xx = getX();
-//                yy = getY() - (h_map - h_frame);
-//            }
-//            else if (getX()>w_frame/2 && getX()<w_map-w_frame/2 && getY()>=h_map-h_frame/2){ //zona 8
-//                xx = w_frame/2;
-//                yy = getY() - (h_map - h_frame);
-//            }
-//            else if (getX()>=w_map-w_frame/2 && getY()>=h_map-h_frame/2){ //zona 9
-//                xx = getX()-(w_map-w_frame);
-//                yy = getY()-(h_map-h_frame);
-//            }
-//            else{ //zona5
-//                xx = w_frame/2;
-//                yy = h_frame/2;
-//            }
-//            
-//            double wR = MAdapter.x - xx - width/2;
-//        	double hR = MAdapter.y - yy - height/2;
-//        		
-//        	angle = Math.atan(hR / wR);
-//                if(wR < 0)
-//                    angle = -Math.PI + angle;
-//                
-//        at = AffineTransform.getTranslateInstance(xx,yy);
-//        at.rotate(angle,width/2,height/2);
-//        Graphics2D g2d = (Graphics2D)g;
-//        g2d.drawImage(currentGun.getCurrentAnimation().getCurrentFrame(), at, null);
-//    }
-//    
     public int getXX(){
         return xx;
     }
@@ -238,17 +187,8 @@ public class Player extends AnimatedSprite{
                         currentGun.getTotalBullets() > 0)
             currentGun.reload();
 
-        if(MAdapter.left && !currentGun.isShooting() && !currentGun.isEmpty()){
-            double xbullet = Math.cos(angle);
-            double ybullet = Math.sin(angle);
-            double bulletdirectionX = xbullet/Math.sqrt(xbullet*xbullet+ybullet*ybullet);
-            double bulletdirectionY = ybullet/Math.sqrt(ybullet*ybullet+xbullet*xbullet);
-            
-            double angoloPistola = angle + Math.PI/4;
-            Projectile p = new Projectile((int) (xx+this.width/2 + 22*Math.cos(angoloPistola)),(int) (yy+this.height/2 + 22*Math.sin(angoloPistola)),
-                                    bulletdirectionX, bulletdirectionY, 100); //100 è la vita del proiettile
-            this.handler.addSprite(p);
-            currentGun.shoot(p);
+        if(MAdapter.left){            
+            currentGun.shoot(angle, xx, yy);
         }
         currentGun.update();
     }
