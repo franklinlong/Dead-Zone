@@ -23,6 +23,9 @@ public class Assets {
 		public static BufferedImage[] zombie = new BufferedImage[17];
 		public static BufferedImage[] zombieAttack = new BufferedImage[9];
 		
+                public static BufferedImage[] pistolMove = new BufferedImage[20];
+                public static BufferedImage[] rifleMove = new BufferedImage[20];
+                public static BufferedImage[] shotgunMove = new BufferedImage[20];
 		// blood splats
 		
 		public static BufferedImage blood1;
@@ -34,8 +37,8 @@ public class Assets {
 		
 		//sounds
 		
-		public static Clip pistolShoot, rifleShoot, background, zombieHit, pistolReloadSound,
-		rifleReloadSound,emptyGun, zombieBite;
+		public static Clip pistolShoot, rifleShoot, shotgunShoot, background, zombieHit, pistolReloadSound,
+		rifleReloadSound, shotgunReloadSound,emptyGun, zombieBite;
 		
 		//tiles
 		
@@ -55,56 +58,72 @@ public class Assets {
 		
 		public static void init(){
 			
-			// animations
-			
-			for(int i = 0; i<pistolIdle.length; i++)
-				pistolIdle[i] = Utilities.loadImage("/player/idle/pistolIdle/"+i+".png");
-			
-			for(int i = 0; i<rifleIdle.length; i++)
-				rifleIdle[i] = Utilities.loadImage("/player/idle/rifleIdle/"+i+".png");
-			
-			for(int i = 0; i<shotgunIdle.length; i++)
-				shotgunIdle[i] = Utilities.loadImage("/player/idle/shotgunIdle/"+i+".png");
-			
-			for(int i = 0; i<pistolReload.length; i++)
-				pistolReload[i] = Utilities.loadImage("/player/reload/pistol/"+i+".png");
-			
-			for(int i = 0; i<rifleReload.length; i++)
-				rifleReload[i] = Utilities.loadImage("/player/reload/rifle/"+i+".png");
-			
-			for(int i = 0; i<shotgunReload.length; i++)
-				shotgunReload[i] = Utilities.loadImage("/player/reload/shotgun/"+i+".png");
-			
-			for(int i = 0; i<pistolShootAnim.length; i++)
-				pistolShootAnim[i] = Utilities.loadImage("/player/shoot/pistol/"+i+".png");
-			
-			for(int i = 0; i<rifleShootAnim.length; i++)
-				rifleShootAnim[i] = Utilities.loadImage("/player/shoot/rifle/"+i+".png");
-			
-			for(int i = 0; i<shotgunShootAnim.length; i++)
-				shotgunShootAnim[i] = Utilities.loadImage("/player/shoot/shotgun/"+i+".png");
-			
-			
-			for(int i = 0; i<zombie.length; i++)
-				zombie[i] = Utilities.loadImage("/zombie/walk/"+i+".png");
-			
-			for(int i = 0; i<zombieAttack.length; i++)
-				zombieAttack[i] = Utilities.loadImage("/zombie/attack/"+i+".png");
-			
-			// gun skins
-			
-			pistolSkin = Utilities.loadImage("/guns/pistol.png");
-			ak47 = Utilities.loadImage("/guns/ak-47.png");
-			rifleLoader = Utilities.loadImage("/guns/rifleLoader.png");
-			
-			//sounds
-			pistolShoot = Utilities.LoadSound("pistol.wav");
-			rifleShoot = Utilities.LoadSound("machinegun.wav");
-			pistolReloadSound = Utilities.LoadSound("pistolreload.wav");
-			rifleReloadSound = Utilities.LoadSound("rifleReload.wav");
-			emptyGun = Utilities.LoadSound("emptygun.wav");
-                        zombieBite = Utilities.LoadSound("zombieBite.wav");
-                        zombieHit = Utilities.LoadSound("zombiehit.wav");
+                    // animations
+                    
+                    //idle
+                    for(int i = 0; i<pistolIdle.length; i++)
+                            pistolIdle[i] = Utilities.loadImage("/player/idle/pistolIdle/"+i+".png");
+
+                    for(int i = 0; i<rifleIdle.length; i++)
+                            rifleIdle[i] = Utilities.loadImage("/player/idle/rifleIdle/"+i+".png");
+
+                    for(int i = 0; i<shotgunIdle.length; i++)
+                            shotgunIdle[i] = Utilities.loadImage("/player/idle/shotgunIdle/"+i+".png");
+                    
+                    //move
+                    for(int i = 0; i<pistolMove.length; i++)
+                            pistolMove[i] = Utilities.loadImage("/player/move/pistol/"+i+".png");
+                    
+                    for(int i = 0; i<rifleMove.length; i++)
+                            rifleMove[i] = Utilities.loadImage("/player/move/rifle/"+i+".png");
+                    
+                    for(int i = 0; i<shotgunMove.length; i++)
+                            shotgunMove[i] = Utilities.loadImage("/player/move/shotgun/"+i+".png");
+                    
+                    //reload
+                    for(int i = 0; i<pistolReload.length; i++)
+                            pistolReload[i] = Utilities.loadImage("/player/reload/pistol/"+i+".png");
+
+                    for(int i = 0; i<rifleReload.length; i++)
+                            rifleReload[i] = Utilities.loadImage("/player/reload/rifle/"+i+".png");
+
+                    for(int i = 0; i<shotgunReload.length; i++)
+                            shotgunReload[i] = Utilities.loadImage("/player/reload/shotgun/"+i+".png");
+                   
+                    //shot
+                    for(int i = 0; i<pistolShootAnim.length; i++)
+                            pistolShootAnim[i] = Utilities.loadImage("/player/shoot/pistol/"+i+".png");
+
+                    for(int i = 0; i<rifleShootAnim.length; i++)
+                            rifleShootAnim[i] = Utilities.loadImage("/player/shoot/rifle/"+i+".png");
+
+                    for(int i = 0; i<shotgunShootAnim.length; i++)
+                            shotgunShootAnim[i] = Utilities.loadImage("/player/shoot/shotgun/"+i+".png");
+                    
+                    //zombie walk
+                    for(int i = 0; i<zombie.length; i++)
+                            zombie[i] = Utilities.loadImage("/zombie/walk/"+i+".png");
+                    
+                    //zombie attack
+                    for(int i = 0; i<zombieAttack.length; i++)
+                            zombieAttack[i] = Utilities.loadImage("/zombie/attack/"+i+".png");
+
+                    // gun skins
+
+                    pistolSkin = Utilities.loadImage("/guns/pistol.png");
+                    ak47 = Utilities.loadImage("/guns/ak-47.png");
+                    rifleLoader = Utilities.loadImage("/guns/rifleLoader.png");
+
+                    //sounds
+                    pistolShoot = Utilities.LoadSound("pistol.wav");
+                    rifleShoot = Utilities.LoadSound("machinegun.wav");
+                    shotgunShoot = Utilities.LoadSound("shotgun.wav");
+                    pistolReloadSound = Utilities.LoadSound("pistolReload.wav");
+                    rifleReloadSound = Utilities.LoadSound("rifleReload.wav");                   
+                    shotgunReloadSound = Utilities.LoadSound("shotgunReload.wav");
+                    emptyGun = Utilities.LoadSound("emptygun.wav");
+                    zombieBite = Utilities.LoadSound("zombieBite.wav");
+                    zombieHit = Utilities.LoadSound("zombiehit.wav");
 			
 		}
 }
