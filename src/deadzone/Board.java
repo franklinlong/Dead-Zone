@@ -7,7 +7,6 @@ package deadzone;
 
 import java.awt.Cursor;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -145,36 +144,5 @@ public class Board extends JPanel implements Runnable{
         g.drawImage(mapImage, -camera.getOffset_x(), -camera.getOffset_y(), this);
     }
     
-//    public void drawMap(Graphics g){
-//        //System.out.println("x="+player.getX()+"  y="+player.getY());
-//    	g.drawImage(mapImage, 0, 0, this);
-//        if (player.getX()<=w_frame/2 && player.getY()<=h_frame/2){ //zona1
-//            g.drawImage(mapImage, 0, 0, this);
-//        }
-//        else if (player.getX()>w_frame/2 && player.getX()<w_map-w_frame/2 && player.getY()<=h_frame/2){ //zona 2
-//            g.drawImage(mapImage,-(player.getX()-w_frame/2), 0, this);
-//        }
-//        else if (player.getX()>=w_map-w_frame/2 && player.getY()<=h_frame/2){ //zona3
-//            g.drawImage(mapImage,-(w_map-w_frame), 0, this); 
-//        }
-//        else if (player.getX()<=w_frame/2 && player.getY()>h_frame/2 && player.getY()<h_map-h_frame/2){ //zona4
-//            g.drawImage(mapImage,0,-(player.getY()-h_frame/2) , this);
-//        }
-//        else if (player.getX()>=w_map-w_frame/2 && player.getY()>h_frame/2 && player.getY()<h_map-h_frame/2){ //zona6
-//            g.drawImage(mapImage,-(w_map-w_frame),-(player.getY()-h_frame/2) , this);
-//        }
-//        else if (player.getX()<=w_frame/2 && player.getY()>=h_map-h_frame/2){ //zona7
-//            g.drawImage(mapImage,0,-(h_map-h_frame) , this);
-//        }
-//        else if (player.getX()>w_frame/2 && player.getX()<w_map-w_frame/2 && player.getY()>=h_map-h_frame/2){ //zona 8
-//            g.drawImage(mapImage,-(player.getX()-w_frame/2), -(h_map-h_frame), this);
-//        }
-//        else if (player.getX()>=w_map-w_frame/2 && player.getY()>=h_map-h_frame/2){ //zona 9
-//            g.drawImage(mapImage,-(w_map-w_frame), -(h_map-h_frame), this);
-//        }
-//        else{ //zona5
-//            g.drawImage(mapImage,-(player.getX()-w_frame/2) ,-(player.getY()-h_frame/2), this);
-//        }
-//    }
    
 }

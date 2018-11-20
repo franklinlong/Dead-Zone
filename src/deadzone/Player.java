@@ -5,7 +5,6 @@
  */
 package deadzone;
 
-import static deadzone.Assets.shotgunShoot;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
