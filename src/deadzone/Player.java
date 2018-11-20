@@ -5,11 +5,10 @@
  */
 package deadzone;
 
+import static deadzone.Assets.shotgunShoot;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.geom.AffineTransform;
-import javax.swing.ImageIcon;
 
 
 
@@ -38,7 +37,8 @@ public class Player extends AnimatedSprite{
 	
 	private Sound rifleShootSound, rifleReloadSound;
 	private Sound pistolShootSound, pistolReloadSound;
-	
+	private Sound shotgunShootSound, shotgunReloadSound;
+        
 	private static Gun currentGun;
 	private Gun pistol,rifle,shotgun;
 	
@@ -74,6 +74,8 @@ public class Player extends AnimatedSprite{
 		shotgunIdle = new Animation(Assets.shotgunIdle,20);
 		shotgunReload = new Animation(Assets.shotgunReload,100);
 		shotgunShoot = new Animation(Assets.shotgunShootAnim,80);
+                shotgunShootSound = new Sound(Assets.shotgunShoot);
+                shotgunReloadSound = new Sound(Assets.shotgunReloadSound);
 		
         initPlayer();
         
@@ -85,8 +87,8 @@ public class Player extends AnimatedSprite{
                         rifleReloadSound, this, 100,
                         30, 9000);
 
-        shotgun = new Gun(Assets.pistolSkin,shotgunIdle, shotgunReload, shotgunShoot, pistolShootSound,
-                        pistolReloadSound, this,800,
+        shotgun = new Gun(Assets.pistolSkin,shotgunIdle, shotgunReload, shotgunShoot, shotgunShootSound,
+                        shotgunReloadSound, this,800,
                         5, 1000);
 		
         currentGun = pistol;
