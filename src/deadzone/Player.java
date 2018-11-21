@@ -107,13 +107,25 @@ public class Player extends AnimatedSprite{
         xx=this.x-offsetX;
         yy=this.y-offsetY;
         
+        //Posizione del mouse meno la Posizione della pistola dovrebbe essere...
         double wR = MAdapter.x - xx - width/2;
         double hR = MAdapter.y - yy - height/2;
         
         angle = Math.atan(hR / wR);
         if(wR < 0)
             angle = -Math.PI + angle;
-                
+          
+        //----------------------------------------------------------------------------------------------------------
+        //...SI PUO FARE MEGLIO CREDO...
+        //Aggiorno l'angolo in modo che il giocatore si giri verso il mirino con la pistola e non col proprio centro
+        double angoloPistola = angle + Math.PI/4;
+        wR = MAdapter.x - (xx+width/2 + 22*Math.cos(angoloPistola));
+        hR = MAdapter.y - (yy+height/2 + 22*Math.sin(angoloPistola));
+        angle = Math.atan(hR / wR);
+        if(wR < 0)
+            angle = -Math.PI + angle;
+        //----------------------------------------------------------------------------------------------------------
+        
         at = AffineTransform.getTranslateInstance(xx,yy);
         at.rotate(angle,width/2,height/2);
         Graphics2D g2d = (Graphics2D)g;

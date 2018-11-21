@@ -102,12 +102,12 @@ public class Gun {
                     shootSound.playSound();
                     round--;
                     
+                    double angoloPistola = angle + Math.PI/4;
                     double xbullet = Math.cos(angle);
                     double ybullet = Math.sin(angle);
                     double bulletdirectionX = xbullet/Math.sqrt(xbullet*xbullet+ybullet*ybullet);
                     double bulletdirectionY = ybullet/Math.sqrt(ybullet*ybullet+xbullet*xbullet);
 
-                    double angoloPistola = angle + Math.PI/4;
                     Projectile p = new Projectile((int) (xx+Player.PLAYERSIZE/2 + 22*Math.cos(angoloPistola)),(int) (yy+Player.PLAYERSIZE/2 + 22*Math.sin(angoloPistola)),
                                             bulletdirectionX, bulletdirectionY, 100); //100 è la vita del proiettile
                     shootAminDelay.start();
