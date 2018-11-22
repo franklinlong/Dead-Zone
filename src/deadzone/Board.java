@@ -13,6 +13,8 @@ import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import listeners.*;
+import utilities.Assets;
 
 /**
  *
@@ -50,7 +52,7 @@ public class Board extends JPanel implements Runnable{
         
         //Immagine cursore
         Toolkit toolkit = Toolkit.getDefaultToolkit();
-        ImageIcon image = new ImageIcon(getClass().getResource("mirino_trasparente.png"));
+        ImageIcon image = new ImageIcon(getClass().getResource("/images/mirino_trasparente.png"));
         Image immagine = image.getImage();
         Cursor c = toolkit.createCustomCursor(immagine, new Point(immagine.getWidth(this)/2, immagine.getHeight(this)/2), "Cursore mirino");
         this.setCursor (c);
