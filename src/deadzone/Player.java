@@ -110,7 +110,7 @@ public class Player extends AnimatedSprite{
     public void animationCycle() {
         float x = getX();
         float y = getY();
-        x+=velX;
+         x+=velX;
         y+=velY;
         
         if (x < 0) {

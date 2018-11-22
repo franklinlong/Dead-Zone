@@ -64,4 +64,9 @@ public class Handler {
     public Camera getCamera() {
         return camera;
     }
+
+    public Player getPlayer() {
+        return player;
+    }
+    
 }
