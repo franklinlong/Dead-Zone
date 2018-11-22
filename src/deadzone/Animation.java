@@ -12,12 +12,11 @@ import java.awt.image.BufferedImage;
  * @author giova
  */
 public class Animation {
-    private BufferedImage[] frames;
-    private int velocity, index;
-
+    
+    private final BufferedImage[] frames;
+    private final int velocity;
+    private int index;
     private long time, lastTime;
-
-
 
     public Animation(BufferedImage[] frames, int velocity){
             this.frames = frames;

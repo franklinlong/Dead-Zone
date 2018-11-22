@@ -16,11 +16,11 @@ import javax.swing.JFrame;
 public class Window extends JFrame{
 
 	public Window() {
-        initUI();
-    }
+        //IF single player:
+            initUI();
+        }
 
     private void initUI() {
-        setTitle("Dead zone");
         add(new Board());
         Dimension dimensioneSchermo = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize(dimensioneSchermo);

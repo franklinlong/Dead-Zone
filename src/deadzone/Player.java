@@ -10,78 +10,52 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 
 
-
 /**
  *
  * @author giova
  */
 public class Player extends AnimatedSprite{
     
-        private Handler handler;
-    
-        public static final int PLAYERSIZE = 60;
-    
-        // pistol animations
-	
- 	private Animation pistolIdle, pistolReload, pistolShoot, pistolMove;
- 	
- 	// rifle animations
- 	
- 	private Animation rifleIdle, rifleReload, rifleShoot, rifleMove;
- 	
- 	//shotgun animations
- 	
- 	private Animation shotgunIdle, shotgunReload, shotgunShoot, shotgunMove;
-	// sounds
-	
-	private Sound rifleShootSound, rifleReloadSound;
-	private Sound pistolShootSound, pistolReloadSound;
-	private Sound shotgunShootSound, shotgunReloadSound;
+    public static final int PLAYERSIZE = 60;
+
+    //animations
+    private final Animation shotgunIdle, shotgunReload, shotgunShoot;
+    private final Animation pistolIdle, pistolReload, pistolShoot;
+    private final Animation rifleIdle, rifleReload, rifleShoot;
+
+    // sounds
+    private final Sound rifleShootSound, rifleReloadSound;
+    private final Sound pistolShootSound, pistolReloadSound;
+    private final Sound shotgunShootSound, shotgunReloadSound;
+
+    private static Gun currentGun;
+    private final Gun pistol,rifle,shotgun;
+
+    private float xx,yy;
         
-	private static Gun currentGun;
-	private Gun pistol,rifle,shotgun;
-	
-	private int w_map = 3200;
-	private int h_map = 3200;
-	
-        int xx,yy;
-        
-    public Player(int x, int y, int velX, int velY, int health, Handler handler) {
-        super(x, y, 100);
-        height=PLAYERSIZE;
-        width=PLAYERSIZE;
-        xx=yy=0;
-        this.velX = velX;
-        this.velY = velY;
-        this.initialVelocity = velX;
-        this.handler = handler;
-        
-        pistolIdle = new Animation(Assets.pistolIdle,20);
-		pistolReload = new Animation(Assets.pistolReload, 100);
-		pistolShoot = new Animation(Assets.pistolShootAnim, 80);
-		pistolShootSound = new Sound(Assets.pistolShoot);
-		pistolShootSound.changeVolume(-10);
-		pistolReloadSound = new Sound(Assets.pistolReloadSound);
-		pistolMove = new Animation(Assets.pistolMove,50);
+    public Player(float x, float y, int vel, int health, Handler handler) {
+        super(x, y, PLAYERSIZE, PLAYERSIZE, vel, health);
                 
-		rifleIdle = new Animation(Assets.rifleIdle, 20);
-		rifleReload = new Animation(Assets.rifleReload, 100);
-		rifleShoot = new Animation(Assets.rifleShootAnim, 80);
-		rifleShootSound = new Sound(Assets.rifleShoot);
-		rifleShootSound.changeVolume(-5);
-		rifleReloadSound = new Sound(Assets.rifleReloadSound);
-                rifleMove = new Animation(Assets.rifleMove,50);
-                                
-		shotgunIdle = new Animation(Assets.shotgunIdle,20);
-		shotgunReload = new Animation(Assets.shotgunReload,100);
-		shotgunShoot = new Animation(Assets.shotgunShootAnim,80);
-                shotgunShootSound = new Sound(Assets.shotgunShoot);
-                shotgunReloadSound = new Sound(Assets.shotgunReloadSound);
-		shotgunMove = new Animation(Assets.shotgunMove,50);
+        pistolIdle = new Animation(Assets.pistolIdle,20);
+        pistolReload = new Animation(Assets.pistolReload, 100);
+        pistolShoot = new Animation(Assets.pistolShootAnim, 80);
+        pistolShootSound = new Sound(Assets.pistolShoot);
+        pistolShootSound.changeVolume(-10);
+        pistolReloadSound = new Sound(Assets.pistolReloadSound);
 
-        initPlayer();
+        rifleIdle = new Animation(Assets.rifleIdle, 20);
+        rifleReload = new Animation(Assets.rifleReload, 100);
+        rifleShoot = new Animation(Assets.rifleShootAnim, 80);
+        rifleShootSound = new Sound(Assets.rifleShoot);
+        rifleShootSound.changeVolume(-5);
+        rifleReloadSound = new Sound(Assets.rifleReloadSound);
+
+        shotgunIdle = new Animation(Assets.shotgunIdle,20);
+        shotgunReload = new Animation(Assets.shotgunReload,100);
+        shotgunShoot = new Animation(Assets.shotgunShootAnim,80);
+        shotgunShootSound = new Sound(Assets.shotgunShoot);
+        shotgunReloadSound = new Sound(Assets.shotgunReloadSound);
         
-
         pistol = new Gun(Assets.pistolSkin, pistolIdle, pistolReload, pistolShoot,pistolShootSound,
 				pistolReloadSound, this, 400,
 				9, 2700, handler);
@@ -95,36 +69,28 @@ public class Player extends AnimatedSprite{
 		
         currentGun = pistol;
     }
-
-    private void initPlayer(){
-        
-        setX(x);
-        setY(y);
-    }
     
     @Override
-    public void drawImage(Graphics g,int offsetX, int offsetY){
-        xx=this.x-offsetX;
-        yy=this.y-offsetY;
+    public void drawImage(Graphics g,float offsetX, float offsetY){
+        xx=this.getX() - offsetX;
+        yy=this.getY() - offsetY;
         
-        //Posizione del mouse meno la Posizione della pistola dovrebbe essere...
-        double wR = MAdapter.x - xx - width/2;
-        double hR = MAdapter.y - yy - height/2;
+        //Segmento tra hotSpot del mouse e centro del giocatore...
+        float wR = MAdapter.x - xx - width/2;
+        float hR = MAdapter.y - yy - height/2;
         
-        angle = Math.atan(hR / wR);
+        angle = (float) Math.atan(hR / wR);
         if(wR < 0)
-            angle = -Math.PI + angle;
+            angle = (float)-Math.PI + angle;
           
-        //----------------------------------------------------------------------------------------------------------
-        //...SI PUO FARE MEGLIO CREDO...
         //Aggiorno l'angolo in modo che il giocatore si giri verso il mirino con la pistola e non col proprio centro
-        double angoloPistola = angle + Math.PI/4;
-        wR = MAdapter.x - (xx+width/2 + 22*Math.cos(angoloPistola));
-        hR = MAdapter.y - (yy+height/2 + 22*Math.sin(angoloPistola));
-        angle = Math.atan(hR / wR);
+        float angoloPistola = (float) (angle + Math.PI/4);
+        wR = MAdapter.x - (xx+width/2 + (float)(22*Math.cos(angoloPistola)));
+        hR = MAdapter.y - (yy+height/2 + (float)(22*Math.sin(angoloPistola)));
+        angle = (float) Math.atan(hR / wR);
         if(wR < 0)
-            angle = -Math.PI + angle;
-        //----------------------------------------------------------------------------------------------------------
+            angle = (float) -Math.PI + angle;
+        
         
         at = AffineTransform.getTranslateInstance(xx,yy);
         at.rotate(angle,width/2,height/2);
@@ -132,16 +98,18 @@ public class Player extends AnimatedSprite{
         g2d.drawImage(currentGun.getCurrentAnimation().getCurrentFrame(), at, null);
     }
 
-    public int getXX(){
+    public float getXX(){
         return xx;
     }
     
-    public int getYY(){
+    public float getYY(){
         return yy;
     }
 
     @Override
     public void animationCycle() {
+        float x = getX();
+        float y = getY();
         x+=velX;
         y+=velY;
         
@@ -167,6 +135,10 @@ public class Player extends AnimatedSprite{
                 break;
              }
         
+        setX(x);
+        setY(y);
+        
+        //scelta direzione dipendente dal tasto premuto
         if(KAdapter.up)
             velY = -initialVelocity;
         else if(!KAdapter.down)
@@ -186,21 +158,27 @@ public class Player extends AnimatedSprite{
             velX = -initialVelocity;
         else if(!KAdapter.right)
             velX = 0;
- 
+        
+        //scelta arma corrente in base al pulsante 1-2-3
         if(KAdapter.one)
                 currentGun = pistol;
         if(KAdapter.two)
                 currentGun = rifle;
         if(KAdapter.three)
                 currentGun = shotgun;
-
+        
+        //viene premuto R quindi reload
         if(KAdapter.reload && currentGun.getRound() != currentGun.getBulletsPerRound() &&
                         currentGun.getTotalBullets() > 0)
             currentGun.reload();
-
-        if(MAdapter.left){            
-            currentGun.shoot(angle, xx, yy);
+        
+        //viene premuto left(mouse) quindi sparo
+        if(MAdapter.left){  
+            //Abbiamo aggiunto un parametro random tra -5 e 5 gradi per inserire una inprecisione dell'arma.
+            currentGun.shoot((float)(angle + (Math.random() - 0.5)*(Math.PI)/36), xx, yy);
         }
+        
+        //aggiorno animazione del personaggio
         currentGun.update();
     }
     

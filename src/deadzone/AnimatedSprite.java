@@ -5,28 +5,26 @@
  */
 package deadzone;
 
-import java.awt.Graphics;
 import java.awt.geom.AffineTransform;
-
 
 /**
  *
  * @author giova
  */
 public abstract class AnimatedSprite extends Sprite{
-    protected double angle;
-    protected int health;
+    //essendo protected, non ho bisono di get e set
+    protected float angle;
+    private int health;
+    protected final int initialVelocity;
+    protected float velX, velY;
     protected AffineTransform at;
-
-    public AnimatedSprite(int x, int y,int health) {
-        super(x, y);
-        this.health=health;
-        angle=0;
-    }
     
-    public AnimatedSprite(int x, int y, int width, int height, int velX, int velY, int healt){
-        super(x, y, width, height, velX, velY);
+    public AnimatedSprite(float x, float y, int width, int height, int vel, int health){
+        super(x, y, width, height);
         this.health = health;
+        this.initialVelocity = vel;
+        this.velX = 0;
+        this.velY = 0;
     }
     
     public int getHealth(){
@@ -37,5 +35,4 @@ public abstract class AnimatedSprite extends Sprite{
         this.health=health;
     }
     
-    public abstract void drawImage(Graphics g, int offsetX, int offsetY);
 }

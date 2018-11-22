@@ -10,34 +10,27 @@ import javax.swing.Timer;
 
 public class Gun {
     private final int bulletOffset = 120;
-    private BufferedImage skin;
-    private int width;
+    private final BufferedImage skin;
+    private final int width;
 
     // animations
-
     private Animation currentAnimation;
-    private Animation idle, reloadAnimation, shoot;
+    private final Animation idle, reloadAnimation, shoot;
 
     // sounds
-
-    private Sound shootSound, emptyGun, reloadSound;
+    private final Sound shootSound, emptyGun, reloadSound;
+    
     // timers
-
-    // firing rate
-
-    private Timer firingDelay, shootAminDelay, reloadDelay, emptyGunDelay, reloadLimit;
+    private final Timer firingDelay, shootAminDelay, reloadDelay, emptyGunDelay, reloadLimit;
 
     // bullets managment
-
-    private int bulletsPerRound, round, totalBullets;
-
-    // player
+    private final int bulletsPerRound; //colpi totali del caricatore
+    private int round, totalBullets; //colpi rimanenti e colpi totali
     private boolean shooting = false, reloading = false;
-
-    private Player player;
-
+    
     // handler
-    private Handler handler;
+    private final Handler handler;
+    
     public Gun(BufferedImage skin, Animation idle, Animation reloadAnimation, Animation shoot,
                     Sound shootSound, Sound reloadSound, Player player, int firingDelay,
                     int bulletsPerRound, int totalBullets, Handler handler){
@@ -47,7 +40,6 @@ public class Gun {
             this.idle = idle;
             this.reloadAnimation = reloadAnimation;
             this.shoot = shoot;
-            this.player = player;
             this.shootSound = shootSound;
             this.reloadSound = reloadSound;
             this.emptyGun = new Sound(Assets.emptyGun);
@@ -64,25 +56,12 @@ public class Gun {
             this.bulletsPerRound = bulletsPerRound;
             this.round = bulletsPerRound;
             this.totalBullets = totalBullets;
-            this.emptyGun = new Sound(Assets.emptyGun);
             width = skin.getWidth();
             currentAnimation = idle;
-
     }
-
-    public void render(Graphics g){
-            g.drawImage(skin, Window.WIDTH - width - bulletOffset, 20, null);
-    }
-
-    public void update(){
-            currentAnimation.update();
-    }
-
-    public Animation getCurrentAnimation() {
-            return currentAnimation;
-    }
-
-    public void shoot(double angle, double xx, double yy){
+    
+    //sparo
+    public void shoot(float angle, float xx, float yy){
             if(round <= 0){
                     if(!emptyGunDelay.isRunning())
                     {
@@ -102,14 +81,15 @@ public class Gun {
                     shootSound.playSound();
                     round--;
                     
-                    double angoloPistola = angle + Math.PI/4;
-                    double xbullet = Math.cos(angle);
-                    double ybullet = Math.sin(angle);
-                    double bulletdirectionX = xbullet/Math.sqrt(xbullet*xbullet+ybullet*ybullet);
-                    double bulletdirectionY = ybullet/Math.sqrt(ybullet*ybullet+xbullet*xbullet);
+                    float angoloPistola = angle + (float) Math.PI/4;
+                    float xbullet = (float)Math.cos(angle);
+                    float ybullet = (float)Math.sin(angle);
+                    float bulletdirectionX = xbullet/(float)Math.sqrt(xbullet*xbullet+ybullet*ybullet);
+                    float bulletdirectionY = ybullet/(float)Math.sqrt(ybullet*ybullet+xbullet*xbullet);
 
-                    Projectile p = new Projectile((int) (xx+Player.PLAYERSIZE/2 + 22*Math.cos(angoloPistola)),(int) (yy+Player.PLAYERSIZE/2 + 22*Math.sin(angoloPistola)),
-                                            bulletdirectionX, bulletdirectionY, 100); //100 è la vita del proiettile
+                    Projectile p = new Projectile((xx+Player.PLAYERSIZE/2 + (float)(22*Math.cos(angoloPistola))),
+                                            (yy+Player.PLAYERSIZE/2 + (float)(22*Math.sin(angoloPistola))),
+                                            bulletdirectionX, bulletdirectionY, 20, 100); //100 è la vita del proiettile
                     shootAminDelay.start();
                     currentAnimation = shoot;
                     this.handler.addSprite(p);
@@ -191,5 +171,14 @@ public class Gun {
     }
     public int getTotalBullets(){
             return totalBullets;
+    }
+    
+        //aggiornamento animazione    
+    public void update(){
+            currentAnimation.update();
+    }
+    
+    public Animation getCurrentAnimation() {
+            return currentAnimation;
     }
 }

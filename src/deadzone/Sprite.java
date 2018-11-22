@@ -6,7 +6,6 @@
 package deadzone;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -18,108 +17,36 @@ import javax.imageio.ImageIO;
  */
 public abstract class Sprite {
     
-    protected int x,y;
-    protected int velX=0,velY=0;
-    protected int initialVelocity=0;
+    private float x,y;
     protected int width,height;
     public static BufferedImage mapRGB = Sprite.caricaMappaRGB();
     
-    boolean R=false,L=false,U=false,D=false;
-
-    public Sprite(int x,int y){
-        this.x=x;
-        this.y=y;
-        
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-    
-    public Sprite(int x, int y, int width, int height, int velX, int velY){
+    public Sprite(float x, float y, int width, int height){
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.velX = velX;
-        this.velY = velY;
+    }
     
-}
-    
-    public abstract void drawImage(Graphics g, int offsetX, int offsetY);
+    public abstract void drawImage(Graphics g, float offsetX, float offsetY);
     
     public abstract void animationCycle();
 
-    public int getX() {
+    public float getX() {
         return x;
     }
     
-    public void setX(int x){
+    public void setX(float x){
         this.x=x;
     }
     
-    public int getY() {
+    public float getY() {
         return y;
     }
     
-    public void setY(int y){
+    public void setY(float y){
         this.y=y;
     }
-    public Rectangle getBounds() {
-        return new Rectangle(x, y, width, height);
-    }
-    
-    public boolean isR() {
-        return R;
-    }
-
-    public void setR(boolean R) {
-        this.R = R;
-    }
-
-    public boolean isL() {
-        return L;
-    }
-
-    public void setL(boolean L) {
-        this.L = L;
-    }
-
-    public boolean isU() {
-        return U;
-    }
-
-    public void setU(boolean U) {
-        this.U = U;
-    }
-
-    public boolean isD() {
-        return D;
-    }
-
-    public void setD(boolean D) {
-        this.D = D;
-    }
-
-    public int getVelX() {
-        return velX;
-    }
-
-    public int getVelY() {
-        return velY;
-    }
-    
-     public int getCenterY() {
-        return y + height/2;
-    }
-      public int getCenterX() {
-        return x + width/2;
-    }
-    
     
     private static BufferedImage caricaMappaRGB() {
         BufferedImage image = null;
@@ -134,7 +61,7 @@ public abstract class Sprite {
     }
     
     public int collision() {
-        int xx, yy;
+        float xx, yy;
         boolean destra = false;
         boolean sinistra = false;
         boolean sopra = false;
@@ -145,7 +72,7 @@ public abstract class Sprite {
                 else if(xx >= x + 6 && yy >= y + 6 && xx <=x + width -6 && yy <= y + height -6) {}
                 else{
                     //System.out.println(x);
-                    int pixel = mapRGB.getRGB(xx, yy);
+                    int pixel = mapRGB.getRGB((int)xx, (int) yy);
                     int red = (pixel >> 16) & 0xff;
 
                     if (red == 255) {

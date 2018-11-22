@@ -22,10 +22,7 @@ public class Assets {
 
 		public static BufferedImage[] zombie = new BufferedImage[17];
 		public static BufferedImage[] zombieAttack = new BufferedImage[9];
-		
-                public static BufferedImage[] pistolMove = new BufferedImage[20];
-                public static BufferedImage[] rifleMove = new BufferedImage[20];
-                public static BufferedImage[] shotgunMove = new BufferedImage[20];
+
 		// blood splats
 		
 		public static BufferedImage blood1;
@@ -69,16 +66,6 @@ public class Assets {
 
                     for(int i = 0; i<shotgunIdle.length; i++)
                             shotgunIdle[i] = Utilities.loadImage("/player/idle/shotgunIdle/"+i+".png");
-                    
-                    //move
-                    for(int i = 0; i<pistolMove.length; i++)
-                            pistolMove[i] = Utilities.loadImage("/player/move/pistol/"+i+".png");
-                    
-                    for(int i = 0; i<rifleMove.length; i++)
-                            rifleMove[i] = Utilities.loadImage("/player/move/rifle/"+i+".png");
-                    
-                    for(int i = 0; i<shotgunMove.length; i++)
-                            shotgunMove[i] = Utilities.loadImage("/player/move/shotgun/"+i+".png");
                     
                     //reload
                     for(int i = 0; i<pistolReload.length; i++)

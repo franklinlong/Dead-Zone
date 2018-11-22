@@ -5,38 +5,37 @@
  */
 package deadzone;
 
-
-
 /**
  *
  * @author USER
  */
+
+//Definisce il percorso tra uno zombie e un player
 public class Route {
     
-    private Player player;
-    private Zombie zombie;
-    private Handler handler;
+    private final Player player;
+    private final Zombie zombie;
     
-    public Route(Player player, Zombie zombie, Handler handler){
+    public Route(Player player, Zombie zombie){
         this.player = player;
         this.zombie = zombie;
-        this.handler = handler;
         
     }
     
-    public double[] seek(){
+    //Restituisce la velocitaX e velocitaY
+    public float[] seek(){
 
-        double[] a;
-        a = new double[2];
+        float[] a;
+        a = new float[2];
         
-        double x = (player.getX() + player.getWidth()/2 ) - (zombie.getDoubleX() + zombie.getWidth()/2);
-        double y  = (player.getY() + player.getHeight()/2 ) - (zombie.getDoubleY() + zombie.getHeight()/2);
+        float x = (player.getX() + player.width/2 ) - (zombie.getX() + zombie.width/2);
+        float y  = (player.getY() + player.height/2 ) - (zombie.getY() + zombie.height/2);
         
-        x = (x/ Math.sqrt(x*x + y*y));
-        y = (y/ Math.sqrt(x*x + y*y));
+        x = (x/ (float)Math.sqrt(x*x + y*y));
+        y = (y/ (float)Math.sqrt(x*x + y*y));
         
-        x = x * zombie.getVelX();
-        y = y * zombie.getVelY();
+        x = x * zombie.velX;
+        y = y * zombie.velY;
         
         a[0] = x;
         a[1] = y;

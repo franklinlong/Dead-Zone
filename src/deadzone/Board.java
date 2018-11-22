@@ -25,41 +25,34 @@ public class Board extends JPanel implements Runnable{
     private Handler handler;
     private KAdapter kAdapt;
     private MAdapter mAdapt; 
-    private Player player;
     private Image mapImage;
-    private final int w_frame = Camera.w_frame;
-    private final int h_frame = Camera.h_frame;
-    private int w_map;
-    private int h_map;
-    private Camera camera;
     
     public Board(){
         initBoard();
     }
     
     private void initBoard(){
-    	Assets.init();
+        //Caricamento animazioni e suoni 
+        Assets.init();
+        
+        //Caricamento mappa
     	loadMap();
+        
+        //Gestore di tutti gli sprite
         handler = new Handler();
+        
         kAdapt = new KAdapter();
         mAdapt = new MAdapter();
-        
         this.addKeyListener(kAdapt);
         this.addMouseListener(mAdapt);
         this.addMouseMotionListener(mAdapt);
         this.setFocusable(true);
-        player = new Player(60,60,2,2,100,handler);
-        camera = new Camera(player);
-        handler.addSprite(player);
-        handler.addSprite((new Zombie(60, 500, 1, 1, 100, player, handler)));
         
+        //Immagine cursore
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         ImageIcon image = new ImageIcon(getClass().getResource("mirino_trasparente.png"));
         Image immagine = image.getImage();
-        
-        System.out.println(immagine);
-        System.out.println(immagine.getWidth(this));
-        Cursor c = toolkit.createCustomCursor(immagine, new Point(20, 20), "Cursore mirino");
+        Cursor c = toolkit.createCustomCursor(immagine, new Point(immagine.getWidth(this)/2, immagine.getHeight(this)/2), "Cursore mirino");
         this.setCursor (c);
         
         initGame();
@@ -69,9 +62,6 @@ public class Board extends JPanel implements Runnable{
         System.out.println("Carico la mappa");
     	ImageIcon map = new ImageIcon("map.png");
         mapImage = map.getImage();
-        w_map = mapImage.getWidth(this);
-        h_map =  mapImage.getHeight(this);
-        System.out.println(w_map + " " + h_map);
     }
     
     private synchronized void initGame(){
@@ -136,14 +126,13 @@ public class Board extends JPanel implements Runnable{
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawMap(g);
-        handler.drawImage(g,camera.getOffset_x(),camera.getOffset_y());        
+        handler.drawImage(g);        
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
     }
     
     public void drawMap(Graphics g){
-        g.drawImage(mapImage, -camera.getOffset_x(), -camera.getOffset_y(), this);
+        g.drawImage(mapImage, (int)-handler.getCamera().getOffset_x(), (int)-handler.getCamera().getOffset_y(), this);
     }
     
-   
 }
