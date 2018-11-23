@@ -61,7 +61,12 @@ public class Handler {
 
     //DA FARE PER BENE BENE
     private void createZombie() {
-        addSprite((new Zombie(60, 500, 1, 100, this.player)));
+        addSprite((new Zombie(60, 500, 1, 100, this.player, this, (float)99)));
+        addSprite((new Zombie(3000, 3000, 1, 100, this.player, this, (float)90)));
+        addSprite((new Zombie(60, 400, 1, 100, this.player, this, (float)99)));
+        addSprite((new Zombie(60, 300, 1, 100, this.player, this, (float)99)));
+        addSprite((new Zombie(60, 200, 1, 100, this.player, this, (float)99)));
+
     }
 
     public Camera getCamera() {

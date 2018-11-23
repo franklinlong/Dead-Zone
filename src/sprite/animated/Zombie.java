@@ -5,6 +5,7 @@
  */
 package sprite.animated;
 
+import deadzone.Handler;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -15,6 +16,7 @@ import utilities.Animation;
 import utilities.Assets;
 import utilities.Route;
 import utilities.Sound;
+import sprite.DropItem;
 
 /**
  *
@@ -37,11 +39,16 @@ public class Zombie extends AnimatedSprite{
     private Timer attackDelay;
     private boolean attacking = false;
     
-    public Zombie(float x, float y, int vel, int health, Player player) {
+    private Handler handler;
+    private float probabilityDrop; //probabilità percentuale di rilascio oggetto dello zombie
+    
+    public Zombie(float x, float y, int vel, int health, Player player, Handler handler, float probabilityDrop) {
         super(x, y, ZOMBIESIZE, ZOMBIESIZE, vel, health);
         this.velX = vel;
         this.velY = vel;
         this.player = player;
+        this.handler = handler;
+        this.probabilityDrop = probabilityDrop;
         biteSound = new Sound(Assets.zombieBite);
         
         attackDelay = new Timer(350, new ActionListener(){
@@ -64,6 +71,7 @@ public class Zombie extends AnimatedSprite{
         walkAnimation = new Animation(Assets.zombie, 20);
         attackAnimation = new Animation(Assets.zombieAttack, 35);
         currentAnimation = walkAnimation;
+        this.death();
     }
 
     @Override
@@ -142,4 +150,17 @@ public class Zombie extends AnimatedSprite{
         //Aggiorno l'animazione
         currentAnimation.update();
     }
+    
+    //Metodo chiamato alla morte dello zombie per un possibile drop di un item
+    private void death(){    
+        
+        //Variabile vera se lo zombie rilascia un item
+        boolean drop = (Math.random() *100) <= probabilityDrop;
+        if(drop){
+            this.handler.addSprite(new DropItem(this.getX(), this.getY(), 30, 30, handler));
+        }
+      
+        this.handler.removeSprite(this);
+    }
+    
 }
