@@ -146,7 +146,7 @@ public class MapFrame extends javax.swing.JFrame {
         getContentPane().add(jButtonPlay);
         jButtonPlay.setBounds(350, 490, 65, 25);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/deadzone/sfondo_senza_spari.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Documents\\NetBeansProjects\\Dead__Zone\\resources\\images\\sfondo_senza_spari.png")); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(-10, -10, 930, 640);
 

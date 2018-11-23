@@ -252,7 +252,7 @@ public class SinglePlayer extends javax.swing.JFrame {
         getContentPane().add(jButtonPlay);
         jButtonPlay.setBounds(330, 490, 100, 25);
 
-        sfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/deadzone/sfondo_senza_spari.png"))); // NOI18N
+        sfondo.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Documents\\NetBeansProjects\\Dead__Zone\\resources\\images\\sfondo_senza_spari.png")); // NOI18N
         getContentPane().add(sfondo);
         sfondo.setBounds(0, 0, 860, 580);
 

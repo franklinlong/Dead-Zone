@@ -166,7 +166,7 @@ public class Menu extends javax.swing.JFrame {
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 930, 530);
 
-        sfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/deadzone/sfondo_senza_logo.png"))); // NOI18N
+        sfondo.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Documents\\NetBeansProjects\\Dead__Zone\\resources\\images\\sfondo_senza_logo.png")); // NOI18N
         sfondo.setMaximumSize(new java.awt.Dimension(1000, 1000));
         sfondo.setPreferredSize(getPreferredSize());
         getContentPane().add(sfondo);
