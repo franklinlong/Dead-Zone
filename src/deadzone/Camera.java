@@ -6,6 +6,7 @@
 package deadzone;
 
 import java.awt.Toolkit;
+import sprite.animated.Player;
 
 /**
  *

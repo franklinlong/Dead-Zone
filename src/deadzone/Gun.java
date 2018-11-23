@@ -1,11 +1,13 @@
 package deadzone;
 
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.Timer;
+import sprite.animated.Player;
+import sprite.animated.Projectile;
+import utilities.*;
 
 
 public class Gun {

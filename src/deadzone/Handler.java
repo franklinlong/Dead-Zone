@@ -8,6 +8,9 @@ package deadzone;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
+import sprite.Sprite;
+import sprite.animated.Player;
+import sprite.animated.Zombie;
 
 
 /**
