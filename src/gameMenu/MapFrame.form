@@ -161,8 +161,8 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\USER\Documents\NetBeansProjects\Dead__Zone\resources\images\sfondo_senza_spari.png"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.ImageIcon(getClass().getResource(&quot;/images/sfondo_senza_spari.png&quot;))" type="code"/>
         </Property>
       </Properties>
       <Constraints>

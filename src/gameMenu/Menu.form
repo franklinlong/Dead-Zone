@@ -156,9 +156,6 @@
     </Container>
     <Component class="javax.swing.JLabel" name="sfondo">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\USER\Documents\NetBeansProjects\Dead__Zone\resources\images\sfondo_senza_logo.png"/>
-        </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[1000, 1000]"/>
         </Property>
