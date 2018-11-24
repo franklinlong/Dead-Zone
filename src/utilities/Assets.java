@@ -23,36 +23,24 @@ public class Assets {
 		public static BufferedImage[] zombie = new BufferedImage[17];
 		public static BufferedImage[] zombieAttack = new BufferedImage[9];
 
-		// blood splats
-		
-		public static BufferedImage blood1;
-		
+
 		// guns skin
-		
 		public static BufferedImage pistolSkin, ak47, rifleLoader;
 		
 		
-		//sounds
-		
+		//sounds		
 		public static Clip pistolShoot, rifleShoot, shotgunShoot, background, zombieHit, pistolReloadSound,
 		rifleReloadSound, shotgunReloadSound,emptyGun, zombieBite;
-		
-		//tiles
-		
-		public static BufferedImage grass, dirt;
-		
-		//objects
-		
-		public static BufferedImage tree;
-		
-		
-		
-		
-		
-		//trees
-		public static BufferedImage[] trees = new BufferedImage[4];
-		
-		
+		public static Clip endGame;               
+                
+		//blood
+                public static BufferedImage blood; 
+
+		//Item 
+                public static BufferedImage mediKit;
+                public static BufferedImage ammo;
+                public static BufferedImage nuke;
+                
 		public static void init(){
 			
                     // animations
@@ -94,13 +82,21 @@ public class Assets {
                     //zombie attack
                     for(int i = 0; i<zombieAttack.length; i++)
                             zombieAttack[i] = Utilities.loadImage("/zombie/attack/"+i+".png");
+                    
 
-                    // gun skins
+                    //gun skins
 
                     pistolSkin = Utilities.loadImage("/guns/pistol.png");
                     ak47 = Utilities.loadImage("/guns/ak-47.png");
                     rifleLoader = Utilities.loadImage("/guns/rifleLoader.png");
-
+                    
+                    //item
+                    mediKit = Utilities.loadImage("/images/mediKitItem.png");
+                    ammo = Utilities.loadImage("/images/ammoItem.png");
+                    nuke = Utilities.loadImage("/images/bombItem.png");
+                    
+                    //blood 
+                    blood = Utilities.loadImage("/images/blood.png");
                     //sounds
                     pistolShoot = Utilities.LoadSound("/sound/pistol.wav");
                     rifleShoot = Utilities.LoadSound("/sound/machinegun.wav");
@@ -109,6 +105,8 @@ public class Assets {
                     emptyGun = Utilities.LoadSound("/sound/emptygun.wav");
                     zombieBite = Utilities.LoadSound("/sound/zombieBite.wav");
                     zombieHit = Utilities.LoadSound("/sound/zombiehit.wav");
+                    
+                    endGame = Utilities.LoadSound("/sound/endGame.wav");
                     
                     shotgunReloadSound = Utilities.LoadSound("/sound/pistolReload.wav");
                     shotgunShoot = Utilities.LoadSound("/sound/pistol.wav");

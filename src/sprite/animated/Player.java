@@ -34,14 +34,20 @@ public class Player extends AnimatedSprite{
     private final Sound pistolShootSound, pistolReloadSound;
     private final Sound shotgunShootSound, shotgunReloadSound;
 
+    //Handler che serve per rimuovere il player quando muore
+    private final Handler handler;
+    
     private Gun currentGun;
     private final Gun pistol,rifle,shotgun;
 
     private float xx,yy;
+    private boolean isDeath;
         
     public Player(float x, float y, int vel, int health, Handler handler) {
         super(x, y, PLAYERSIZE, PLAYERSIZE, vel, health);
-                
+            
+        this.handler = handler;
+        
         pistolIdle = new Animation(Assets.pistolIdle,20);
         pistolReload = new Animation(Assets.pistolReload, 100);
         pistolShoot = new Animation(Assets.pistolShootAnim, 80);
@@ -114,6 +120,11 @@ public class Player extends AnimatedSprite{
 
     @Override
     public void animationCycle() {
+        
+        //Controllo che sia vivo        
+        if(getHealth()<=0)
+            deathPlayer();
+        
         float x = getX();
         float y = getY();
          x+=velX;
@@ -181,7 +192,7 @@ public class Player extends AnimatedSprite{
         //viene premuto left(mouse) quindi sparo
         if(MAdapter.left){  
             //Abbiamo aggiunto un parametro random tra -5 e 5 gradi per inserire una inprecisione dell'arma.
-            currentGun.shoot((float)(angle + (Math.random() - 0.5)*(Math.PI)/36), xx, yy);
+            currentGun.shoot((float)(angle + (Math.random() - 0.5)*(Math.PI)/36), x, y);
         }
         
         //aggiorno animazione del personaggio
@@ -193,6 +204,20 @@ public class Player extends AnimatedSprite{
     }
     
     
+     //metodo chiamato dall'esterno che mi infligge danni
+    public void hit(int damage){
+        setHealth(getHealth()-damage);
+        
+    }
+
+    public boolean isDeath() {
+        return isDeath;
+    }
+
+    private void deathPlayer() {
+        this.isDeath = true;
+        handler.removeSprite(this);
+        new Sound(Assets.endGame).playSound();
+    }
     
-  
 }

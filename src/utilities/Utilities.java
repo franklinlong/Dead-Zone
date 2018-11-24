@@ -18,7 +18,6 @@ public class Utilities {
 	}
 	public static Clip LoadSound(String direction){
 			try{
-                        System.out.println(direction);
 				Clip clip = AudioSystem.getClip();
 				clip.open(AudioSystem.getAudioInputStream(Utilities.class.getResource(direction)));
 				return clip;
