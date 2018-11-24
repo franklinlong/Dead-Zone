@@ -5,19 +5,10 @@
  */
 package deadzone;
 
-import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BoxLayout;
-
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import listeners.KAdapter;
 import sprite.animated.Player;
@@ -49,9 +40,6 @@ public class Board extends JSplitPane implements Runnable{
         this.setOpaque(false);
         this.setFocusable(true);
         this.requestFocus(true);
-        
-        //panel1.setBorder(new javax.swing.border.MatteBorder(3, 3, 3, 3, Color.yellow));
-        //panel2.setBorder(new javax.swing.border.MatteBorder(3, 3, 3, 0, Color.yellow));
         this.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
         this.setDividerSize(0);
         this.setDividerLocation((int) dim.getWidth()*1/5);
@@ -63,18 +51,14 @@ public class Board extends JSplitPane implements Runnable{
     private void initBoard(){
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
     	Assets.init();
-        handler = new Handler();
-
         
+        handler = new Handler();
         mapPanel = new MapPanel(handler);
         hudPanel = new HudPanel(handler);
         KAdapter kad = new KAdapter();
         this.setRightComponent(mapPanel);
-        System.out.println(this.getRightComponent().isFocusable());
         this.setLeftComponent(hudPanel);
-       
-        //hudPanel.setPreferredSize(new java.awt.Dimension((int) dim.getWidth()*1/5,(int) dim.getHeight()));
-        //hudPanel.setBackground(Color.BLACK);
+        
         initGame();
     }
 

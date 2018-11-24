@@ -8,13 +8,11 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 import java.net.URL;
 import javax.swing.*;
 import sprite.Sprite;
 import sprite.animated.Player;
 import sprite.animated.Zombie;
-import utilities.Assets;
 
 public class HudPanel extends JPanel implements Runnable {
     
@@ -197,12 +195,7 @@ public class HudPanel extends JPanel implements Runnable {
         this.add(enemies);
         
         this.numEnemies = new JLabel();
-        int nemici = 0;
-        for (Sprite s: handler.getSprite()){
-           if (s instanceof Zombie)
-               nemici++;
-        }
-        numEnemies.setText(Integer.toString(nemici));
+        numEnemies.setText("0");
         numEnemies.setForeground(Color.white);
         numEnemies.setFont(font);
         numEnemies.setSize(50, 50);
@@ -264,7 +257,14 @@ public class HudPanel extends JPanel implements Runnable {
                     gunLabel.setSize(actualWeapon.getIconWidth(), actualWeapon.getIconHeight());
                     gunLabel.setIcon(actualWeapon); //aggiorna immagine arma
                     numBullets.setText(Integer.toString(handler.getPlayer().getCurrentGun().getRound()) + "/" + Integer.toString(handler.getPlayer().getCurrentGun().getTotalBullets())); //aggiorna numero proiettili
-                    //numEnemies.setText(handler.getZombie()); da integrare quando integriamo codici
+                    //aggiornamento numero zombie da aggiustare con handler
+                    int nemici = 0;
+                    for (Sprite s: handler.getSprite()){
+                         if (s instanceof Zombie)
+                            nemici++;
+                    }
+                    numEnemies.setText(Integer.toString(nemici));
+                    
                     // aggiornare il numero di ondata quando disponibile
                     
                     this.repaint();
