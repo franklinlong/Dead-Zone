@@ -8,13 +8,11 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 import java.net.URL;
 import javax.swing.*;
 import sprite.Sprite;
 import sprite.animated.Player;
 import sprite.animated.Zombie;
-import utilities.Assets;
 
 public class HudPanel extends JPanel implements Runnable {
     
