@@ -20,7 +20,6 @@ public class MedicalKit extends Sprite{
 
     @Override
     public void drawImage(Graphics g, float offsetX, float offsetY) {
-        System.out.println(getX());
         g.setColor(Color.BLUE);
         g.fillRect((int) getX(), (int) getY(), width, height);
     }

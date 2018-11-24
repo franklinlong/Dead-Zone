@@ -20,7 +20,6 @@ public class Nuke extends Sprite{
 
     @Override
     public void drawImage(Graphics g, float offsetX, float offsetY) {
-        System.out.println(getX());
         g.setColor(Color.PINK);
         g.fillRect((int) getX(), (int) getY(), width, height);
     }

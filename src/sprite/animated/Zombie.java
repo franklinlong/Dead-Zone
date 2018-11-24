@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import javax.swing.Timer;
+import sprite.Blood;
 import utilities.Animation;
 import utilities.Assets;
 import utilities.Route;
@@ -34,12 +35,12 @@ public class Zombie extends AnimatedSprite{
     private final Animation walkAnimation, attackAnimation;
     private Animation currentAnimation;
     
-    private final Sound biteSound;
+    private final Sound biteSound,hitSound;
     
-    private Timer attackDelay;
+    private Timer attackDelay, hitZombie;
     private boolean attacking = false;
     
-    private Handler handler;
+    private final Handler handler;
     private float probabilityDrop; //probabilità percentuale di rilascio oggetto dello zombie
     
     public Zombie(float x, float y, int vel, int health, Player player, Handler handler, float probabilityDrop) {
@@ -50,15 +51,14 @@ public class Zombie extends AnimatedSprite{
         this.handler = handler;
         this.probabilityDrop = probabilityDrop;
         biteSound = new Sound(Assets.zombieBite);
+        hitSound = new Sound(Assets.zombieHit);
         
         attackDelay = new Timer(350, new ActionListener(){
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(distanceToPlayerX < Player.PLAYERSIZE && distanceToPlayerY < Player.PLAYERSIZE)
                 {
                     biteSound.playSound();
-//                    player.hit();
                 }
 
                 attackDelay.stop();
@@ -68,10 +68,17 @@ public class Zombie extends AnimatedSprite{
 
         });
         
+        hitZombie = new Timer(300,new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                hitSound.playSound();
+                hitZombie.stop();
+            }
+        });
+           
         walkAnimation = new Animation(Assets.zombie, 20);
         attackAnimation = new Animation(Assets.zombieAttack, 35);
         currentAnimation = walkAnimation;
-        this.death();
     }
 
     @Override
@@ -92,6 +99,11 @@ public class Zombie extends AnimatedSprite{
 
     @Override
     public void animationCycle() {
+        
+        //Controllo che sia vivo        
+        if(getHealth()<=0)
+            death();
+        
         
         //in base al percorso che deve seguire lo zombie, a[] avrà la velocitaX e la velocitaY
         float[] a = new Route(player, this).seek();
@@ -153,14 +165,16 @@ public class Zombie extends AnimatedSprite{
     
     //Metodo chiamato alla morte dello zombie per un possibile drop di un item
     private void death(){    
-        
         //Variabile vera se lo zombie rilascia un item
-        boolean drop = (Math.random() *100) <= probabilityDrop;
-        if(drop){
-            this.handler.addSprite(new DropItem(this.getX(), this.getY(), 30, 30, handler));
-        }
-      
+        this.handler.addSprite(new Blood(this.getX(), this.getY(),30, 30, handler));
         this.handler.removeSprite(this);
+    }
+    
+    //metodo chiamato dall'esterno mi infliggere danni
+    public void hit(int damage){
+        setHealth(getHealth()-damage);
+        if(!hitZombie.isRunning())
+            hitZombie.start();
     }
     
 }

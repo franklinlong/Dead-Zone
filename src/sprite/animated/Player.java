@@ -181,7 +181,7 @@ public class Player extends AnimatedSprite{
         //viene premuto left(mouse) quindi sparo
         if(MAdapter.left){  
             //Abbiamo aggiunto un parametro random tra -5 e 5 gradi per inserire una inprecisione dell'arma.
-            currentGun.shoot((float)(angle + (Math.random() - 0.5)*(Math.PI)/36), xx, yy);
+            currentGun.shoot((float)(angle + (Math.random() - 0.5)*(Math.PI)/36), x, y);
         }
         
         //aggiorno animazione del personaggio

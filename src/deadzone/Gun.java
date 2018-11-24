@@ -91,7 +91,7 @@ public class Gun {
 
                     Projectile p = new Projectile((xx+Player.PLAYERSIZE/2 + (float)(22*Math.cos(angoloPistola))),
                                             (yy+Player.PLAYERSIZE/2 + (float)(22*Math.sin(angoloPistola))),
-                                            bulletdirectionX, bulletdirectionY, 20, 100); //100 è la vita del proiettile
+                                            bulletdirectionX, bulletdirectionY, 20, 100, handler); //100 è la vita del proiettile
                     shootAminDelay.start();
                     currentAnimation = shoot;
                     this.handler.addSprite(p);
@@ -147,18 +147,18 @@ public class Gun {
                             shootSound.stopSound();
                             firingDelay.stop();
                             shooting = false;
-                    }else if(e.getActionCommand() == shootAminDelay.getActionCommand()){ //Serve per rimettere a idle 
+                    }else if(e.getActionCommand().equals(shootAminDelay.getActionCommand())){ //Serve per rimettere a idle 
                             shoot.setIndex();											//l'animazione dopo lo sparo
                             currentAnimation = idle;
                             shootAminDelay.stop();
-                    }else if(e.getActionCommand() == reloadDelay.getActionCommand()){
+                    }else if(e.getActionCommand().equals(reloadDelay.getActionCommand())){
                             reloading = false;
                             reloadAnimation.setIndex();
                             currentAnimation = idle;
                             reloadDelay.stop();
-                    }else if(e.getActionCommand() == emptyGunDelay.getActionCommand()){
+                    }else if(e.getActionCommand().equals(emptyGunDelay.getActionCommand())){
                             emptyGunDelay.stop();
-                    }else if(e.getActionCommand() == reloadLimit.getActionCommand()){
+                    }else if(e.getActionCommand().equals(reloadLimit.getActionCommand())){
                             reloadLimit.stop();
                     }
             }
