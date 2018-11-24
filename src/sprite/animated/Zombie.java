@@ -134,7 +134,8 @@ public class Zombie extends AnimatedSprite{
         }
         
         //Se è in corso l'animazione dell'attacco lo zombie non si muove
-        if(attacking){
+        //Se il player è morto lo zombie non s muove
+        if(attacking || player.isDeath()){
             a[0] = 0;
             a[1] = 0;
         }
