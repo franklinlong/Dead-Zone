@@ -6,8 +6,11 @@
 package deadzone;
 
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.Timer;
 import sprite.Sprite;
 import sprite.animated.Player;
 import sprite.animated.Zombie;
@@ -21,13 +24,44 @@ public class Handler {
     private final List<Sprite> sprite = new ArrayList<>();
     private static Camera camera;
     private final Player player;
+
+    //Gestisce lo spawn dello zombie
+    private final Timer spawn = new Timer(2000, new ActionListener(){
+        int spawnX;
+        int spawnY;
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int n = (int) (Math.random()*5);
+            switch(n){
+                case 0:                     //Fosso
+                    spawnX=2150;
+                    spawnY=2540;
+                    break;
+                case 1:                     //Tomba 11
+                    spawnX=2224;
+                    spawnY=242;
+                    break;
+                case 2:                     //Tomba 21
+                    spawnX=2700;
+                    spawnY=242;
+                    break;
+                case 3:                     //Tomba 12
+                    spawnX=2420;
+                    spawnY=470;
+                    break;
+                case 4:                     //Tomba 22
+                    spawnX=2800;
+                    spawnY=470;
+                    break;
+            }
+            createZombie(spawnX,spawnY);
+        }});
     
     public Handler(){
         player = new Player(60,60,2,100,this);
         camera = new Camera(player);
         sprite.add(player);
-        createZombie(); //Sara un thread probabilmente
-        
+        spawn.start();
         
     }
     
@@ -60,16 +94,9 @@ public class Handler {
     }
 
     //DA FARE PER BENE BENE
-    private void createZombie() {         
-        addSprite((new Zombie(60, 500, 1, 100, this.player, this, (float)99)));
-        addSprite((new Zombie(50, 500, 1, 100, this.player, this, (float)99)));
-        addSprite((new Zombie(60, 400, 1, 100, this.player, this, (float)99)));
-        addSprite((new Zombie(60, 300, 1, 100, this.player, this, (float)99)));
-        addSprite((new Zombie(60, 200, 1, 100, this.player, this, (float)99)));
-        addSprite((new Zombie(60, 100, 1, 100, this.player, this, (float)99)));
-        addSprite((new Zombie(60, 700, 1, 100, this.player, this, (float)99)));
-        addSprite((new Zombie(60, 800, 1, 100, this.player, this, (float)99)));
-        addSprite((new Zombie(60, 900, 1, 100, this.player, this, (float)99)));
+    private void createZombie(float x, float y) {         
+        System.out.println(x + " " + y);
+        addSprite((new Zombie(x, y, 1, 100, this.player, this, (float)99)));
 
     }
 
