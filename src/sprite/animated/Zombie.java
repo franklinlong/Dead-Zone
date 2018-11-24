@@ -35,6 +35,9 @@ public class Zombie extends AnimatedSprite{
     
     private final Player player;
     
+    //Danni inflitti dallo zombie quando attacca
+    private final int damage = 20;
+    
     private final Animation walkAnimation, attackAnimation;
     private Animation currentAnimation;
     
@@ -59,9 +62,10 @@ public class Zombie extends AnimatedSprite{
         attackDelay = new Timer(350, new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(distanceToPlayerX < Player.PLAYERSIZE && distanceToPlayerY < Player.PLAYERSIZE)
-                {
+                if(distanceToPlayerX < Player.PLAYERSIZE && distanceToPlayerY < Player.PLAYERSIZE && player.isDeath() == false)
+                { 
                     biteSound.playSound();
+                    player.hit(damage);
                 }
 
                 attackDelay.stop();
@@ -121,7 +125,7 @@ public class Zombie extends AnimatedSprite{
         distanceToPlayerY = (float)(Math.sqrt(toPlayerX*toPlayerX + toPlayerY*toPlayerY));
         
         //Se lo zombie è vicino al player lo attacca e quindi non si deve muovere
-        if(distanceToPlayerX < player.width/2 && distanceToPlayerY < player.height/2 && !attackDelay.isRunning())
+        if(distanceToPlayerX < player.width/2 && distanceToPlayerY < player.height/2 && !attackDelay.isRunning() && !player.isDeath())
         {
             attacking = true;
             attackDelay.start();
@@ -197,7 +201,7 @@ public class Zombie extends AnimatedSprite{
         this.handler.removeSprite(this);
     }
     
-    //metodo chiamato dall'esterno mi infliggere danni
+    //metodo chiamato dall'esterno che mi infligge danni
     public void hit(int damage){
         setHealth(getHealth()-damage);
         if(!hitZombie.isRunning())

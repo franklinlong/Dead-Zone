@@ -27,8 +27,6 @@ public class Handler {
         camera = new Camera(player);
         sprite.add(player);
         createZombie(); //Sara un thread probabilmente
-        
-        
     }
     
     public void animationCycle(){
