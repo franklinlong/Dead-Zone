@@ -8,6 +8,7 @@ package sprite;
 import deadzone.Handler;
 import java.awt.Color;
 import java.awt.Graphics;
+import utilities.Assets;
 
 /**
  *
@@ -24,8 +25,7 @@ public class Nuke extends DropItem{
 
     @Override
     public void drawImage(Graphics g, float offsetX, float offsetY) {
-        g.setColor(Color.PINK);
-        g.fillRect((int) (getX() - offsetX), (int) (getY() - offsetY), width, height);
+        g.drawImage(Assets.nuke, (int)(getX() - offsetX -20), (int)(getY() - offsetY -20), null);
     }
 
     @Override

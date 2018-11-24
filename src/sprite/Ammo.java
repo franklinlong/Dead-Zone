@@ -9,6 +9,7 @@ import deadzone.Gun;
 import deadzone.Handler;
 import java.awt.Color;
 import java.awt.Graphics;
+import utilities.Assets;
 
 /**
  *
@@ -31,8 +32,7 @@ public class Ammo extends DropItem{
 
     @Override
     public void drawImage(Graphics g, float offsetX, float offsetY) {
-        g.setColor(Color.YELLOW);
-        g.fillRect((int) (getX() - offsetX), (int) (getY() - offsetY), width, height);
+        g.drawImage(Assets.ammo, (int)(getX() - offsetX -20), (int)(getY() - offsetY-20), null);
     }
 
     @Override

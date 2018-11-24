@@ -25,19 +25,21 @@ public class Assets {
 
 
 		// guns skin
-		
 		public static BufferedImage pistolSkin, ak47, rifleLoader;
 		
 		
-		//sounds
-		
+		//sounds		
 		public static Clip pistolShoot, rifleShoot, shotgunShoot, background, zombieHit, pistolReloadSound,
 		rifleReloadSound, shotgunReloadSound,emptyGun, zombieBite;
 		
 		//blood
                 public static BufferedImage blood; 
 
-		
+		//Item 
+                public static BufferedImage mediKit;
+                public static BufferedImage ammo;
+                public static BufferedImage nuke;
+                
 		public static void init(){
 			
                     // animations
@@ -86,6 +88,11 @@ public class Assets {
                     pistolSkin = Utilities.loadImage("/guns/pistol.png");
                     ak47 = Utilities.loadImage("/guns/ak-47.png");
                     rifleLoader = Utilities.loadImage("/guns/rifleLoader.png");
+                    
+                    //item
+                    mediKit = Utilities.loadImage("/images/mediKitItem.png");
+                    ammo = Utilities.loadImage("/images/ammoItem.png");
+                    nuke = Utilities.loadImage("/images/bombItem.png");
                     
                     //blood 
                     blood = Utilities.loadImage("/images/blood.png");
