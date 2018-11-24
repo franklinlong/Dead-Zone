@@ -18,6 +18,9 @@ import utilities.Assets;
 import utilities.Route;
 import utilities.Sound;
 import sprite.DropItem;
+import sprite.Ammo;
+import sprite.MedicalKit;
+import sprite.Nuke;
 
 /**
  *
@@ -163,10 +166,34 @@ public class Zombie extends AnimatedSprite{
         currentAnimation.update();
     }
     
-    //Metodo chiamato alla morte dello zombie per un possibile drop di un item
+    //Metodo chiamato alla morte dello zombie
     private void death(){    
-        //Variabile vera se lo zombie rilascia un item
+        //Alla orte dello zombie si crea la chiazza di sangue
         this.handler.addSprite(new Blood(this.getX(), this.getY(),30, 30, handler));
+        
+        //Alla morte dello zombie, con una data probabilita, viene rilasciato un nuovo item
+        boolean drop = (Math.random() *100) <= probabilityDrop;
+        if(drop){
+            float probAmmo = 50;
+            float probNuke = 20;
+            float probMK = 30;
+            float valoreCasuale = (float) (Math.random()*100);
+        
+            if(valoreCasuale < probNuke){
+                handler.addSprite(new Nuke(this.getX()+this.width/2, this.getY()+this.height/2, 20, 20, handler));
+            }
+            else if(valoreCasuale < probNuke+probMK){
+                handler.addSprite(new MedicalKit(this.getX()+this.width/2, this.getY()+this.height/2, 20, 20, handler));
+            }
+            else if(valoreCasuale <= probNuke+probMK+probAmmo){
+                handler.addSprite(new Ammo(this.getX()+this.width/2, this.getY()+this.height/2, 20, 20, handler));
+            }
+            else{
+                System.out.println("NEL COSTRUTTORE DI DROP ITEM, NON DOVREBBE STAMPARE STO MESSAGGIO");
+            }
+        }
+        
+        //Lo zombie viene rimosso
         this.handler.removeSprite(this);
     }
     

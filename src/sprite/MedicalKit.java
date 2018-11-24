@@ -5,6 +5,7 @@
  */
 package sprite;
 
+import deadzone.Handler;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -12,19 +13,27 @@ import java.awt.Graphics;
  *
  * @author USER
  */
-public class MedicalKit extends Sprite{
+public class MedicalKit extends DropItem{
 
-    public MedicalKit(float x, float y, int width, int height) {
+    private Handler handler;
+    
+    public MedicalKit(float x, float y, int width, int height, Handler handler) {
         super(x, y, width, height);
+        this.handler = handler;
     }
 
     @Override
     public void drawImage(Graphics g, float offsetX, float offsetY) {
         g.setColor(Color.BLUE);
-        g.fillRect((int) getX(), (int) getY(), width, height);
+        g.fillRect((int) (getX() - offsetX), (int) (getY() - offsetY), width, height);
     }
 
     @Override
-    public void animationCycle() {};
+    public void animationCycle() {
+        if(this.isCollected(handler)){
+            handler.getPlayer().setHealth(100);
+            handler.removeSprite(this);
+        }
+    };
     
 }

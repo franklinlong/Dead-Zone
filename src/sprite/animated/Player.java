@@ -187,6 +187,9 @@ public class Player extends AnimatedSprite{
         //aggiorno animazione del personaggio
         currentGun.update();
     }
+
+    public Gun getCurrentGun() {
+        return currentGun;
+    }
     
-  
 }

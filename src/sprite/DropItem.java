@@ -6,40 +6,34 @@
 package sprite;
 
 import deadzone.Handler;
-import java.awt.Graphics;
+import sprite.animated.Player;
 
 /**
  *
  * @author USER
  */
-public class DropItem extends Sprite{
+public abstract class DropItem extends Sprite{
 
     private final float probAmmo = 50;
     private final float probNuke = 20;
     private final float probMK = 30;
     
-    public DropItem(float x, float y, int width, int height, Handler handler) {
+    public DropItem(float x, float y, int width, int height) {
         super(x, y, width, height);
-        float valoreCasuale = (float) (Math.random()*100);
-        if(valoreCasuale < probNuke){
-            handler.addSprite(new Nuke(x,y,width,height));
-        }
-        else if(valoreCasuale < probNuke+probMK){
-            handler.addSprite(new MedicalKit(x,y,width,height));
-        }
-        else if(valoreCasuale <= probNuke+probMK+probAmmo){
-            handler.addSprite(new Ammo(x,y,width,height));
-        }
-        else{
-            System.out.println("NEL COSTRUTTORE DI DROP ITEM, NON DOVREBBE STAMPARE STO MESSAGGIO");
-        }
-                
     }
 
-    @Override
-    public void drawImage(Graphics g, float offsetX, float offsetY) {};
+    public boolean isCollected(Handler handler){
+        float xPlayer = handler.getPlayer().getX();        
+        float yPlayer = handler.getPlayer().getY();
 
-    @Override
-    public void animationCycle(){} ;
+        for(float k = xPlayer; k < xPlayer+Player.PLAYERSIZE; k++){
+            for(float j = yPlayer; j < yPlayer+Player.PLAYERSIZE; j++){
+                if((this.getX() <= k && k < this.getX()+width) && (j >= this.getY() && j < this.getY()+height) ){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
 }

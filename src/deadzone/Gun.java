@@ -164,6 +164,16 @@ public class Gun {
             }
     }
 
+    public void setRound(int round) {
+        this.round = round;
+    }
+
+    public void setTotalBullets(int totalBullets) {
+        this.totalBullets = totalBullets;
+    }
+
+    
+    
     public int getRound(){
             return round;
     }
