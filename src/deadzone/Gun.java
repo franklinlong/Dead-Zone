@@ -183,4 +183,10 @@ public class Gun {
     public Animation getCurrentAnimation() {
             return currentAnimation;
     }
+
+    public BufferedImage getSkin() {
+        return skin;
+    }
+    
+    
 }

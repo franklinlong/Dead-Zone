@@ -97,5 +97,15 @@ public abstract class Sprite {
         else
             return 0;
     }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+    
+    
     
 }

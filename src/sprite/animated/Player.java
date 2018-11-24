@@ -34,7 +34,7 @@ public class Player extends AnimatedSprite{
     private final Sound pistolShootSound, pistolReloadSound;
     private final Sound shotgunShootSound, shotgunReloadSound;
 
-    private static Gun currentGun;
+    private Gun currentGun;
     private final Gun pistol,rifle,shotgun;
 
     private float xx,yy;
@@ -187,6 +187,12 @@ public class Player extends AnimatedSprite{
         //aggiorno animazione del personaggio
         currentGun.update();
     }
+
+    public Gun getCurrentGun() {
+        return currentGun;
+    }
+    
+    
     
   
 }

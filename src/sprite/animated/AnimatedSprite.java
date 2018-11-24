@@ -35,5 +35,11 @@ public abstract class AnimatedSprite extends Sprite{
     public void setHealth(int health){
         this.health=health;
     }
+
+    public float getAngle() {
+        return angle;
+    }
+    
+    
     
 }

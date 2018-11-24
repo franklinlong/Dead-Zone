@@ -5,74 +5,90 @@
  */
 package deadzone;
 
+import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.BoxLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import listeners.*;
+import javax.swing.JSplitPane;
+import listeners.KAdapter;
+import sprite.animated.Player;
 import utilities.Assets;
 
 /**
  *
  * @author giova
  */
-public class Board extends JPanel implements Runnable{
+public class Board extends JSplitPane implements Runnable{
     private boolean inGame=false;
-    private Thread t;
+    private Thread tHud;
+    private Thread tMap;
     private long averageFPS = 0;
-    private Handler handler;
-    private KAdapter kAdapt;
-    private MAdapter mAdapt; 
-    private Image mapImage;
+    private Handler handler; 
+    private Player player;
+    private final int w_frame = Camera.w_frame;
+    private final int h_frame = Camera.h_frame;
+    private int w_map;
+    private int h_map;
+    private Camera camera;
+    private MapPanel mapPanel;
+    private HudPanel hudPanel;
+    private final int location = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()*1/5;
     
     public Board(){
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setSize(dim);
+        this.setOpaque(false);
+        this.setFocusable(true);
+        this.requestFocus(true);
+        
+        //panel1.setBorder(new javax.swing.border.MatteBorder(3, 3, 3, 3, Color.yellow));
+        //panel2.setBorder(new javax.swing.border.MatteBorder(3, 3, 3, 0, Color.yellow));
+        this.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
+        this.setDividerSize(0);
+        this.setDividerLocation((int) dim.getWidth()*1/5);
+        
+        
         initBoard();
     }
     
     private void initBoard(){
-        //Caricamento animazioni e suoni 
-        Assets.init();
-        
-        //Caricamento mappa
-    	loadMap();
-        
-        //Gestore di tutti gli sprite
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+    	Assets.init();
         handler = new Handler();
+
         
-        kAdapt = new KAdapter();
-        mAdapt = new MAdapter();
-        this.addKeyListener(kAdapt);
-        this.addMouseListener(mAdapt);
-        this.addMouseMotionListener(mAdapt);
-        this.setFocusable(true);
-        
-        //Immagine cursore
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        ImageIcon image = new ImageIcon(getClass().getResource("/images/mirino_trasparente.png"));
-        Image immagine = image.getImage();
-        Cursor c = toolkit.createCustomCursor(immagine, new Point(immagine.getWidth(this)/2, immagine.getHeight(this)/2), "Cursore mirino");
-        this.setCursor (c);
-        
+        mapPanel = new MapPanel(handler);
+        hudPanel = new HudPanel(handler);
+        KAdapter kad = new KAdapter();
+        this.setRightComponent(mapPanel);
+        System.out.println(this.getRightComponent().isFocusable());
+        this.setLeftComponent(hudPanel);
+       
+        //hudPanel.setPreferredSize(new java.awt.Dimension((int) dim.getWidth()*1/5,(int) dim.getHeight()));
+        //hudPanel.setBackground(Color.BLACK);
         initGame();
     }
 
-    private void loadMap(){
-        System.out.println("Carico la mappa");
-    	ImageIcon map = new ImageIcon("map.png");
-        mapImage = map.getImage();
-    }
+    
     
     private synchronized void initGame(){
         if(inGame)
             return;
         
         inGame=true;
-        t = new Thread(this);
-        t.start();
+        tMap = new Thread(mapPanel);
+        tHud = new Thread(hudPanel);
+        tMap.start();
+        tHud.start();
     }
     
     private synchronized void stopGame(){
@@ -80,7 +96,8 @@ public class Board extends JPanel implements Runnable{
             return;
         try {
             inGame = false;
-            t.join();
+            tHud.join();
+            tMap.join();
 	} catch (InterruptedException e) {
             e.printStackTrace();
 	}
@@ -89,52 +106,46 @@ public class Board extends JPanel implements Runnable{
     
     @Override
     public void run() {
-        int fps = 60;
-        double timePerTick = 1000000000/fps;
-        double delta = 0;
-        long now;
-        long lastTime = System.nanoTime();
-        long ticks = 0;
-        long timer = 0;
-        
-        while(inGame){
-            now = System.nanoTime();
-            delta += (now - lastTime)/timePerTick;
-            timer += now - lastTime;
-            lastTime = now;
-            while(delta >= 1){
-                    animationCycle();
-                    repaint();
-                    delta --;
-                    ticks++;
-            }
-
-            if(timer >= 1000000000){
-                    averageFPS = ticks;
-                    ticks = 0;
-                    timer = 0;
-            }
+        try {
+            tHud.join();
+            tMap.join();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
         }
-        stopGame();
     
     }
     
-    public void animationCycle(){
-        kAdapt.update();
-        handler.animationCycle();
-    }
-   
+    
     @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        drawMap(g);
-        handler.drawImage(g);        
-        Toolkit.getDefaultToolkit().sync();
-        g.dispose();
+    public int getDividerLocation(){
+        return location;
     }
     
-    public void drawMap(Graphics g){
-        g.drawImage(mapImage, (int)-handler.getCamera().getOffset_x(), (int)-handler.getCamera().getOffset_y(), this);
+    @Override
+    public int getLastDividerLocation(){
+        return location;
     }
     
+// 
+//    public void animationCycle() {
+//        kAdapt.update();
+//        handler.animationCycle();
+//    }
+//
+//    @Override
+//    public void paintComponent(Graphics g) {
+//        //super.paintComponent(g);
+//        Graphics gMap = mapPanel.getGraphics();
+//        drawMap(gMap);
+//        handler.drawImage(gMap, camera.getOffset_x(), camera.getOffset_y());
+//        Toolkit.getDefaultToolkit().sync();
+//        gMap.dispose();
+//    }
+//
+//    public void drawMap(Graphics g) {
+//        g.drawImage(mapImage, -camera.getOffset_x(), -camera.getOffset_y(), this);
+//
+//    }
+    
+   
 }
