@@ -6,7 +6,6 @@
 package sprite;
 
 import deadzone.Handler;
-import java.awt.Color;
 import java.awt.Graphics;
 import utilities.Assets;
 
@@ -31,7 +30,8 @@ public class Nuke extends DropItem{
     @Override
     public void animationCycle() {
         if(this.isCollected(handler)){
-            handler.getSprite().clear();
+            //Bisogna caricare Suono
+            handler.getZombies().clear();
             handler.removeSprite(this);
         }
     };

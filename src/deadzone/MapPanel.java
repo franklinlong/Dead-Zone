@@ -5,6 +5,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Panel;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.util.Arrays;
@@ -66,7 +67,7 @@ public class MapPanel extends JPanel implements Runnable{
         long ticks = 0;
         long timer = 0;
         
-        while(handler.getPlayer().getHealth() > 0){
+        while(!handler.getPlayer().isDeath()){
             now = System.nanoTime();
             delta += (now - lastTime)/timePerTick;
             timer += now - lastTime;
@@ -87,6 +88,8 @@ public class MapPanel extends JPanel implements Runnable{
             }
         }
         
+        handler.spawn.stop();
+        System.out.println("FINE PARTITA MAP PANEL");
     
     }
     

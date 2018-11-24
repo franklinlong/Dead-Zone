@@ -31,6 +31,7 @@ public class MedicalKit extends DropItem{
     @Override
     public void animationCycle() {
         if(this.isCollected(handler)){
+            //Bisogna caricare Suono
             handler.getPlayer().setHealth(100);
             handler.removeSprite(this);
         }

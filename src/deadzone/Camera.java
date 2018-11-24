@@ -21,7 +21,7 @@ public class Camera {
     private float offset_y;
     
     //dimensione frame uguali allo schermo
-    public static int w_frame = Toolkit.getDefaultToolkit().getScreenSize().width;
+    public static int w_frame = Toolkit.getDefaultToolkit().getScreenSize().width * 4/5;
     public static int h_frame = Toolkit.getDefaultToolkit().getScreenSize().height;
     
     //dimensione immagine

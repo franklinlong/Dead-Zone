@@ -35,7 +35,7 @@ public class Blood extends Sprite{
         //a tentativi.. Circa 2 secondi
         alfa -= 1;
         if(alfa < 0)
-            handler.getSprite().remove(this);
+            handler.getitemsAndBlood().remove(this);
     }
 
 

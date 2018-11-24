@@ -30,7 +30,7 @@ public class Projectile extends AnimatedSprite{
         setY(getY() + velY);
         
         if(dye()){
-            this.handler.getSprite().remove(this);
+            this.handler.getProiettili().remove(this);
         }
     }
     
@@ -48,8 +48,8 @@ public class Projectile extends AnimatedSprite{
             return true;
         
         //se ha colpito uno zombie
-        for(Sprite x : handler.getSprite())
-            if(x instanceof Zombie  && x.getBounds().contains(getX(),getY())){
+        for(Sprite x : handler.getZombies())
+            if(x.getBounds().contains(getX(),getY())){
                 Zombie y = (Zombie)x;
                 y.hit(20);
                 return true;

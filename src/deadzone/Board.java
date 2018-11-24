@@ -5,19 +5,11 @@
  */
 package deadzone;
 
-import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BoxLayout;
 
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import listeners.KAdapter;
 import sprite.animated.Player;
@@ -108,10 +100,12 @@ public class Board extends JSplitPane implements Runnable{
     public void run() {
         try {
             tHud.join();
+            System.out.println("LA HUD E FINITA");
             tMap.join();
         } catch (InterruptedException ex) {
             Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println("FINE");
     
     }
     

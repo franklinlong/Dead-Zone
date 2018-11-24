@@ -92,17 +92,16 @@ public class HudPanel extends JPanel implements Runnable {
         super.paintComponent(g);
         drawMiniMap(g);
         
-        for(int j=0;j<handler.getSprite().size();j++){
-            Sprite i = handler.getSprite().get(j);
-            
-            if (i instanceof Zombie){
-                drawIndicator(g, i.getX()-(i.getWidth()/2), i.getY()-(i.getHeight()/2), ((Zombie) i).getAngle(),green_indicator);
-            }
-            else if (i instanceof Player){
-                drawIndicator(g, i.getX()-(i.getWidth()/2), i.getY()-(i.getHeight()/2), ((Player) i).getAngle(),red_indicator);
-            }
-            
+        for(int j=0;j<handler.getZombies().size();j++){
+            Sprite i = handler.getZombies().get(j);
+            drawIndicator(g, i.getX()-(i.getWidth()/2), i.getY()-(i.getHeight()/2), ((Zombie) i).getAngle(),green_indicator);
         }
+        
+        for(int j=0;j<handler.getPlayers().size();j++){
+            Sprite i = handler.getPlayers().get(j);
+            drawIndicator(g, i.getX()-(i.getWidth()/2), i.getY()-(i.getHeight()/2), ((Player) i).getAngle(),red_indicator);
+        }
+        
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
         }
@@ -197,11 +196,7 @@ public class HudPanel extends JPanel implements Runnable {
         this.add(enemies);
         
         this.numEnemies = new JLabel();
-        int nemici = 0;
-        for (Sprite s: handler.getSprite()){
-           if (s instanceof Zombie)
-               nemici++;
-        }
+        int nemici = handler.getZombies().size();
         numEnemies.setText(Integer.toString(nemici));
         numEnemies.setForeground(Color.white);
         numEnemies.setFont(font);
@@ -252,7 +247,7 @@ public class HudPanel extends JPanel implements Runnable {
         long ticks = 0;
         long timer = 0;
         
-        while(handler.getPlayer().getHealth() > 0){
+        do{
             now = System.nanoTime();
             delta += (now - lastTime)/timePerTick;
             timer += now - lastTime;
@@ -264,7 +259,7 @@ public class HudPanel extends JPanel implements Runnable {
                     gunLabel.setSize(actualWeapon.getIconWidth(), actualWeapon.getIconHeight());
                     gunLabel.setIcon(actualWeapon); //aggiorna immagine arma
                     numBullets.setText(Integer.toString(handler.getPlayer().getCurrentGun().getRound()) + "/" + Integer.toString(handler.getPlayer().getCurrentGun().getTotalBullets())); //aggiorna numero proiettili
-                    //numEnemies.setText(handler.getZombie()); da integrare quando integriamo codici
+                    numEnemies.setText(""+handler.getZombies().size());
                     // aggiornare il numero di ondata quando disponibile
                     
                     this.repaint();
@@ -278,9 +273,9 @@ public class HudPanel extends JPanel implements Runnable {
                     ticks = 0;
                     timer = 0;
             }
-        }
+        } while(!handler.getPlayer().isDeath());
         
-    
+        System.out.println("FINE PARTITA HUD");
     }
 
 }
