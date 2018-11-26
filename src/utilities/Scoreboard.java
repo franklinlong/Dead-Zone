@@ -12,7 +12,7 @@ import java.util.*;
  * @author niko and angelo
  */
 public class Scoreboard {
-    private final String FILENAME = "../resources/scores.txt";
+    private final String FILENAME = "../resources/scoreboard/scores.txt";
     private final int SIZE = 10;
     private LinkedList<Score> scoreboard;
     
