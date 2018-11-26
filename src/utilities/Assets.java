@@ -91,7 +91,7 @@ public class Assets {
                     rifleLoader = Utilities.loadImage("/guns/rifleLoader.png");
                     
                     //item
-                    mediKit = Utilities.loadImage("/images/mediKitItem.png");
+                    mediKit = Utilities.loadImage("/images/medikitItem.png");
                     ammo = Utilities.loadImage("/images/ammoItem.png");
                     nuke = Utilities.loadImage("/images/bombItem.png");
                     
