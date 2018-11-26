@@ -29,6 +29,7 @@ import sprite.Nuke;
 public class Zombie extends AnimatedSprite{
 
     public static final int ZOMBIESIZE = 60;
+    public static final int SCORE = 100;
     
     private float distanceToPlayerX;
     private float distanceToPlayerY;
