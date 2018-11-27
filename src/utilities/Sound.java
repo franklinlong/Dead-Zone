@@ -1,5 +1,6 @@
 package utilities;
 
+import gameMenu.Settings;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
@@ -13,8 +14,10 @@ public class Sound {
 	}
 	
 	public void playSound(){
+            if (Settings.soundEffects){
 		sound.setFramePosition(0);
 		sound.start();
+            }
 	}
 	public void loopSound(){
 		sound.loop(Clip.LOOP_CONTINUOUSLY);

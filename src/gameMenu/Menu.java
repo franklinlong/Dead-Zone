@@ -21,7 +21,7 @@ import utilities.*;
 public class Menu extends javax.swing.JFrame {
 
     Dimension dim;
-    private final Sound gameMusic;
+    public static Sound gameMusic;
     public static Clip gameClip;
     
     
@@ -62,7 +62,7 @@ public class Menu extends javax.swing.JFrame {
         
         this.gameClip = Utilities.LoadSound("/sound/gameMusic.wav");
         this.gameMusic = new Sound(gameClip);
-        this.gameMusic.playSound();
+        this.gameMusic.loopSound();
     }
 
     /**

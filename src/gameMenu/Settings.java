@@ -13,6 +13,10 @@ import javax.swing.*;
  */
 public class Settings extends javax.swing.JDialog {
 
+    
+    public static boolean soundEffects = true;
+    public static boolean padArrows = false;
+    
     /**
      * Creates new form Settings
      */
@@ -60,6 +64,11 @@ public class Settings extends javax.swing.JDialog {
         jLabel2.setText("Effects");
 
         effects.setText("ON");
+        effects.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                effectsActionPerformed(evt);
+            }
+        });
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/settings/awsd.png"))); // NOI18N
 
@@ -76,6 +85,12 @@ public class Settings extends javax.swing.JDialog {
         music.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 musicActionPerformed(evt);
+            }
+        });
+
+        arrows.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                arrowsActionPerformed(evt);
             }
         });
 
@@ -136,16 +151,37 @@ public class Settings extends javax.swing.JDialog {
         // TODO add your handling code here:
         String text = this.music.getText();
         if (text.compareTo("ON") == 0){
+            Menu.gameMusic.stopSound();
             this.music.setText("OFF");
         }
         else{
-         this.music.setText("ON");   
+            Menu.gameMusic.loopSound();
+            this.music.setText("ON");   
         }    
     }//GEN-LAST:event_musicActionPerformed
 
     private void awsdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_awsdActionPerformed
         // TODO add your handling code here:
+        padArrows = false;
     }//GEN-LAST:event_awsdActionPerformed
+
+    private void effectsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_effectsActionPerformed
+        // TODO add your handling code here:
+        String text = this.effects.getText();
+        if (text.compareTo("ON") == 0){
+            soundEffects = false;
+            this.effects.setText("OFF");
+        }
+        else{
+            soundEffects = true;
+            this.effects.setText("ON");   
+        } 
+    }//GEN-LAST:event_effectsActionPerformed
+
+    private void arrowsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arrowsActionPerformed
+        // TODO add your handling code here:
+        padArrows = true;
+    }//GEN-LAST:event_arrowsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
