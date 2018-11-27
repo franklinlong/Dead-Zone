@@ -11,6 +11,7 @@ import java.awt.Toolkit;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import utilities.*;
 
 /**
  *
@@ -19,6 +20,7 @@ import javax.swing.JOptionPane;
 public class Menu extends javax.swing.JFrame {
 
     Dimension dim;
+    private final Sound gameMusic;
     
     
     private ImageIcon ridimensionaImageIcon(URL url, int nuovaW, int nuovaH){
@@ -56,6 +58,8 @@ public class Menu extends javax.swing.JFrame {
         gifMano.setIcon(gif);
         logo.setIcon(immagineLogo);
         
+        gameMusic = new Sound(Assets.gameMusic);
+        gameMusic.loopSound();
     }
 
     /**
@@ -201,11 +205,8 @@ public class Menu extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        int w = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconWidth()*1/6;
-        int h = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconHeight()*1/6;
-        ImageIcon i = ridimensionaImageIcon(getClass().getResource("/images/LogoBiancoENero.png"),w,h);
-        
-        JOptionPane.showConfirmDialog(rootPane, "   Coming soon...", "Settings DeadZone", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_OPTION, i);
+        Settings set = new Settings(this,true);
+        set.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
