@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;
+import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import utilities.*;
@@ -21,6 +22,7 @@ public class Menu extends javax.swing.JFrame {
 
     Dimension dim;
     private final Sound gameMusic;
+    public static Clip gameClip;
     
     
     private ImageIcon ridimensionaImageIcon(URL url, int nuovaW, int nuovaH){
@@ -58,8 +60,9 @@ public class Menu extends javax.swing.JFrame {
         gifMano.setIcon(gif);
         logo.setIcon(immagineLogo);
         
-        gameMusic = new Sound(Assets.gameMusic);
-        gameMusic.loopSound();
+        this.gameClip = Utilities.LoadSound("/sound/gameMusic.wav");
+        this.gameMusic = new Sound(gameClip);
+        this.gameMusic.playSound();
     }
 
     /**
