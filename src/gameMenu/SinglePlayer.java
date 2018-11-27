@@ -12,6 +12,7 @@ import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.net.URL;
+import javafx.scene.input.KeyCode;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -58,7 +59,7 @@ public class SinglePlayer extends javax.swing.JFrame {
         
         jTextField1.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e){
-                if (jTextField1.getText().length() >= 12)
+                if (jTextField1.getText().length() >= 12 || e.getKeyChar() == ' ')
                     e.consume();
             }
         });
