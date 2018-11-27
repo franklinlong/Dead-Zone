@@ -163,7 +163,7 @@ public class MapFrame extends javax.swing.JFrame {
     private void jButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlayActionPerformed
         // TODO add your handling code here:
         if(jButtonStandardMap.isBorderPainted()){
-            new Window().setVisible(true);
+            new Window(sp.getPlayerName()).setVisible(true);
             this.setVisible(false);
             
             

@@ -107,7 +107,9 @@ public abstract class Sprite {
         return height;
     }
     
-    
+    public void death(){
+        return;
+    };
     
     //Utile per le collisioni
     public Rectangle getBounds(){

@@ -31,7 +31,7 @@ public class Handler {
     
     private static Camera camera;
     private final Player player;
-
+    
     //Gestisce lo spawn dello zombie
     public final Timer spawn = new Timer(2000, new ActionListener(){
         int spawnX;
@@ -65,8 +65,13 @@ public class Handler {
             createZombie(spawnX,spawnY);
         }});
     
-    public Handler(){
-        player = new Player(2000,60,2,100,this);
+    public Handler(String playerName){
+        player = new Player(2000,60,2,100,this, playerName);
+        
+        createZombie(2300,20);
+        createZombie(2300,60);
+        createZombie(2300,100);
+        
         camera = new Camera(player);
         players.add(player);
         spawn.start();

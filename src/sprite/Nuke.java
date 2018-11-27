@@ -31,7 +31,10 @@ public class Nuke extends DropItem{
     public void animationCycle() {
         if(this.isCollected(handler)){
             //Bisogna caricare Suono
-            handler.getZombies().clear();
+            for(int i=0;i<handler.getZombies().size();i++){
+                Sprite s = handler.getZombies().get(i);
+                s.death();
+            }
             handler.removeSprite(this);
         }
     };

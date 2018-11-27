@@ -5,6 +5,8 @@
  */
 package utilities;
 
+import java.util.List;
+import sprite.Sprite;
 import sprite.animated.Player;
 import sprite.animated.Zombie;
 
@@ -25,7 +27,7 @@ public class Route {
         
     }
     
-    //Restituisce la velocitaX e velocitaY
+    //Restituisce la velocitaX e velocitaY per avvicinarsi al giocatore
     public float[] seek(){
 
         float[] a;
@@ -44,6 +46,26 @@ public class Route {
         a[1] = y;
         
         return a; 
+    }
+    
+    public float[] evitaZombie(float x, float y, List<Sprite> zombies){
+        float[] a;
+        a = new float[2];
+        
+        a[0] = x;
+        a[1] = y;
+        
+        for(int i=0;i<zombies.size();i++){
+            Sprite s = zombies.get(i);
+            
+            if(s.getBounds().contains(this.zombie.getX()+ this.zombie.getWidth() + x + s.width, this.zombie.getY()+ this.zombie.getHeight()+ y + s.height)){
+                a[0] = 0;
+                a[1] = 0;
+            }
+            
+        }
+            
+        return a;
     }
     
 }

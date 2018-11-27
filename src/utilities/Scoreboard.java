@@ -12,7 +12,7 @@ import java.util.*;
  * @author niko and angelo
  */
 public class Scoreboard {
-    private final String FILENAME = "../resources/scoreboard/scores.txt";
+    private final String FILENAME = "/scoreboard/scores.txt";
     private final int SIZE = 10;
     private LinkedList<Score> scoreboard;
     
@@ -20,7 +20,7 @@ public class Scoreboard {
     public Scoreboard(){
         this.scoreboard = new LinkedList<>();
         
-        try (BufferedReader br = new BufferedReader(new FileReader(FILENAME))){
+        try (BufferedReader br = new BufferedReader(new FileReader(getClass().getResource(FILENAME).getFile()))){
             String line = null;
             
             while((line = br.readLine()) != null){
@@ -50,7 +50,8 @@ public class Scoreboard {
     }
     
     public void saveScoreboard(){
-        try(BufferedWriter bw = new BufferedWriter(new FileWriter(FILENAME))){
+        System.out.println("Salvataggio risultato...");
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(getClass().getResource(FILENAME).getFile()))){
             for (Score item: this.scoreboard){
                 bw.write(item.toString());
                 bw.newLine();
@@ -69,26 +70,26 @@ public class Scoreboard {
     }
     
     
-   private class Score{
-    private int score;
-    private String player;
-    
-    public Score(String player, int score){
-        this.score = score;
-        this.player = player;
-    }
- 
-    public String getPlayer(){
-        return this.player;
-    }    
-    
-    public int getScore(){
-        return this.score;
-    }
-
-    @Override
-    public String toString(){
-        return this.getPlayer() + " " + Integer.toString(this.getScore());
-    }
-   } 
+//   private class Score{
+//    private int score;
+//    private String player;
+//    
+//    public Score(String player, int score){
+//        this.score = score;
+//        this.player = player;
+//    }
+// 
+//    public String getPlayer(){
+//        return this.player;
+//    }    
+//    
+//    public int getScore(){
+//        return this.score;
+//    }
+//
+//    @Override
+//    public String toString(){
+//        return this.getPlayer() + " " + Integer.toString(this.getScore());
+//    }
+//   } 
 }

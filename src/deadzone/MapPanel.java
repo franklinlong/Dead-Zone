@@ -13,6 +13,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import listeners.KAdapter;
 import listeners.MAdapter;
+import sprite.animated.Player;
+import utilities.Scoreboard;
 
 public class MapPanel extends JPanel implements Runnable{
     
@@ -90,7 +92,9 @@ public class MapPanel extends JPanel implements Runnable{
         
         handler.spawn.stop();
         System.out.println("FINE PARTITA MAP PANEL");
-    
+        Player p = this.handler.getPlayer();
+        new Scoreboard().addScore(p.getName(), p.getPunteggioAttuale());
+        
     }
     
     public void animationCycle(){

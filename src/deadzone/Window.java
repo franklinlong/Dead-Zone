@@ -15,13 +15,13 @@ import javax.swing.JFrame;
  */
 public class Window extends JFrame{
 
-	public Window() {
+	public Window(String playerName) {
         //IF single player:
-            initUI();
+            initUI(playerName);
         }
 
-    private void initUI() {
-        add(new Board());
+    private void initUI(String playerName) {
+        add(new Board(playerName));
         Dimension dimensioneSchermo = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize(dimensioneSchermo);
         setResizable(false);

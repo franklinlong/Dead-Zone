@@ -42,11 +42,15 @@ public class Player extends AnimatedSprite{
 
     private float xx,yy;
     private boolean isDeath;
+    
+    private int punteggioAttuale;
+    private final String name;
         
-    public Player(float x, float y, int vel, int health, Handler handler) {
+    public Player(float x, float y, int vel, int health, Handler handler, String name) {
         super(x, y, PLAYERSIZE, PLAYERSIZE, vel, health);
-            
+        this.punteggioAttuale = 0;
         this.handler = handler;
+        this.name = name;
         
         pistolIdle = new Animation(Assets.pistolIdle,20);
         pistolReload = new Animation(Assets.pistolReload, 100);
@@ -123,7 +127,7 @@ public class Player extends AnimatedSprite{
         
         //Controllo che sia vivo        
         if(getHealth()<=0)
-            deathPlayer();
+            death();
         
         float x = getX();
         float y = getY();
@@ -214,10 +218,23 @@ public class Player extends AnimatedSprite{
         return isDeath;
     }
 
-    private void deathPlayer() {
+    @Override
+    public void death() {
         this.isDeath = true;
         handler.removeSprite(this);
         new Sound(Assets.endGame).playSound();
+    }
+
+    public int getPunteggioAttuale() {
+        return punteggioAttuale;
+    }
+
+    public void updatePunteggio(int punteggioAttuale) {
+        this.punteggioAttuale += punteggioAttuale;
+    }
+
+    public String getName() {
+        return name;
     }
     
 }

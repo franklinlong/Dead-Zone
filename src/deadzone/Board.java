@@ -34,7 +34,7 @@ public class Board extends JSplitPane implements Runnable{
     private HudPanel hudPanel;
     private final int location = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()*1/5;
     
-    public Board(){
+    public Board(String playerName){
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize(dim);
         this.setOpaque(false);
@@ -45,14 +45,14 @@ public class Board extends JSplitPane implements Runnable{
         this.setDividerLocation((int) dim.getWidth()*1/5);
         
         
-        initBoard();
+        initBoard(playerName);
     }
     
-    private void initBoard(){
+    private void initBoard(String playerName){
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
     	Assets.init();
         
-        handler = new Handler();
+        handler = new Handler(playerName);
         mapPanel = new MapPanel(handler);
         hudPanel = new HudPanel(handler);
         KAdapter kad = new KAdapter();

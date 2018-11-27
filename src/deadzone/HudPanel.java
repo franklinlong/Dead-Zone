@@ -131,7 +131,7 @@ public class HudPanel extends JPanel implements Runnable {
         
 
         this.nameLabel = new JLabel();
-        nameLabel.setText("Player"); //il nome del payer sarà un attributo di Player
+        nameLabel.setText(this.handler.getPlayer().getName()); //il nome del payer sarà un attributo di Player
         nameLabel.setForeground(Color.white);
         nameLabel.setFont(font);
         nameLabel.setSize(100,60);
@@ -211,7 +211,7 @@ public class HudPanel extends JPanel implements Runnable {
         this.add(scoreTextLabel);
         
         this.scoreLabel = new JLabel();
-        scoreLabel.setText("0000000000");
+        scoreLabel.setText(""+this.handler.getPlayer().getPunteggioAttuale());
         scoreLabel.setForeground(Color.white);
         scoreLabel.setFont(font);
         scoreLabel.setSize(150,100);
@@ -252,6 +252,7 @@ public class HudPanel extends JPanel implements Runnable {
             lastTime = now;
             while(delta >= 1){
                     //animationCycle();
+                    this.scoreLabel.setText(""+this.handler.getPlayer().getPunteggioAttuale());
                     playerHealth.setValue(handler.getPlayer().getHealth()); //aggiorna valore health
                     this.actualWeapon = new ImageIcon(handler.getPlayer().getCurrentGun().getSkin());
                     gunLabel.setSize(actualWeapon.getIconWidth(), actualWeapon.getIconHeight()); //dimensiona label secondo grandezza immagine arma

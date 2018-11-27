@@ -17,7 +17,6 @@ import utilities.Animation;
 import utilities.Assets;
 import utilities.Route;
 import utilities.Sound;
-import sprite.DropItem;
 import sprite.Ammo;
 import sprite.MedicalKit;
 import sprite.Nuke;
@@ -29,7 +28,7 @@ import sprite.Nuke;
 public class Zombie extends AnimatedSprite{
 
     public static final int ZOMBIESIZE = 60;
-    public static final int SCORE = 100;
+    public static final int SCORE = 5;
     
     private float distanceToPlayerX;
     private float distanceToPlayerY;
@@ -116,6 +115,10 @@ public class Zombie extends AnimatedSprite{
         //in base al percorso che deve seguire lo zombie, a[] avrà la velocitaX e la velocitaY
         float[] a = new Route(player, this).seek();
         			
+        //Codice per ricalcolare la direzione in base alla presenza di zombie vicini ... DA FARE
+        //a = new Route(player, this).evitaZombie(a[0],a[1], this.handler.getZombies());
+        
+        
         angle = (float) Math.acos(a[0]);
         if(a[1] < 0)
                 angle *= -1;
@@ -173,9 +176,11 @@ public class Zombie extends AnimatedSprite{
     }
     
     //Metodo chiamato alla morte dello zombie
-    private void death(){    
+    @Override
+    public void death(){    
         //Alla orte dello zombie si crea la chiazza di sangue
         this.handler.addSprite(new Blood(this.getX(), this.getY(),30, 30, handler));
+        this.player.updatePunteggio(SCORE);
         
         //Alla morte dello zombie, con una data probabilita, viene rilasciato un nuovo item
         boolean drop = (Math.random() *100) <= probabilityDrop;

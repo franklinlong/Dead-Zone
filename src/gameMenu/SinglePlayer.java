@@ -12,8 +12,11 @@ import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.net.URL;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import utilities.Score;
+import utilities.Scoreboard;
 
 /**
  *
@@ -55,8 +58,24 @@ public class SinglePlayer extends javax.swing.JFrame {
         ImageIcon i2  = ridimensionaImageIcon(getClass().getResource("/images/soldato_donna.png"), jButtonDonna.getWidth(), jButtonDonna.getHeight());
         jButtonDonna.setIcon(i2);
         
+        Scoreboard scoreboard = new Scoreboard();
+        List<Score> scoreList = scoreboard.getScoreboard();
+        System.out.println(scoreList.get(2).getScore());
+        
+        this.jScore1.setText("1) "+scoreList.get(0).toString());
+        this.jScore2.setText("2) "+scoreList.get(1).toString());
+        this.jScore3.setText("3) "+scoreList.get(2).toString());
+        this.jScore4.setText("4) "+scoreList.get(3).toString());
+        this.jScore5.setText("5) "+scoreList.get(4).toString());
+        this.jScore6.setText("6) "+scoreList.get(5).toString());
+        this.jScore7.setText("7) "+scoreList.get(6).toString());
+        this.jScore8.setText("8) "+scoreList.get(7).toString());
+        this.jScore9.setText("9) "+scoreList.get(8).toString());
+        this.jScore10.setText("10) "+scoreList.get(9).toString());
+        
         
         jTextField1.addKeyListener(new KeyAdapter() {
+            @Override
             public void keyTyped(KeyEvent e){
                 if (jTextField1.getText().length() >= 12)
                     e.consume();
@@ -64,7 +83,12 @@ public class SinglePlayer extends javax.swing.JFrame {
         });
 
     }
-
+    
+    
+    public String getPlayerName(){
+        return this.jTextField1.getText();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -285,9 +309,18 @@ public class SinglePlayer extends javax.swing.JFrame {
     private void jButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlayActionPerformed
         // TODO add your handling code here:
         if(!jTextField1.getText().isEmpty() && (jButtonUomo.isBorderPainted() || jButtonDonna.isBorderPainted())){
-            new MapFrame(this).setVisible(true);
-            this.setVisible(false);
             
+            if(jTextField1.getText().contains(" ")){
+                System.out.println("Ci sta uno spazio...");
+                int w = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconWidth()*1/6;
+                int h = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconHeight()*1/6;
+                ImageIcon i = ridimensionaImageIcon(getClass().getResource("/images/LogoBiancoENero.png"),w,h);
+                JOptionPane.showConfirmDialog(rootPane, "Name character must no contains whitespaces. Use another name.", "Insert a valid name", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_OPTION, i);
+            }
+            else{
+                new MapFrame(this).setVisible(true);
+                this.setVisible(false);
+            }
             
         }
         else{
