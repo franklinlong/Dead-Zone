@@ -12,7 +12,7 @@ import java.util.*;
  * @author niko and angelo
  */
 public class Scoreboard {
-    private final String FILENAME = "/scoreboard/scores.txt";
+    private final String FILENAME = "resources/scoreboard/scores.txt";
     private final int SIZE = 10;
     private LinkedList<Score> scoreboard;
     
@@ -20,7 +20,7 @@ public class Scoreboard {
     public Scoreboard(){
         this.scoreboard = new LinkedList<>();
         
-        try (BufferedReader br = new BufferedReader(new FileReader(getClass().getResource(FILENAME).getFile()))){
+        try (BufferedReader br = new BufferedReader(new FileReader(FILENAME))){
             String line = null;
             
             while((line = br.readLine()) != null){
@@ -44,6 +44,7 @@ public class Scoreboard {
         else {this.scoreboard.removeLast();}
         
         int index = this.findGT(score);
+        System.out.println(index);
         this.scoreboard.add(index, new Score(player, score));
         
         this.saveScoreboard();
@@ -51,7 +52,7 @@ public class Scoreboard {
     
     public void saveScoreboard(){
         System.out.println("Salvataggio risultato...");
-        try(BufferedWriter bw = new BufferedWriter(new FileWriter(getClass().getResource(FILENAME).getFile()))){
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(FILENAME))){
             for (Score item: this.scoreboard){
                 bw.write(item.toString());
                 bw.newLine();
