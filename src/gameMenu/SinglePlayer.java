@@ -77,7 +77,7 @@ public class SinglePlayer extends javax.swing.JFrame {
         jTextField1.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e){
-                if (jTextField1.getText().length() >= 12)
+                if (jTextField1.getText().length() >= 12 || e.getKeyChar() == ' ')
                     e.consume();
             }
         });
