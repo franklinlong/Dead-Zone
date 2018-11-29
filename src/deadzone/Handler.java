@@ -183,7 +183,7 @@ public class Handler {
     //DA FARE PER BENE BENE
     private void createZombie(float x, float y) {         
         System.out.println(x + " " + y);
-        addSprite((new Zombie(x, y, 1, 100, this.player, this, (float)99)));
+        addSprite((new Zombie(x, y, 1, 100, this.player, this, (float)1)));
     }
 
     public Camera getCamera() {
