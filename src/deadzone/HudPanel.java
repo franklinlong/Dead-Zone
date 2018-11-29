@@ -28,7 +28,7 @@ public class HudPanel extends JPanel implements Runnable {
     private JLabel gunLabel;
     private JLabel numWave;
     private JLabel wave;
-    private JProgressBar playerHealth;
+    private JProgressBarH playerHealth;
     private JLabel numBullets;
     private JLabel imageLabel;
     private JLabel enemies;
@@ -148,6 +148,8 @@ public class HudPanel extends JPanel implements Runnable {
         playerHealth.setOpaque(true);
         playerHealth.setMaximum(handler.getPlayer().getHealth());
         playerHealth.setMinimum(0); 
+        playerHealth.setHealth(this.handler.getPlayer().getHealth());
+        playerHealth.repaint();
         this.add(playerHealth);
         
         this.imageLabel = new JLabel();
@@ -189,7 +191,6 @@ public class HudPanel extends JPanel implements Runnable {
         this.add(numWave);
         
         this.enemies = new JLabel("Enemies:", SwingConstants.LEFT);
-        //enemies.setText();
         enemies.setForeground(Color.white);
         enemies.setFont(font);
         enemies.setSize(this.getWidth()/2, 50);
@@ -218,7 +219,6 @@ public class HudPanel extends JPanel implements Runnable {
         this.add(scoreLabel);
         
         this.fpsLabel = new JLabel();
-        //fpsLabel.setForeground(Color.BLACK);
         fpsLabel.setFont(font);
         fpsLabel.setSize(this.getWidth(), 100);
         fpsLabel.setLocation(0, scoreLabel.getY() + scoreLabel.getHeight());
@@ -253,12 +253,17 @@ public class HudPanel extends JPanel implements Runnable {
             
             @Override
             public void paintComponent(Graphics g) {
-                if (this.health > this.getMaximum()*7/10){
+                Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+                System.out.println(this.health);
+                if (this.health >= this.getMaximum()*7/10){
                     g.setColor(Color.GREEN);
-                    g.fillRect(0, 0, this.getWidth(), this.getHeight());
+                    g.fillRect(0, 0, (this.health*dim.width*9/50)/100, this.getHeight());
                 } else if (this.health >= this.getMaximum()*3/10 && this.health < this.getMaximum()*7/10){
                     g.setColor(Color.YELLOW);
-                    g.fillRect(0, 0, this.getWidth(), HEIGHT);
+                    g.fillRect(0, 0, (this.health*dim.width*9/50)/100, this.getHeight());
+                } else {
+                    g.setColor(Color.red);
+                    g.fillRect(0, 0, (this.health*dim.width*9/50)/100, this.getHeight());
                 }
             }
             
@@ -285,15 +290,13 @@ public class HudPanel extends JPanel implements Runnable {
             timer += now - lastTime;
             lastTime = now;
             while(delta >= 1){
-                    //animationCycle();
                     this.scoreLabel.setText(""+this.handler.getPlayer().getPunteggioAttuale());
-                    playerHealth.setValue(handler.getPlayer().getHealth()); //aggiorna valore health
                     this.actualWeapon = new ImageIcon(handler.getPlayer().getCurrentGun().getSkin());
                     gunLabel.setSize(actualWeapon.getIconWidth(), actualWeapon.getIconHeight()); //dimensiona label secondo grandezza immagine arma
                     gunLabel.setIcon(actualWeapon); //aggiorna immagine arma
                     numBullets.setText(Integer.toString(handler.getPlayer().getCurrentGun().getRound()) + "/" + Integer.toString(handler.getPlayer().getCurrentGun().getTotalBullets())); //aggiorna numero proiettili
                     numEnemies.setText(""+handler.getZombies().size());
-
+                    playerHealth.setHealth(this.handler.getPlayer().getHealth()); //aggiorna progressBar player
                     // aggiornare il numero di ondata quando disponibile
                     
                     this.repaint();
