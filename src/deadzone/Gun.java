@@ -33,10 +33,12 @@ public class Gun {
     // handler
     private final Handler handler;
     
+    private final int damage;
+    
     public Gun(BufferedImage skin, Animation idle, Animation reloadAnimation, Animation shoot,
                     Sound shootSound, Sound reloadSound, Player player, int firingDelay,
-                    int bulletsPerRound, int totalBullets, Handler handler){
-                    
+                    int bulletsPerRound, int totalBullets, Handler handler, int damage){
+            this.damage = damage;
             this.handler = handler;
             this.skin = skin;
             this.idle = idle;
@@ -91,7 +93,7 @@ public class Gun {
 
                     Projectile p = new Projectile((xx+Player.PLAYERSIZE/2 + (float)(22*Math.cos(angoloPistola))),
                                             (yy+Player.PLAYERSIZE/2 + (float)(22*Math.sin(angoloPistola))),
-                                            bulletdirectionX, bulletdirectionY, 20, 100, handler); //100 è la vita del proiettile
+                                            bulletdirectionX, bulletdirectionY, 20, 100, handler, damage); //100 è la vita del proiettile
                     shootAminDelay.start();
                     currentAnimation = shoot;
                     this.handler.addSprite(p);

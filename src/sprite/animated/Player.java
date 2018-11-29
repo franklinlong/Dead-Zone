@@ -74,14 +74,14 @@ public class Player extends AnimatedSprite{
         
         pistol = new Gun(Assets.pistolSkin, pistolIdle, pistolReload, pistolShoot,pistolShootSound,
 				pistolReloadSound, this, 400,
-				9, 200, handler);
+				9, 200, handler, 15);
         rifle = new Gun(Assets.ak47, rifleIdle, rifleReload, rifleShoot, rifleShootSound,
                         rifleReloadSound, this, 100,
-                        30, 200, handler);
+                        30, 200, handler, 15);
 
         shotgun = new Gun(Assets.pistolSkin,shotgunIdle, shotgunReload, shotgunShoot, shotgunShootSound,
                         shotgunReloadSound, this,800,
-                        5, 200, handler);
+                        5, 200, handler, 50);
 		
         currentGun = pistol;
     }

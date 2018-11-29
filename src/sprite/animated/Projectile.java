@@ -9,10 +9,11 @@ public class Projectile extends AnimatedSprite{
 
     private final static int BULLETDIAMETER = 6;
     private Handler handler;
+    private final int damage;
     
-    public Projectile(float x, float y, float velX, float velY, int velocita, int health, Handler handler){
+    public Projectile(float x, float y, float velX, float velY, int velocita, int health, Handler handler, int damage){
             super(x, y, BULLETDIAMETER, BULLETDIAMETER, velocita, health);
-            
+            this.damage = damage;
             this.velX = velocita*velX;
             this.velY = velocita*velY;
             this.handler = handler;
@@ -51,7 +52,7 @@ public class Projectile extends AnimatedSprite{
         for(Sprite x : handler.getZombies())
             if(x.getBounds().contains(getX(),getY())){
                 Zombie y = (Zombie)x;
-                y.hit(20);
+                y.hit(damage);
                 return true;
             }
         return false;
