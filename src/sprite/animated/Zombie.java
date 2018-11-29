@@ -151,8 +151,12 @@ public class Zombie extends AnimatedSprite{
         x += a[0];
         y += a[1];
         
+        //aggiorno le variabili dello sprite per come funziona collision
+        setX(x);
+        setY(y);
+        
         //Se c'è una collisione non posso passare
-        int k = collision();
+        int k = collision(this.initialVelocity, this.initialVelocity);
         switch (k) {
             case 1:
                 x -= a[0] ;

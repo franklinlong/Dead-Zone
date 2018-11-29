@@ -39,8 +39,7 @@ public class Ammo extends DropItem{
     public void animationCycle() {
         if(this.isCollected(handler)){
             //Bisogna caricare Suono
-            gun.setTotalBullets(gun.getTotalBullets() + 10);
-            gun.setRound(gun.getRound() + 3);
+            gun.setTotalBullets(gun.getTotalBullets() + 200);
             handler.removeSprite(this);
         }
     };

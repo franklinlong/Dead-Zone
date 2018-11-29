@@ -74,14 +74,14 @@ public class Player extends AnimatedSprite{
         
         pistol = new Gun(Assets.pistolSkin, pistolIdle, pistolReload, pistolShoot,pistolShootSound,
 				pistolReloadSound, this, 400,
-				9, 2700, handler);
+				9, 200, handler, 15);
         rifle = new Gun(Assets.ak47, rifleIdle, rifleReload, rifleShoot, rifleShootSound,
                         rifleReloadSound, this, 100,
-                        30, 9000, handler);
+                        30, 200, handler, 15);
 
         shotgun = new Gun(Assets.pistolSkin,shotgunIdle, shotgunReload, shotgunShoot, shotgunShootSound,
                         shotgunReloadSound, this,800,
-                        5, 1000, handler);
+                        5, 200, handler, 50);
 		
         currentGun = pistol;
     }
@@ -131,16 +131,19 @@ public class Player extends AnimatedSprite{
         
         float x = getX();
         float y = getY();
-         x+=velX;
+        x+=velX;
         y+=velY;
+        //aggiorno le variabili dello sprite per come funziona collision
+        setX(x);
+        setY(y);
         
-        if (x < 0) {
-            x = 2;
-        }
-        if (y < 0) {
-            y = 2;
-        }
-        int k = collision();
+//        if (x < 0) {
+//            x = 2;
+//        }
+//        if (y < 0) {
+//            y = 2;
+//        }
+        int k = collision(this.initialVelocity, this.initialVelocity);
         switch (k) {
             case 1:
                 x += velX * -1;
