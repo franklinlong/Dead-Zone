@@ -33,7 +33,6 @@ public class Settings extends javax.swing.JDialog {
         int x = (int) rect.getMaxX()/2 - this.getWidth()/2;
         int y = (int) rect.getMaxY()/2 - this.getHeight()/2;
         this.setLocation(x, y);
-        this.setVisible(true);
     }
 
     /**

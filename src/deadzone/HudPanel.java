@@ -13,6 +13,8 @@ import javax.swing.*;
 import sprite.Sprite;
 import sprite.animated.Player;
 import sprite.animated.Zombie;
+import gameMenu.*;
+import java.util.*;
 
 public class HudPanel extends JPanel implements Runnable {
     
@@ -228,13 +230,24 @@ public class HudPanel extends JPanel implements Runnable {
         System.out.println(pauseButton.getLocation());
         this.add(pauseButton);
 
+        pauseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pauseActionPerformed(evt);
+            }
+        });
+        
         this.setBackground(Color.BLACK);
         
     }
     
-   
     
-
+    private void pauseActionPerformed(java.awt.event.ActionEvent evt){
+        JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        PauseMenu pm = new PauseMenu(topFrame, true);
+        Thread tPause = new Thread(pm);
+        tPause.start();
+    }
+    
     @Override
     public void run() {   //nel while dovrebbe essere tipo: chiama le varie set delle label (vita, punteggio ecc) poi chiama repaint su this e su minimapPanel
         int fps = 60;
