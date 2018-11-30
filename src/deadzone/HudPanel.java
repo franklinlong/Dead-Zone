@@ -30,14 +30,16 @@ public class HudPanel extends JPanel implements Runnable {
     private JLabel gunLabel;
     private JLabel numWave;
     private JLabel wave;
-    private JProgressBar playerHealth;
+    private JProgressBarH playerHealth;
     private JLabel numBullets;
     private JLabel imageLabel;
     private JLabel enemies;
     private JLabel numEnemies;
+    private JLabel fpsLabel;
     private Handler handler;
     private MinimapPanel minimapPanel;
     private ImageIcon actualWeapon;
+    private long averageFPS = 0;
     
     
     private class MinimapPanel extends JPanel {
@@ -126,27 +128,30 @@ public class HudPanel extends JPanel implements Runnable {
         this.handler = handler;
         java.awt.Font font = new java.awt.Font("Comic Sans MS", 1, 24);
         
+
+        
         minimapPanel = new MinimapPanel(handler);
         minimapPanel.setSize(minimapPanel.getW_minimap(),minimapPanel.getH_minimap());
         minimapPanel.setLocation((int) this.getSize().getWidth()*1/18, (int) this.getSize().getHeight()*1/40);  
         this.add(minimapPanel);
         
 
-        this.nameLabel = new JLabel();
-        nameLabel.setText(this.handler.getPlayer().getName()); //il nome del payer sarà un attributo di Player
+        this.nameLabel = new JLabel(this.handler.getPlayer().getName(), SwingConstants.CENTER); //nome del player centrato nella Label
         nameLabel.setForeground(Color.white);
         nameLabel.setFont(font);
-        nameLabel.setSize(100,60);
-        nameLabel.setLocation(minimapPanel.getX() + minimapPanel.getWidth()*2/5, minimapPanel.getY() + minimapPanel.getHeight());
+        nameLabel.setSize(this.getWidth(),60);
+        nameLabel.setLocation(0, minimapPanel.getY() + minimapPanel.getHeight());
         this.add(nameLabel);
 
-        this.playerHealth = new JProgressBar();      
+        this.playerHealth = new JProgressBarH(); 
         playerHealth.setSize(minimapPanel.getWidth(), 30);
         playerHealth.setLocation(minimapPanel.getX(), nameLabel.getY() + nameLabel.getHeight());
         playerHealth.setValue(handler.getPlayer().getHealth()); //inizializzo con health iniziale del Player
-        playerHealth.setOpaque(false);
-        playerHealth.setMaximum(handler.getPlayer().getHealth()); 
+        playerHealth.setOpaque(true);
+        playerHealth.setMaximum(handler.getPlayer().getHealth());
         playerHealth.setMinimum(0); 
+        playerHealth.setHealth(this.handler.getPlayer().getHealth());
+        playerHealth.repaint();
         this.add(playerHealth);
         
         this.imageLabel = new JLabel();
@@ -187,38 +192,39 @@ public class HudPanel extends JPanel implements Runnable {
         numWave.setLocation(wave.getX()*3/2, wave.getY() + wave.getHeight());
         this.add(numWave);
         
-        this.enemies = new JLabel();
-        enemies.setText("Enemies:");
+        this.enemies = new JLabel("Enemies:", SwingConstants.LEFT);
         enemies.setForeground(Color.white);
         enemies.setFont(font);
-        enemies.setSize(120, 50);
+        enemies.setSize(this.getWidth()/2, 50);
         enemies.setLocation(gunLabel.getX(), wave.getY());
         this.add(enemies);
         
-        this.numEnemies = new JLabel();
-        int nemici = handler.getZombies().size();
-        numEnemies.setText(Integer.toString(nemici));
+        this.numEnemies = new JLabel(Integer.toString(handler.getZombies().size()), SwingConstants.LEFT);
         numEnemies.setForeground(Color.white);
         numEnemies.setFont(font);
-        numEnemies.setSize(50, 50);
-        numEnemies.setLocation(enemies.getX() + enemies.getWidth()/2, numWave.getY());
+        numEnemies.setSize(this.getWidth()/2, 50);
+        numEnemies.setLocation(enemies.getX() + this.getWidth()/8, numWave.getY());
         this.add(numEnemies);
         
-        this.scoreTextLabel = new JLabel();
-        scoreTextLabel.setText("Score:");
+        this.scoreTextLabel = new JLabel("Score", SwingConstants.CENTER);
         scoreTextLabel.setForeground(Color.white);
         scoreTextLabel.setFont(font);
-        scoreTextLabel.setSize(100,100);
+        scoreTextLabel.setSize(this.getWidth(),100);
         scoreTextLabel.setLocation(nameLabel.getX(), numEnemies.getY() + numEnemies.getHeight());
         this.add(scoreTextLabel);
         
-        this.scoreLabel = new JLabel();
-        scoreLabel.setText(""+this.handler.getPlayer().getPunteggioAttuale());
+        this.scoreLabel = new JLabel(""+this.handler.getPlayer().getPunteggioAttuale(), SwingConstants.CENTER);
         scoreLabel.setForeground(Color.white);
         scoreLabel.setFont(font);
-        scoreLabel.setSize(150,100);
-        scoreLabel.setLocation((int) this.getSize().getWidth()*1/3, scoreTextLabel.getY() + scoreTextLabel.getHeight()/2);
+        scoreLabel.setSize(this.getWidth(),100);
+        scoreLabel.setLocation(0, scoreTextLabel.getY() + scoreTextLabel.getHeight()/2);
         this.add(scoreLabel);
+        
+        this.fpsLabel = new JLabel();
+        fpsLabel.setFont(font);
+        fpsLabel.setSize(this.getWidth(), 100);
+        fpsLabel.setLocation(0, scoreLabel.getY() + scoreLabel.getHeight());
+        this.add(fpsLabel);
         
         JButton pauseButton = new JButton();
         pauseButton.setSize(playerHealth.getWidth(), playerHealth.getHeight()*3/2);
@@ -237,8 +243,41 @@ public class HudPanel extends JPanel implements Runnable {
         });
         
         this.setBackground(Color.BLACK);
-        
+    
     }
+    
+        private class JProgressBarH extends JProgressBar {
+            
+            private int health;
+            
+            public JProgressBarH(){
+                super();
+            }
+            
+            public void setHealth(int health){
+                this.health = health;
+            }
+            
+            
+            @Override
+            public void paintComponent(Graphics g) {
+                Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+                System.out.println(this.health);
+                if (this.health >= this.getMaximum()*7/10){
+                    g.setColor(Color.GREEN);
+                    g.fillRect(0, 0, (this.health*dim.width*9/50)/100, this.getHeight());
+                } else if (this.health >= this.getMaximum()*3/10 && this.health < this.getMaximum()*7/10){
+                    g.setColor(Color.YELLOW);
+                    g.fillRect(0, 0, (this.health*dim.width*9/50)/100, this.getHeight());
+                } else {
+                    g.setColor(Color.red);
+                    g.fillRect(0, 0, (this.health*dim.width*9/50)/100, this.getHeight());
+                }
+            }
+            
+        }
+    
+
     
     
     private void pauseActionPerformed(java.awt.event.ActionEvent evt){
@@ -264,14 +303,13 @@ public class HudPanel extends JPanel implements Runnable {
             timer += now - lastTime;
             lastTime = now;
             while(delta >= 1){
-                    //animationCycle();
                     this.scoreLabel.setText(""+this.handler.getPlayer().getPunteggioAttuale());
-                    playerHealth.setValue(handler.getPlayer().getHealth()); //aggiorna valore health
                     this.actualWeapon = new ImageIcon(handler.getPlayer().getCurrentGun().getSkin());
                     gunLabel.setSize(actualWeapon.getIconWidth(), actualWeapon.getIconHeight()); //dimensiona label secondo grandezza immagine arma
                     gunLabel.setIcon(actualWeapon); //aggiorna immagine arma
                     numBullets.setText(Integer.toString(handler.getPlayer().getCurrentGun().getRound()) + "/" + Integer.toString(handler.getPlayer().getCurrentGun().getTotalBullets())); //aggiorna numero proiettili
                     numEnemies.setText(""+handler.getZombies().size());
+                    playerHealth.setHealth(this.handler.getPlayer().getHealth()); //aggiorna progressBar player
                     // aggiornare il numero di ondata quando disponibile
                     
                     this.repaint();
@@ -282,6 +320,11 @@ public class HudPanel extends JPanel implements Runnable {
 
             if(timer >= 1000000000){
                     //aggiungere gli fps e farli stampare dalla HUD (nuova label? )
+                    this.averageFPS = ticks;
+                    fpsLabel.setForeground(Color.WHITE);
+                    fpsLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                    fpsLabel.setVerticalAlignment(SwingConstants.CENTER);
+                    fpsLabel.setText("fps: " + Long.toString(averageFPS));
                     ticks = 0;
                     timer = 0;
             }
