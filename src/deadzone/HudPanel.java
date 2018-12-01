@@ -14,7 +14,6 @@ import sprite.Sprite;
 import sprite.animated.Player;
 import sprite.animated.Zombie;
 import gameMenu.*;
-import java.util.*;
 
 public class HudPanel extends JPanel implements Runnable {
     
@@ -283,8 +282,7 @@ public class HudPanel extends JPanel implements Runnable {
     private void pauseActionPerformed(java.awt.event.ActionEvent evt){
         JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
         PauseMenu pm = new PauseMenu(topFrame, true);
-        Thread tPause = new Thread(pm);
-        tPause.start();
+        pm.setVisible(true);
     }
     
     @Override
@@ -298,6 +296,7 @@ public class HudPanel extends JPanel implements Runnable {
         long timer = 0;
         
         do{
+            
             now = System.nanoTime();
             delta += (now - lastTime)/timePerTick;
             timer += now - lastTime;
@@ -328,6 +327,7 @@ public class HudPanel extends JPanel implements Runnable {
                     ticks = 0;
                     timer = 0;
             }
+            
         } while(!handler.getPlayer().isDeath());
         
         System.out.println("FINE PARTITA HUD");

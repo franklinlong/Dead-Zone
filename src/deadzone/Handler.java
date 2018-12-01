@@ -5,6 +5,7 @@
  */
 package deadzone;
 
+import gameMenu.PauseMenu;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -62,7 +63,9 @@ public class Handler {
                     spawnY=470;
                     break;
             }
+            if (!PauseMenu.pause){
             createZombie(spawnX,spawnY);
+            }
         }});
     
     public Handler(String playerName){

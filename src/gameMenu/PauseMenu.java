@@ -7,7 +7,8 @@ package gameMenu;
 
 import deadzone.Board;
 import java.awt.*;
-import java.util.Set;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -15,13 +16,18 @@ import javax.swing.SwingUtilities;
  *
  * @author niko
  */
-public class PauseMenu extends javax.swing.JDialog implements Runnable {
+public class PauseMenu extends javax.swing.JDialog {
     /**
      * Creates new form PauseMenu
      */
+    
+    public static boolean pause;
+    
     public PauseMenu(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        pause = true;
         
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
@@ -29,6 +35,14 @@ public class PauseMenu extends javax.swing.JDialog implements Runnable {
         int x = (int) rect.getMaxX()/2 - this.getWidth()/2;
         int y = (int) rect.getMaxY()/2 - this.getHeight()/2;
         this.setLocation(x, y);
+        
+        addWindowListener(new WindowAdapter() {
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                pause = false;
+            }
+        });
     }
 
     /**
@@ -41,92 +55,97 @@ public class PauseMenu extends javax.swing.JDialog implements Runnable {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        Resume = new javax.swing.JButton();
+        Settings = new javax.swing.JButton();
+        Exit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(471, 335));
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("PAUSE");
 
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton1.setText("Resume");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Resume.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        Resume.setText("Resume");
+        Resume.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ResumeActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton2.setText("Settings");
+        Settings.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        Settings.setText("Settings");
+        Settings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SettingsActionPerformed(evt);
+            }
+        });
 
-        jButton3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton3.setText("Exit");
+        Exit.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        Exit.setText("Exit");
+        Exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(134, 134, 134)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1))
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addGap(187, 187, 187)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Exit, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Settings, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Resume, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(194, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(38, 38, 38)
-                .addComponent(jButton1)
-                .addGap(40, 40, 40)
-                .addComponent(jButton2)
+                .addGap(44, 44, 44)
+                .addComponent(Resume)
                 .addGap(50, 50, 50)
-                .addComponent(jButton3)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addComponent(Settings)
+                .addGap(54, 54, 54)
+                .addComponent(Exit)
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void ResumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResumeActionPerformed
         // TODO add your handling code here:
-        this.startThread(true);
+        pause = false;
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_ResumeActionPerformed
+
+    private void SettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsActionPerformed
+        // TODO add your handling code here:
+        JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(SwingUtilities.getWindowAncestor(this));
+        Settings set = new Settings(topFrame, true);
+        set.setVisible(true);
+    }//GEN-LAST:event_SettingsActionPerformed
+
+    private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_ExitActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton Exit;
+    private javax.swing.JButton Resume;
+    private javax.swing.JButton Settings;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void run() {
-        this.startThread(false);
-        this.setVisible(true);
-    }
-
-    @Override
-    public void setDefaultCloseOperation(int operation) {
-        this.startThread(true);
-        super.setDefaultCloseOperation(operation); //To change body of generated methods, choose Tools | Templates.
-    }
     
-    private void startThread(boolean start){
-        for(Thread t: Board.threads){
-            if (!start)
-                t.suspend();
-            else
-                t.resume();
-        }
-    }
+    
 }

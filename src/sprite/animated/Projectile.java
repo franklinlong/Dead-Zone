@@ -1,6 +1,7 @@
 package sprite.animated;
 
 import deadzone.Handler;
+import gameMenu.PauseMenu;
 import java.awt.Color;
 import java.awt.Graphics;
 import sprite.Sprite;
@@ -27,8 +28,10 @@ public class Projectile extends AnimatedSprite{
 
     @Override
     public void animationCycle() {
-        setX(getX() + velX);
-        setY(getY() + velY);
+        if (!PauseMenu.pause){
+            setX(getX() + velX);
+            setY(getY() + velY);
+        }
         
         if(dye()){
             this.handler.getProiettili().remove(this);

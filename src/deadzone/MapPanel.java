@@ -1,14 +1,13 @@
 
 package deadzone;
 
+import gameMenu.PauseMenu;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Panel;
 import java.awt.Point;
 import java.awt.Toolkit;
-import java.util.Arrays;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import listeners.KAdapter;
@@ -70,6 +69,7 @@ public class MapPanel extends JPanel implements Runnable{
         long timer = 0;
         
         while(!handler.getPlayer().isDeath()){
+        
             now = System.nanoTime();
             delta += (now - lastTime)/timePerTick;
             timer += now - lastTime;
@@ -88,6 +88,7 @@ public class MapPanel extends JPanel implements Runnable{
                     ticks = 0;
                     timer = 0;
             }
+            
         }
         
         handler.spawn.stop();

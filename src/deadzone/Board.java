@@ -13,14 +13,12 @@ import javax.swing.JSplitPane;
 import listeners.KAdapter;
 import sprite.animated.Player;
 import utilities.Assets;
-import java.util.*;
 
 /**
  *
  * @author giova
  */
 public class Board extends JSplitPane implements Runnable{
-    public static List<Thread> threads = new LinkedList<>();
     private boolean inGame=false;
     private Thread tHud;
     private Thread tMap;
@@ -75,9 +73,6 @@ public class Board extends JSplitPane implements Runnable{
         tHud = new Thread(hudPanel);
         tMap.start();
         tHud.start();
-        
-        Board.threads.add(tMap);
-        Board.threads.add(tHud);
         
     }
     
