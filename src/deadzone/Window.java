@@ -19,11 +19,11 @@ public class Window extends JFrame{
 
 	public Window(String playerName) {
 
-        Image iconaFrame;
-        iconaFrame = new ImageIcon(getClass().getResource("/images/icona_frame.png")).getImage();
-        this.setIconImage(iconaFrame);  
-        //IF single player:
-        initUI(playerName);
+            Image iconaFrame;
+            iconaFrame = new ImageIcon(getClass().getResource("/images/icona_frame.png")).getImage();
+            this.setIconImage(iconaFrame);  
+            //IF single player:
+            initUI(playerName);
         }
 
     private void initUI(String playerName) {
