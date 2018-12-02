@@ -88,6 +88,8 @@ public class SinglePlayer extends javax.swing.JFrame {
             public void keyTyped(KeyEvent e){
                 if (jTextField1.getText().length() >= 12 || e.getKeyChar() == ' ')
                     e.consume();
+                if (jTextField1.getText().length() > 0 && Character.isUpperCase(e.getKeyChar()))
+                    e.setKeyChar(Character.toLowerCase(e.getKeyChar()));
             }
         });
 
@@ -386,21 +388,9 @@ public class SinglePlayer extends javax.swing.JFrame {
     private void jButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlayActionPerformed
         // TODO add your handling code here:
         if(!jTextField1.getText().isEmpty() && (jButtonUomo.isBorderPainted() || jButtonDonna.isBorderPainted())){
-            
-            if(jTextField1.getText().contains(" ")){
-                System.out.println("Ci sta uno spazio...");
-                int w = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconWidth()*1/6;
-                int h = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconHeight()*1/6;
-                ImageIcon i = ridimensionaImageIcon(getClass().getResource("/images/LogoBiancoENero.png"),w,h);
-                JOptionPane.showConfirmDialog(rootPane, "Name character must no contains whitespaces. Use another name.", "Insert a valid name", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_OPTION, i);
-            }
-            else{
-                new MapFrame(this).setVisible(true);
-                this.setVisible(false);
-            }
-            
-        }
-        else{
+            new MapFrame(this).setVisible(true);
+            this.setVisible(false);  
+        } else{
             int w = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconWidth()*1/6;
             int h = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconHeight()*1/6;
             ImageIcon i = ridimensionaImageIcon(getClass().getResource("/images/LogoBiancoENero.png"),w,h);
