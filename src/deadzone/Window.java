@@ -6,7 +6,9 @@
 package deadzone;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 /**
@@ -16,8 +18,12 @@ import javax.swing.JFrame;
 public class Window extends JFrame{
 
 	public Window(String playerName) {
+
+        Image iconaFrame;
+        iconaFrame = new ImageIcon(getClass().getResource("/images/icona_frame.png")).getImage();
+        this.setIconImage(iconaFrame);  
         //IF single player:
-            initUI(playerName);
+        initUI(playerName);
         }
 
     private void initUI(String playerName) {

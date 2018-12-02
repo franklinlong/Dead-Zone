@@ -34,8 +34,8 @@ public class Menu extends javax.swing.JFrame {
     
     public Menu() {
         Image iconaFrame;
-        iconaFrame = new ImageIcon("/images/icona_frame.png").getImage(); //TEMPORANEO(?)
-        this.setIconImage(iconaFrame);  
+        iconaFrame = new ImageIcon(getClass().getResource("/images/icona_frame.png")).getImage();
+        this.setIconImage(iconaFrame); 
         
         dim = Toolkit.getDefaultToolkit().getScreenSize();
         System.out.println(dim.getWidth());
