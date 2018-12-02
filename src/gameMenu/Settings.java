@@ -5,6 +5,8 @@
  */
 package gameMenu;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.*;
 
 /**
@@ -27,13 +29,26 @@ public class Settings extends javax.swing.JDialog {
         bg.add(this.awsd);
         bg.add(this.arrows);
        
+        
+        if (!Menu.gameMusic.isRunning()){
+            this.music.setText("OFF");
+        }
+        
+        if (!soundEffects){
+            this.effects.setText("OFF");
+        }
+        
+        if (padArrows){
+            this.arrows.setSelected(true);
+        }
+        
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
         Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();
         int x = (int) rect.getMaxX()/2 - this.getWidth()/2;
         int y = (int) rect.getMaxY()/2 - this.getHeight()/2;
         this.setLocation(x, y);
-        this.setVisible(true);
+        
     }
 
     /**

@@ -9,6 +9,7 @@ import utilities.Animation;
 import utilities.Assets;
 import deadzone.Gun;
 import deadzone.Handler;
+import gameMenu.PauseMenu;
 import utilities.Sound;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -124,86 +125,87 @@ public class Player extends AnimatedSprite{
 
     @Override
     public void animationCycle() {
+        if (!PauseMenu.pause){
+            //Controllo che sia vivo        
+            if(getHealth()<=0)
+                death();
         
-        //Controllo che sia vivo        
-        if(getHealth()<=0)
-            death();
+            float x = getX();
+            float y = getY();
+            x+=velX;
+            y+=velY;
+            //aggiorno le variabili dello sprite per come funziona collision
+            setX(x);
+            setY(y);
         
-        float x = getX();
-        float y = getY();
-        x+=velX;
-        y+=velY;
-        //aggiorno le variabili dello sprite per come funziona collision
-        setX(x);
-        setY(y);
+//          if (x < 0) {
+//              x = 2;
+//          }
+//          if (y < 0) {
+//              y = 2;
+//          }
+            int k = collision(this.initialVelocity, this.initialVelocity);
+            switch (k) {
+                case 1:
+                    x += velX * -1;
+                    break;
+                case 2:
+                    y += velY * -1;
+                    break;
+                case 3:
+                    y += velY * -1;
+                    x += velX * -1;
+                    break;
+                default:
+                    break;
+                 }
         
-//        if (x < 0) {
-//            x = 2;
-//        }
-//        if (y < 0) {
-//            y = 2;
-//        }
-        int k = collision(this.initialVelocity, this.initialVelocity);
-        switch (k) {
-            case 1:
-                x += velX * -1;
-                break;
-            case 2:
-                y += velY * -1;
-                break;
-            case 3:
-                y += velY * -1;
-                x += velX * -1;
-                break;
-            default:
-                break;
-             }
+            setX(x);
+            setY(y);
         
-        setX(x);
-        setY(y);
+            //scelta direzione dipendente dal tasto premuto
+            if(KAdapter.up)
+                velY = -initialVelocity;
+            else if(!KAdapter.down)
+                velY = 0;
         
-        //scelta direzione dipendente dal tasto premuto
-        if(KAdapter.up)
-            velY = -initialVelocity;
-        else if(!KAdapter.down)
-            velY = 0;
+            if(KAdapter.down)
+                velY = initialVelocity;
+            else if(!KAdapter.up)
+                velY = 0;
         
-        if(KAdapter.down)
-            velY = initialVelocity;
-        else if(!KAdapter.up)
-            velY = 0;
+            if(KAdapter.right)
+                velX = initialVelocity;
+            else if(!KAdapter.left)
+                velX = 0;
         
-        if(KAdapter.right)
-            velX = initialVelocity;
-        else if(!KAdapter.left)
-            velX = 0;
+            if(KAdapter.left)
+                velX = -initialVelocity;
+            else if(!KAdapter.right)
+                velX = 0;
         
-        if(KAdapter.left)
-            velX = -initialVelocity;
-        else if(!KAdapter.right)
-            velX = 0;
+            //scelta arma corrente in base al pulsante 1-2-3
+            if(KAdapter.one)
+                    currentGun = pistol;
+            if(KAdapter.two)
+                    currentGun = rifle;
+            if(KAdapter.three)
+                    currentGun = shotgun;
         
-        //scelta arma corrente in base al pulsante 1-2-3
-        if(KAdapter.one)
-                currentGun = pistol;
-        if(KAdapter.two)
-                currentGun = rifle;
-        if(KAdapter.three)
-                currentGun = shotgun;
+            //viene premuto R quindi reload
+            if(KAdapter.reload && currentGun.getRound() != currentGun.getBulletsPerRound() &&
+                            currentGun.getTotalBullets() > 0)
+                currentGun.reload();
         
-        //viene premuto R quindi reload
-        if(KAdapter.reload && currentGun.getRound() != currentGun.getBulletsPerRound() &&
-                        currentGun.getTotalBullets() > 0)
-            currentGun.reload();
+            //viene premuto left(mouse) quindi sparo
+            if(MAdapter.left){  
+                //Abbiamo aggiunto un parametro random tra -5 e 5 gradi per inserire una inprecisione dell'arma.
+                currentGun.shoot((float)(angle + (Math.random() - 0.5)*(Math.PI)/36), x, y);
+            }
         
-        //viene premuto left(mouse) quindi sparo
-        if(MAdapter.left){  
-            //Abbiamo aggiunto un parametro random tra -5 e 5 gradi per inserire una inprecisione dell'arma.
-            currentGun.shoot((float)(angle + (Math.random() - 0.5)*(Math.PI)/36), x, y);
+            //aggiorno animazione del personaggio
+            currentGun.update();
         }
-        
-        //aggiorno animazione del personaggio
-        currentGun.update();
     }
 
     public Gun getCurrentGun() {

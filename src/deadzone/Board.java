@@ -73,6 +73,7 @@ public class Board extends JSplitPane implements Runnable{
         tHud = new Thread(hudPanel);
         tMap.start();
         tHud.start();
+        
     }
     
     private synchronized void stopGame(){

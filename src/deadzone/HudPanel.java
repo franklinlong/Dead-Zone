@@ -13,6 +13,7 @@ import javax.swing.*;
 import sprite.Sprite;
 import sprite.animated.Player;
 import sprite.animated.Zombie;
+import gameMenu.*;
 
 public class HudPanel extends JPanel implements Runnable {
     
@@ -230,10 +231,16 @@ public class HudPanel extends JPanel implements Runnable {
         pauseButton.setText("PAUSE");
         pauseButton.setForeground(Color.white);
         pauseButton.setFont(new java.awt.Font("Comic Sans MS", 1, pauseButton.getHeight()));
-        pauseButton.setLocation(minimapPanel.getX(), scoreLabel.getY() + scoreLabel.getHeight()*2);
+        pauseButton.setLocation(minimapPanel.getX(), this.getHeight()-pauseButton.getHeight()*2);
         System.out.println(pauseButton.getLocation());
         this.add(pauseButton);
-
+        
+        pauseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pauseActionPerformed(evt);
+            }
+        });
+        
         this.setBackground(Color.BLACK);
     
     }
@@ -271,9 +278,13 @@ public class HudPanel extends JPanel implements Runnable {
     
 
     
-   
     
-
+    private void pauseActionPerformed(java.awt.event.ActionEvent evt){
+        JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        PauseMenu pm = new PauseMenu(topFrame, true);
+        pm.setVisible(true);
+    }
+    
     @Override
     public void run() {   //nel while dovrebbe essere tipo: chiama le varie set delle label (vita, punteggio ecc) poi chiama repaint su this e su minimapPanel
         int fps = 60;
@@ -285,6 +296,7 @@ public class HudPanel extends JPanel implements Runnable {
         long timer = 0;
         
         do{
+            
             now = System.nanoTime();
             delta += (now - lastTime)/timePerTick;
             timer += now - lastTime;
@@ -315,6 +327,7 @@ public class HudPanel extends JPanel implements Runnable {
                     ticks = 0;
                     timer = 0;
             }
+            
         } while(!handler.getPlayer().isDeath());
         
         System.out.println("FINE PARTITA HUD");

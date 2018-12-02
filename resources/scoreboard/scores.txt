@@ -1,10 +1,10 @@
 Gennaro 34560
 Oscar 750
+Ciccio 145
 Francesco 30
 Giuseppe 25
 Andrea 20
 Angelo 15
 Nicola 10
 Enrico 5
-ercucchia 1
-Sic 1
+ercucchiaio1 1

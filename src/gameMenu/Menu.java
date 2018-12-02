@@ -54,15 +54,17 @@ public class Menu extends javax.swing.JFrame {
         
         
         initComponents();
-             
+        
         sfondo.setPreferredSize(dim.getSize());
         sfondo.setIcon(immagineSfondo);
         gifMano.setIcon(gif);
         logo.setIcon(immagineLogo);
         
-        this.gameClip = Utilities.LoadSound("/sound/gameMusic.wav");
-        this.gameMusic = new Sound(gameClip);
-        this.gameMusic.loopSound();
+        if (gameMusic == null){
+            this.gameClip = Utilities.LoadSound("/sound/gameMusic.wav");
+            this.gameMusic = new Sound(gameClip);
+            this.gameMusic.loopSound();
+        }
     }
 
     /**

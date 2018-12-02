@@ -6,6 +6,7 @@
 package sprite.animated;
 
 import deadzone.Handler;
+import gameMenu.PauseMenu;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -106,77 +107,78 @@ public class Zombie extends AnimatedSprite{
 
     @Override
     public void animationCycle() {
+        if (!PauseMenu.pause){
+            //Controllo che sia vivo        
+            if(getHealth()<=0)
+                death();
         
-        //Controllo che sia vivo        
-        if(getHealth()<=0)
-            death();
         
-        
-        //in base al percorso che deve seguire lo zombie, a[] avrà la velocitaX e la velocitaY
-        float[] a = new Route(player, this).seek();
+            //in base al percorso che deve seguire lo zombie, a[] avrà la velocitaX e la velocitaY
+            float[] a = new Route(player, this).seek();
         			
-        //Codice per ricalcolare la direzione in base alla presenza di zombie vicini ... DA FARE
-        //a = new Route(player, this).evitaZombie(a[0],a[1], this.handler.getZombies());
+            //Codice per ricalcolare la direzione in base alla presenza di zombie vicini ... DA FARE
+            //a = new Route(player, this).evitaZombie(a[0],a[1], this.handler.getZombies());
         
         
-        angle = (float) Math.acos(a[0]);
-        if(a[1] < 0)
-                angle *= -1;
+            angle = (float) Math.acos(a[0]);
+            if(a[1] < 0)
+                    angle *= -1;
         
-        float toPlayerX = player.getX() - this.getX();
-        float toPlayerY = player.getY() - this.getY();
-	distanceToPlayerX = (float)(Math.sqrt(toPlayerX*toPlayerX + toPlayerY*toPlayerY));
-        distanceToPlayerY = (float)(Math.sqrt(toPlayerX*toPlayerX + toPlayerY*toPlayerY));
+            float toPlayerX = player.getX() - this.getX();
+            float toPlayerY = player.getY() - this.getY();
+            distanceToPlayerX = (float)(Math.sqrt(toPlayerX*toPlayerX + toPlayerY*toPlayerY));
+            distanceToPlayerY = (float)(Math.sqrt(toPlayerX*toPlayerX + toPlayerY*toPlayerY));
         
-        //Se lo zombie è vicino al player lo attacca e quindi non si deve muovere
-        if(distanceToPlayerX < player.width/2 && distanceToPlayerY < player.height/2 && !attackDelay.isRunning() && !player.isDeath())
-        {
-            attacking = true;
-            attackDelay.start();
-            currentAnimation = attackAnimation;
-            currentAnimation.setIndex();
-        }
+            //Se lo zombie è vicino al player lo attacca e quindi non si deve muovere
+            if(distanceToPlayerX < player.width/2 && distanceToPlayerY < player.height/2 && !attackDelay.isRunning() && !player.isDeath())
+            {
+                attacking = true;
+                attackDelay.start();
+                currentAnimation = attackAnimation;
+                currentAnimation.setIndex();
+            }
         
-        //Se è in corso l'animazione dell'attacco lo zombie non si muove
-        //Se il player è morto lo zombie non s muove
-        if(attacking || player.isDeath()){
-            a[0] = 0;
-            a[1] = 0;
-        }
+            //Se è in corso l'animazione dell'attacco lo zombie non si muove
+            //Se il player è morto lo zombie non s muove
+            if(attacking || player.isDeath()){
+                a[0] = 0;
+                a[1] = 0;
+            }
         
-        float x = getX();
-        float y = getY();
+            float x = getX();
+            float y = getY();
         
-        //Aggiorno la posizione dello zombie in base ai calcoli sul percorso
-        x += a[0];
-        y += a[1];
+            //Aggiorno la posizione dello zombie in base ai calcoli sul percorso
+            x += a[0];
+            y += a[1];
         
-        //aggiorno le variabili dello sprite per come funziona collision
-        setX(x);
-        setY(y);
+            //aggiorno le variabili dello sprite per come funziona collision
+            setX(x);
+            setY(y);
         
-        //Se c'è una collisione non posso passare
-        int k = collision(this.initialVelocity, this.initialVelocity);
-        switch (k) {
-            case 1:
-                x -= a[0] ;
-                break;
-            case 2:
-                y -= a[1];
-                break;
-            case 3:
-                x -= a[0] ;
-                y -= a[1];
-                break;
-            default:
-                break;
-             }
+            //Se c'è una collisione non posso passare
+            int k = collision(this.initialVelocity, this.initialVelocity);
+            switch (k) {
+                case 1:
+                    x -= a[0] ;
+                    break;
+                case 2:
+                    y -= a[1];
+                    break;
+                case 3:
+                    x -= a[0] ;
+                    y -= a[1];
+                    break;
+                default:
+                    break;
+                }
                 
-        setX(x);
-        setY(y);
+            setX(x);
+            setY(y);
         
-        //Aggiorno l'animazione
-        currentAnimation.update();
+            //Aggiorno l'animazione
+            currentAnimation.update();
+            }
     }
     
     //Metodo chiamato alla morte dello zombie

@@ -36,10 +36,7 @@ public class Animation {
 
             if(time > velocity){
                     time = 0;
-                    index ++;
-                    if(index == frames.length){
-                            index = 0;
-                    }
+                    index = ++index % frames.length;
 
             }
 

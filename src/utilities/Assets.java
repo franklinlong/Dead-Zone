@@ -41,6 +41,10 @@ public class Assets {
                 public static BufferedImage ammo;
                 public static BufferedImage nuke;
                 
+                public static BufferedImage minimap;
+                public static BufferedImage greenIndicator;
+                public static BufferedImage redIndicator;
+                
 		public static void init(){
 			
                     // animations
@@ -110,6 +114,11 @@ public class Assets {
                     
                     shotgunReloadSound = Utilities.LoadSound("/sound/pistolReload.wav");
                     shotgunShoot = Utilities.LoadSound("/sound/pistol.wav");
+                    
+                    //minimap
+//                    minimap = Utilities.loadImage("/images/grigionero.png");
+//                    greenIndicator = Utilities.loadImage("/images/green.png");
+//                    redIndicator = Utilities.loadImage("/images/red.png");
                     
 
 		}
