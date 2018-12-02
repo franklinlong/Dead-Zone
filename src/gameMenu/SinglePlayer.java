@@ -12,7 +12,6 @@ import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.net.URL;
-import java.util.LinkedList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -356,12 +355,9 @@ public class SinglePlayer extends javax.swing.JFrame {
         getContentPane().add(jButtonPlay);
         jButtonPlay.setBounds(330, 490, 100, 25);
 
-        sfondo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        sfondo.setSize(768,575);
-        ImageIcon sfo  = ridimensionaImageIcon(getClass().getResource("/images/sfondo_senza_spari.png"), sfondo.getWidth(), sfondo.getHeight());
-        sfondo.setIcon(sfo);
+        sfondo.setIcon(new ImageIcon(getClass().getResource("/images/sfondo_senza_spari.png")));
         getContentPane().add(sfondo);
-        sfondo.setBounds(0, 0, 768, 575);
+        sfondo.setBounds(-10, -10, 930, 640);
 
         pack();
         setLocationRelativeTo(null);

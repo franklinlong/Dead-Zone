@@ -546,14 +546,13 @@
     </Component>
     <Component class="javax.swing.JLabel" name="sfondo">
       <Properties>
-        <Property name="horizontalAlignment" type="int" value="4" postCode="sfondo.setSize(768,575);&#xa;ImageIcon sfo  = ridimensionaImageIcon(getClass().getResource(&quot;/images/sfondo_senza_spari.png&quot;), sfondo.getWidth(), sfondo.getHeight());"/>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="sfo" type="code"/>
+          <Connection code="new ImageIcon(getClass().getResource(&quot;/images/sfondo_senza_spari.png&quot;))" type="code"/>
         </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="0" y="0" width="768" height="575"/>
+          <AbsoluteConstraints x="-10" y="-10" width="930" height="640"/>
         </Constraint>
       </Constraints>
     </Component>
