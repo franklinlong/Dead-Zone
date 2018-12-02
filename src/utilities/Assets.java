@@ -25,7 +25,7 @@ public class Assets {
 
 
 		// guns skin
-		public static BufferedImage pistolSkin, ak47, rifleLoader;
+		public static BufferedImage pistolSkin, ak47, rifleLoader, shotgunSkin;
 		
 		
 		//sounds		
@@ -85,7 +85,7 @@ public class Assets {
                     
 
                     //gun skins
-
+                    shotgunSkin = Utilities.loadImage("/guns/shotgun.png");
                     pistolSkin = Utilities.loadImage("/guns/pistol.png");
                     ak47 = Utilities.loadImage("/guns/ak-47.png");
                     rifleLoader = Utilities.loadImage("/guns/rifleLoader.png");

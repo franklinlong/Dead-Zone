@@ -12,6 +12,7 @@ import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -60,18 +61,27 @@ public class SinglePlayer extends javax.swing.JFrame {
         
         Scoreboard scoreboard = new Scoreboard();
         List<Score> scoreList = scoreboard.getScoreboard();
-        System.out.println(scoreList.get(2).getScore());
+        List<String> scoreList2 = new LinkedList();
         
-        this.jScore1.setText("1) "+scoreList.get(0).toString());
-        this.jScore2.setText("2) "+scoreList.get(1).toString());
-        this.jScore3.setText("3) "+scoreList.get(2).toString());
-        this.jScore4.setText("4) "+scoreList.get(3).toString());
-        this.jScore5.setText("5) "+scoreList.get(4).toString());
-        this.jScore6.setText("6) "+scoreList.get(5).toString());
-        this.jScore7.setText("7) "+scoreList.get(6).toString());
-        this.jScore8.setText("8) "+scoreList.get(7).toString());
-        this.jScore9.setText("9) "+scoreList.get(8).toString());
-        this.jScore10.setText("10) "+scoreList.get(9).toString());
+        for(Score s : scoreList){
+            String player = s.getPlayer();
+            while(player.length()<=12){
+                player += " ";
+            }
+            System.out.println(player.length());
+            player += Integer.toString(s.getScore());
+            scoreList2.add(player);
+        }
+        this.jScore1.setText("1) "+scoreList2.get(0));
+        this.jScore2.setText("2) "+scoreList2.get(1));
+        this.jScore3.setText("3) "+scoreList2.get(2));
+        this.jScore4.setText("4) "+scoreList2.get(3));
+        this.jScore5.setText("5) "+scoreList2.get(4));
+        this.jScore6.setText("6) "+scoreList2.get(5));
+        this.jScore7.setText("7) "+scoreList2.get(6));
+        this.jScore8.setText("8) "+scoreList2.get(7));
+        this.jScore9.setText("9) "+scoreList2.get(8));
+        this.jScore10.setText("10) "+scoreList2.get(9));
         
         
         jTextField1.addKeyListener(new KeyAdapter() {

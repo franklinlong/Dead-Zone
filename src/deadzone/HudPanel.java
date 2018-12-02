@@ -163,7 +163,7 @@ public class HudPanel extends JPanel implements Runnable {
         this.actualWeapon = new ImageIcon(handler.getPlayer().getCurrentGun().getSkin());
         gunLabel.setSize(actualWeapon.getIconWidth(),actualWeapon.getIconHeight());
         gunLabel.setIcon((actualWeapon));
-        gunLabel.setLocation(this.getWidth() - imageLabel.getWidth()*3/2,imageLabel.getY());
+        gunLabel.setLocation(this.getWidth()/2 ,imageLabel.getY());
         this.add(gunLabel);
         
         this.numBullets = new JLabel();
