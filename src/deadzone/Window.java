@@ -17,14 +17,13 @@ import javax.swing.JFrame;
  */
 public class Window extends JFrame{
 
-	public Window(String playerName) {
-
-            Image iconaFrame;
-            iconaFrame = new ImageIcon(getClass().getResource("/images/icona_frame.png")).getImage();
-            this.setIconImage(iconaFrame);  
-            //IF single player:
-            initUI(playerName);
-        }
+    public Window(String playerName) {
+        Image iconaFrame;
+        iconaFrame = new ImageIcon(getClass().getResource("/images/icona_frame.png")).getImage();
+        this.setIconImage(iconaFrame);  
+        //IF single player:
+        initUI(playerName);
+    }
 
     private void initUI(String playerName) {
         add(new Board(playerName));

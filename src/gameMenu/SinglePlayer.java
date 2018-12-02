@@ -174,77 +174,77 @@ public class SinglePlayer extends javax.swing.JFrame {
         jScoreboard.setText("          Scoreboard:");
         jScoreboard.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         getContentPane().add(jScoreboard);
-        jScoreboard.setBounds(480, 30, 290, 30);
+        jScoreboard.setBounds(450, 30, 290, 30);
 
         jScore1.setBackground(new java.awt.Color(255, 255, 255));
         jScore1.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jScore1.setForeground(new java.awt.Color(255, 255, 255));
         jScore1.setText("1)");
         getContentPane().add(jScore1);
-        jScore1.setBounds(480, 90, 170, 30);
+        jScore1.setBounds(440, 90, 200, 30);
 
         jScore3.setBackground(new java.awt.Color(255, 153, 255));
         jScore3.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jScore3.setForeground(new java.awt.Color(255, 255, 255));
         jScore3.setText("3)");
         getContentPane().add(jScore3);
-        jScore3.setBounds(480, 170, 170, 30);
+        jScore3.setBounds(440, 170, 200, 30);
 
         jScore10.setBackground(new java.awt.Color(255, 153, 255));
         jScore10.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jScore10.setForeground(new java.awt.Color(255, 255, 255));
         jScore10.setText("10)");
         getContentPane().add(jScore10);
-        jScore10.setBounds(480, 450, 170, 30);
+        jScore10.setBounds(440, 450, 200, 30);
 
         jScore2.setBackground(new java.awt.Color(255, 153, 255));
         jScore2.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jScore2.setForeground(new java.awt.Color(255, 255, 255));
         jScore2.setText("2)");
         getContentPane().add(jScore2);
-        jScore2.setBounds(480, 130, 170, 30);
+        jScore2.setBounds(440, 130, 200, 30);
 
         jScore4.setBackground(new java.awt.Color(255, 153, 255));
         jScore4.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jScore4.setForeground(new java.awt.Color(255, 255, 255));
         jScore4.setText("4)");
         getContentPane().add(jScore4);
-        jScore4.setBounds(480, 210, 170, 30);
+        jScore4.setBounds(440, 210, 200, 30);
 
         jScore5.setBackground(new java.awt.Color(255, 153, 255));
         jScore5.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jScore5.setForeground(new java.awt.Color(255, 255, 255));
         jScore5.setText("5)");
         getContentPane().add(jScore5);
-        jScore5.setBounds(480, 250, 170, 30);
+        jScore5.setBounds(440, 250, 200, 30);
 
         jScore6.setBackground(new java.awt.Color(255, 153, 255));
         jScore6.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jScore6.setForeground(new java.awt.Color(255, 255, 255));
         jScore6.setText("6)");
         getContentPane().add(jScore6);
-        jScore6.setBounds(480, 290, 170, 30);
+        jScore6.setBounds(440, 290, 200, 30);
 
         jScore7.setBackground(new java.awt.Color(255, 153, 255));
         jScore7.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jScore7.setForeground(new java.awt.Color(255, 255, 255));
         jScore7.setText("7)");
         getContentPane().add(jScore7);
-        jScore7.setBounds(480, 330, 170, 30);
+        jScore7.setBounds(440, 330, 200, 30);
 
         jScore8.setBackground(new java.awt.Color(255, 153, 255));
         jScore8.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jScore8.setForeground(new java.awt.Color(255, 255, 255));
         jScore8.setText("8)");
         getContentPane().add(jScore8);
-        jScore8.setBounds(480, 370, 170, 30);
+        jScore8.setBounds(440, 370, 200, 30);
 
         jScore9.setBackground(new java.awt.Color(255, 153, 255));
         jScore9.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jScore9.setForeground(new java.awt.Color(255, 255, 255));
         jScore9.setText("9)");
         getContentPane().add(jScore9);
-        jScore9.setBounds(480, 410, 170, 30);
+        jScore9.setBounds(440, 410, 200, 30);
 
         jLabel3.setFont(new java.awt.Font("Papyrus", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -258,61 +258,61 @@ public class SinglePlayer extends javax.swing.JFrame {
         jPunt1.setForeground(new java.awt.Color(255, 255, 255));
         jPunt1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         getContentPane().add(jPunt1);
-        jPunt1.setBounds(655, 90, 100, 30);
+        jPunt1.setBounds(645, 90, 110, 30);
 
         jPunt2.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jPunt2.setForeground(new java.awt.Color(255, 255, 255));
         jPunt2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         getContentPane().add(jPunt2);
-        jPunt2.setBounds(655, 130, 100, 30);
+        jPunt2.setBounds(645, 130, 110, 30);
 
         jPunt3.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jPunt3.setForeground(new java.awt.Color(255, 255, 255));
         jPunt3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         getContentPane().add(jPunt3);
-        jPunt3.setBounds(655, 170, 100, 30);
+        jPunt3.setBounds(645, 170, 110, 30);
 
         jPunt4.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jPunt4.setForeground(new java.awt.Color(255, 255, 255));
         jPunt4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         getContentPane().add(jPunt4);
-        jPunt4.setBounds(655, 210, 100, 30);
+        jPunt4.setBounds(645, 210, 110, 30);
 
         jPunt5.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jPunt5.setForeground(new java.awt.Color(255, 255, 255));
         jPunt5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         getContentPane().add(jPunt5);
-        jPunt5.setBounds(655, 250, 100, 30);
+        jPunt5.setBounds(645, 250, 110, 30);
 
         jPunt6.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jPunt6.setForeground(new java.awt.Color(255, 255, 255));
         jPunt6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         getContentPane().add(jPunt6);
-        jPunt6.setBounds(655, 290, 100, 30);
+        jPunt6.setBounds(645, 290, 110, 30);
 
         jPunt7.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jPunt7.setForeground(new java.awt.Color(255, 255, 255));
         jPunt7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         getContentPane().add(jPunt7);
-        jPunt7.setBounds(655, 330, 100, 30);
+        jPunt7.setBounds(645, 330, 110, 30);
 
         jPunt8.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jPunt8.setForeground(new java.awt.Color(255, 255, 255));
         jPunt8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         getContentPane().add(jPunt8);
-        jPunt8.setBounds(655, 370, 100, 30);
+        jPunt8.setBounds(645, 370, 110, 30);
 
         jPunt9.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jPunt9.setForeground(new java.awt.Color(255, 255, 255));
         jPunt9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         getContentPane().add(jPunt9);
-        jPunt9.setBounds(655, 410, 100, 30);
+        jPunt9.setBounds(645, 410, 110, 30);
 
         jPunt10.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jPunt10.setForeground(new java.awt.Color(255, 255, 255));
         jPunt10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         getContentPane().add(jPunt10);
-        jPunt10.setBounds(655, 450, 100, 30);
+        jPunt10.setBounds(645, 450, 110, 30);
 
         jButtonDonna.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jButtonDonna.setBorderPainted(false);
@@ -370,12 +370,10 @@ public class SinglePlayer extends javax.swing.JFrame {
     private void jButtonUomoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUomoActionPerformed
         // TODO add your handling code here:
         jButtonUomo.setBorderPainted(true);
-        System.out.println("Selezionato Uomo");
     }//GEN-LAST:event_jButtonUomoActionPerformed
 
     private void jButtonDonnaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDonnaActionPerformed
         // TODO add your handling code here:
-        System.out.println("Selezionato Donna");
         jButtonUomo.setBorderPainted(false);
     }//GEN-LAST:event_jButtonDonnaActionPerformed
 

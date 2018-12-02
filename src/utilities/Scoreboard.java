@@ -44,7 +44,6 @@ public class Scoreboard {
         else {this.scoreboard.removeLast();}
         
         int index = this.findGT(score);
-        System.out.println(index);
         this.scoreboard.add(index, new Score(player, score));
         
         this.saveScoreboard();

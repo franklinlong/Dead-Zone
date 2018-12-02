@@ -39,7 +39,6 @@ public class MapFrame extends javax.swing.JFrame {
         iconaFrame = new ImageIcon(getClass().getResource("/images/icona_frame.png")).getImage();
         this.setIconImage(iconaFrame);  
         
-        System.out.println("Single Player");
         
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         dim.setSize(1920*2/5, 575);
