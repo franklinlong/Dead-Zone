@@ -23,18 +23,16 @@ public class Waves implements Runnable {
     private int numZombieRound;
     private int numZombieKilledRound;
     private boolean allKilled;
-    private static final Object KL = new Object();
+    private static final Object KL = new Object(); //lock per l'allKilled
     private float mult;
-    private int zombieSpowned;
     private Handler handler;
 
     public Waves(Handler handler) {
         this.numZombieRound = 0;
         this.handler = handler;
         this.waveCount = 0;
-        this.mult = 1;
-        this.numZombieKilledRound = 0;
-        this.zombieSpowned = 0;
+        this.mult = 1; //moltiplicatore per la salute dello zombie. Viene incrementato di 0.13 ogni 5 ondate
+        this.numZombieKilledRound = 0; //zombie uccisi per round
     }
 
     @Override
@@ -42,9 +40,9 @@ public class Waves implements Runnable {
         float x = 0;
         float y = 0;
         while (!handler.getPlayer().isDeath()) {
-            this.waveCount += 1;
-            this.allKilled = false;
-            this.numZombieRound += 8;
+            this.waveCount += 1; //incremento di 1 il numero di ondata
+            this.allKilled = false; 
+            this.numZombieRound += 8; //aumentano di 8 ogni ondata
             if (!(this.numZombieRound <= 40)) {
                 this.numZombieRound = 48;
             }
@@ -53,30 +51,49 @@ public class Waves implements Runnable {
             }
             int i = 0;
             while (!handler.getPlayer().isDeath() && i < this.numZombieRound) {
-                boolean p = PauseMenu.pause;
+                boolean p = PauseMenu.pause; //non cancellare, senza non funziona... da vedere
                 if (!p) {
-                    int n = (int) (Math.random() * 5);
+                    int n = (int) (Math.random() * 10);
                     switch (n) {
-                        case 0:                 //fosso
-                            x = 2050;
-                            y = 2570;
+                        case 0:                 //fossa
+                            x = 2072;
+                            y = 2514;
                             break;
                         case 1:                 //tomba 11
                             x = 2224;
-                            y = 242;
+                            y = 238;
                             break;
                         case 2:                 //tomba 21
-                            x = 2700;
-                            y = 242;
+                            x = 2716;
+                            y = 238;
                             break;
                         case 3:                 //tomba 12
-                            x = 2420;
-                            y = 470;
+                            x = 2418;
+                            y = 466;
                             break;
                         case 4:                 //tomba 22
-                            x = 2800;
-                            y = 470;
+                            x = 2804;
+                            y = 466;
                             break;
+                        case 5:
+                            x = 608;            //teatro
+                            y = 3118;
+                            break;
+                        case 6:                 //fognatura 2
+                            x = 624;
+                            y = 2080;
+                            break;
+                        case 7:                 //parco
+                            x = 0;
+                            y = 1640;
+                            break;
+                        case 8:                 //incrocio sopra parco
+                            x = 132;
+                            y = 1282;
+                            break;
+                        case 9:                 //fognatura 1
+                            x = 674;
+                            y = 300;                        
                     }
                 }
                 this.createStandardZommbie(x, y, mult, (float) 1);
@@ -91,7 +108,7 @@ public class Waves implements Runnable {
             synchronized (KL) {
                 while (!this.allKilled) {
                     try {
-                        KL.wait();
+                        KL.wait(); //si aspetta che venga modificato allKilled
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Waves.class.getName()).log(Level.SEVERE, null, ex);
                     }
