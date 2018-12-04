@@ -31,6 +31,7 @@ public class Projectile extends AnimatedSprite{
         if (!PauseMenu.pause){
             setX(getX() + velX);
             setY(getY() + velY);
+            this.setHealth(this.getHealth() - 1);
         }
         
         if(dye()){
@@ -58,6 +59,11 @@ public class Projectile extends AnimatedSprite{
                 y.hit(damage);
                 return true;
             }
+        
+        //I proiettili hanno una portata limitata
+        if(this.getHealth() == 0)
+            return true;
+        
         return false;
     }
 }

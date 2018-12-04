@@ -26,167 +26,53 @@ import sprite.Nuke;
  *
  * @author USER
  */
-public class Zombie extends AnimatedSprite{
-
-    public static final int ZOMBIESIZE = 60;
-    public static final int SCORE = 5;
+public abstract class Zombie extends AnimatedSprite{
+    private final int score;
+    protected float distanceToPlayerX;
+    protected float distanceToPlayerY;
     
-    private float distanceToPlayerX;
-    private float distanceToPlayerY;
+    protected final Player player;
     
-    private final Player player;
-    
-    //Danni inflitti dallo zombie quando attacca
-    private final int damage = 20;
-    
-    private final Animation walkAnimation, attackAnimation;
-    private Animation currentAnimation;
+    protected final Animation walkAnimation, attackAnimation;
+    protected Animation currentAnimation;
     
     private final Sound biteSound,hitSound;
     
-    private Timer attackDelay, hitZombie;
-    private boolean attacking = false;
+    protected boolean attacking = false;
     
-    private final Handler handler;
-    private float probabilityDrop; //probabilità percentuale di rilascio oggetto dello zombie
+    protected final Handler handler;
+    private final float probabilityDrop; //probabilità percentuale di rilascio oggetto dello zombie
     
-    public Zombie(float x, float y, int vel, int health, Player player, Handler handler, float probabilityDrop) {
-        super(x, y, ZOMBIESIZE, ZOMBIESIZE, vel, health);
+    public Zombie(float x, float y, int vel, int health, Player player, Handler handler, 
+            float probabilityDrop, int width, int height, int score, Animation walkAnimation, Animation
+                    attackAnimation, Sound biteSound, Sound hitSound) {
+        super(x, y, width, height, vel, health);
         this.velX = vel;
         this.velY = vel;
         this.player = player;
         this.handler = handler;
         this.probabilityDrop = probabilityDrop;
-        biteSound = new Sound(Assets.zombieBite);
-        hitSound = new Sound(Assets.zombieHit);
-        
-        attackDelay = new Timer(350, new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(distanceToPlayerX < Player.PLAYERSIZE && distanceToPlayerY < Player.PLAYERSIZE && player.isDeath() == false)
-                { 
-                    biteSound.playSound();
-                    player.hit(damage);
-                }
-
-                attackDelay.stop();
-                attacking = false;
-                currentAnimation = walkAnimation;
-            }
-
-        });
-        
-        hitZombie = new Timer(300,new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                hitSound.playSound();
-                hitZombie.stop();
-            }
-        });
+        this.score = score;
            
-        walkAnimation = new Animation(Assets.zombie, 20);
-        attackAnimation = new Animation(Assets.zombieAttack, 35);
+        this.walkAnimation = walkAnimation;
+        this.attackAnimation = attackAnimation;
+        this.biteSound = biteSound;
+        this.hitSound = hitSound;
         currentAnimation = walkAnimation;
     }
 
     @Override
-    public void drawImage(Graphics g, float offsetX, float offsetY) {
-        double xx,yy;
-        xx=getX()-offsetX;
-        yy=getY()-offsetY;
-
-                
-        at = AffineTransform.getTranslateInstance(xx,yy);
-        at.rotate(angle,this.width/2,this.height/2);
-        
-        
-        Graphics2D g2d = (Graphics2D)g;
-        g2d.drawImage(currentAnimation.getCurrentFrame(), at, null);
-        
-    }
+    public abstract void drawImage(Graphics g, float offsetX, float offsetY);
 
     @Override
-    public void animationCycle() {
-        if (!PauseMenu.pause){
-            //Controllo che sia vivo        
-            if(getHealth()<=0)
-                death();
-        
-        
-            //in base al percorso che deve seguire lo zombie, a[] avrà la velocitaX e la velocitaY
-            float[] a = new Route(player, this).seek();
-        			
-            //Codice per ricalcolare la direzione in base alla presenza di zombie vicini ... DA FARE
-            //a = new Route(player, this).evitaZombie(a[0],a[1], this.handler.getZombies());
-        
-        
-            angle = (float) Math.acos(a[0]);
-            if(a[1] < 0)
-                    angle *= -1;
-        
-            float toPlayerX = player.getX() - this.getX();
-            float toPlayerY = player.getY() - this.getY();
-            distanceToPlayerX = (float)(Math.sqrt(toPlayerX*toPlayerX + toPlayerY*toPlayerY));
-            distanceToPlayerY = (float)(Math.sqrt(toPlayerX*toPlayerX + toPlayerY*toPlayerY));
-        
-            //Se lo zombie è vicino al player lo attacca e quindi non si deve muovere
-            if(distanceToPlayerX < player.width/2 && distanceToPlayerY < player.height/2 && !attackDelay.isRunning() && !player.isDeath())
-            {
-                attacking = true;
-                attackDelay.start();
-                currentAnimation = attackAnimation;
-                currentAnimation.setIndex();
-            }
-        
-            //Se è in corso l'animazione dell'attacco lo zombie non si muove
-            //Se il player è morto lo zombie non s muove
-            if(attacking || player.isDeath()){
-                a[0] = 0;
-                a[1] = 0;
-            }
-        
-            float x = getX();
-            float y = getY();
-        
-            //Aggiorno la posizione dello zombie in base ai calcoli sul percorso
-            x += a[0];
-            y += a[1];
-        
-            //aggiorno le variabili dello sprite per come funziona collision
-            setX(x);
-            setY(y);
-        
-            //Se c'è una collisione non posso passare
-            int k = collision(this.initialVelocity, this.initialVelocity);
-            switch (k) {
-                case 1:
-                    x -= a[0] ;
-                    break;
-                case 2:
-                    y -= a[1];
-                    break;
-                case 3:
-                    x -= a[0] ;
-                    y -= a[1];
-                    break;
-                default:
-                    break;
-                }
-                
-            setX(x);
-            setY(y);
-        
-            //Aggiorno l'animazione
-            currentAnimation.update();
-            }
-    }
+    public abstract void animationCycle();
     
     //Metodo chiamato alla morte dello zombie
     @Override
     public void death(){    
         //Alla orte dello zombie si crea la chiazza di sangue
         this.handler.addSprite(new Blood(this.getX(), this.getY(),30, 30, handler));
-        this.player.updatePunteggio(SCORE);
+        this.player.updatePunteggio(this.score);
         this.player.updateZombieKilled();
         this.handler.getWaves().updateNumZombieKilledRound();
         
@@ -212,15 +98,13 @@ public class Zombie extends AnimatedSprite{
             }
         }
         
-        //Lo zombie viene rimosso
         this.handler.removeSprite(this);
     }
     
-    //metodo chiamato dall'esterno che mi infligge danni
     public void hit(int damage){
         setHealth(getHealth()-damage);
-        if(!hitZombie.isRunning())
-            hitZombie.start();
+        sound_hit();
     }
-    
+   
+    public abstract void sound_hit();
 }

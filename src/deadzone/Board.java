@@ -18,10 +18,10 @@ import utilities.Assets;
  *
  * @author giova
  */
-public class Board extends JSplitPane implements Runnable{
+public class Board extends JSplitPane{
     private boolean inGame=false;
-    private Thread tHud;
-    private Thread tMap;
+    public static Thread tHud;
+    public static Thread tMap;
     private long averageFPS = 0;
     private Handler handler; 
     private Player player;
@@ -73,35 +73,7 @@ public class Board extends JSplitPane implements Runnable{
         tHud = new Thread(hudPanel);
         tMap.start();
         tHud.start();
-        
     }
-    
-    private synchronized void stopGame(){
-        if(!inGame)
-            return;
-        try {
-            inGame = false;
-            tHud.join();
-            tMap.join();
-	} catch (InterruptedException e) {
-            e.printStackTrace();
-	}
-    }
-    
-    
-    @Override
-    public void run() {
-        try {
-            tHud.join();
-            System.out.println("LA HUD E FINITA");
-            tMap.join();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.println("FINE");
-    
-    }
-    
     
     @Override
     public int getDividerLocation(){
@@ -112,27 +84,5 @@ public class Board extends JSplitPane implements Runnable{
     public int getLastDividerLocation(){
         return location;
     }
-    
-// 
-//    public void animationCycle() {
-//        kAdapt.update();
-//        handler.animationCycle();
-//    }
-//
-//    @Override
-//    public void paintComponent(Graphics g) {
-//        //super.paintComponent(g);
-//        Graphics gMap = mapPanel.getGraphics();
-//        drawMap(gMap);
-//        handler.drawImage(gMap, camera.getOffset_x(), camera.getOffset_y());
-//        Toolkit.getDefaultToolkit().sync();
-//        gMap.dispose();
-//    }
-//
-//    public void drawMap(Graphics g) {
-//        g.drawImage(mapImage, -camera.getOffset_x(), -camera.getOffset_y(), this);
-//
-//    }
-    
    
 }

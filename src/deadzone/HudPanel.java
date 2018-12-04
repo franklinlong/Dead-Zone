@@ -326,9 +326,9 @@ public class HudPanel extends JPanel implements Runnable {
                     timer = 0;
             }
             
-        } while(!handler.getPlayer().isDeath());
-        
+        } while(!handler.getPlayer().isDeath() && PauseMenu.end==false);
+        JFrame hudPanel = (JFrame) SwingUtilities.getWindowAncestor(this);
+        GameOver gameOver = new GameOver(hudPanel);
         System.out.println("FINE PARTITA HUD");
     }
-
 }

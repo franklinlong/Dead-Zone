@@ -9,6 +9,7 @@ import utilities.Animation;
 import utilities.Assets;
 import deadzone.Gun;
 import deadzone.Handler;
+import gameMenu.Menu;
 import gameMenu.PauseMenu;
 import utilities.Sound;
 import java.awt.Graphics;
@@ -34,6 +35,8 @@ public class Player extends AnimatedSprite{
     private final Sound rifleShootSound, rifleReloadSound;
     private final Sound pistolShootSound, pistolReloadSound;
     private final Sound shotgunShootSound, shotgunReloadSound;
+    
+    private final Sound soundEndGame;
 
     //Handler che serve per rimuovere il player quando muore
     private final Handler handler;
@@ -74,6 +77,8 @@ public class Player extends AnimatedSprite{
         shotgunShootSound = new Sound(Assets.shotgunShoot);
         shotgunReloadSound = new Sound(Assets.shotgunReloadSound);
         
+        soundEndGame = new Sound(Assets.endGame);
+        soundEndGame.changeVolume(6);
         pistol = new Gun(Assets.pistolSkin, pistolIdle, pistolReload, pistolShoot,pistolShootSound,
 				pistolReloadSound, this, 400,
 				9, 200, handler, 15);
@@ -145,7 +150,7 @@ public class Player extends AnimatedSprite{
 //          if (y < 0) {
 //              y = 2;
 //          }
-            int k = collision(this.initialVelocity, this.initialVelocity);
+            int k = collision(velX, velY,x,y);
             switch (k) {
                 case 1:
                     x += velX * -1;
@@ -217,7 +222,6 @@ public class Player extends AnimatedSprite{
      //metodo chiamato dall'esterno che mi infligge danni
     public void hit(int damage){
         setHealth(getHealth()-damage);
-        
     }
 
     public boolean isDeath() {
@@ -228,7 +232,9 @@ public class Player extends AnimatedSprite{
     public void death() {
         this.isDeath = true;
         handler.removeSprite(this);
-        new Sound(Assets.endGame).playSound();
+        Menu.gameMusic.stopSound();
+        Menu.gameMusic = null;
+        soundEndGame.playSound();
     }
 
     public int getPunteggioAttuale() {

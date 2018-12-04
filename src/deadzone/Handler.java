@@ -17,7 +17,11 @@ import sprite.DropItem;
 import sprite.Sprite;
 import sprite.animated.Player;
 import sprite.animated.Projectile;
+import sprite.animated.StandardZombie;
 import sprite.animated.Zombie;
+import utilities.Animation;
+import utilities.Assets;
+import utilities.Sound;
 
 
 /**
@@ -34,52 +38,24 @@ public class Handler {
     private final Player player;
     private final Waves waves;
     
-    //Gestisce lo spawn dello zombie
-//    public final Timer spawn = new Timer(2000, new ActionListener(){
-//        int spawnX;
-//        int spawnY;
-//        
-//        @Override
-//        public void actionPerformed(ActionEvent e) {
-//            int n = (int) (Math.random()*5);
-//            switch(n){
-//                case 0:                     //Fosso
-//                    spawnX=2150;
-//                    spawnY=2540;
-//                    break;
-//                case 1:                     //Tomba 11
-//                    spawnX=2224;
-//                    spawnY=242;
-//                    break;
-//                case 2:                     //Tomba 21
-//                    spawnX=2700;
-//                    spawnY=242;
-//                    break;
-//                case 3:                     //Tomba 12
-//                    spawnX=2420;
-//                    spawnY=470;
-//                    break;
-//                case 4:                     //Tomba 22
-//                    spawnX=2800;
-//                    spawnY=470;
-//                    break;
-//            }
-//            if (!PauseMenu.pause){
-//            createZombie(spawnX,spawnY);
-//            }
-//        }});
+
     
     public Handler(String playerName){
         player = new Player(2000,60,2,100,this, playerName);
+
 //        
 //        createZombie(2300,20);
 //        createZombie(2300,60);
 //        createZombie(2300,100);
+
+        
+        createZombie(2350,20);
+        createZombie(2300,100);
+        createZombie(2400,140);
+
         
         camera = new Camera(player);
         players.add(player);
-        this.waves = new Waves(this);
-        new Thread(waves).start();
         
     }
     
@@ -111,13 +87,8 @@ public class Handler {
         float offsetY = camera.getOffset_y();
         
         //Faccio partire il draw image di tutti gli sprite della mappa
-        for(int i=0;i<players.size();i++){
-            Sprite s = players.get(i);
-            s.drawImage(g,offsetX,offsetY);
-        }
-        
-        for(int i=0;i<zombies.size();i++){
-            Sprite s = zombies.get(i);
+        for(int i=0;i<itemsAndBlood.size();i++){
+            Sprite s = itemsAndBlood.get(i);
             s.drawImage(g,offsetX,offsetY);
         }
         
@@ -126,15 +97,20 @@ public class Handler {
             s.drawImage(g,offsetX,offsetY);
         }
         
-        for(int i=0;i<itemsAndBlood.size();i++){
-            Sprite s = itemsAndBlood.get(i);
+        for(int i=0;i<zombies.size();i++){
+            Sprite s = zombies.get(i);
+            s.drawImage(g,offsetX,offsetY);
+        }
+        
+        for(int i=0;i<players.size();i++){
+            Sprite s = players.get(i);
             s.drawImage(g,offsetX,offsetY);
         }
     }
     
     public void addSprite(Sprite s){
         //Prima di aggiungere lo sprite devo individuare in che lista aggiungerlo
-        if(s instanceof Zombie){
+        if(s instanceof StandardZombie){
             this.zombies.add(s);
         }
         else if(s instanceof Player){
@@ -188,7 +164,8 @@ public class Handler {
     //DA FARE PER BENE BENE
     private void createZombie(float x, float y) {         
         System.out.println(x + " " + y);
-        addSprite((new Zombie(x, y, 1, 100, this.player, this, (float)1)));
+        addSprite((new StandardZombie(x, y, 1, 100, this.player, this, (float)1, 60, 60, 5, new Animation(Assets.zombie, 20), 
+                new Animation(Assets.zombieAttack, 35), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit))));
     }
 
     public Camera getCamera() {
@@ -206,3 +183,4 @@ public class Handler {
     
     
 }
+

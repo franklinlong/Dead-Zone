@@ -68,7 +68,7 @@ public class MapPanel extends JPanel implements Runnable{
         long ticks = 0;
         long timer = 0;
         
-        while(!handler.getPlayer().isDeath()){
+        while(!handler.getPlayer().isDeath() && PauseMenu.end==false){
         
             now = System.nanoTime();
             delta += (now - lastTime)/timePerTick;
@@ -93,8 +93,11 @@ public class MapPanel extends JPanel implements Runnable{
         
         //handler.spawn.stop();
         System.out.println("FINE PARTITA MAP PANEL");
-        Player p = this.handler.getPlayer();
-        new Scoreboard().addScore(p.getName(), p.getPunteggioAttuale());
+        
+        if (handler.getPlayer().isDeath()){
+            Player p = this.handler.getPlayer();
+            new Scoreboard().addScore(p.getName(), p.getPunteggioAttuale());
+        }
         
     }
     

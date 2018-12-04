@@ -54,6 +54,8 @@ public class Menu extends javax.swing.JFrame {
         
         initComponents();
         
+        PauseMenu.end = false;
+        
         sfondo.setPreferredSize(dim.getSize());
         sfondo.setIcon(immagineSfondo);
         gifMano.setIcon(gif);
@@ -124,7 +126,7 @@ public class Menu extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(15, 171, 15, 80);
         jPanel1.add(jButton2, gridBagConstraints);
 
-        jButton3.setText("Tutorial");
+        jButton3.setText("Demo");
         jButton3.setMaximumSize(new java.awt.Dimension(107, 25));
         jButton3.setMinimumSize(new java.awt.Dimension(107, 25));
         jButton3.setPreferredSize(new java.awt.Dimension(107, 25));

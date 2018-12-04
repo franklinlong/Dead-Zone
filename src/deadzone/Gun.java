@@ -85,19 +85,73 @@ public class Gun {
                     shootSound.playSound();
                     round--;
                     
+                    int vitaProiettile = 100;
+                    if(this.skin == Assets.shotgunSkin)
+                        vitaProiettile = 13;
+                        
                     float angoloPistola = angle + (float) Math.PI/4;
                     float xbullet = (float)Math.cos(angle);
                     float ybullet = (float)Math.sin(angle);
                     float bulletdirectionX = xbullet/(float)Math.sqrt(xbullet*xbullet+ybullet*ybullet);
                     float bulletdirectionY = ybullet/(float)Math.sqrt(ybullet*ybullet+xbullet*xbullet);
-
+                    
+                    //Proiettile standard in linea retta
                     Projectile p = new Projectile((xx+Player.PLAYERSIZE/2 + (float)(22*Math.cos(angoloPistola))),
                                             (yy+Player.PLAYERSIZE/2 + (float)(22*Math.sin(angoloPistola))),
-                                            bulletdirectionX, bulletdirectionY, 20, 100, handler, damage); //100 è la vita del proiettile
+                                            bulletdirectionX, bulletdirectionY, 20, vitaProiettile, handler, damage); 
                     shootAminDelay.start();
                     currentAnimation = shoot;
                     this.handler.addSprite(p);
-
+                    
+                    //Ventaglio di proiettili
+                    if(this.skin == Assets.shotgunSkin){
+                        angle += Math.PI /20;
+                        xbullet = (float)Math.cos(angle);
+                        ybullet = (float)Math.sin(angle);
+                        bulletdirectionX = xbullet/(float)Math.sqrt(xbullet*xbullet+ybullet*ybullet);
+                        bulletdirectionY = ybullet/(float)Math.sqrt(ybullet*ybullet+xbullet*xbullet);
+                        
+                        Projectile p2 = new Projectile((xx+Player.PLAYERSIZE/2 + (float)(22*Math.cos(angoloPistola))),
+                                            (yy+Player.PLAYERSIZE/2 + (float)(22*Math.sin(angoloPistola))),
+                                            bulletdirectionX, bulletdirectionY, 20, vitaProiettile, handler, damage);
+                        
+                        angle += Math.PI /20;
+                        xbullet = (float)Math.cos(angle);
+                        ybullet = (float)Math.sin(angle);
+                        bulletdirectionX = xbullet/(float)Math.sqrt(xbullet*xbullet+ybullet*ybullet);
+                        bulletdirectionY = ybullet/(float)Math.sqrt(ybullet*ybullet+xbullet*xbullet);
+                        
+                        
+                        Projectile p3 = new Projectile((xx+Player.PLAYERSIZE/2 + (float)(22*Math.cos(angoloPistola))),
+                                            (yy+Player.PLAYERSIZE/2 + (float)(22*Math.sin(angoloPistola))),
+                                            bulletdirectionX, bulletdirectionY, 20, vitaProiettile, handler, damage);
+                        
+                        angle -= Math.PI * 3 /20;
+                        xbullet = (float)Math.cos(angle);
+                        ybullet = (float)Math.sin(angle);
+                        bulletdirectionX = xbullet/(float)Math.sqrt(xbullet*xbullet+ybullet*ybullet);
+                        bulletdirectionY = ybullet/(float)Math.sqrt(ybullet*ybullet+xbullet*xbullet);
+                        
+                        Projectile p4 = new Projectile((xx+Player.PLAYERSIZE/2 + (float)(22*Math.cos(angoloPistola))),
+                                            (yy+Player.PLAYERSIZE/2 + (float)(22*Math.sin(angoloPistola))),
+                                            bulletdirectionX, bulletdirectionY, 20, vitaProiettile, handler, damage);
+                        
+                        angle -= Math.PI /20;
+                        xbullet = (float)Math.cos(angle);
+                        ybullet = (float)Math.sin(angle);
+                        bulletdirectionX = xbullet/(float)Math.sqrt(xbullet*xbullet+ybullet*ybullet);
+                        bulletdirectionY = ybullet/(float)Math.sqrt(ybullet*ybullet+xbullet*xbullet);
+                        
+                        Projectile p5 = new Projectile((xx+Player.PLAYERSIZE/2 + (float)(22*Math.cos(angoloPistola))),
+                                            (yy+Player.PLAYERSIZE/2 + (float)(22*Math.sin(angoloPistola))),
+                                            bulletdirectionX, bulletdirectionY, 20, vitaProiettile, handler, damage); 
+                        
+                        this.handler.addSprite(p2);
+                        this.handler.addSprite(p3);
+                        this.handler.addSprite(p4);
+                        this.handler.addSprite(p5);
+                    }
+                    
             }
             
     }

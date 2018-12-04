@@ -21,13 +21,14 @@ public class PauseMenu extends javax.swing.JDialog {
      */
     
     public static boolean pause;
+    public static boolean end;
     
     public PauseMenu(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         
         pause = true;
-        
+        end = false;
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
         Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();
@@ -135,7 +136,12 @@ public class PauseMenu extends javax.swing.JDialog {
 
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
         // TODO add your handling code here:
-        
+        end=true;
+        pause = false;
+        JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        topFrame.dispose();
+        Menu menu = new Menu();
+        menu.setVisible(true);
     }//GEN-LAST:event_ExitActionPerformed
 
 

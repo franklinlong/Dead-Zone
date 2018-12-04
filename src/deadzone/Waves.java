@@ -8,6 +8,7 @@ package deadzone;
 import gameMenu.PauseMenu;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sprite.animated.StandardZombie;
 import sprite.animated.Zombie;
 
 /**
@@ -77,7 +78,7 @@ public class Waves implements Runnable {
                     }
                 }
 
-                handler.addSprite(new Zombie(x, y, 1, (int) (100 * mult), handler.getPlayer(), this.handler, (float) 1));
+                handler.addSprite(new StandardZombie(x, y, 1, (int) (100 * mult), handler.getPlayer(), this.handler, (float) 1));
                 i++;
                 try {
                     Thread.sleep(2000);
