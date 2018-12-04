@@ -5,6 +5,7 @@
  */
 package deadzone;
 
+import gameMenu.Menu;
 import gameMenu.PauseMenu;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +26,7 @@ public class Waves implements Runnable {
     private boolean allKilled;
     private static final Object KL = new Object(); //lock per l'allKilled
     private float mult;
+    private Sound endRound;
     private Handler handler;
 
     public Waves(Handler handler) {
@@ -33,6 +35,7 @@ public class Waves implements Runnable {
         this.waveCount = 0;
         this.mult = 1; //moltiplicatore per la salute dello zombie. Viene incrementato di 0.13 ogni 5 ondate
         this.numZombieKilledRound = 0; //zombie uccisi per round
+        this.endRound = new Sound(Assets.endOfRound);
     }
 
     @Override
@@ -115,6 +118,15 @@ public class Waves implements Runnable {
                     }
                 }
             }
+            Menu.gameMusic.stopSound();
+            this.endRound.playSound();
+            try {
+                Thread.sleep(7000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Waves.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Menu.gameMusic.playSound();
+            Menu.gameMusic.loopSound();
             if (this.waveCount % 5 == 0) {
                 this.numZombieRound = 8;
                 this.mult += 0.13;
