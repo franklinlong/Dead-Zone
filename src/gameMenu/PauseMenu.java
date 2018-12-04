@@ -5,7 +5,6 @@
  */
 package gameMenu;
 
-import deadzone.Board;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -22,6 +21,7 @@ public class PauseMenu extends javax.swing.JDialog {
      */
     
     public static boolean pause;
+    public static boolean end;
     
     public PauseMenu(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -136,8 +136,7 @@ public class PauseMenu extends javax.swing.JDialog {
 
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
         // TODO add your handling code here:
-        Board.tMap.stop();
-        Board.tHud.stop();
+        end = true;
         pause = false;
         JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
         topFrame.dispose();
