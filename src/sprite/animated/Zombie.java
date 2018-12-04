@@ -114,10 +114,10 @@ public class Zombie extends AnimatedSprite{
         
         
             //in base al percorso che deve seguire lo zombie, a[] avrà la velocitaX e la velocitaY
-            float[] b = new Route(player, this).seek();
+            float[] a = new Route(player, this).seek();
             
             //Codice per ricalcolare la direzione in base alla presenza di zombie vicini ... DA FARE
-            float[] a = new Route(player, this).evitaZombie(b[0],b[1], this.handler.getZombies());
+            //float[] a = new Route(player, this).evitaZombie(b[0],b[1], this.handler.getZombies());
             
         
             angle = (float) Math.acos(a[0]);
@@ -139,7 +139,7 @@ public class Zombie extends AnimatedSprite{
             }
         
             //Se è in corso l'animazione dell'attacco lo zombie non si muove
-            //Se il player è morto lo zombie non s muove
+            //Se il player è morto lo zombie non si muove
             if(attacking || player.isDeath()){
                 a[0] = 0;
                 a[1] = 0;
@@ -148,28 +148,46 @@ public class Zombie extends AnimatedSprite{
             float x = getX();
             float y = getY();
         
+            //
+            int vx =0;
+            int vy = 0;
+            if(a[0] < 0)
+                vx = -1;
+            else if(a[0] > 0)
+                vx = +1;
+            
+            if(a[1]<0)
+                vy = -1;
+            else if(a[1] >0)
+                vy = +1;
+            
             //Aggiorno la posizione dello zombie in base ai calcoli sul percorso
-            x += a[0];
-            y += a[1];
+            x += vx;
+            y += vy;
         
             //aggiorno le variabili dello sprite per come funziona collision
             setX(x);
             setY(y);
         
             //Se c'è una collisione non posso passare
-            int k = collision(this.initialVelocity, this.initialVelocity);
+            int k = collision(vx, vy, x, y);
             switch (k) {
                 case 1:
-                    x -= a[0] ;
+                    y = y - vy + a[1];
+                    x -= vx;
                     break;
                 case 2:
-                    y -= a[1];
+                    x = x - vx + a[0];
+                    y -= vy;
                     break;
                 case 3:
-                    x -= a[0] ;
-                    y -= a[1];
+                    x -= vx;
+                    y -= vy;
                     break;
                 default:
+                    //Aggiorno la posizione dello zombie in base ai calcoli sul percorso
+                    x = x - vx + a[0];
+                    y = y - vy + a[1];
                     break;
                 }
                 

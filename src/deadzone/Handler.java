@@ -74,7 +74,7 @@ public class Handler {
         
         createZombie(2350,20);
         createZombie(2300,100);
-        createZombie(2400,160);
+        createZombie(2400,140);
         
         camera = new Camera(player);
         players.add(player);
@@ -110,13 +110,8 @@ public class Handler {
         float offsetY = camera.getOffset_y();
         
         //Faccio partire il draw image di tutti gli sprite della mappa
-        for(int i=0;i<players.size();i++){
-            Sprite s = players.get(i);
-            s.drawImage(g,offsetX,offsetY);
-        }
-        
-        for(int i=0;i<zombies.size();i++){
-            Sprite s = zombies.get(i);
+        for(int i=0;i<itemsAndBlood.size();i++){
+            Sprite s = itemsAndBlood.get(i);
             s.drawImage(g,offsetX,offsetY);
         }
         
@@ -125,8 +120,13 @@ public class Handler {
             s.drawImage(g,offsetX,offsetY);
         }
         
-        for(int i=0;i<itemsAndBlood.size();i++){
-            Sprite s = itemsAndBlood.get(i);
+        for(int i=0;i<zombies.size();i++){
+            Sprite s = zombies.get(i);
+            s.drawImage(g,offsetX,offsetY);
+        }
+        
+        for(int i=0;i<players.size();i++){
+            Sprite s = players.get(i);
             s.drawImage(g,offsetX,offsetY);
         }
     }
@@ -186,7 +186,7 @@ public class Handler {
 
     //DA FARE PER BENE BENE
     private void createZombie(float x, float y) {         
-        addSprite((new Zombie(x, y, 1, 100, this.player, this, (float)1)));
+        addSprite((new Zombie(x, y, 1, 100, this.player, this, (float)5)));
     }
 
     public Camera getCamera() {

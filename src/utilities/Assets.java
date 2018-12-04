@@ -25,7 +25,7 @@ public class Assets {
 
 
 		// guns skin
-		public static BufferedImage pistolSkin, ak47, rifleLoader;
+		public static BufferedImage pistolSkin, ak47, rifleLoader, shotgunSkin;
 		
 		
 		//sounds		
@@ -40,6 +40,10 @@ public class Assets {
                 public static BufferedImage mediKit;
                 public static BufferedImage ammo;
                 public static BufferedImage nuke;
+                
+                public static BufferedImage minimap;
+                public static BufferedImage greenIndicator;
+                public static BufferedImage redIndicator;
                 
 		public static void init(){
 			
@@ -85,7 +89,7 @@ public class Assets {
                     
 
                     //gun skins
-
+                    shotgunSkin = Utilities.loadImage("/guns/shotgun.png");
                     pistolSkin = Utilities.loadImage("/guns/pistol.png");
                     ak47 = Utilities.loadImage("/guns/ak-47.png");
                     rifleLoader = Utilities.loadImage("/guns/rifleLoader.png");
@@ -110,6 +114,11 @@ public class Assets {
                     
                     shotgunReloadSound = Utilities.LoadSound("/sound/pistolReload.wav");
                     shotgunShoot = Utilities.LoadSound("/sound/pistol.wav");
+                    
+                    //minimap
+//                    minimap = Utilities.loadImage("/images/grigionero.png");
+//                    greenIndicator = Utilities.loadImage("/images/green.png");
+//                    redIndicator = Utilities.loadImage("/images/red.png");
                     
 
 		}

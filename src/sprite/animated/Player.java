@@ -80,7 +80,7 @@ public class Player extends AnimatedSprite{
                         rifleReloadSound, this, 100,
                         30, 200, handler, 15);
 
-        shotgun = new Gun(Assets.pistolSkin,shotgunIdle, shotgunReload, shotgunShoot, shotgunShootSound,
+        shotgun = new Gun(Assets.shotgunSkin,shotgunIdle, shotgunReload, shotgunShoot, shotgunShootSound,
                         shotgunReloadSound, this,800,
                         5, 200, handler, 50);
 		
@@ -144,7 +144,7 @@ public class Player extends AnimatedSprite{
 //          if (y < 0) {
 //              y = 2;
 //          }
-            int k = collision(this.initialVelocity, this.initialVelocity);
+            int k = collision(velX, velY,x,y);
             switch (k) {
                 case 1:
                     x += velX * -1;

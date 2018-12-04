@@ -138,13 +138,13 @@ public class HudPanel extends JPanel implements Runnable {
         this.nameLabel = new JLabel(this.handler.getPlayer().getName(), SwingConstants.CENTER); //nome del player centrato nella Label
         nameLabel.setForeground(Color.white);
         nameLabel.setFont(font);
-        nameLabel.setSize(this.getWidth(),60);
-        nameLabel.setLocation(0, minimapPanel.getY() + minimapPanel.getHeight());
+        nameLabel.setSize(this.getWidth(),39);
+        nameLabel.setLocation(0, (int) this.getSize().getHeight()*1/40 + minimapPanel.getHeight());
         this.add(nameLabel);
 
         this.playerHealth = new JProgressBarH(); 
         playerHealth.setSize(minimapPanel.getWidth(), 30);
-        playerHealth.setLocation(minimapPanel.getX(), nameLabel.getY() + nameLabel.getHeight());
+        playerHealth.setLocation((int) this.getSize().getWidth()*1/18, nameLabel.getY() + nameLabel.getHeight());
         playerHealth.setValue(handler.getPlayer().getHealth()); //inizializzo con health iniziale del Player
         playerHealth.setOpaque(true);
         playerHealth.setMaximum(handler.getPlayer().getHealth());
@@ -154,75 +154,73 @@ public class HudPanel extends JPanel implements Runnable {
         this.add(playerHealth);
         
         this.imageLabel = new JLabel();
-        imageLabel.setSize(minimapPanel.getWidth()/3, minimapPanel.getHeight()/4);
+        imageLabel.setSize(this.getWidth()/3, minimapPanel.getHeight()/4);
         ImageIcon i  = ridimensionaImageIcon(getClass().getResource("/images/busto_soldato_uomo.png"), imageLabel.getWidth(), imageLabel.getHeight());
         imageLabel.setIcon(i);
-        imageLabel.setLocation(playerHealth.getX(), playerHealth.getY() + playerHealth.getHeight()*2);
+        imageLabel.setLocation((int) this.getWidth()/18, playerHealth.getY() + playerHealth.getHeight()*3/2);
         this.add(imageLabel);
         
         this.gunLabel = new JLabel();
         this.actualWeapon = new ImageIcon(handler.getPlayer().getCurrentGun().getSkin());
         gunLabel.setSize(actualWeapon.getIconWidth(),actualWeapon.getIconHeight());
         gunLabel.setIcon((actualWeapon));
-        gunLabel.setLocation(this.getWidth() - imageLabel.getWidth()*3/2,imageLabel.getY());
+        gunLabel.setLocation(this.getWidth() - gunLabel.getWidth() - this.getWidth()*1/5 ,imageLabel.getY());
         this.add(gunLabel);
         
         this.numBullets = new JLabel();
-        numBullets.setSize(150,60);
+        numBullets.setSize(this.getWidth()/2,39);
         numBullets.setForeground(Color.white);
         numBullets.setFont(font);
         numBullets.setText(Integer.toString(handler.getPlayer().getCurrentGun().getRound()) + "/" + Integer.toString(handler.getPlayer().getCurrentGun().getTotalBullets()));
-        numBullets.setLocation(gunLabel.getX(),gunLabel.getY() + gunLabel.getHeight()*2/3);
+        numBullets.setLocation(gunLabel.getX(),gunLabel.getY() + gunLabel.getHeight());
         this.add(numBullets);
         
-        this.wave = new JLabel();
-        wave.setText("Wave:");
+        this.wave = new JLabel("Wave:", SwingConstants.CENTER);
         wave.setForeground(Color.white);
         wave.setFont(font);
-        wave.setSize(imageLabel.getWidth(),50);
-        wave.setLocation(imageLabel.getX()*3/2, imageLabel.getY() + imageLabel.getHeight()*3/2);
+        wave.setSize(this.getWidth()/2,39);
+        wave.setLocation(0, imageLabel.getY() + imageLabel.getHeight()*4/3);
         this.add(wave);
         
-        this.numWave = new JLabel();
-        numWave.setText("1-1");
+        this.numWave = new JLabel("1-1", SwingConstants.CENTER);
         numWave.setForeground(Color.white);
         numWave.setFont(font);
-        numWave.setSize(wave.getWidth(), wave.getHeight());
-        numWave.setLocation(wave.getX()*3/2, wave.getY() + wave.getHeight());
+        numWave.setSize(this.getWidth()/2, 39);
+        numWave.setLocation(0, wave.getY() + wave.getHeight());
         this.add(numWave);
         
         this.enemies = new JLabel("Enemies:", SwingConstants.LEFT);
         enemies.setForeground(Color.white);
         enemies.setFont(font);
-        enemies.setSize(this.getWidth()/2, 50);
-        enemies.setLocation(gunLabel.getX(), wave.getY());
+        enemies.setSize(this.getWidth()/2, 39);
+        enemies.setLocation(this.getWidth() - gunLabel.getWidth() - this.getWidth()*1/5, wave.getY());
         this.add(enemies);
         
-        this.numEnemies = new JLabel(Integer.toString(handler.getZombies().size()), SwingConstants.LEFT);
+        this.numEnemies = new JLabel(Integer.toString(handler.getZombies().size()), SwingConstants.CENTER);
         numEnemies.setForeground(Color.white);
         numEnemies.setFont(font);
-        numEnemies.setSize(this.getWidth()/2, 50);
-        numEnemies.setLocation(enemies.getX() + this.getWidth()/8, numWave.getY());
+        numEnemies.setSize(this.getWidth()/2, 39);
+        numEnemies.setLocation(this.getWidth()/2, numWave.getY());
         this.add(numEnemies);
         
         this.scoreTextLabel = new JLabel("Score", SwingConstants.CENTER);
         scoreTextLabel.setForeground(Color.white);
         scoreTextLabel.setFont(font);
-        scoreTextLabel.setSize(this.getWidth(),100);
-        scoreTextLabel.setLocation(nameLabel.getX(), numEnemies.getY() + numEnemies.getHeight());
+        scoreTextLabel.setSize(this.getWidth(),39);
+        scoreTextLabel.setLocation(0, numEnemies.getY() + numEnemies.getHeight());
         this.add(scoreTextLabel);
         
         this.scoreLabel = new JLabel(""+this.handler.getPlayer().getPunteggioAttuale(), SwingConstants.CENTER);
         scoreLabel.setForeground(Color.white);
         scoreLabel.setFont(font);
-        scoreLabel.setSize(this.getWidth(),100);
-        scoreLabel.setLocation(0, scoreTextLabel.getY() + scoreTextLabel.getHeight()/2);
+        scoreLabel.setSize(this.getWidth(),39);
+        scoreLabel.setLocation(0, scoreTextLabel.getY() + scoreTextLabel.getHeight());
         this.add(scoreLabel);
         
         this.fpsLabel = new JLabel();
         fpsLabel.setFont(font);
-        fpsLabel.setSize(this.getWidth(), 100);
-        fpsLabel.setLocation(0, scoreLabel.getY() + scoreLabel.getHeight());
+        fpsLabel.setSize(this.getWidth(), 39);
+        fpsLabel.setLocation(0, scoreLabel.getY() + scoreLabel.getHeight()*2);
         this.add(fpsLabel);
         
         JButton pauseButton = new JButton();
@@ -231,10 +229,10 @@ public class HudPanel extends JPanel implements Runnable {
         pauseButton.setText("PAUSE");
         pauseButton.setForeground(Color.white);
         pauseButton.setFont(new java.awt.Font("Comic Sans MS", 1, pauseButton.getHeight()));
-        pauseButton.setLocation(minimapPanel.getX(), scoreLabel.getY() + scoreLabel.getHeight()*2);
+        pauseButton.setLocation(minimapPanel.getX(), this.getHeight()-pauseButton.getHeight()*2);
         System.out.println(pauseButton.getLocation());
         this.add(pauseButton);
-
+        
         pauseButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pauseActionPerformed(evt);
@@ -261,7 +259,6 @@ public class HudPanel extends JPanel implements Runnable {
             @Override
             public void paintComponent(Graphics g) {
                 Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-                System.out.println(this.health);
                 if (this.health >= this.getMaximum()*7/10){
                     g.setColor(Color.GREEN);
                     g.fillRect(0, 0, (this.health*dim.width*9/50)/100, this.getHeight());

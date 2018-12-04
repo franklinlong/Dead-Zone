@@ -38,7 +38,6 @@ public class SinglePlayer extends javax.swing.JFrame {
         iconaFrame = new ImageIcon(getClass().getResource("/images/icona_frame.png")).getImage();
         this.setIconImage(iconaFrame);  
         
-        System.out.println("Single Player");
         
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         dim.setSize(1920*2/5, 575);
@@ -60,25 +59,37 @@ public class SinglePlayer extends javax.swing.JFrame {
         
         Scoreboard scoreboard = new Scoreboard();
         List<Score> scoreList = scoreboard.getScoreboard();
-        System.out.println(scoreList.get(2).getScore());
         
-        this.jScore1.setText("1) "+scoreList.get(0).toString());
-        this.jScore2.setText("2) "+scoreList.get(1).toString());
-        this.jScore3.setText("3) "+scoreList.get(2).toString());
-        this.jScore4.setText("4) "+scoreList.get(3).toString());
-        this.jScore5.setText("5) "+scoreList.get(4).toString());
-        this.jScore6.setText("6) "+scoreList.get(5).toString());
-        this.jScore7.setText("7) "+scoreList.get(6).toString());
-        this.jScore8.setText("8) "+scoreList.get(7).toString());
-        this.jScore9.setText("9) "+scoreList.get(8).toString());
-        this.jScore10.setText("10) "+scoreList.get(9).toString());
+
+        this.jScore1.setText("1) "+scoreList.get(0).getPlayer());
+        this.jScore2.setText("2) "+scoreList.get(1).getPlayer());
+        this.jScore3.setText("3) "+scoreList.get(2).getPlayer());
+        this.jScore4.setText("4) "+scoreList.get(3).getPlayer());
+        this.jScore5.setText("5) "+scoreList.get(4).getPlayer());
+        this.jScore6.setText("6) "+scoreList.get(5).getPlayer());
+        this.jScore7.setText("7) "+scoreList.get(6).getPlayer());
+        this.jScore8.setText("8) "+scoreList.get(7).getPlayer());
+        this.jScore9.setText("9) "+scoreList.get(8).getPlayer());
+        this.jScore10.setText("10) "+scoreList.get(9).getPlayer());
         
+        this.jPunt1.setText(Integer.toString(scoreList.get(0).getScore()));
+        this.jPunt2.setText(Integer.toString(scoreList.get(1).getScore()));
+        this.jPunt3.setText(Integer.toString(scoreList.get(2).getScore()));
+        this.jPunt4.setText(Integer.toString(scoreList.get(3).getScore()));
+        this.jPunt5.setText(Integer.toString(scoreList.get(4).getScore()));
+        this.jPunt6.setText(Integer.toString(scoreList.get(5).getScore()));
+        this.jPunt7.setText(Integer.toString(scoreList.get(6).getScore()));
+        this.jPunt8.setText(Integer.toString(scoreList.get(7).getScore()));
+        this.jPunt9.setText(Integer.toString(scoreList.get(8).getScore()));
+        this.jPunt10.setText(Integer.toString(scoreList.get(9).getScore()));
         
         jTextField1.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e){
                 if (jTextField1.getText().length() >= 12 || e.getKeyChar() == ' ')
                     e.consume();
+                if (jTextField1.getText().length() > 0 && Character.isUpperCase(e.getKeyChar()))
+                    e.setKeyChar(Character.toLowerCase(e.getKeyChar()));
             }
         });
 
@@ -113,6 +124,16 @@ public class SinglePlayer extends javax.swing.JFrame {
         jScore8 = new javax.swing.JLabel();
         jScore9 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jPunt1 = new javax.swing.JLabel();
+        jPunt2 = new javax.swing.JLabel();
+        jPunt3 = new javax.swing.JLabel();
+        jPunt4 = new javax.swing.JLabel();
+        jPunt5 = new javax.swing.JLabel();
+        jPunt6 = new javax.swing.JLabel();
+        jPunt7 = new javax.swing.JLabel();
+        jPunt8 = new javax.swing.JLabel();
+        jPunt9 = new javax.swing.JLabel();
+        jPunt10 = new javax.swing.JLabel();
         jButtonDonna = new javax.swing.JButton();
         jButtonUomo = new javax.swing.JButton();
         jButtonBack = new javax.swing.JButton();
@@ -155,77 +176,77 @@ public class SinglePlayer extends javax.swing.JFrame {
         jScoreboard.setText("          Scoreboard:");
         jScoreboard.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         getContentPane().add(jScoreboard);
-        jScoreboard.setBounds(480, 30, 290, 30);
+        jScoreboard.setBounds(450, 30, 290, 30);
 
         jScore1.setBackground(new java.awt.Color(255, 255, 255));
         jScore1.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jScore1.setForeground(new java.awt.Color(255, 255, 255));
         jScore1.setText("1)");
         getContentPane().add(jScore1);
-        jScore1.setBounds(480, 90, 290, 30);
+        jScore1.setBounds(440, 90, 200, 30);
 
         jScore3.setBackground(new java.awt.Color(255, 153, 255));
         jScore3.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jScore3.setForeground(new java.awt.Color(255, 255, 255));
         jScore3.setText("3)");
         getContentPane().add(jScore3);
-        jScore3.setBounds(480, 170, 290, 30);
+        jScore3.setBounds(440, 170, 200, 30);
 
         jScore10.setBackground(new java.awt.Color(255, 153, 255));
         jScore10.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jScore10.setForeground(new java.awt.Color(255, 255, 255));
         jScore10.setText("10)");
         getContentPane().add(jScore10);
-        jScore10.setBounds(480, 450, 290, 30);
+        jScore10.setBounds(440, 450, 200, 30);
 
         jScore2.setBackground(new java.awt.Color(255, 153, 255));
         jScore2.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jScore2.setForeground(new java.awt.Color(255, 255, 255));
         jScore2.setText("2)");
         getContentPane().add(jScore2);
-        jScore2.setBounds(480, 130, 290, 30);
+        jScore2.setBounds(440, 130, 200, 30);
 
         jScore4.setBackground(new java.awt.Color(255, 153, 255));
         jScore4.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jScore4.setForeground(new java.awt.Color(255, 255, 255));
         jScore4.setText("4)");
         getContentPane().add(jScore4);
-        jScore4.setBounds(480, 210, 290, 30);
+        jScore4.setBounds(440, 210, 200, 30);
 
         jScore5.setBackground(new java.awt.Color(255, 153, 255));
         jScore5.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jScore5.setForeground(new java.awt.Color(255, 255, 255));
         jScore5.setText("5)");
         getContentPane().add(jScore5);
-        jScore5.setBounds(480, 250, 290, 30);
+        jScore5.setBounds(440, 250, 200, 30);
 
         jScore6.setBackground(new java.awt.Color(255, 153, 255));
         jScore6.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jScore6.setForeground(new java.awt.Color(255, 255, 255));
         jScore6.setText("6)");
         getContentPane().add(jScore6);
-        jScore6.setBounds(480, 290, 290, 30);
+        jScore6.setBounds(440, 290, 200, 30);
 
         jScore7.setBackground(new java.awt.Color(255, 153, 255));
         jScore7.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jScore7.setForeground(new java.awt.Color(255, 255, 255));
         jScore7.setText("7)");
         getContentPane().add(jScore7);
-        jScore7.setBounds(480, 330, 290, 30);
+        jScore7.setBounds(440, 330, 200, 30);
 
         jScore8.setBackground(new java.awt.Color(255, 153, 255));
         jScore8.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jScore8.setForeground(new java.awt.Color(255, 255, 255));
         jScore8.setText("8)");
         getContentPane().add(jScore8);
-        jScore8.setBounds(480, 370, 290, 30);
+        jScore8.setBounds(440, 370, 200, 30);
 
         jScore9.setBackground(new java.awt.Color(255, 153, 255));
         jScore9.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
         jScore9.setForeground(new java.awt.Color(255, 255, 255));
         jScore9.setText("9)");
         getContentPane().add(jScore9);
-        jScore9.setBounds(480, 410, 290, 30);
+        jScore9.setBounds(440, 410, 200, 30);
 
         jLabel3.setFont(new java.awt.Font("Papyrus", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -234,6 +255,66 @@ public class SinglePlayer extends javax.swing.JFrame {
         jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         getContentPane().add(jLabel3);
         jLabel3.setBounds(100, 20, 189, 39);
+
+        jPunt1.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
+        jPunt1.setForeground(new java.awt.Color(255, 255, 255));
+        jPunt1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        getContentPane().add(jPunt1);
+        jPunt1.setBounds(645, 90, 110, 30);
+
+        jPunt2.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
+        jPunt2.setForeground(new java.awt.Color(255, 255, 255));
+        jPunt2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        getContentPane().add(jPunt2);
+        jPunt2.setBounds(645, 130, 110, 30);
+
+        jPunt3.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
+        jPunt3.setForeground(new java.awt.Color(255, 255, 255));
+        jPunt3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        getContentPane().add(jPunt3);
+        jPunt3.setBounds(645, 170, 110, 30);
+
+        jPunt4.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
+        jPunt4.setForeground(new java.awt.Color(255, 255, 255));
+        jPunt4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        getContentPane().add(jPunt4);
+        jPunt4.setBounds(645, 210, 110, 30);
+
+        jPunt5.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
+        jPunt5.setForeground(new java.awt.Color(255, 255, 255));
+        jPunt5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        getContentPane().add(jPunt5);
+        jPunt5.setBounds(645, 250, 110, 30);
+
+        jPunt6.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
+        jPunt6.setForeground(new java.awt.Color(255, 255, 255));
+        jPunt6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        getContentPane().add(jPunt6);
+        jPunt6.setBounds(645, 290, 110, 30);
+
+        jPunt7.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
+        jPunt7.setForeground(new java.awt.Color(255, 255, 255));
+        jPunt7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        getContentPane().add(jPunt7);
+        jPunt7.setBounds(645, 330, 110, 30);
+
+        jPunt8.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
+        jPunt8.setForeground(new java.awt.Color(255, 255, 255));
+        jPunt8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        getContentPane().add(jPunt8);
+        jPunt8.setBounds(645, 370, 110, 30);
+
+        jPunt9.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
+        jPunt9.setForeground(new java.awt.Color(255, 255, 255));
+        jPunt9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        getContentPane().add(jPunt9);
+        jPunt9.setBounds(645, 410, 110, 30);
+
+        jPunt10.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
+        jPunt10.setForeground(new java.awt.Color(255, 255, 255));
+        jPunt10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        getContentPane().add(jPunt10);
+        jPunt10.setBounds(645, 450, 110, 30);
 
         jButtonDonna.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jButtonDonna.setBorderPainted(false);
@@ -276,9 +357,9 @@ public class SinglePlayer extends javax.swing.JFrame {
         getContentPane().add(jButtonPlay);
         jButtonPlay.setBounds(330, 490, 100, 25);
 
-        sfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sfondo_senza_spari.png")));
+        sfondo.setIcon(new ImageIcon(getClass().getResource("/images/sfondo_senza_spari.png")));
         getContentPane().add(sfondo);
-        sfondo.setBounds(0, 0, 860, 580);
+        sfondo.setBounds(-10, -10, 930, 640);
 
         pack();
         setLocationRelativeTo(null);
@@ -291,12 +372,10 @@ public class SinglePlayer extends javax.swing.JFrame {
     private void jButtonUomoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUomoActionPerformed
         // TODO add your handling code here:
         jButtonUomo.setBorderPainted(true);
-        System.out.println("Selezionato Uomo");
     }//GEN-LAST:event_jButtonUomoActionPerformed
 
     private void jButtonDonnaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDonnaActionPerformed
         // TODO add your handling code here:
-        System.out.println("Selezionato Donna");
         jButtonUomo.setBorderPainted(false);
     }//GEN-LAST:event_jButtonDonnaActionPerformed
 
@@ -309,21 +388,9 @@ public class SinglePlayer extends javax.swing.JFrame {
     private void jButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlayActionPerformed
         // TODO add your handling code here:
         if(!jTextField1.getText().isEmpty() && (jButtonUomo.isBorderPainted() || jButtonDonna.isBorderPainted())){
-            
-            if(jTextField1.getText().contains(" ")){
-                System.out.println("Ci sta uno spazio...");
-                int w = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconWidth()*1/6;
-                int h = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconHeight()*1/6;
-                ImageIcon i = ridimensionaImageIcon(getClass().getResource("/images/LogoBiancoENero.png"),w,h);
-                JOptionPane.showConfirmDialog(rootPane, "Name character must no contains whitespaces. Use another name.", "Insert a valid name", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_OPTION, i);
-            }
-            else{
-                new MapFrame(this).setVisible(true);
-                this.setVisible(false);
-            }
-            
-        }
-        else{
+            new MapFrame(this).setVisible(true);
+            this.setVisible(false);  
+        } else{
             int w = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconWidth()*1/6;
             int h = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconHeight()*1/6;
             ImageIcon i = ridimensionaImageIcon(getClass().getResource("/images/LogoBiancoENero.png"),w,h);
@@ -346,6 +413,16 @@ public class SinglePlayer extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jPunt1;
+    private javax.swing.JLabel jPunt10;
+    private javax.swing.JLabel jPunt2;
+    private javax.swing.JLabel jPunt3;
+    private javax.swing.JLabel jPunt4;
+    private javax.swing.JLabel jPunt5;
+    private javax.swing.JLabel jPunt6;
+    private javax.swing.JLabel jPunt7;
+    private javax.swing.JLabel jPunt8;
+    private javax.swing.JLabel jPunt9;
     private javax.swing.JLabel jScore1;
     private javax.swing.JLabel jScore10;
     private javax.swing.JLabel jScore2;

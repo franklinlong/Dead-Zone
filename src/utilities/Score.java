@@ -30,4 +30,6 @@ public class Score{
     public String toString(){
         return this.getPlayer() + " " + Integer.toString(this.getScore());
     }
+    
+    
    } 

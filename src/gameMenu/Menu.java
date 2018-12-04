@@ -34,11 +34,10 @@ public class Menu extends javax.swing.JFrame {
     
     public Menu() {
         Image iconaFrame;
-        iconaFrame = new ImageIcon("/images/icona_frame.png").getImage(); //TEMPORANEO(?)
-        this.setIconImage(iconaFrame);  
+        iconaFrame = new ImageIcon(getClass().getResource("/images/icona_frame.png")).getImage();
+        this.setIconImage(iconaFrame); 
         
         dim = Toolkit.getDefaultToolkit().getScreenSize();
-        System.out.println(dim.getWidth());
         dim.setSize(1920*2/5, 575);
         this.setPreferredSize(dim.getSize());
         ImageIcon immagineSfondo = ridimensionaImageIcon(getClass().getResource("/images/sfondo_senza_logo.png"),dim.width,dim.height);
