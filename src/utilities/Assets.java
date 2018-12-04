@@ -31,7 +31,7 @@ public class Assets {
 		//sounds		
 		public static Clip pistolShoot, rifleShoot, shotgunShoot, background, zombieHit, pistolReloadSound,
 		rifleReloadSound, shotgunReloadSound,emptyGun, zombieBite;
-		public static Clip endGame;               
+		public static Clip endGame, endOfRound;               
                 
 		//blood
                 public static BufferedImage blood; 
@@ -41,9 +41,9 @@ public class Assets {
                 public static BufferedImage ammo;
                 public static BufferedImage nuke;
                 
-                public static BufferedImage minimap;
-                public static BufferedImage greenIndicator;
-                public static BufferedImage redIndicator;
+//                public static BufferedImage minimap;
+//                public static BufferedImage greenIndicator;
+//                public static BufferedImage redIndicator;
                 
 		public static void init(){
 			
@@ -111,6 +111,7 @@ public class Assets {
                     zombieHit = Utilities.LoadSound("/sound/zombiehit.wav");
                     
                     endGame = Utilities.LoadSound("/sound/endGame.wav");
+                    endOfRound = Utilities.LoadSound("/sound/round.wav");
                     
                     shotgunReloadSound = Utilities.LoadSound("/sound/pistolReload.wav");
                     shotgunShoot = Utilities.LoadSound("/sound/pistol.wav");

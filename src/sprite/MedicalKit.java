@@ -6,7 +6,6 @@
 package sprite;
 
 import deadzone.Handler;
-import java.awt.Color;
 import java.awt.Graphics;
 import utilities.Assets;
 

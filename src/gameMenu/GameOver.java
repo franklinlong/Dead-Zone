@@ -8,7 +8,6 @@ package gameMenu;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
 /**
  *

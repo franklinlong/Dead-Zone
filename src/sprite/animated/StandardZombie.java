@@ -14,12 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import javax.swing.Timer;
-import sprite.Ammo;
-import sprite.Blood;
-import sprite.MedicalKit;
-import sprite.Nuke;
 import utilities.Animation;
-import utilities.Assets;
 import utilities.Route;
 import utilities.Sound;
 
