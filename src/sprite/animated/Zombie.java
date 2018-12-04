@@ -196,7 +196,7 @@ public class Zombie extends AnimatedSprite{
         
             //Aggiorno l'animazione
             currentAnimation.update();
-            }
+        }
     }
     
     //Metodo chiamato alla morte dello zombie
