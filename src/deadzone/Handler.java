@@ -5,13 +5,9 @@
  */
 package deadzone;
 
-import gameMenu.PauseMenu;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.Timer;
 import sprite.Blood;
 import sprite.DropItem;
 import sprite.Sprite;
@@ -19,9 +15,6 @@ import sprite.animated.Player;
 import sprite.animated.Projectile;
 import sprite.animated.StandardZombie;
 import sprite.animated.Zombie;
-import utilities.Animation;
-import utilities.Assets;
-import utilities.Sound;
 
 
 /**

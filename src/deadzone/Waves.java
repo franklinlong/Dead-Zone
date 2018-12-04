@@ -9,7 +9,6 @@ import gameMenu.PauseMenu;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sprite.animated.StandardZombie;
-import sprite.animated.Zombie;
 import utilities.Animation;
 import utilities.Assets;
 import utilities.Sound;
@@ -123,7 +122,6 @@ public class Waves implements Runnable {
 
     public void updateNumZombieKilledRound() {
         this.numZombieKilledRound += 1;
-        System.out.println(this.numZombieKilledRound);
     }
 
     public void createStandardZommbie(float x, float y, float mulHealth, float prob) {
