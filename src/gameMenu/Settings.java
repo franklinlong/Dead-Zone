@@ -5,8 +5,6 @@
  */
 package gameMenu;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import javax.swing.*;
 
 /**
