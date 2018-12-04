@@ -68,7 +68,7 @@ public class MapPanel extends JPanel implements Runnable{
         long ticks = 0;
         long timer = 0;
         
-        while(!handler.getPlayer().isDeath()){
+        while(!handler.getPlayer().isDeath() && PauseMenu.end==false){
         
             now = System.nanoTime();
             delta += (now - lastTime)/timePerTick;
