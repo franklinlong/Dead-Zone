@@ -143,6 +143,9 @@ public class Waves implements Runnable {
     }
 
     public int getNumZombieRemaining() {
+        if (this.allKilled == true){
+            return 0;
+        }
         int i = numZombieRound - numZombieKilledRound;
         if (i == 0) {
             this.numZombieKilledRound = 0;
