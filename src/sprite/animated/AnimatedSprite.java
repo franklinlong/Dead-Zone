@@ -54,7 +54,7 @@ public abstract class AnimatedSprite extends Sprite{
         //dove ero
         int x = xf.intValue()-avanzamentoX;
         int y = yf.intValue()-avanzamentoY;
-        System.out.println(x +" "+y + " "+avanzamentoX +" "+avanzamentoY);
+
         if( avanzamentoX > 0){
             if(avanzamentoY == 0){
                 //destra
@@ -99,7 +99,7 @@ public abstract class AnimatedSprite extends Sprite{
                             break;}
                     }
                 }
-                System.out.println(collisione1 +" "+collisione2 +" "+collisione3);
+
                 if(collisione3==true && collisione1 == false && collisione2 == false)
                     return 3;
                 else if(collisione3==true && collisione1 == true && collisione2 == false)

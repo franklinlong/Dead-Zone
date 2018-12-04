@@ -46,6 +46,7 @@ public class GameOver extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("DEAD ZONE");
         setPreferredSize(new java.awt.Dimension(768, 575));
+        setResizable(false);
         getContentPane().setLayout(null);
 
         jButton1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
