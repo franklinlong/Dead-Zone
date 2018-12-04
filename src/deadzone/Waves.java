@@ -80,8 +80,7 @@ public class Waves implements Runnable {
                             break;
                     }
                 }
-
-                handler.addSprite(new StandardZombie(x, y, 1, (int) (100 * mult), handler.getPlayer(), this.handler, (float) 1, 60, 60, 5, new Animation(Assets.zombie, 20), new Animation(Assets.zombieAttack, 35), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
+                this.createStandardZommbie(x, y, mult, (float) 1);
                 i++;
                 try {
                     Thread.sleep(2000);
@@ -125,6 +124,10 @@ public class Waves implements Runnable {
     public void updateNumZombieKilledRound() {
         this.numZombieKilledRound += 1;
         System.out.println(this.numZombieKilledRound);
+    }
+
+    public void createStandardZommbie(float x, float y, float mulHealth, float prob) {
+        this.handler.addSprite(new StandardZombie(x, y, 1, (int) (100 * mulHealth), handler.getPlayer(), this.handler, prob, 60, 60, 5, new Animation(Assets.zombie, 20), new Animation(Assets.zombieAttack, 35), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
     }
 
 }
