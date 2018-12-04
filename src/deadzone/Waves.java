@@ -10,6 +10,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import sprite.animated.StandardZombie;
 import sprite.animated.Zombie;
+import utilities.Animation;
+import utilities.Assets;
+import utilities.Sound;
 
 /**
  *
@@ -37,8 +40,8 @@ public class Waves implements Runnable {
 
     @Override
     public void run() {
-        int x = 0;
-        int y = 0;
+        float x = 0;
+        float y = 0;
         while (!handler.getPlayer().isDeath()) {
             this.waveCount += 1;
             this.allKilled = false;
@@ -78,7 +81,7 @@ public class Waves implements Runnable {
                     }
                 }
 
-                handler.addSprite(new StandardZombie(x, y, 1, (int) (100 * mult), handler.getPlayer(), this.handler, (float) 1));
+                handler.addSprite(new StandardZombie(x, y, 1, (int) (100 * mult), handler.getPlayer(), this.handler, (float) 1, 60, 60, 5, new Animation(Assets.zombie, 20), new Animation(Assets.zombieAttack, 35), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
                 i++;
                 try {
                     Thread.sleep(2000);

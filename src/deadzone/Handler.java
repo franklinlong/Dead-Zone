@@ -43,19 +43,14 @@ public class Handler {
     public Handler(String playerName){
         player = new Player(2000,60,2,100,this, playerName);
 
-//        
-//        createZombie(2300,20);
-//        createZombie(2300,60);
-//        createZombie(2300,100);
-
-        
-        createZombie(2350,20);
-        createZombie(2300,100);
-        createZombie(2400,140);
 
         
         camera = new Camera(player);
         players.add(player);
+        
+        this.waves = new Waves(this);
+        Thread t = new Thread(waves);
+        t.start();
         
     }
     
@@ -161,12 +156,6 @@ public class Handler {
         return itemsAndBlood;
     }
 
-    //DA FARE PER BENE BENE
-    private void createZombie(float x, float y) {         
-        System.out.println(x + " " + y);
-        addSprite((new StandardZombie(x, y, 1, 100, this.player, this, (float)1, 60, 60, 5, new Animation(Assets.zombie, 20), 
-                new Animation(Assets.zombieAttack, 35), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit))));
-    }
 
     public Camera getCamera() {
         return camera;
