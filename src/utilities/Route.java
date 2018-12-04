@@ -48,34 +48,25 @@ public class Route {
         return a; 
     }
     
-    public float[] evitaZombie(float x, float y, List<Sprite> zombies){
-        float[] a;
-        a = new float[2];
-       
-        
+    public boolean evitaZombie(int x, int y, List<Sprite> zombies){
         //aggiorno le variabili dello zombie in modo da vedere se nella nuova posizione ci sono atri zombie
         this.zombie.setX(this.zombie.getX() + x);
         this.zombie.setY(this.zombie.getY() + y);
-        
-        a[0] = x;
-        a[1] = y;
         
         for(int i=0;i<zombies.size();i++){
             Sprite s = zombies.get(i);
             
             if(this.zombie.getBounds().contains((int)(s.getX() + s.width),(int) (s.getHeight() + s.getY()))){
                 System.out.println("SESESE");
-                a[0] = 0;
-                a[1] = 0;
+                return true;
             }
-            
         }
         
         //Faccio tornare lo zombie alla posizione iniziale perchè vanno fatti tutti i vari controlli nella classe zombie
         this.zombie.setX(this.zombie.getX() - x);
         this.zombie.setY(this.zombie.getY() - y);
         
-        return a;
+        return false;
     }
     
 }

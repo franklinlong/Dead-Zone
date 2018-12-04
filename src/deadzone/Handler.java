@@ -17,7 +17,11 @@ import sprite.DropItem;
 import sprite.Sprite;
 import sprite.animated.Player;
 import sprite.animated.Projectile;
+import sprite.animated.StandardZombie;
 import sprite.animated.Zombie;
+import utilities.Animation;
+import utilities.Assets;
+import utilities.Sound;
 
 
 /**
@@ -133,7 +137,7 @@ public class Handler {
     
     public void addSprite(Sprite s){
         //Prima di aggiungere lo sprite devo individuare in che lista aggiungerlo
-        if(s instanceof Zombie){
+        if(s instanceof StandardZombie){
             this.zombies.add(s);
         }
         else if(s instanceof Player){
@@ -186,7 +190,9 @@ public class Handler {
 
     //DA FARE PER BENE BENE
     private void createZombie(float x, float y) {         
-        addSprite((new Zombie(x, y, 1, 100, this.player, this, (float)5)));
+        System.out.println(x + " " + y);
+        addSprite((new StandardZombie(x, y, 1, 100, this.player, this, (float)1, 60, 60, 5, new Animation(Assets.zombie, 20), 
+                new Animation(Assets.zombieAttack, 35), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit))));
     }
 
     public Camera getCamera() {
