@@ -7,6 +7,7 @@ package deadzone;
 
 import gameMenu.Menu;
 import gameMenu.PauseMenu;
+import gameMenu.Settings;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sprite.animated.StandardZombie;
@@ -118,15 +119,18 @@ public class Waves implements Runnable {
                     }
                 }
             }
-            Menu.gameMusic.stopSound();
-            this.endRound.playSound();
+            if (Settings.soundMusic){
+                Menu.gameMusic.stopSound();
+                endRound.playSound();
+            }
             try {
-                Thread.sleep(7000);
+                Thread.sleep(endRound.getMicrosecondLenght()/1000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Waves.class.getName()).log(Level.SEVERE, null, ex);
             }
-            Menu.gameMusic.playSound();
-            Menu.gameMusic.loopSound();
+            if (Settings.soundMusic){
+                Menu.gameMusic.playSound();
+            }
             if (this.waveCount % 5 == 0) {
                 this.numZombieRound = 8;
                 this.mult += 0.13;

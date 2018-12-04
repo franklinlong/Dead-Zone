@@ -15,6 +15,7 @@ public class Settings extends javax.swing.JDialog {
 
     
     public static boolean soundEffects = true;
+    public static boolean soundMusic = true;
     public static boolean padArrows = false;
     
     /**
@@ -170,10 +171,12 @@ public class Settings extends javax.swing.JDialog {
         String text = this.music.getText();
         if (text.compareTo("ON") == 0){
             Menu.gameMusic.stopSound();
+            soundMusic = false;
             this.music.setText("OFF");
         }
         else{
             Menu.gameMusic.loopSound();
+            soundMusic = true;
             this.music.setText("ON");   
         }    
     }//GEN-LAST:event_musicActionPerformed

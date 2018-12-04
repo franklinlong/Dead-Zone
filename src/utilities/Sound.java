@@ -36,6 +36,10 @@ public class Sound {
 	public int getFrameLenght(){
 		return sound.getFrameLength();
 	}
+        
+        public long getMicrosecondLenght(){
+            return sound.getMicrosecondLength();
+        }
 	
 	public void changeVolume(float value){
 		volume.setValue(value);
