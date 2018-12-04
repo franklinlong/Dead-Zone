@@ -46,6 +46,7 @@ public class Player extends AnimatedSprite{
     
     private int punteggioAttuale;
     private final String name;
+    private int zombieKilled;
         
     public Player(float x, float y, int vel, int health, Handler handler, String name) {
         super(x, y, PLAYERSIZE, PLAYERSIZE, vel, health);
@@ -237,6 +238,16 @@ public class Player extends AnimatedSprite{
     public void updatePunteggio(int punteggioAttuale) {
         this.punteggioAttuale += punteggioAttuale;
     }
+    
+    public void updateZombieKilled(){
+        this.zombieKilled += 1;
+    }
+
+    public int getZombieKilled() {
+        return zombieKilled;
+    }
+    
+    
 
     public String getName() {
         return name;

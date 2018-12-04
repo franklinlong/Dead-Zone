@@ -182,7 +182,7 @@ public class HudPanel extends JPanel implements Runnable {
         wave.setLocation(0, imageLabel.getY() + imageLabel.getHeight()*4/3);
         this.add(wave);
         
-        this.numWave = new JLabel("1-1", SwingConstants.CENTER);
+        this.numWave = new JLabel(Integer.toString(handler.getWaves().getWaveCount())+"-∞", SwingConstants.CENTER);
         numWave.setForeground(Color.white);
         numWave.setFont(font);
         numWave.setSize(this.getWidth()/2, 39);
@@ -196,7 +196,7 @@ public class HudPanel extends JPanel implements Runnable {
         enemies.setLocation(this.getWidth() - gunLabel.getWidth() - this.getWidth()*1/5, wave.getY());
         this.add(enemies);
         
-        this.numEnemies = new JLabel(Integer.toString(handler.getZombies().size()), SwingConstants.CENTER);
+        this.numEnemies = new JLabel(Integer.toString(handler.getWaves().getNumZombieRemaining()), SwingConstants.CENTER);
         numEnemies.setForeground(Color.white);
         numEnemies.setFont(font);
         numEnemies.setSize(this.getWidth()/2, 39);
@@ -306,7 +306,8 @@ public class HudPanel extends JPanel implements Runnable {
                     numBullets.setText(Integer.toString(handler.getPlayer().getCurrentGun().getRound()) + "/" + Integer.toString(handler.getPlayer().getCurrentGun().getTotalBullets())); //aggiorna numero proiettili
                     numEnemies.setText(""+handler.getZombies().size());
                     playerHealth.setHealth(this.handler.getPlayer().getHealth()); //aggiorna progressBar player
-                    // aggiornare il numero di ondata quando disponibile
+                    numWave.setText(Integer.toString(handler.getWaves().getWaveCount())+"-∞");
+                    numEnemies.setText(Integer.toString(handler.getWaves().getNumZombieRemaining())); 
                     
                     this.repaint();
                     minimapPanel.repaint();

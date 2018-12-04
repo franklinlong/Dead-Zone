@@ -187,6 +187,8 @@ public class Zombie extends AnimatedSprite{
         //Alla orte dello zombie si crea la chiazza di sangue
         this.handler.addSprite(new Blood(this.getX(), this.getY(),30, 30, handler));
         this.player.updatePunteggio(SCORE);
+        this.player.updateZombieKilled();
+        this.handler.getWaves().updateNumZombieKilledRound();
         
         //Alla morte dello zombie, con una data probabilita, viene rilasciato un nuovo item
         boolean drop = (Math.random() *100) <= probabilityDrop;

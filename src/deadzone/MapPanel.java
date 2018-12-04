@@ -91,7 +91,7 @@ public class MapPanel extends JPanel implements Runnable{
             
         }
         
-        handler.spawn.stop();
+        //handler.spawn.stop();
         System.out.println("FINE PARTITA MAP PANEL");
         Player p = this.handler.getPlayer();
         new Scoreboard().addScore(p.getName(), p.getPunteggioAttuale());
