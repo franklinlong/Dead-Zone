@@ -93,7 +93,8 @@ public class Waves implements Runnable {
                             break;
                         case 9:                 //fognatura 1
                             x = 674;
-                            y = 300;                        
+                            y = 300;
+                            break;
                     }
                 }
                 this.createStandardZommbie(x, y, mult, (float) 1);
