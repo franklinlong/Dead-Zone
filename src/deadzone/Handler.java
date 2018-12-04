@@ -64,20 +64,21 @@ public class Handler {
                     break;
             }
             if (!PauseMenu.pause){
-            createZombie(spawnX,spawnY);
+                createZombie(spawnX,spawnY);
             }
-        }});
+        }
+    });
     
     public Handler(String playerName){
         player = new Player(2000,60,2,100,this, playerName);
         
-        createZombie(2300,20);
-        createZombie(2300,60);
+        createZombie(2350,20);
         createZombie(2300,100);
+        createZombie(2400,160);
         
         camera = new Camera(player);
         players.add(player);
-        spawn.start();
+        //spawn.start();
         
     }
     
@@ -185,7 +186,6 @@ public class Handler {
 
     //DA FARE PER BENE BENE
     private void createZombie(float x, float y) {         
-        System.out.println(x + " " + y);
         addSprite((new Zombie(x, y, 1, 100, this.player, this, (float)1)));
     }
 

@@ -114,11 +114,11 @@ public class Zombie extends AnimatedSprite{
         
         
             //in base al percorso che deve seguire lo zombie, a[] avrà la velocitaX e la velocitaY
-            float[] a = new Route(player, this).seek();
-        			
+            float[] b = new Route(player, this).seek();
+            
             //Codice per ricalcolare la direzione in base alla presenza di zombie vicini ... DA FARE
-            //a = new Route(player, this).evitaZombie(a[0],a[1], this.handler.getZombies());
-        
+            float[] a = new Route(player, this).evitaZombie(b[0],b[1], this.handler.getZombies());
+            
         
             angle = (float) Math.acos(a[0]);
             if(a[1] < 0)
