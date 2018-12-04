@@ -12,6 +12,7 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
 import javax.swing.Timer;
 import utilities.Animation;
 import utilities.Route;
@@ -101,14 +102,19 @@ public class StandardZombie extends Zombie{
                 vy = +1;
             
             //Codice per ricalcolare la direzione in base alla presenza di zombie vicini ... DA FARE
-//            if(new Route(player, this).evitaZombie(vx,vy, this.handler.getZombies())){
-//                a[0] = 0;
-//                a[1] = 0;
-//            }
-            
-            angle = (float) Math.acos(a[0]);
-            if(a[1] < 0)
+            ArrayList<Zombie> vicino = new Route(player, this).evitaZombies(vx,vy, this.handler.getZombies());
+            if(!vicino.isEmpty()){
+                for(int i=0; i<vicino.size(); i++){
+                    Route r2 = new Route(this,vicino.get(i));
+                    a[0] = (a[0] + r2.seek()[0]);
+                    a[1] = (a[1] + r2.seek()[1]);
+                }
+            }
+            else{
+                angle = (float) Math.acos(a[0]);
+                if(a[1] < 0)
                     angle *= -1;
+            }
         
             float toPlayerX = player.getX() - this.getX();
             float toPlayerY = player.getY() - this.getY();
@@ -146,11 +152,9 @@ public class StandardZombie extends Zombie{
             int k = collision(vx,vy,x,y);
             switch (k) {
                 case 1:
-                    y = y - vy + a[1];
                     x -= vx;
                     break;
                 case 2:
-                    x = x - vx + a[0];
                     y -= vy;
                     break;
                 case 3:

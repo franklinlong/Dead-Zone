@@ -5,9 +5,10 @@
  */
 package utilities;
 
+import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.List;
 import sprite.Sprite;
-import sprite.animated.Player;
 import sprite.animated.Zombie;
 
 /**
@@ -18,11 +19,11 @@ import sprite.animated.Zombie;
 //Definisce il percorso tra uno zombie e un player
 public class Route {
     
-    private final Player player;
+    private final Sprite target;
     private final Zombie zombie;
     
-    public Route(Player player, Zombie zombie){
-        this.player = player;
+    public Route(Sprite target, Zombie zombie){
+        this.target = target;
         this.zombie = zombie;
         
     }
@@ -33,8 +34,8 @@ public class Route {
         float[] a;
         a = new float[2];
         
-        float x = (player.getX() + player.width/2 ) - (zombie.getX() + zombie.width/2);
-        float y  = (player.getY() + player.height/2 ) - (zombie.getY() + zombie.height/2);
+        float x = (target.getX() + target.width/2 ) - (zombie.getX() + zombie.width/2);
+        float y  = (target.getY() + target.height/2 ) - (zombie.getY() + zombie.height/2);
         
         x = (x/ (float)Math.sqrt(x*x + y*y));
         y = (y/ (float)Math.sqrt(x*x + y*y));
@@ -48,25 +49,32 @@ public class Route {
         return a; 
     }
     
-    public boolean evitaZombie(int x, int y, List<Sprite> zombies){
+    public ArrayList<Zombie> evitaZombies(int x, int y, List<Sprite> zombies){
+        ArrayList<Zombie> vicini = new ArrayList<Zombie>();
+
         //aggiorno le variabili dello zombie in modo da vedere se nella nuova posizione ci sono atri zombie
         this.zombie.setX(this.zombie.getX() + x);
         this.zombie.setY(this.zombie.getY() + y);
         
         for(int i=0;i<zombies.size();i++){
-            Sprite s = zombies.get(i);
+            Zombie s = (Zombie) zombies.get(i);
             
-            if(this.zombie.getBounds().contains((int)(s.getX() + s.width),(int) (s.getHeight() + s.getY()))){
-                System.out.println("SESESE");
-                return true;
+            if(!s.equals(this.zombie)){
+                Rectangle r = s.getBounds();
+                r.setRect(s.getX()+s.width*5/12, s.getY()+s.height*5/12, s.width/6, s.height/6);
+                if(this.zombie.getBounds().intersects(r)){
+                    this.zombie.setX(this.zombie.getX() - x);
+                    this.zombie.setY(this.zombie.getY() - y);
+                    vicini.add(s);
+                }
             }
         }
         
-        //Faccio tornare lo zombie alla posizione iniziale perchè vanno fatti tutti i vari controlli nella classe zombie
+        //Faccio tornare o zombie alla posizione iniziale perchè vanno fatti tutti i vari controlli nella classe zombie
         this.zombie.setX(this.zombie.getX() - x);
         this.zombie.setY(this.zombie.getY() - y);
         
-        return false;
+        return vicini;
     }
     
 }
