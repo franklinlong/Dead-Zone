@@ -20,8 +20,8 @@ import utilities.Assets;
  */
 public class Board extends JSplitPane implements Runnable{
     private boolean inGame=false;
-    private Thread tHud;
-    private Thread tMap;
+    public static Thread tHud;
+    public static Thread tMap;
     private long averageFPS = 0;
     private Handler handler; 
     private Player player;
