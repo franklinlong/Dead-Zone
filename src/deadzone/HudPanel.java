@@ -182,7 +182,7 @@ public class HudPanel extends JPanel implements Runnable {
         wave.setLocation(0, imageLabel.getY() + imageLabel.getHeight()*4/3);
         this.add(wave);
         
-        this.numWave = new JLabel(Integer.toString(handler.getWaves().getWaveCount())+"-∞", SwingConstants.CENTER);
+        this.numWave = new JLabel(Integer.toString(handler.getWaves().getWaveCount())+"\u221e", SwingConstants.CENTER);
         numWave.setForeground(Color.white);
         numWave.setFont(font);
         numWave.setSize(this.getWidth()/2, 39);

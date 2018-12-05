@@ -132,11 +132,11 @@ public class Waves implements Runnable {
                         n = (int) (Math.random() * this.diffToCreate);
                         switch (n) {
                             case 0:
-                                this.createWeakZommbie(x, y, mult, (float) 10);
+                                this.createWeakZommbie(x, y, mult, (float) 1);
                                 this.numWeakToCreate -= 1;
                                 break;
                             case 1:
-                                this.createFastZombie(x, y, mult, (float) 10);
+                                this.createFastZombie(x, y, mult, (float) 1);
                                 this.numFastToCreate -= 1;
                                 break;
                         }
