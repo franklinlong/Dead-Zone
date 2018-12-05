@@ -28,6 +28,16 @@ public class Assets {
     // guns skin
     public static BufferedImage pistolSkin, ak47, rifleLoader, shotgunSkin;
 
+    //spittle
+                public static BufferedImage spittle_n;
+                public static BufferedImage spittle_ne;
+                public static BufferedImage spittle_e;
+                public static BufferedImage spittle_se;
+                public static BufferedImage spittle_s;
+                public static BufferedImage spittle_so;
+                public static BufferedImage spittle_o;
+                public static BufferedImage spittle_no;
+                
     //sounds		
     public static Clip pistolShoot, rifleShoot, shotgunShoot, background, zombieHit, pistolReloadSound,
             rifleReloadSound, shotgunReloadSound, emptyGun, zombieBite;
@@ -105,18 +115,18 @@ public class Assets {
         for (int i = 0; i < zombie2Attack.length; i++) {
             zombie2Attack[i] = Utilities.loadImage("/zombie2/attack/" + i + ".png");
         }
-
-
+        
+		
         //gun skins
         shotgunSkin = Utilities.loadImage("/guns/shotgun.png");
         pistolSkin = Utilities.loadImage("/guns/pistol.png");
         ak47 = Utilities.loadImage("/guns/ak-47.png");
         rifleLoader = Utilities.loadImage("/guns/rifleLoader.png");
-
-        //item
-        mediKit = Utilities.loadImage("/images/medikitItem.png");
-        ammo = Utilities.loadImage("/images/ammoItem.png");
-        nuke = Utilities.loadImage("/images/bombItem.png");
+                
+//                public static BufferedImage minimap;
+//                public static BufferedImage greenIndicator;
+//                public static BufferedImage redIndicator;
+              
 
         //blood 
         blood = Utilities.loadImage("/images/blood.png");
@@ -135,7 +145,26 @@ public class Assets {
         shotgunReloadSound = Utilities.LoadSound("/sound/shotgunReload.wav");
         shotgunShoot = Utilities.LoadSound("/sound/shotgun.wav");
 
-        //minimap
+                    
+
+                    
+        //spittle
+        spittle_n = Utilities.loadImage("/zombie/spittle/nord.png");
+        spittle_ne = Utilities.loadImage("/zombie/spittle/nordest.png");
+        spittle_e = Utilities.loadImage("/zombie/spittle/est.png");
+        spittle_se = Utilities.loadImage("/zombie/spittle/sudest.png");
+        spittle_s = Utilities.loadImage("/zombie/spittle/sud.png");
+        spittle_so = Utilities.loadImage("/zombie/spittle/sudovest.png");
+        spittle_o = Utilities.loadImage("/zombie/spittle/ovest.png");
+        spittle_no = Utilities.loadImage("/zombie/spittle/nordovest.png");
+                    
+        //item
+        mediKit = Utilities.loadImage("/images/medikitItem.png");
+        ammo = Utilities.loadImage("/images/ammoItem.png");
+        nuke = Utilities.loadImage("/images/bombItem.png");
+                    
+                    
+                    //minimap
 //                    minimap = Utilities.loadImage("/images/grigionero.png");
 //                    greenIndicator = Utilities.loadImage("/images/green.png");
 //                    redIndicator = Utilities.loadImage("/images/red.png");

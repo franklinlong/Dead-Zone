@@ -10,6 +10,7 @@ import gameMenu.PauseMenu;
 import gameMenu.Settings;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sprite.animated.SpittleZombie;
 import sprite.animated.StandardZombie;
 import utilities.Animation;
 import utilities.Assets;
@@ -219,4 +220,7 @@ public class Waves implements Runnable {
         this.handler.addSprite(new StandardZombie(x, y, 1, (int) (35 * mulHealth), 35, handler.getPlayer(), this.handler, prob, 60, 60, 5, new Animation(Assets.zombie2, 15), new Animation(Assets.zombie2Attack, 15), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
     }
 
+    public void createSpittleZombie(float x, float y, float mulHealth, float prob) {
+        this.handler.addSprite(new SpittleZombie(x, y, 1, (int) (100 * mulHealth), 50, handler.getPlayer(), this.handler, prob, 60, 60, 5, new Animation(Assets.zombie2, 15), new Animation(Assets.zombie2Attack, 15), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
+    }
 }

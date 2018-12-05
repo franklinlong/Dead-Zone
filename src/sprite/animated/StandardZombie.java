@@ -12,7 +12,6 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
-import java.util.ArrayList;
 import javax.swing.Timer;
 import utilities.Animation;
 import utilities.Route;
