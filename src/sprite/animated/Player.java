@@ -195,6 +195,9 @@ public class Player extends AnimatedSprite{
             else if(!KAdapter.right)
                 velX = 0;
         
+            
+            
+            
             //scelta arma corrente in base al pulsante 1-2-3
             if(KAdapter.one)
                     currentGun = pistol;

@@ -157,14 +157,15 @@ public abstract class AnimatedSprite extends Sprite{
                     return 1;
                 else if(collisione3 == true && collisione2 ==true && collisione1 == false)
                     return 2;
-                else if(collisione1 == true && collisione2 == true & collisione3==true)
+                else if(collisione1 == true && collisione2 == true && collisione3==true)
                     return 3;
                 else if(collisione1 ==true && collisione2 ==true)
                     return 3;
-                else if (collisione1 == true)
-                    return 1;
                 else if (collisione2==true)
                     return 2;
+                else if (collisione1 == true)
+                    return 1;
+                
             }
                 
         }
