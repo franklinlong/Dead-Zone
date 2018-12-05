@@ -16,6 +16,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import listeners.*;
+import utilities.Zona;
 
 
 /**
@@ -25,6 +26,7 @@ import listeners.*;
 public class Player extends AnimatedSprite{
     
     public static final int PLAYERSIZE = 60;
+    protected Zona zona;
 
     //animations
     private final Animation shotgunIdle, shotgunReload, shotgunShoot;
@@ -56,7 +58,8 @@ public class Player extends AnimatedSprite{
         this.punteggioAttuale = 0;
         this.handler = handler;
         this.name = name;
-        
+        this.zona = new Zona(getX(),getY());
+         
         pistolIdle = new Animation(Assets.pistolIdle,20);
         pistolReload = new Animation(Assets.pistolReload, 100);
         pistolShoot = new Animation(Assets.pistolShootAnim, 80);
@@ -136,6 +139,8 @@ public class Player extends AnimatedSprite{
             if(getHealth()<=0)
                 death();
         
+            this.zona.aggiorna();
+            
             float x = getX();
             float y = getY();
             x+=velX;
@@ -253,7 +258,13 @@ public class Player extends AnimatedSprite{
         return zombieKilled;
     }
     
-    
+        public Zona getZona() {
+        return zona;
+    }
+
+    public void setZona(Zona zona) {
+        this.zona = zona;
+    }
 
     public String getName() {
         return name;
