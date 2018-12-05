@@ -34,7 +34,7 @@ public class Handler {
 
     
     public Handler(String playerName){
-        player = new Player(2000,60,2,10000,this, playerName);        
+        player = new Player(2000,60,2,300,this, playerName);        
         camera = new Camera(player);
         players.add(player);
         
