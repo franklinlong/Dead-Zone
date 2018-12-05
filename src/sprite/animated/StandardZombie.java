@@ -12,7 +12,6 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
-import java.util.ArrayList;
 import javax.swing.Timer;
 import utilities.Animation;
 import utilities.Route;
@@ -27,15 +26,17 @@ public class StandardZombie extends Zombie{
     public static final int ZOMBIESIZE = 60;
     
     //Danni inflitti dallo zombie quando attacca
-    private final int damage = 20;
+    private int damage;
     
     //Timer
     Timer attackDelay, hitZombie;
     
-    public StandardZombie(float x, float y, int vel, int health, Player player, Handler handler, 
+    public StandardZombie(float x, float y, int vel, int health, int damage, Player player, Handler handler, 
             float probabilityDrop, int width, int height, int score, Animation walkAnimation, Animation
                     attackAnimation, Sound biteSound, Sound hitSound) {
         super(x, y, vel, health, player, handler, probabilityDrop, width, height, score, walkAnimation,attackAnimation,biteSound,hitSound);
+        
+        this.damage = damage;
 
         attackDelay = new Timer(350, new ActionListener(){
             @Override

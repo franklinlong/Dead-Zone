@@ -25,16 +25,18 @@ public class SpittleZombie extends Zombie{
     public static final int ZOMBIESIZE = 60;
     
     //Danni inflitti dallo zombie quando attacca
-    private final int damage = 15;
+    private int damage;
     
     //Timer
     Timer attackDelay, hitZombie;
     
-    public SpittleZombie(float x, float y, int vel, int health, Player player, Handler handler, 
+    public SpittleZombie(float x, float y, int vel, int health, int damage,Player player, Handler handler, 
             float probabilityDrop, int width, int height, int score, Animation walkAnimation, Animation
                     attackAnimation, Sound biteSound, Sound hitSound) {
         super(x, y, vel, health, player, handler, probabilityDrop, width, height, score, walkAnimation,attackAnimation,biteSound,hitSound);
 
+        this.damage = damage;
+        
         attackDelay = new Timer(5000, new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
