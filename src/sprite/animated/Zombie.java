@@ -6,17 +6,9 @@
 package sprite.animated;
 
 import deadzone.Handler;
-import gameMenu.PauseMenu;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.geom.AffineTransform;
-import javax.swing.Timer;
 import sprite.Blood;
 import utilities.Animation;
-import utilities.Assets;
-import utilities.Route;
 import utilities.Sound;
 import sprite.Ammo;
 import sprite.MedicalKit;
@@ -40,7 +32,7 @@ public abstract class Zombie extends AnimatedSprite{
     
     protected boolean attacking = false;
     
-    private final Handler handler;
+    protected final Handler handler;
     private final float probabilityDrop; //probabilità percentuale di rilascio oggetto dello zombie
     
     public Zombie(float x, float y, int vel, int health, Player player, Handler handler, 
@@ -103,6 +95,6 @@ public abstract class Zombie extends AnimatedSprite{
         setHealth(getHealth()-damage);
         sound_hit();
     }
-   
+    
     public abstract void sound_hit();
 }

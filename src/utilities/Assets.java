@@ -1,6 +1,7 @@
 package utilities;
 
 import java.awt.image.BufferedImage;
+import java.util.*;
 
 import javax.sound.sampled.Clip;
 
@@ -27,6 +28,15 @@ public class Assets {
 		// guns skin
 		public static BufferedImage pistolSkin, ak47, rifleLoader, shotgunSkin;
 		
+                //spittle
+                public static BufferedImage spittle_n;
+                public static BufferedImage spittle_ne;
+                public static BufferedImage spittle_e;
+                public static BufferedImage spittle_se;
+                public static BufferedImage spittle_s;
+                public static BufferedImage spittle_so;
+                public static BufferedImage spittle_o;
+                public static BufferedImage spittle_no;
 		
 		//sounds		
 		public static Clip pistolShoot, rifleShoot, shotgunShoot, background, zombieHit, pistolReloadSound,
@@ -93,6 +103,16 @@ public class Assets {
                     pistolSkin = Utilities.loadImage("/guns/pistol.png");
                     ak47 = Utilities.loadImage("/guns/ak-47.png");
                     rifleLoader = Utilities.loadImage("/guns/rifleLoader.png");
+                    
+                    //spittle
+                    spittle_n = Utilities.loadImage("/zombie/spittle/nord.png");
+                    spittle_ne = Utilities.loadImage("/zombie/spittle/nordest.png");
+                    spittle_e = Utilities.loadImage("/zombie/spittle/est.png");
+                    spittle_se = Utilities.loadImage("/zombie/spittle/sudest.png");
+                    spittle_s = Utilities.loadImage("/zombie/spittle/sud.png");
+                    spittle_so = Utilities.loadImage("/zombie/spittle/sudovest.png");
+                    spittle_o = Utilities.loadImage("/zombie/spittle/ovest.png");
+                    spittle_no = Utilities.loadImage("/zombie/spittle/nordovest.png");
                     
                     //item
                     mediKit = Utilities.loadImage("/images/medikitItem.png");
