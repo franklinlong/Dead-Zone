@@ -5,6 +5,9 @@
  */
 package utilities;
 
+import deadzone.Handler;
+import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.List;
 import sprite.Sprite;
 import sprite.animated.Player;
@@ -18,23 +21,35 @@ import sprite.animated.Zombie;
 //Definisce il percorso tra uno zombie e un player
 public class Route {
     
-    private final Player player;
+    private final Sprite target;
     private final Zombie zombie;
+    private final Handler handler;
     
-    public Route(Player player, Zombie zombie){
-        this.player = player;
+    public Route(Sprite target, Zombie zombie, Handler handler){
+        this.target = target;
         this.zombie = zombie;
-        
+        this.handler = handler;
     }
     
-    //Restituisce la velocitaX e velocitaY per avvicinarsi al giocatore
+    public float[] raggiungiZona(){
+        
+        //Se si trovano nella stessa zona o in una zona adiacente
+        if(zombie.getZona().equals(((Player) target).getZona()) || zombie.getZona().isNear(((Player) target).getZona()))
+            return seek();
+        else{
+            System.err.println("Non deve succedere");
+            return new float[2];
+        }
+    }
+    
+    //Restituisce la velocitaX e velocitaY per avvicinarsi al target in maniera standard senza ostacoli
     public float[] seek(){
 
         float[] a;
         a = new float[2];
         
-        float x = (player.getX() + player.width/2 ) - (zombie.getX() + zombie.width/2);
-        float y  = (player.getY() + player.height/2 ) - (zombie.getY() + zombie.height/2);
+        float x = (target.getX() + target.width/2 ) - (zombie.getX() + zombie.width/2);
+        float y  = (target.getY() + target.height/2 ) - (zombie.getY() + zombie.height/2);
         
         x = (x/ (float)Math.sqrt(x*x + y*y));
         y = (y/ (float)Math.sqrt(x*x + y*y));
@@ -48,23 +63,98 @@ public class Route {
         return a; 
     }
     
-    public float[] evitaZombie(float x, float y, List<Sprite> zombies){
-        float[] a;
-        a = new float[2];
+    public ArrayList<Zombie> evitaZombies(int x, int y, List<Sprite> zombies){
+        ArrayList<Zombie> vicini = new ArrayList<Zombie>();
+
+        //aggiorno le variabili dello zombie in modo da vedere se nella nuova posizione ci sono atri zombie
+        this.zombie.setX(this.zombie.getX() + x);
+        this.zombie.setY(this.zombie.getY() + y);
         
+        for(int i=0;i<zombies.size();i++){
+            Zombie s = (Zombie) zombies.get(i);
+            
+            if(!s.equals(this.zombie)){
+                Rectangle r = s.getBounds();
+                r.setRect(s.getX()+s.width*5/12, s.getY()+s.height*5/12, s.width/6, s.height/6);
+                if(this.zombie.getBounds().intersects(r)){
+                    this.zombie.setX(this.zombie.getX() - x);
+                    this.zombie.setY(this.zombie.getY() - y);
+                    vicini.add(s);
+                }
+            }
+        }
+        
+        //Faccio tornare o zombie alla posizione iniziale perchè vanno fatti tutti i vari controlli nella classe zombie
+        this.zombie.setX(this.zombie.getX() - x);
+        this.zombie.setY(this.zombie.getY() - y);
+        
+        return vicini;
+    }
+    
+    public float[] gestisciOstacoli(float velX, float velY){
+        
+        //Velocita fittizie per capire se ci sono ostacoli
+        int vx=0;
+        int vy=0;
+        if(velX < 0)
+            vx = -1;
+        else if(velX > 0)
+            vx = +1;
+        if(velY < 0)
+            vy = -1;
+        else if(velY > 0)
+            vy = +1;
+
+        //Codice per ricalcolare la direzione in base alla presenza di zombie vicini ... DA FARE
+        ArrayList<Zombie> vicino = this.evitaZombies(vx,vy, handler.getZombies());
+        if(!vicino.isEmpty()){
+            for(int i=0; i<vicino.size(); i++){
+                Route r2 = new Route(this.zombie,vicino.get(i),handler);
+                velX = (velX + r2.seek()[0]);
+                velY = (velY + r2.seek()[1]);
+            }
+        }
+        else{
+            zombie.setAngle((float) Math.acos(velX));
+            if(velY < 0)
+                zombie.setAngle(zombie.getAngle()* -1);
+        }
+        
+        
+        float x = zombie.getX();
+        float y = zombie.getY();
+
+        //Aggiorno la posizione dello zombie in base ai calcoli sul percorso
+        x += vx;
+        y += vy;
+
+        //aggiorno le variabili dello sprite per come funziona collision
+        zombie.setX(x);
+        zombie.setY(y);
+
+        //Se c'è una collisione non posso passare
+        int k = zombie.collision(vx,vy,x,y);
+        switch (k) {
+            case 1:
+                x -= vx;
+                break;
+            case 2:
+                y -= vy;
+                break;
+            case 3:
+                x -= vy ;
+                y -= vy;
+                break;
+            default:
+                x = x - vx + velX;
+                y = y - vy + velY;
+                break;
+            }
+        
+        float[] a = new float[2];
         a[0] = x;
         a[1] = y;
         
-        for(int i=0;i<zombies.size();i++){
-            Sprite s = zombies.get(i);
-            
-            if(s.getBounds().contains(this.zombie.getX()+ this.zombie.getWidth() + x + s.width, this.zombie.getY()+ this.zombie.getHeight()+ y + s.height)){
-                a[0] = 0;
-                a[1] = 0;
-            }
-            
-        }
-            
         return a;
     }
     

@@ -13,6 +13,7 @@ import utilities.Sound;
 import sprite.Ammo;
 import sprite.MedicalKit;
 import sprite.Nuke;
+import utilities.Zona;
 
 /**
  *
@@ -20,6 +21,7 @@ import sprite.Nuke;
  */
 public abstract class Zombie extends AnimatedSprite{
     private final int score;
+    protected Zona zona;
     protected float distanceToPlayerX;
     protected float distanceToPlayerY;
     
@@ -45,12 +47,14 @@ public abstract class Zombie extends AnimatedSprite{
         this.handler = handler;
         this.probabilityDrop = probabilityDrop;
         this.score = score;
-           
+        
         this.walkAnimation = walkAnimation;
         this.attackAnimation = attackAnimation;
         this.biteSound = biteSound;
         this.hitSound = hitSound;
         currentAnimation = walkAnimation;
+        
+        this.zona = new Zona(getX(),getY());
     }
 
     @Override
@@ -65,6 +69,8 @@ public abstract class Zombie extends AnimatedSprite{
         //Alla orte dello zombie si crea la chiazza di sangue
         this.handler.addSprite(new Blood(this.getX(), this.getY(),30, 30, handler));
         this.player.updatePunteggio(this.score);
+        this.player.updateZombieKilled();
+        this.handler.getWaves().updateNumZombieKilledRound();
         
         //Alla morte dello zombie, con una data probabilita, viene rilasciato un nuovo item
         boolean drop = (Math.random() *100) <= probabilityDrop;
@@ -95,6 +101,14 @@ public abstract class Zombie extends AnimatedSprite{
         setHealth(getHealth()-damage);
         sound_hit();
     }
-    
+
+    public Zona getZona() {
+        return zona;
+    }
+
+    public void setZona(Zona zona) {
+        this.zona = zona;
+    }
+   
     public abstract void sound_hit();
 }

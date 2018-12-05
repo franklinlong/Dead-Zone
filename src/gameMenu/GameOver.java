@@ -5,8 +5,9 @@
  */
 package gameMenu;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -19,6 +20,10 @@ public class GameOver extends javax.swing.JFrame {
      * @param parent
      */
     public GameOver(JFrame parent) {
+        Image iconaFrame;
+        iconaFrame = new ImageIcon(getClass().getResource("/images/icona_frame.png")).getImage();
+        this.setIconImage(iconaFrame); 
+        
         this.parent = parent;
         initComponents();
         this.setLocationRelativeTo(null);
@@ -38,7 +43,9 @@ public class GameOver extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("DEAD ZONE");
         setPreferredSize(new java.awt.Dimension(768, 575));
+        setResizable(false);
         getContentPane().setLayout(null);
 
         jButton1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -52,9 +59,6 @@ public class GameOver extends javax.swing.JFrame {
         jButton1.setBounds(260, 470, 250, 50);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/game-over.png"))); // NOI18N
-        jLabel1.setMaximumSize(new java.awt.Dimension(768, 575));
-        jLabel1.setMinimumSize(new java.awt.Dimension(768, 575));
-        jLabel1.setPreferredSize(new java.awt.Dimension(768, 575));
         getContentPane().add(jLabel1);
         jLabel1.setBounds(-10, 0, 780, 580);
 

@@ -16,6 +16,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import listeners.*;
+import utilities.Zona;
 
 
 /**
@@ -25,6 +26,7 @@ import listeners.*;
 public class Player extends AnimatedSprite{
     
     public static final int PLAYERSIZE = 60;
+    protected Zona zona;
 
     //animations
     private final Animation shotgunIdle, shotgunReload, shotgunShoot;
@@ -49,13 +51,15 @@ public class Player extends AnimatedSprite{
     
     private int punteggioAttuale;
     private final String name;
+    private int zombieKilled;
         
     public Player(float x, float y, int vel, int health, Handler handler, String name) {
         super(x, y, PLAYERSIZE, PLAYERSIZE, vel, health);
         this.punteggioAttuale = 0;
         this.handler = handler;
         this.name = name;
-        
+        this.zona = new Zona(getX(),getY());
+         
         pistolIdle = new Animation(Assets.pistolIdle,20);
         pistolReload = new Animation(Assets.pistolReload, 100);
         pistolShoot = new Animation(Assets.pistolShootAnim, 80);
@@ -135,6 +139,8 @@ public class Player extends AnimatedSprite{
             if(getHealth()<=0)
                 death();
         
+            this.zona.aggiorna();
+            
             float x = getX();
             float y = getY();
             x+=velX;
@@ -149,7 +155,7 @@ public class Player extends AnimatedSprite{
 //          if (y < 0) {
 //              y = 2;
 //          }
-            int k = collision(this.initialVelocity, this.initialVelocity);
+            int k = collision(velX, velY,x,y);
             switch (k) {
                 case 1:
                     x += velX * -1;
@@ -242,6 +248,22 @@ public class Player extends AnimatedSprite{
 
     public void updatePunteggio(int punteggioAttuale) {
         this.punteggioAttuale += punteggioAttuale;
+    }
+    
+    public void updateZombieKilled(){
+        this.zombieKilled += 1;
+    }
+
+    public int getZombieKilled() {
+        return zombieKilled;
+    }
+    
+        public Zona getZona() {
+        return zona;
+    }
+
+    public void setZona(Zona zona) {
+        this.zona = zona;
     }
 
     public String getName() {

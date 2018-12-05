@@ -91,7 +91,7 @@ public class MapPanel extends JPanel implements Runnable{
             
         }
         
-        handler.spawn.stop();
+        //handler.spawn.stop();
         System.out.println("FINE PARTITA MAP PANEL");
         
         if (handler.getPlayer().isDeath()){
