@@ -1,5 +1,6 @@
 ERCUCCHIAI 34560
 Oscar 750
+Ciccio 400
 Alex 255
 Francesco 150
 Ciccio 145
@@ -7,4 +8,3 @@ FRANKLINLO 95
 VANNAR 45
 sdw 40
 hjk 40
-Francesco 35
