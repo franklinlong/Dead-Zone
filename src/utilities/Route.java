@@ -48,8 +48,8 @@ public class Route {
         float[] a;
         a = new float[2];
         
-        float x = (target.getX() + target.width/2 ) - (zombie.getX() + zombie.width/2);
-        float y  = (target.getY() + target.height/2 ) - (zombie.getY() + zombie.height/2);
+        float x = ((int)target.getX() + target.width/2 ) - ((int)zombie.getX() + zombie.width/2);
+        float y  = ((int)target.getY() + target.height/2 ) - ((int)zombie.getY() + zombie.height/2);
         
         x = (x/ (float)Math.sqrt(x*x + y*y));
         y = (y/ (float)Math.sqrt(x*x + y*y));
@@ -93,7 +93,7 @@ public class Route {
     
     public float[] gestisciOstacoli(float velX, float velY){
         
-        //Velocita fittizie per capire se ci sono ostacoli
+        //Velocità fittizie per capire se ci sono ostacoli
         int vx=0;
         int vy=0;
         if(velX < 0)
@@ -105,7 +105,7 @@ public class Route {
         else if(velY > 0)
             vy = +1;
 
-        //Codice per ricalcolare la direzione in base alla presenza di zombie vicini ... DA FARE
+        //Codice per ricalcolare la direzione in base alla presenza di zombie vicini ... DA MODIFICARE
         ArrayList<Zombie> vicino = this.evitaZombies(vx,vy, handler.getZombies());
         if(!vicino.isEmpty()){
             for(int i=0; i<vicino.size(); i++){
@@ -115,15 +115,17 @@ public class Route {
             }
         }
         else{
-            zombie.setAngle((float) Math.acos(velX));
-            if(velY < 0)
-                zombie.setAngle(zombie.getAngle()* -1);
+            if(vx != 0 && vy !=0){
+                zombie.setAngle((float) Math.acos(velX));
+                if(velY < 0)
+                    zombie.setAngle(zombie.getAngle()* -1);
+            }
         }
         
         
         float x = zombie.getX();
         float y = zombie.getY();
-
+        
         //Aggiorno la posizione dello zombie in base ai calcoli sul percorso
         x += vx;
         y += vy;
@@ -142,15 +144,15 @@ public class Route {
                 y -= vy;
                 break;
             case 3:
-                x -= vy ;
+                x -= vx;
                 y -= vy;
                 break;
             default:
                 x = x - vx + velX;
                 y = y - vy + velY;
                 break;
-            }
-        
+        }
+                
         float[] a = new float[2];
         a[0] = x;
         a[1] = y;
