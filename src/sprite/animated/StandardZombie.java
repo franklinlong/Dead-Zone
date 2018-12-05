@@ -85,37 +85,13 @@ public class StandardZombie extends Zombie{
             if(getHealth()<=0)
                 death();
         
-        
-            //in base al percorso che deve seguire lo zombie, a[] avrà la velocitaX e la velocitaY
-            float[] a = new Route(player, this).seek();
-        	
-            //Velocita fittizie per capire se ci sono ostacoli
-            int vx=0;
-            int vy=0;
-            if(a[0] < 0)
-                vx = -1;
-            else if(a[0] > 0)
-                vx = +1;
-            if(a[1] < 0)
-                vy = -1;
-            else if(a[1] > 0)
-                vy = +1;
+            this.zona.aggiorna();
             
-            //Codice per ricalcolare la direzione in base alla presenza di zombie vicini ... DA FARE
-            ArrayList<Zombie> vicino = new Route(player, this).evitaZombies(vx,vy, this.handler.getZombies());
-            if(!vicino.isEmpty()){
-                for(int i=0; i<vicino.size(); i++){
-                    Route r2 = new Route(this,vicino.get(i));
-                    a[0] = (a[0] + r2.seek()[0]);
-                    a[1] = (a[1] + r2.seek()[1]);
-                }
-            }
-            else{
-                angle = (float) Math.acos(a[0]);
-                if(a[1] < 0)
-                    angle *= -1;
-            }
-        
+            Route traiettoria = new Route(player,this,handler);
+            
+            //Velocità dello zombie per raggiungere la zona corretta
+            float[] velStandard = traiettoria.raggiungiZona();
+            
             float toPlayerX = player.getX() - this.getX();
             float toPlayerY = player.getY() - this.getY();
             distanceToPlayerX = (float)(Math.sqrt(toPlayerX*toPlayerX + toPlayerY*toPlayerY));
@@ -133,43 +109,16 @@ public class StandardZombie extends Zombie{
             //Se è in corso l'animazione dell'attacco lo zombie non si muove
             //Se il player è morto lo zombie non s muove
             if(attacking || player.isDeath()){
-                a[0] = 0;
-                a[1] = 0;
-            }
+                velStandard[0] = 0;
+                velStandard[1] = 0;
+            }       
+            
+            //posizione futura dello zombie considerando gli ostacoli
+            float[] pos = traiettoria.gestisciOstacoli(velStandard[0], velStandard[1]);
         
-            float x = getX();
-            float y = getY();
-        
-            //Aggiorno la posizione dello zombie in base ai calcoli sul percorso
-            x += vx;
-            y += vy;
-        
-            //aggiorno le variabili dello sprite per come funziona collision
-            setX(x);
-            setY(y);
-        
-            //Se c'è una collisione non posso passare
-            int k = collision(vx,vy,x,y);
-            switch (k) {
-                case 1:
-                    x -= vx;
-                    break;
-                case 2:
-                    y -= vy;
-                    break;
-                case 3:
-                    x -= vy ;
-                    y -= vy;
-                    break;
-                default:
-                    x = x - vx + a[0];
-                    y = y - vy + a[1];
-                    break;
-                }
-                
-            setX(x);
-            setY(y);
-        
+            setX(pos[0]);
+            setY(pos[1]);
+            
             //Aggiorno l'animazione
             currentAnimation.update();
         }

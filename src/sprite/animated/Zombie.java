@@ -13,6 +13,7 @@ import utilities.Sound;
 import sprite.Ammo;
 import sprite.MedicalKit;
 import sprite.Nuke;
+import utilities.Zona;
 
 /**
  *
@@ -20,6 +21,7 @@ import sprite.Nuke;
  */
 public abstract class Zombie extends AnimatedSprite{
     private final int score;
+    protected Zona zona;
     protected float distanceToPlayerX;
     protected float distanceToPlayerY;
     
@@ -45,12 +47,14 @@ public abstract class Zombie extends AnimatedSprite{
         this.handler = handler;
         this.probabilityDrop = probabilityDrop;
         this.score = score;
-           
+        
         this.walkAnimation = walkAnimation;
         this.attackAnimation = attackAnimation;
         this.biteSound = biteSound;
         this.hitSound = hitSound;
         currentAnimation = walkAnimation;
+        
+        this.zona = new Zona(getX(),getY());
     }
 
     @Override
@@ -96,6 +100,14 @@ public abstract class Zombie extends AnimatedSprite{
     public void hit(int damage){
         setHealth(getHealth()-damage);
         sound_hit();
+    }
+
+    public Zona getZona() {
+        return zona;
+    }
+
+    public void setZona(Zona zona) {
+        this.zona = zona;
     }
    
     public abstract void sound_hit();

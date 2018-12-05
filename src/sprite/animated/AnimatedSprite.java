@@ -40,6 +40,10 @@ public abstract class AnimatedSprite extends Sprite{
         return angle;
     }
     
+    public void setAngle(float angle) {
+        this.angle = angle;
+    }
+    
     public int collision(float velx, float vely, Float xf, Float yf) {
         int xx, yy;
         //direzione
