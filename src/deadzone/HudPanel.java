@@ -182,7 +182,7 @@ public class HudPanel extends JPanel implements Runnable {
         wave.setLocation(0, imageLabel.getY() + imageLabel.getHeight()*4/3);
         this.add(wave);
         
-        this.numWave = new JLabel(Integer.toString(handler.getWaves().getWaveCount())+"-∞", SwingConstants.CENTER);
+        this.numWave = new JLabel(Integer.toString(handler.getWaves().getWaveCount())+"\u221e", SwingConstants.CENTER);
         numWave.setForeground(Color.white);
         numWave.setFont(font);
         numWave.setSize(this.getWidth()/2, 39);
@@ -261,13 +261,13 @@ public class HudPanel extends JPanel implements Runnable {
                 Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
                 if (this.health >= this.getMaximum()*7/10){
                     g.setColor(Color.GREEN);
-                    g.fillRect(0, 0, (this.health*dim.width*9/50)/100, this.getHeight());
+                    g.fillRect(0, 0, (this.health*dim.width*9/50)/300, this.getHeight());
                 } else if (this.health >= this.getMaximum()*3/10 && this.health < this.getMaximum()*7/10){
                     g.setColor(Color.YELLOW);
-                    g.fillRect(0, 0, (this.health*dim.width*9/50)/100, this.getHeight());
+                    g.fillRect(0, 0, (this.health*dim.width*9/50)/300, this.getHeight());
                 } else {
                     g.setColor(Color.red);
-                    g.fillRect(0, 0, (this.health*dim.width*9/50)/100, this.getHeight());
+                    g.fillRect(0, 0, (this.health*dim.width*9/50)/300, this.getHeight());
                 }
             }
             

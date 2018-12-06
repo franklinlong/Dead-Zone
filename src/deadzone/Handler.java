@@ -11,10 +11,10 @@ import java.util.List;
 import sprite.Blood;
 import sprite.DropItem;
 import sprite.Sprite;
-import sprite.animated.Player;
-import sprite.animated.Projectile;
-import sprite.animated.StandardZombie;
-import sprite.animated.Zombie;
+import sprite.animated.*;
+import utilities.Animation;
+import utilities.Assets;
+import utilities.Sound;
 
 
 /**
@@ -25,6 +25,7 @@ public class Handler {
     private final List<Sprite> players = new ArrayList<>();
     private final List<Sprite> zombies = new ArrayList<>();
     private final List<Sprite> proiettili = new ArrayList<>();
+    private final List<Sprite> spittles = new ArrayList<>();
     private final List<Sprite> itemsAndBlood = new ArrayList<>();
     
     private static Camera camera;
@@ -34,7 +35,7 @@ public class Handler {
 
     
     public Handler(String playerName){
-        player = new Player(2000,60,2,10000,this, playerName);        
+        player = new Player(2000,60,2,300,this, playerName);        
         camera = new Camera(player);
         players.add(player);
         
@@ -61,6 +62,11 @@ public class Handler {
             s.animationCycle();
         }
         
+        for(int i=0;i<spittles.size();i++){
+            Sprite s = spittles.get(i);
+            s.animationCycle();
+        }
+        
         for(int i=0;i<itemsAndBlood.size();i++){
             Sprite s = itemsAndBlood.get(i);
             s.animationCycle();
@@ -81,7 +87,15 @@ public class Handler {
             Sprite s = proiettili.get(i);
             s.drawImage(g,offsetX,offsetY);
         }
+
+        for(int i=0;i<spittles.size();i++){
+            Sprite s = spittles.get(i);
+            s.drawImage(g,offsetX,offsetY);
+        }
         
+        for(int i=0;i<itemsAndBlood.size();i++){
+            Sprite s = itemsAndBlood.get(i);
+        }
         for(int i=0;i<zombies.size();i++){
             Sprite s = zombies.get(i);
             s.drawImage(g,offsetX,offsetY);
@@ -95,7 +109,7 @@ public class Handler {
     
     public void addSprite(Sprite s){
         //Prima di aggiungere lo sprite devo individuare in che lista aggiungerlo
-        if(s instanceof StandardZombie){
+        if(s instanceof Zombie){
             this.zombies.add(s);
         }
         else if(s instanceof Player){
@@ -107,7 +121,10 @@ public class Handler {
         else if(s instanceof DropItem || s instanceof Blood){
             this.itemsAndBlood.add(s);
         }
-        else 
+        else if(s instanceof Spittle){
+            this.spittles.add(s);
+        }
+        else
             System.err.println("ERROREEEE, in handler");
         
     }
@@ -126,7 +143,9 @@ public class Handler {
         else if(s instanceof DropItem || s instanceof Blood){
             this.itemsAndBlood.remove(s);
         }
-        else 
+        else if(s instanceof Spittle){
+            this.spittles.remove(s);
+        }else
             System.err.println("ERROREEEE, in handler");
     }
 
@@ -142,6 +161,10 @@ public class Handler {
         return proiettili;
     }
 
+    public List<Sprite> getSpittles() {
+        return spittles;
+    }
+    
     public List<Sprite> getitemsAndBlood() {
         return itemsAndBlood;
     }
@@ -158,7 +181,6 @@ public class Handler {
     public Waves getWaves() {
         return waves;
     }
-    
     
     
 }
