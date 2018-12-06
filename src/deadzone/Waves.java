@@ -171,7 +171,7 @@ public class Waves implements Runnable {
                     Logger.getLogger(Waves.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            synchronized (KL) { //acquisisco il lock di tutti morti
+            synchronized (KL) { //acquisisco il lock di allKilled
                 //System.out.println("Sto nel synch");
                 while (!this.allKilled) {  
                     try {
