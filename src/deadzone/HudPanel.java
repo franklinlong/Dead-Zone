@@ -14,7 +14,6 @@ import sprite.Sprite;
 import sprite.animated.Player;
 import sprite.animated.Zombie;
 import gameMenu.*;
-import java.util.Arrays;
 import utilities.Assets;
 
 public class HudPanel extends JPanel implements Runnable {
@@ -149,7 +148,7 @@ public class HudPanel extends JPanel implements Runnable {
         playerHealth.setLocation((int) this.getSize().getWidth()*1/18, nameLabel.getY() + nameLabel.getHeight());
         playerHealth.setValue(handler.getPlayer().getHealth()); //inizializzo con health iniziale del Player
         playerHealth.setOpaque(true);
-        playerHealth.setMaximum(handler.getPlayer().getHealth());
+        playerHealth.setMaximum(handler.getPlayer().getMaximumHealth());
         playerHealth.setMinimum(0); 
         playerHealth.setHealth(this.handler.getPlayer().getHealth());
         playerHealth.repaint();
@@ -262,13 +261,17 @@ public class HudPanel extends JPanel implements Runnable {
                 Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
                 if (this.health >= this.getMaximum()*7/10){
                     g.setColor(Color.GREEN);
-                    g.fillRect(0, 0, (this.health*dim.width*9/50)/300, this.getHeight());
+                    g.fillRect(0, 0, (this.health*dim.width*9/50)/handler.getPlayer().getMaximumHealth(), this.getHeight());
                 } else if (this.health >= this.getMaximum()*3/10 && this.health < this.getMaximum()*7/10){
                     g.setColor(Color.YELLOW);
-                    g.fillRect(0, 0, (this.health*dim.width*9/50)/300, this.getHeight());
-                } else {
+                    g.fillRect(0, 0, (this.health*dim.width*9/50)/handler.getPlayer().getMaximumHealth(), this.getHeight());
+                } else if (this.health == 0){
+                    g.setColor(Color.BLACK);
+                    g.fillRect(0, 0, this.getWidth(), this.getHeight());
+                }               
+                else {
                     g.setColor(Color.red);
-                    g.fillRect(0, 0, (this.health*dim.width*9/50)/300, this.getHeight());
+                    g.fillRect(0, 0, (this.health*dim.width*9/50)/handler.getPlayer().getMaximumHealth(), this.getHeight());
                 }
             }
             
@@ -331,6 +334,8 @@ public class HudPanel extends JPanel implements Runnable {
         JFrame hudPanel = (JFrame) SwingUtilities.getWindowAncestor(this);
         GameOver gameOver;
         if(!PauseMenu.end){
+            this.playerHealth.setHealth(0);
+            this.playerHealth.repaint();
             gameOver = new GameOver(hudPanel);
         }
         System.out.println("FINE PARTITA HUD");

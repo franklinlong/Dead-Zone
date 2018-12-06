@@ -39,6 +39,8 @@ public class Handler {
         camera = new Camera(player);
         players.add(player);
         
+        
+        
         this.waves = new Waves(this);
         Thread t = new Thread(waves);
         t.start();

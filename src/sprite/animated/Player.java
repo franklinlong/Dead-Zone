@@ -52,6 +52,7 @@ public class Player extends AnimatedSprite {
     private final String name;
     private final boolean male;
     private int zombieKilled;
+    private int maximumHealth;
 
     public Player(float x, float y, int vel, int health, Handler handler, String name, boolean male) {
         super(x, y, PLAYERSIZE, PLAYERSIZE, vel, health);
@@ -59,6 +60,7 @@ public class Player extends AnimatedSprite {
         this.handler = handler;
         this.male = male;
         this.name = name;
+        this.maximumHealth = health;
 
         this.zona = new Zona(getX(), getY());
         if (this.male) {
@@ -296,5 +298,11 @@ public class Player extends AnimatedSprite {
     public String getName() {
         return name;
     }
+
+    public int getMaximumHealth() {
+        return maximumHealth;
+    }
+    
+    
 
 }
