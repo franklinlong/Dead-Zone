@@ -232,7 +232,6 @@ public class HudPanel extends JPanel implements Runnable {
         pauseButton.setForeground(Color.white);
         pauseButton.setFont(new java.awt.Font("Comic Sans MS", 1, pauseButton.getHeight()));
         pauseButton.setLocation(minimapPanel.getX(), this.getHeight()-pauseButton.getHeight()*2);
-        System.out.println(pauseButton.getLocation());
         this.add(pauseButton);
         
         pauseButton.addActionListener(new java.awt.event.ActionListener() {
