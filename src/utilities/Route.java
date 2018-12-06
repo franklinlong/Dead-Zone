@@ -96,14 +96,14 @@ public class Route {
         int vx = 0;
         int vy = 0;
         if (velX < 0) {
-            vx = -1;
+            vx = -zombie.getInitialVelocity();
         } else if (velX > 0) {
-            vx = +1;
+            vx = +zombie.getInitialVelocity();
         }
         if (velY < 0) {
-            vy = -1;
+            vy = -zombie.getInitialVelocity();
         } else if (velY > 0) {
-            vy = +1;
+            vy = +zombie.getInitialVelocity();
         }
 
         //Codice per ricalcolare la direzione in base alla presenza di zombie vicini ... DA MODIFICARE
@@ -118,7 +118,7 @@ public class Route {
             if (vx != 0 && vy != 0) {
                 zombie.setAngle((float) Math.acos(velX));
                 if (velY < 0) {
-                    zombie.setAngle(zombie.getAngle() * -1);
+                    zombie.setAngle(zombie.getAngle() * -zombie.getInitialVelocity());
                 }
             }
         }

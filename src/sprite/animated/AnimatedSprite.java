@@ -319,4 +319,10 @@ public abstract class AnimatedSprite extends Sprite {
         return 0;
     }
 
+    public int getInitialVelocity() {
+        return initialVelocity;
+    }
+    
+    
+
 }
