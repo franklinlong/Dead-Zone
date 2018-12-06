@@ -33,8 +33,6 @@ public class Animation {
         time += System.currentTimeMillis() - lastTime;
 
         lastTime = System.currentTimeMillis();
-        System.out.println("time: " + time);
-        System.out.println("velocity: " + velocity);
 
         if (time > velocity) {
             time = 0;

@@ -284,7 +284,7 @@ public class HudPanel extends JPanel implements Runnable {
     }
     
     @Override
-    public void run() {   //nel while dovrebbe essere tipo: chiama le varie set delle label (vita, punteggio ecc) poi chiama repaint su this e su minimapPanel
+    public void run() {   
         int fps = 60;
         double timePerTick = 1000000000 / fps;
         double delta = 0;
