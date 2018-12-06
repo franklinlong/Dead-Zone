@@ -11,13 +11,13 @@ import deadzone.Handler;
  *
  * @author USER
  */
-public abstract class DropItem extends Sprite{
-    
+public abstract class DropItem extends Sprite {
+
     public DropItem(float x, float y, int width, int height) {
         super(x, y, width, height);
     }
 
-    public boolean isCollected(Handler handler){
+    public boolean isCollected(Handler handler) {
         return handler.getPlayer().getBounds().contains(getX() + this.width, getY() + this.height);
     }
 

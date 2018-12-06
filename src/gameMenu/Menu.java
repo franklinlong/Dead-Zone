@@ -23,46 +23,42 @@ public class Menu extends javax.swing.JFrame {
     Dimension dim;
     public static Sound gameMusic;
     public static Clip gameClip;
-    
-    
-    private ImageIcon ridimensionaImageIcon(URL url, int nuovaW, int nuovaH){
+
+    private ImageIcon ridimensionaImageIcon(URL url, int nuovaW, int nuovaH) {
         ImageIcon image = new ImageIcon(url);
         Image immagineScalata = image.getImage().getScaledInstance(nuovaW, nuovaH, Image.SCALE_DEFAULT);
         return new ImageIcon(immagineScalata);
     }
-    
-    
+
     public Menu() {
         Assets.init();
         Image iconaFrame;
         iconaFrame = new ImageIcon(getClass().getResource("/images/icona_frame.png")).getImage();
-        this.setIconImage(iconaFrame); 
-        
-        dim = Toolkit.getDefaultToolkit().getScreenSize();
-        dim.setSize(1920*2/5, 575);
-        this.setPreferredSize(dim.getSize());
-        ImageIcon immagineSfondo = ridimensionaImageIcon(getClass().getResource("/images/sfondo_senza_logo.png"),dim.width,dim.height);
+        this.setIconImage(iconaFrame);
 
-        int w = new ImageIcon(getClass().getResource("/images/mano_zombie3.gif")).getIconWidth()*1/3;
-        int h = new ImageIcon(getClass().getResource("/images/mano_zombie3.gif")).getIconHeight()*1/3;
-        ImageIcon gif = ridimensionaImageIcon(getClass().getResource("/images/mano_zombie3.gif"),w,h);
-        
-        
-        w = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconWidth()*1/3;
-        h = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconHeight()*1/3;
-        ImageIcon immagineLogo = ridimensionaImageIcon(getClass().getResource("/images/LogoBiancoENero.png"),w,h);
-        
-        
+        dim = Toolkit.getDefaultToolkit().getScreenSize();
+        dim.setSize(1920 * 2 / 5, 575);
+        this.setPreferredSize(dim.getSize());
+        ImageIcon immagineSfondo = ridimensionaImageIcon(getClass().getResource("/images/sfondo_senza_logo.png"), dim.width, dim.height);
+
+        int w = new ImageIcon(getClass().getResource("/images/mano_zombie3.gif")).getIconWidth() * 1 / 3;
+        int h = new ImageIcon(getClass().getResource("/images/mano_zombie3.gif")).getIconHeight() * 1 / 3;
+        ImageIcon gif = ridimensionaImageIcon(getClass().getResource("/images/mano_zombie3.gif"), w, h);
+
+        w = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconWidth() * 1 / 3;
+        h = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconHeight() * 1 / 3;
+        ImageIcon immagineLogo = ridimensionaImageIcon(getClass().getResource("/images/LogoBiancoENero.png"), w, h);
+
         initComponents();
-        
+
         PauseMenu.end = false;
-        
+
         sfondo.setPreferredSize(dim.getSize());
         sfondo.setIcon(immagineSfondo);
         gifMano.setIcon(gif);
         logo.setIcon(immagineLogo);
-        
-        if (gameMusic == null){
+
+        if (gameMusic == null) {
             this.gameClip = Utilities.LoadSound("/sound/gameMusic.wav");
             this.gameMusic = new Sound(gameClip);
             this.gameMusic.loopSound();
@@ -188,10 +184,10 @@ public class Menu extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        int w = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconWidth()*1/6;
-        int h = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconHeight()*1/6;
-        ImageIcon i = ridimensionaImageIcon(getClass().getResource("/images/LogoBiancoENero.png"),w,h);
-        
+        int w = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconWidth() * 1 / 6;
+        int h = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconHeight() * 1 / 6;
+        ImageIcon i = ridimensionaImageIcon(getClass().getResource("/images/LogoBiancoENero.png"), w, h);
+
         JOptionPane.showConfirmDialog(rootPane, "   Coming soon...", "Multiplayer DeadZone", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_OPTION, i);
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -203,16 +199,16 @@ public class Menu extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        int w = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconWidth()*1/6;
-        int h = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconHeight()*1/6;
-        ImageIcon i = ridimensionaImageIcon(getClass().getResource("/images/LogoBiancoENero.png"),w,h);
-        
+        int w = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconWidth() * 1 / 6;
+        int h = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconHeight() * 1 / 6;
+        ImageIcon i = ridimensionaImageIcon(getClass().getResource("/images/LogoBiancoENero.png"), w, h);
+
         JOptionPane.showConfirmDialog(rootPane, "   Coming soon...", "Tutorial DeadZone", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_OPTION, i);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        Settings set = new Settings(this,true);
+        Settings set = new Settings(this, true);
         set.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 

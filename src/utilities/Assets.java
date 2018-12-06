@@ -174,7 +174,6 @@ public class Assets {
         ak47 = Utilities.loadImage("/guns/ak-47.png");
         rifleLoader = Utilities.loadImage("/guns/rifleLoader.png");
 
-
         //blood 
         blood = Utilities.loadImage("/images/blood.png");
         //sounds
@@ -208,8 +207,8 @@ public class Assets {
         nuke = Utilities.loadImage("/images/bombItem.png");
 
         //minimap
-                    minimap = Utilities.loadImage("/images/grigionero.png");
-                    greenIndicator = Utilities.loadImage("/images/green.png");
-                    redIndicator = Utilities.loadImage("/images/red.png");
+        minimap = Utilities.loadImage("/images/grigionero.png");
+        greenIndicator = Utilities.loadImage("/images/green.png");
+        redIndicator = Utilities.loadImage("/images/red.png");
     }
 }

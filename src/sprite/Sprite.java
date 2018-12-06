@@ -17,47 +17,47 @@ import javax.imageio.ImageIO;
  * @author giova
  */
 public abstract class Sprite {
-    
-    private float x,y;
-    public int width,height;
+
+    private float x, y;
+    public int width, height;
     public static BufferedImage mapRGB = Sprite.caricaMappaRGB();
-    
-    public Sprite(float x, float y, int width, int height){
+
+    public Sprite(float x, float y, int width, int height) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
     }
-    
+
     public abstract void drawImage(Graphics g, float offsetX, float offsetY);
-    
+
     public abstract void animationCycle();
 
     public float getX() {
         return x;
     }
-    
-    public void setX(float x){
-        this.x=x;
+
+    public void setX(float x) {
+        this.x = x;
     }
-    
+
     public float getY() {
         return y;
     }
-    
-    public void setY(float y){
-        this.y=y;
+
+    public void setY(float y) {
+        this.y = y;
     }
-    
+
     private static BufferedImage caricaMappaRGB() {
         BufferedImage image = null;
-        
-        try{
+
+        try {
             image = ImageIO.read(new File("mapRGB.png"));
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         return image;
     }
 
@@ -68,11 +68,14 @@ public abstract class Sprite {
     public int getHeight() {
         return height;
     }
-    
-    public void death(){};
+
+    public void death() {
+    }
+
+    ;
     
     //Utile per le collisioni
-    public Rectangle getBounds(){
-        return new Rectangle((int)x, (int)y, width,height);
+    public Rectangle getBounds() {
+        return new Rectangle((int) x, (int) y, width, height);
     }
 }

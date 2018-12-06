@@ -5,16 +5,19 @@
  */
 package sprite.animated;
 
+import Graph.Edge;
+import Graph.Graph;
+import Graph.Vertex;
 import utilities.Animation;
 import utilities.Assets;
 import deadzone.Gun;
 import deadzone.Handler;
 import gameMenu.Menu;
-import gameMenu.PauseMenu;
 import utilities.Sound;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.util.Map;
 import listeners.*;
 import utilities.Zona;
 
@@ -52,6 +55,9 @@ public class Player extends AnimatedSprite {
     private final String name;
     private final boolean male;
     private int zombieKilled;
+    private int maximumHealth;
+    
+    private Map<Vertex,Edge> camminiMinimi;
 
     public Player(float x, float y, int vel, int health, Handler handler, String name, boolean male) {
         super(x, y, PLAYERSIZE, PLAYERSIZE, vel, health);
@@ -59,8 +65,11 @@ public class Player extends AnimatedSprite {
         this.handler = handler;
         this.male = male;
         this.name = name;
+        this.maximumHealth = health;
 
         this.zona = new Zona(getX(), getY());
+        new Graph();
+        camminiMinimi = Graph.BFS_complete(new Vertex(zona.getIndex()));
         if (this.male) {
             pistolIdle = new Animation(Assets.pistolIdle, 20);
             pistolReload = new Animation(Assets.pistolReload, 100);
@@ -153,21 +162,22 @@ public class Player extends AnimatedSprite {
 
     @Override
     public void animationCycle() {
-        if (!PauseMenu.pause) {
-            //Controllo che sia vivo        
-            if (getHealth() <= 0) {
-                death();
-            }
+        //Controllo che sia vivo        
+        if (getHealth() <= 0) {
+            death();
+        }
 
-            this.zona.aggiorna();
+        if(this.zona.aggiorna(getX(),getY())){
+            this.camminiMinimi = Graph.BFS_complete(new Vertex(zona.getIndex()));
+        }
 
-            float x = getX();
-            float y = getY();
-            x += velX;
-            y += velY;
-            //aggiorno le variabili dello sprite per come funziona collision
-            setX(x);
-            setY(y);
+        float x = getX();
+        float y = getY();
+        x += velX;
+        y += velY;
+        //aggiorno le variabili dello sprite per come funziona collision
+        setX(x);
+        setY(y);
 
 //          if (x < 0) {
 //              x = 2;
@@ -175,76 +185,75 @@ public class Player extends AnimatedSprite {
 //          if (y < 0) {
 //              y = 2;
 //          }
-            int k = collision(velX, velY, x, y);
-            switch (k) {
-                case 1:
-                    x += velX * -1;
-                    break;
-                case 2:
-                    y += velY * -1;
-                    break;
-                case 3:
-                    y += velY * -1;
-                    x += velX * -1;
-                    break;
-                default:
-                    break;
-            }
-
-            setX(x);
-            setY(y);
-
-            //scelta direzione dipendente dal tasto premuto
-            if (KAdapter.up) {
-                velY = -initialVelocity;
-            } else if (!KAdapter.down) {
-                velY = 0;
-            }
-
-            if (KAdapter.down) {
-                velY = initialVelocity;
-            } else if (!KAdapter.up) {
-                velY = 0;
-            }
-
-            if (KAdapter.right) {
-                velX = initialVelocity;
-            } else if (!KAdapter.left) {
-                velX = 0;
-            }
-
-            if (KAdapter.left) {
-                velX = -initialVelocity;
-            } else if (!KAdapter.right) {
-                velX = 0;
-            }
-
-            //scelta arma corrente in base al pulsante 1-2-3
-            if (KAdapter.one) {
-                currentGun = pistol;
-            }
-            if (KAdapter.two) {
-                currentGun = rifle;
-            }
-            if (KAdapter.three) {
-                currentGun = shotgun;
-            }
-
-            //viene premuto R quindi reload
-            if (KAdapter.reload && currentGun.getRound() != currentGun.getBulletsPerRound()
-                    && currentGun.getTotalBullets() > 0) {
-                currentGun.reload();
-            }
-
-            //viene premuto left(mouse) quindi sparo
-            if (MAdapter.left) {
-                //Abbiamo aggiunto un parametro random tra -5 e 5 gradi per inserire una inprecisione dell'arma.
-                currentGun.shoot((float) (angle + (Math.random() - 0.5) * (Math.PI) / 36), x, y);
-            }
-
-            //aggiorno animazione del personaggio
-            currentGun.update();
+        int k = collision(velX, velY, x, y);
+        switch (k) {
+            case 1:
+                x += velX * -1;
+                break;
+            case 2:
+                y += velY * -1;
+                break;
+            case 3:
+                y += velY * -1;
+                x += velX * -1;
+                break;
+            default:
+                break;
         }
+
+        setX(x);
+        setY(y);
+
+        //scelta direzione dipendente dal tasto premuto
+        if (KAdapter.up) {
+            velY = -initialVelocity;
+        } else if (!KAdapter.down) {
+            velY = 0;
+        }
+
+        if (KAdapter.down) {
+            velY = initialVelocity;
+        } else if (!KAdapter.up) {
+            velY = 0;
+        }
+
+        if (KAdapter.right) {
+            velX = initialVelocity;
+        } else if (!KAdapter.left) {
+            velX = 0;
+        }
+
+        if (KAdapter.left) {
+            velX = -initialVelocity;
+        } else if (!KAdapter.right) {
+            velX = 0;
+        }
+
+        //scelta arma corrente in base al pulsante 1-2-3
+        if (KAdapter.one) {
+            currentGun = pistol;
+        }
+        if (KAdapter.two) {
+            currentGun = rifle;
+        }
+        if (KAdapter.three) {
+            currentGun = shotgun;
+        }
+
+        //viene premuto R quindi reload
+        if (KAdapter.reload && currentGun.getRound() != currentGun.getBulletsPerRound()
+                && currentGun.getTotalBullets() > 0) {
+            currentGun.reload();
+        }
+
+        //viene premuto left(mouse) quindi sparo
+        if (MAdapter.left) {
+            //Abbiamo aggiunto un parametro random tra -5 e 5 gradi per inserire una inprecisione dell'arma.
+            currentGun.shoot((float) (angle + (Math.random() - 0.5) * (Math.PI) / 36), x, y);
+        }
+
+        //aggiorno animazione del personaggio
+        currentGun.update();
     }
 
     public Gun getCurrentGun() {
@@ -295,6 +304,14 @@ public class Player extends AnimatedSprite {
 
     public String getName() {
         return name;
+    }
+
+    public int getMaximumHealth() {
+        return maximumHealth;
+    }
+
+    public Map<Vertex, Edge> getCamminiMinimi() {
+        return camminiMinimi;
     }
 
 }

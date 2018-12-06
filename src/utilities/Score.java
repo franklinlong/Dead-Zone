@@ -9,27 +9,27 @@ package utilities;
  *
  * @author USER
  */
-public class Score{
+public class Score {
+
     private int score;
     private String player;
-    
-    public Score(String player, int score){
+
+    public Score(String player, int score) {
         this.score = score;
         this.player = player;
     }
- 
-    public String getPlayer(){
+
+    public String getPlayer() {
         return this.player;
-    }    
-    
-    public int getScore(){
+    }
+
+    public int getScore() {
         return this.score;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return this.getPlayer() + " " + Integer.toString(this.getScore());
     }
-    
-    
-   } 
+
+}

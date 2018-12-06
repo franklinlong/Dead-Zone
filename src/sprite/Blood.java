@@ -13,10 +13,11 @@ import utilities.Assets;
  *
  * @author giova
  */
-public class Blood extends Sprite{
+public class Blood extends Sprite {
+
     private final Handler handler;
     private int alfa;
-    
+
     public Blood(float x, float y, int width, int height, Handler handler) {
         super(x, y, width, height);
         this.handler = handler;
@@ -25,17 +26,16 @@ public class Blood extends Sprite{
 
     @Override
     public void drawImage(Graphics g, float offsetX, float offsetY) {
-        g.drawImage(Assets.blood, (int)(getX() - offsetX), (int)(getY() - offsetY), null);
-}
+        g.drawImage(Assets.blood, (int) (getX() - offsetX), (int) (getY() - offsetY), null);
+    }
 
     @Override
     public void animationCycle() {
         //a tentativi.. Circa 2 secondi
         alfa -= 1;
-        if(alfa < 0)
+        if (alfa < 0) {
             handler.getitemsAndBlood().remove(this);
+        }
     }
 
-
-    
 }
