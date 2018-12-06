@@ -314,4 +314,7 @@ public class Player extends AnimatedSprite {
         return camminiMinimi;
     }
 
+    public boolean isMale(){
+        return this.male;
+    }
 }
