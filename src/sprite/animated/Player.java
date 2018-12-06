@@ -300,4 +300,10 @@ public class Player extends AnimatedSprite {
         return maximumHealth;
     }
 
+    public boolean isMale() {
+        return male;
+    }
+    
+    
+
 }
