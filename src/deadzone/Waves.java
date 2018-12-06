@@ -84,7 +84,7 @@ public class Waves implements Runnable {
                 //System.out.println("Scarsi da creare: " + this.numWeakToCreate);
                 //System.out.println("Veloci da creare: " + this.numFastToCreate);
                 if (PauseMenu.isPause()) {
-                    //System.out.println("Sto nel if di pausa");
+                    System.out.println("PAUSA WAVES");
                     synchronized (PauseMenu.PAUSELOCK) { //acquisisco il lock di Pausa
                         try {
                             PauseMenu.PAUSELOCK.wait(); //attendo che pause cambi

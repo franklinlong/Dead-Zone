@@ -1,10 +1,10 @@
-ERCUCCHIAI 34560
+Cucchia 34560
 Oscar 750
-fref 720
-fcgvhb 550
+Monti 720
+Enrico 550
 Ciccio 400
 Alex 255
-vd 175
+Andrea 175
 Francesco 150
 Ciccio 145
 FRANKLINLO 95
