@@ -35,6 +35,7 @@ public class Handler {
         players.add(player);
 
         this.waves = new Waves(this);
+               
         Thread t = new Thread(waves);
         t.start();
 

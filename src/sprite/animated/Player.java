@@ -5,6 +5,9 @@
  */
 package sprite.animated;
 
+import Graph.Edge;
+import Graph.Graph;
+import Graph.Vertex;
 import utilities.Animation;
 import utilities.Assets;
 import deadzone.Gun;
@@ -14,6 +17,7 @@ import utilities.Sound;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.util.Map;
 import listeners.*;
 import utilities.Zona;
 
@@ -52,6 +56,8 @@ public class Player extends AnimatedSprite {
     private final boolean male;
     private int zombieKilled;
     private int maximumHealth;
+    
+    private Map<Vertex,Edge> camminiMinimi;
 
     public Player(float x, float y, int vel, int health, Handler handler, String name, boolean male) {
         super(x, y, PLAYERSIZE, PLAYERSIZE, vel, health);
@@ -62,6 +68,8 @@ public class Player extends AnimatedSprite {
         this.maximumHealth = health;
 
         this.zona = new Zona(getX(), getY());
+        new Graph();
+        camminiMinimi = Graph.BFS_complete(new Vertex(zona.getIndex()));
         if (this.male) {
             pistolIdle = new Animation(Assets.pistolIdle, 20);
             pistolReload = new Animation(Assets.pistolReload, 100);
@@ -159,7 +167,9 @@ public class Player extends AnimatedSprite {
             death();
         }
 
-        this.zona.aggiorna();
+        if(this.zona.aggiorna(getX(),getY())){
+            this.camminiMinimi = Graph.BFS_complete(new Vertex(zona.getIndex()));
+        }
 
         float x = getX();
         float y = getY();
@@ -300,10 +310,11 @@ public class Player extends AnimatedSprite {
         return maximumHealth;
     }
 
-    public boolean isMale() {
-        return male;
+    public Map<Vertex, Edge> getCamminiMinimi() {
+        return camminiMinimi;
     }
-    
-    
 
+    public boolean isMale(){
+        return this.male;
+    }
 }

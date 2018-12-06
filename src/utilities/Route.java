@@ -5,6 +5,7 @@
  */
 package utilities;
 
+import Graph.*;
 import deadzone.Handler;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -32,33 +33,39 @@ public class Route {
 
     public float[] raggiungiZona() {
 
-        //Se si trovano nella stessa zona o in una zona adiacente
-        if (zombie.getZona().equals(((Player) target).getZona()) || zombie.getZona().isNear(((Player) target).getZona())) {
-            return seek();
-        } else {
-            System.err.println("Non deve succedere");
-            return new float[2];
+        //Se si trovano nella stessa zona
+        if(zombie.getZona().equals(((Player) target).getZona())){
+            return seek(target.getX(), target.getY(), target.width, target.height);
+        }
+        else {
+            Vertex origin = new Vertex(zombie.getZona().getIndex());
+            Edge edge = ((Player) target).getCamminiMinimi().get(origin);
+            Vertex destination = edge.opposite(origin);
+            float c[] = Zona.centro(destination.getElement());
+            float c_x = c[0];
+            float c_y = c[1];
+            return seek(c_x, c_y, 0, 0);
         }
     }
 
     //Restituisce la velocitaX e velocitaY per avvicinarsi al target in maniera standard senza ostacoli
-    public float[] seek() {
+    public float[] seek(float x_t, float y_t, int t_width, int t_height){
 
         float[] a;
         a = new float[2];
-
-        float x = ((int) target.getX() + target.width / 2) - ((int) zombie.getX() + zombie.width / 2);
-        float y = ((int) target.getY() + target.height / 2) - ((int) zombie.getY() + zombie.height / 2);
-
-        x = (x / (float) Math.sqrt(x * x + y * y));
-        y = (y / (float) Math.sqrt(x * x + y * y));
-
+        
+        float x = (x_t + t_width/2 ) - (zombie.getX() + zombie.width/2);
+        float y  = (y_t + t_height/2 ) - (zombie.getY() + zombie.height/2);
+        
+        x = (x/ (float)Math.sqrt(x*x + y*y));
+        y = (y/ (float)Math.sqrt(x*x + y*y));
+        
         x = x * zombie.velX;
         y = y * zombie.velY;
-
+        
         a[0] = x;
         a[1] = y;
-
+        
         return a;
     }
 
@@ -107,21 +114,21 @@ public class Route {
         }
 
         //Codice per ricalcolare la direzione in base alla presenza di zombie vicini ... DA MODIFICARE
-        ArrayList<Zombie> vicino = this.evitaZombies(vx, vy, handler.getZombies());
-        if (!vicino.isEmpty()) {
-            for (int i = 0; i < vicino.size(); i++) {
-                Route r2 = new Route(this.zombie, vicino.get(i), handler);
-                velX = (velX + r2.seek()[0]);
-                velY = (velY + r2.seek()[1]);
-            }
-        } else {
+//        ArrayList<Zombie> vicino = this.evitaZombies(vx, vy, handler.getZombies());
+//        if (!vicino.isEmpty()) {
+//            for (int i = 0; i < vicino.size(); i++) {
+//                Route r2 = new Route(this.zombie, vicino.get(i), handler);
+//                velX = (velX + r2.seek()[0]);
+//                velY = (velY + r2.seek()[1]);
+//            }
+//        } else {
             if (vx != 0 && vy != 0) {
                 zombie.setAngle((float) Math.acos(velX));
                 if (velY < 0) {
                     zombie.setAngle(zombie.getAngle() * -zombie.getInitialVelocity());
                 }
             }
-        }
+        //}
 
         float x = zombie.getX();
         float y = zombie.getY();

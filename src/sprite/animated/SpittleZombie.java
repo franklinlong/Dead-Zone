@@ -77,7 +77,7 @@ public class SpittleZombie extends Zombie {
             death();
         }
 
-        this.zona.aggiorna();
+        this.zona.aggiorna(getX(),getY());
 
         Route traiettoria = new Route(player, this, handler);
 
