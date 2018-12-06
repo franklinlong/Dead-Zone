@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package gameMenu;
+
 import java.awt.*;
 import javax.swing.*;
 
@@ -13,11 +14,10 @@ import javax.swing.*;
  */
 public class Settings extends javax.swing.JDialog {
 
-    
     public static boolean soundEffects = true;
     public static boolean soundMusic = true;
     public static boolean padArrows = false;
-    
+
     /**
      * Creates new form Settings
      */
@@ -27,27 +27,26 @@ public class Settings extends javax.swing.JDialog {
         ButtonGroup bg = new ButtonGroup();
         bg.add(this.awsd);
         bg.add(this.arrows);
-       
-        
-        if (!Menu.gameMusic.isRunning()){
+
+        if (!Menu.gameMusic.isRunning()) {
             this.music.setText("OFF");
         }
-        
-        if (!soundEffects){
+
+        if (!soundEffects) {
             this.effects.setText("OFF");
         }
-        
-        if (padArrows){
+
+        if (padArrows) {
             this.arrows.setSelected(true);
         }
-        
+
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
         Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();
-        int x = (int) rect.getMaxX()/2 - this.getWidth()/2;
-        int y = (int) rect.getMaxY()/2 - this.getHeight()/2;
+        int x = (int) rect.getMaxX() / 2 - this.getWidth() / 2;
+        int y = (int) rect.getMaxY() / 2 - this.getHeight() / 2;
         this.setLocation(x, y);
-        
+
     }
 
     /**
@@ -169,16 +168,15 @@ public class Settings extends javax.swing.JDialog {
     private void musicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_musicActionPerformed
         // TODO add your handling code here:
         String text = this.music.getText();
-        if (text.compareTo("ON") == 0){
+        if (text.compareTo("ON") == 0) {
             Menu.gameMusic.stopSound();
             soundMusic = false;
             this.music.setText("OFF");
-        }
-        else{
+        } else {
             Menu.gameMusic.loopSound();
             soundMusic = true;
-            this.music.setText("ON");   
-        }    
+            this.music.setText("ON");
+        }
     }//GEN-LAST:event_musicActionPerformed
 
     private void awsdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_awsdActionPerformed
@@ -189,14 +187,13 @@ public class Settings extends javax.swing.JDialog {
     private void effectsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_effectsActionPerformed
         // TODO add your handling code here:
         String text = this.effects.getText();
-        if (text.compareTo("ON") == 0){
+        if (text.compareTo("ON") == 0) {
             soundEffects = false;
             this.effects.setText("OFF");
-        }
-        else{
+        } else {
             soundEffects = true;
-            this.effects.setText("ON");   
-        } 
+            this.effects.setText("ON");
+        }
     }//GEN-LAST:event_effectsActionPerformed
 
     private void arrowsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arrowsActionPerformed

@@ -35,6 +35,7 @@ public class Waves implements Runnable {
     private float mult;
     private Sound endRound;
     private Handler handler;
+    //private static final Object PL = new Object();
 
     public Waves(Handler handler) {
         this.numZombieRound = 0;
@@ -53,113 +54,134 @@ public class Waves implements Runnable {
         float x = 0;
         float y = 0;
         while (!handler.getPlayer().isDeath()) {
-            this.waveCount += 1; //incremento di 1 il numero di ondata
-            this.allKilled = false;
-            this.numWeakRound += 8; //aumentano di 8 ogni ondata 1,2,3,4 considerando le ondate da 1 a 5 come "uguali" ma più difficili per la vita degli zombie
-            this.numFastRound += 5; //aumentano di 5 ogni ondata 3,4,5. Valore viene azzerato quando ondata è 1 o 2
+            this.waveCount += 1; //incrementa di 1 il contatore delle ondate ogni volta
+            this.allKilled = false; //boolean che indica se sono tutti uccisi
+            this.numWeakRound += 8; //aumentano di 8 ogni round
+            this.numFastRound += 5; //aumentano di 5 ogni round
             if (!(this.numWeakRound <= 40)) {
-                this.numWeakRound = 48;
+                this.numWeakRound = 48; //cosicché non siano più di 48
             }
             if (this.waveCount % 5 == 0) {
-                this.numWeakRound -= 8;
+                this.numWeakRound -= 8; //numero di scarsi decrementato ogni 5 round
             }
             if (!(this.numFastRound <= 15)) {
-                this.numFastRound = 18;
+                this.numFastRound = 18; //cosicché non siano più di 18
             }
             if (this.waveCount % 5 == 2 || this.waveCount % 5 == 1) {
-                this.numFastRound = 0;
+                this.numFastRound = 0; //spawnano dall'ondata 3 ogni 3,4,5 ondate
             }
 
-            this.numZombieRound = this.numFastRound + this.numWeakRound; //numeri totali di zombie sono la somma di tutti i tipi di zombie
-            this.numFastToCreate = this.numFastRound; //numero di fast da creare
-            this.numWeakToCreate = this.numWeakRound; //numero di weak da creare
-
-            //inizio ciclo di spawn
+            this.numZombieRound = this.numFastRound + this.numWeakRound;
+            this.numFastToCreate = this.numFastRound;
+            this.numWeakToCreate = this.numWeakRound;
+            
+            //inizio spawn
+            //WARNING: CI SONO DELLE STAMPE COMMENTATE! NON CANCELLARE, SERVONO IN FASE DI TEST
             int i = 0;
             while (!handler.getPlayer().isDeath() && i < this.numZombieRound) {
-                boolean p = PauseMenu.pause; //non cancellare, senza non funziona... da vedere
-                if (!p) {
-                    int n = (int) (Math.random() * 10);
+                //System.out.println("Sto nel while: " + i);
+                //System.out.println("Da creare: " + this.numZombieRound);
+                //System.out.println("Scarsi da creare: " + this.numWeakToCreate);
+                //System.out.println("Veloci da creare: " + this.numFastToCreate);
+                if (PauseMenu.isPause()) {
+                    //System.out.println("Sto nel if di pausa");
+                    synchronized (PauseMenu.PAUSELOCK) { //acquisisco il lock di Pausa
+                        try {
+                            PauseMenu.PAUSELOCK.wait(); //attendo che pause cambi
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(Waves.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                } else {
+
+                    //System.out.println("Sto nel else");
+                    int n = (int) (Math.random() * 10); //randomicamente, cerco tutti i punti di spawn
                     switch (n) {
-                        case 0:                 //fossa
+                        case 0:             //fossa
                             x = 2072;
                             y = 2514;
                             break;
-                        case 1:                 //tomba 11
+                        case 1:             //tomba 11
                             x = 2224;
                             y = 238;
                             break;
-                        case 2:                 //tomba 21
+                        case 2:             //tomba 12
                             x = 2716;
                             y = 238;
                             break;
-                        case 3:                 //tomba 12
+                        case 3:             //tomba 21
                             x = 2418;
                             y = 466;
                             break;
-                        case 4:                 //tomba 22
+                        case 4:             //tomba 22
                             x = 2804;
                             y = 466;
                             break;
-                        case 5:
-                            x = 608;            //teatro
+                        case 5:             //teatro
+                            x = 608;
                             y = 3118;
                             break;
-                        case 6:                 //fognatura 2
-                            x = 624;
-                            y = 2080;
-                            break;
-                        case 7:                 //parco
+                        case 6:             //parco
                             x = 10;
                             y = 1640;
                             break;
-                        case 8:                 //incrocio sopra parco
-                            x = 132;
+                        case 7:             //incrocio
+                            x = 136;
                             y = 1282;
                             break;
-                        case 9:                 //fognatura 1
+                        case 8:             //fognatura 2
+                            x = 624;
+                            y = 2080;
+                            break;
+                        case 9:             //fognatura 1 
                             x = 674;
                             y = 300;
                             break;
                     }
-                    this.numDiffToCreate(); //setta il numero di differenti zombie da creare
+                    
+                    this.numDiffToCreate(); //potrebbe essere inutile, il numero di differenti so che sono 2 al momento. può servire per dopo
+
                     if (this.numWeakToCreate == 0 && !(this.numFastToCreate == 0)) {
                         this.createFastZombie(x, y, mult, (float) 1);
-                        this.numFastToCreate -= 1;
+                        this.numFastToCreate -= 1; //decremento il numero di scarsi
+                        i++;
                     } else if (!(this.numWeakToCreate == 0) && this.numFastToCreate == 0) {
                         this.createWeakZommbie(x, y, mult, (float) 1);
-                        this.numWeakToCreate -= 1;
+                        this.numWeakToCreate -= 1; //decremento il numero di forti
+                        i++;
                     } else {
-                        n = (int) (Math.random() * this.diffToCreate);
+                        n = (int) (Math.random() * this.diffToCreate); //randomicamente, creo uno o l'altro
                         switch (n) {
                             case 0:
                                 this.createWeakZommbie(x, y, mult, (float) 1);
                                 this.numWeakToCreate -= 1;
+                                i++;
                                 break;
                             case 1:
                                 this.createFastZombie(x, y, mult, (float) 1);
                                 this.numFastToCreate -= 1;
+                                i++;
                                 break;
                         }
                     }
-                    i++;
+                }                
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Waves.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            synchronized (KL) { //acquisisco il lock di tutti morti
+                //System.out.println("Sto nel synch");
+                while (!this.allKilled) {  
                     try {
-                        Thread.sleep(2000);
+                        KL.wait(); //aspetto che modifichi il valore di allKilled
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Waves.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-
             }
-            synchronized (KL) {
-                while (!this.allKilled) {
-                    try {
-                        KL.wait(); //si aspetta che venga modificato allKilled
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(Waves.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
+            //System.out.println("Fine ondata");
             if (Settings.soundMusic) {
                 Menu.gameMusic.stopSound();
                 endRound.playSound();
@@ -170,13 +192,15 @@ public class Waves implements Runnable {
                 Logger.getLogger(Waves.class.getName()).log(Level.SEVERE, null, ex);
             }
             if (Settings.soundMusic) {
-                Menu.gameMusic.playSound();
+                Menu.gameMusic.loopSound();
             }
             if (this.waveCount % 5 == 0) {
                 this.numWeakRound = 8;
                 this.mult += 0.13;
             }
+
         }
+
     }
 
     public int getWaveCount() {

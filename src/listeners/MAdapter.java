@@ -13,30 +13,35 @@ import java.awt.event.MouseMotionListener;
  *
  * @author giova
  */
-public class MAdapter implements MouseMotionListener,MouseListener{
-    public static int x,y;
-    public static boolean left,right;
-    
+public class MAdapter implements MouseMotionListener, MouseListener {
+
+    public static int x, y;
+    public static boolean left, right;
+
     @Override
     public void mouseMoved(MouseEvent e) {
-        x=e.getX();
-        y=e.getY();
+        x = e.getX();
+        y = e.getY();
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if(e.getButton() == MouseEvent.BUTTON1)
+        if (e.getButton() == MouseEvent.BUTTON1) {
             left = true;
-        if(e.getButton() == MouseEvent.BUTTON3)
+        }
+        if (e.getButton() == MouseEvent.BUTTON3) {
             right = true;
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if(e.getButton() == MouseEvent.BUTTON1)
+        if (e.getButton() == MouseEvent.BUTTON1) {
             left = false;
-        if(e.getButton() == MouseEvent.BUTTON3)
+        }
+        if (e.getButton() == MouseEvent.BUTTON3) {
             right = false;
+        }
     }
 
     @Override
@@ -47,16 +52,16 @@ public class MAdapter implements MouseMotionListener,MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent me) {
-        
+
     }
 
     @Override
     public void mouseEntered(MouseEvent me) {
-    
+
     }
 
     @Override
     public void mouseExited(MouseEvent me) {
     }
-    
+
 }

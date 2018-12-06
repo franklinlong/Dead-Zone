@@ -13,10 +13,10 @@ import utilities.Assets;
  *
  * @author USER
  */
-public class MedicalKit extends DropItem{
+public class MedicalKit extends DropItem {
 
     private Handler handler;
-    
+
     public MedicalKit(float x, float y, int width, int height, Handler handler) {
         super(x, y, width, height);
         this.handler = handler;
@@ -24,16 +24,17 @@ public class MedicalKit extends DropItem{
 
     @Override
     public void drawImage(Graphics g, float offsetX, float offsetY) {
-        g.drawImage(Assets.mediKit, (int)(getX() - offsetX -20), (int)(getY() - offsetY -20), null);
+        g.drawImage(Assets.mediKit, (int) (getX() - offsetX - 20), (int) (getY() - offsetY - 20), null);
     }
 
     @Override
     public void animationCycle() {
-        if(this.isCollected(handler)){
+        if (this.isCollected(handler)) {
             //Bisogna caricare Suono
-            handler.getPlayer().setHealth(300);
+            handler.getPlayer().setHealth(handler.getPlayer().getMaximumHealth());
             handler.removeSprite(this);
         }
-    };
-    
+    }
+;
+
 }

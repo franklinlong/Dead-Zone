@@ -23,57 +23,54 @@ import utilities.Scoreboard;
  * @author franc
  */
 public class SinglePlayer extends javax.swing.JFrame {
-    
-    private boolean male;
-    
 
-    private ImageIcon ridimensionaImageIcon(URL url, int nuovaW, int nuovaH){
+    private boolean male;
+
+    private ImageIcon ridimensionaImageIcon(URL url, int nuovaW, int nuovaH) {
         ImageIcon image = new ImageIcon(url);
         Image immagineScalata = image.getImage().getScaledInstance(nuovaW, nuovaH, Image.SCALE_DEFAULT);
         return new ImageIcon(immagineScalata);
     }
+
     /**
      * Creates new form SinglePlayer
      */
     public SinglePlayer() {
         Image iconaFrame;
         iconaFrame = new ImageIcon(getClass().getResource("/images/icona_frame.png")).getImage();
-        this.setIconImage(iconaFrame);  
-        
-        
+        this.setIconImage(iconaFrame);
+
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        dim.setSize(1920*2/5, 575);
+        dim.setSize(1920 * 2 / 5, 575);
         this.setPreferredSize(dim.getSize());
-        
-        
+
         initComponents();
-        
-        sfondo.setPreferredSize(dim.getSize());        
+
+        sfondo.setPreferredSize(dim.getSize());
         jTextField1.setBackground(new Color(0, 0, 0, 0));
         jButtonUomo.setBackground(new Color(0, 0, 0, 0));
         jButtonDonna.setBackground(new Color(0, 0, 0, 0));
-        
+
         ImageIcon i = ridimensionaImageIcon(getClass().getResource("/images/soldato_uomo.png"), jButtonUomo.getWidth(), jButtonUomo.getHeight());
         jButtonUomo.setIcon(i);
-        
-        ImageIcon i2  = ridimensionaImageIcon(getClass().getResource("/images/soldato_donna.png"), jButtonDonna.getWidth(), jButtonDonna.getHeight());
+
+        ImageIcon i2 = ridimensionaImageIcon(getClass().getResource("/images/soldato_donna.png"), jButtonDonna.getWidth(), jButtonDonna.getHeight());
         jButtonDonna.setIcon(i2);
-        
+
         Scoreboard scoreboard = new Scoreboard();
         List<Score> scoreList = scoreboard.getScoreboard();
-        
 
-        this.jScore1.setText("1) "+scoreList.get(0).getPlayer());
-        this.jScore2.setText("2) "+scoreList.get(1).getPlayer());
-        this.jScore3.setText("3) "+scoreList.get(2).getPlayer());
-        this.jScore4.setText("4) "+scoreList.get(3).getPlayer());
-        this.jScore5.setText("5) "+scoreList.get(4).getPlayer());
-        this.jScore6.setText("6) "+scoreList.get(5).getPlayer());
-        this.jScore7.setText("7) "+scoreList.get(6).getPlayer());
-        this.jScore8.setText("8) "+scoreList.get(7).getPlayer());
-        this.jScore9.setText("9) "+scoreList.get(8).getPlayer());
-        this.jScore10.setText("10) "+scoreList.get(9).getPlayer());
-        
+        this.jScore1.setText("1) " + scoreList.get(0).getPlayer());
+        this.jScore2.setText("2) " + scoreList.get(1).getPlayer());
+        this.jScore3.setText("3) " + scoreList.get(2).getPlayer());
+        this.jScore4.setText("4) " + scoreList.get(3).getPlayer());
+        this.jScore5.setText("5) " + scoreList.get(4).getPlayer());
+        this.jScore6.setText("6) " + scoreList.get(5).getPlayer());
+        this.jScore7.setText("7) " + scoreList.get(6).getPlayer());
+        this.jScore8.setText("8) " + scoreList.get(7).getPlayer());
+        this.jScore9.setText("9) " + scoreList.get(8).getPlayer());
+        this.jScore10.setText("10) " + scoreList.get(9).getPlayer());
+
         this.jPunt1.setText(Integer.toString(scoreList.get(0).getScore()));
         this.jPunt2.setText(Integer.toString(scoreList.get(1).getScore()));
         this.jPunt3.setText(Integer.toString(scoreList.get(2).getScore()));
@@ -84,25 +81,26 @@ public class SinglePlayer extends javax.swing.JFrame {
         this.jPunt8.setText(Integer.toString(scoreList.get(7).getScore()));
         this.jPunt9.setText(Integer.toString(scoreList.get(8).getScore()));
         this.jPunt10.setText(Integer.toString(scoreList.get(9).getScore()));
-        
+
         jTextField1.addKeyListener(new KeyAdapter() {
             @Override
-            public void keyTyped(KeyEvent e){
-                if (jTextField1.getText().length() >= 10 || e.getKeyChar() == ' ')
+            public void keyTyped(KeyEvent e) {
+                if (jTextField1.getText().length() >= 10 || e.getKeyChar() == ' ') {
                     e.consume();
+                }
             }
         });
 
     }
-    
-    
-    public String getPlayerName(){
+
+    public String getPlayerName() {
         return this.jTextField1.getText();
     }
 
     public boolean isMale() {
         return male;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -394,23 +392,22 @@ public class SinglePlayer extends javax.swing.JFrame {
 
     private void jButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlayActionPerformed
         // TODO add your handling code here:
-        if(!jTextField1.getText().isEmpty() && (jButtonUomo.isBorderPainted() || jButtonDonna.isBorderPainted())){
+        if (!jTextField1.getText().isEmpty() && (jButtonUomo.isBorderPainted() || jButtonDonna.isBorderPainted())) {
             new MapFrame(this).setVisible(true);
-            this.setVisible(false);  
-        } else{
-            int w = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconWidth()*1/6;
-            int h = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconHeight()*1/6;
-            ImageIcon i = ridimensionaImageIcon(getClass().getResource("/images/LogoBiancoENero.png"),w,h);
+            this.setVisible(false);
+        } else {
+            int w = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconWidth() * 1 / 6;
+            int h = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconHeight() * 1 / 6;
+            ImageIcon i = ridimensionaImageIcon(getClass().getResource("/images/LogoBiancoENero.png"), w, h);
             JOptionPane.showConfirmDialog(rootPane, "Please select the properties of the character", "Player selection DeadZone", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_OPTION, i);
 
         }
-        
+
     }//GEN-LAST:event_jButtonPlayActionPerformed
 
     /**
      * @param args the command line arguments
      */
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBack;

@@ -16,33 +16,46 @@ import javax.swing.SwingUtilities;
  * @author niko
  */
 public class PauseMenu extends javax.swing.JDialog {
+
     /**
      * Creates new form PauseMenu
      */
-    
-    public static boolean pause;
+    private static boolean pause;
+    public static final Object PAUSELOCK = new Object();
     public static boolean end;
-    
+
     public PauseMenu(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
-        pause = true;
+
+        setPause(true);
         end = false;
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
         Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();
-        int x = (int) rect.getMaxX()/2 - this.getWidth()/2;
-        int y = (int) rect.getMaxY()/2 - this.getHeight()/2;
+        int x = (int) rect.getMaxX() / 2 - this.getWidth() / 2;
+        int y = (int) rect.getMaxY() / 2 - this.getHeight() / 2;
         this.setLocation(x, y);
-        
+
         addWindowListener(new WindowAdapter() {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                pause = false;
+                setPause(false);
             }
         });
+    }
+
+    public static boolean isPause() {
+        return pause;
+    }
+
+    public static void setPause(boolean pause) {
+        synchronized (PAUSELOCK) {
+            PauseMenu.pause = pause;
+            PAUSELOCK.notifyAll();
+        }
+
     }
 
     /**
@@ -123,7 +136,7 @@ public class PauseMenu extends javax.swing.JDialog {
 
     private void ResumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResumeActionPerformed
         // TODO add your handling code here:
-        pause = false;
+        setPause(false);
         this.dispose();
     }//GEN-LAST:event_ResumeActionPerformed
 
@@ -136,8 +149,8 @@ public class PauseMenu extends javax.swing.JDialog {
 
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
         // TODO add your handling code here:
-        end=true;
-        pause = false;
+        end = true;
+        setPause(false);
         JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
         topFrame.dispose();
         Menu menu = new Menu();
@@ -151,6 +164,5 @@ public class PauseMenu extends javax.swing.JDialog {
     private javax.swing.JButton Settings;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
-    
-    
+
 }

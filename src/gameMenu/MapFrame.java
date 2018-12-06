@@ -21,39 +21,38 @@ import javax.swing.JOptionPane;
 public class MapFrame extends javax.swing.JFrame {
 
     SinglePlayer sp;
+
     /**
      * Creates new form MapFrame
      */
-    
-    private ImageIcon ridimensionaImageIcon(URL url, int nuovaW, int nuovaH){
+
+    private ImageIcon ridimensionaImageIcon(URL url, int nuovaW, int nuovaH) {
         ImageIcon image = new ImageIcon(url);
         Image immagineScalata = image.getImage().getScaledInstance(nuovaW, nuovaH, Image.SCALE_DEFAULT);
         return new ImageIcon(immagineScalata);
     }
-    
+
     public MapFrame(SinglePlayer sp) {
         this.sp = sp;
         int a = 10;
-        
+
         Image iconaFrame;
         iconaFrame = new ImageIcon(getClass().getResource("/images/icona_frame.png")).getImage();
-        this.setIconImage(iconaFrame);  
-        
-        
+        this.setIconImage(iconaFrame);
+
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        dim.setSize(1920*2/5, 575);
+        dim.setSize(1920 * 2 / 5, 575);
         this.setPreferredSize(dim.getSize());
-        
-        
+
         initComponents();
-        
+
         ImageIcon mappaSTD = ridimensionaImageIcon(getClass().getResource("/images/map_standard.png"), jButtonStandardMap.getWidth(), jButtonStandardMap.getHeight());
         jButtonStandardMap.setIcon(mappaSTD);
-        
+
         ImageIcon mappaFisciano = ridimensionaImageIcon(getClass().getResource("/images/fisciano_map.png"), jButtonFisciano.getWidth(), jButtonFisciano.getHeight());
         jButtonFisciano.setIcon(mappaFisciano);
-        jButtonFisciano.setBackground(new Color(0,0,0,0));
-        jButtonStandardMap.setBackground(new Color(0,0,0,0));
+        jButtonFisciano.setBackground(new Color(0, 0, 0, 0));
+        jButtonStandardMap.setBackground(new Color(0, 0, 0, 0));
     }
 
     /**
@@ -161,16 +160,14 @@ public class MapFrame extends javax.swing.JFrame {
 
     private void jButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlayActionPerformed
         // TODO add your handling code here:
-        if(jButtonStandardMap.isBorderPainted()){
+        if (jButtonStandardMap.isBorderPainted()) {
             new Window(sp.getPlayerName(), sp.isMale()).setVisible(true);
             this.setVisible(false);
-            
-            
-        }
-        else{
-            int w = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconWidth()*1/6;
-            int h = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconHeight()*1/6;
-            ImageIcon i = ridimensionaImageIcon(getClass().getResource("/images/LogoBiancoENero.png"),w,h);
+
+        } else {
+            int w = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconWidth() * 1 / 6;
+            int h = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconHeight() * 1 / 6;
+            ImageIcon i = ridimensionaImageIcon(getClass().getResource("/images/LogoBiancoENero.png"), w, h);
             JOptionPane.showConfirmDialog(rootPane, "Please select the map", "Selection map DeadZone", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_OPTION, i);
 
         }
@@ -186,8 +183,6 @@ public class MapFrame extends javax.swing.JFrame {
         jButtonStandardMap.setBorderPainted(false);
     }//GEN-LAST:event_jButtonFiscianoActionPerformed
 
-    
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBack;

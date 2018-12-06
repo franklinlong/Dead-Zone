@@ -14,13 +14,13 @@ import utilities.Assets;
  *
  * @author USER
  */
-public class Ammo extends DropItem{
+public class Ammo extends DropItem {
 
     private Handler handler;
     private Gun gun;
     private int incremento; //colpi aggiuntivi nel caricatore se raccolto
     private int incrementoTot; //colpi aggiuntivi totali se raccolto
-    
+
     public Ammo(float x, float y, int width, int height, Handler handler) {
         super(x, y, width, height);
         this.handler = handler;
@@ -31,16 +31,17 @@ public class Ammo extends DropItem{
 
     @Override
     public void drawImage(Graphics g, float offsetX, float offsetY) {
-        g.drawImage(Assets.ammo, (int)(getX() - offsetX -20), (int)(getY() - offsetY-20), null);
+        g.drawImage(Assets.ammo, (int) (getX() - offsetX - 20), (int) (getY() - offsetY - 20), null);
     }
 
     @Override
     public void animationCycle() {
-        if(this.isCollected(handler)){
+        if (this.isCollected(handler)) {
             //Bisogna caricare Suono
             gun.setTotalBullets(gun.getTotalBullets() + 200);
             handler.removeSprite(this);
         }
-    };
-    
+    }
+;
+
 }

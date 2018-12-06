@@ -14,16 +14,19 @@ import javax.swing.JFrame;
  * @author giova
  */
 public class GameOver extends javax.swing.JFrame {
+
     JFrame parent;
+
     /**
      * Creates new form GameOver
+     *
      * @param parent
      */
     public GameOver(JFrame parent) {
         Image iconaFrame;
         iconaFrame = new ImageIcon(getClass().getResource("/images/icona_frame.png")).getImage();
-        this.setIconImage(iconaFrame); 
-        
+        this.setIconImage(iconaFrame);
+
         this.parent = parent;
         initComponents();
         this.setLocationRelativeTo(null);
