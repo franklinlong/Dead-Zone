@@ -35,11 +35,14 @@ public class Handler {
 
     
     public Handler(String playerName, boolean male){
-        player = new Player(2000,60,2,300,this, playerName, male);        
+        player = new Player(2000,60,2,1000,this, playerName, male);        
         camera = new Camera(player);
         players.add(player);
         
         this.waves = new Waves(this);
+        
+        waves.createFastZombie(2500, 70, (float)0.5, 99);
+        
         Thread t = new Thread(waves);
         t.start();
         
@@ -87,15 +90,12 @@ public class Handler {
             Sprite s = proiettili.get(i);
             s.drawImage(g,offsetX,offsetY);
         }
-
+        
         for(int i=0;i<spittles.size();i++){
             Sprite s = spittles.get(i);
             s.drawImage(g,offsetX,offsetY);
         }
-        
-        for(int i=0;i<itemsAndBlood.size();i++){
-            Sprite s = itemsAndBlood.get(i);
-        }
+            
         for(int i=0;i<zombies.size();i++){
             Sprite s = zombies.get(i);
             s.drawImage(g,offsetX,offsetY);
@@ -118,11 +118,11 @@ public class Handler {
         else if(s instanceof Projectile){
             this.proiettili.add(s);
         }
-        else if(s instanceof DropItem || s instanceof Blood){
-            this.itemsAndBlood.add(s);
-        }
         else if(s instanceof Spittle){
             this.spittles.add(s);
+        }
+        else if(s instanceof DropItem || s instanceof Blood){
+            this.itemsAndBlood.add(s);
         }
         else
             System.err.println("ERROREEEE, in handler");

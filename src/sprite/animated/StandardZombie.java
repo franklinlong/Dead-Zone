@@ -99,7 +99,14 @@ public class StandardZombie extends Zombie{
             distanceToPlayerY = (float)(Math.sqrt(toPlayerX*toPlayerX + toPlayerY*toPlayerY));
         
             //Se lo zombie è vicino al player lo attacca e quindi non si deve muovere
-            if(distanceToPlayerX < player.width/2 && distanceToPlayerY < player.height/2 && !attackDelay.isRunning() && !player.isDeath())
+            int distanzaAttacco;
+            if(this.getHealth() == 100){ //Zombie debole
+                distanzaAttacco = 30;
+            }
+            else{
+                distanzaAttacco = 60;
+            }
+            if(distanceToPlayerX < distanzaAttacco && distanceToPlayerY < distanzaAttacco && !attackDelay.isRunning() && !player.isDeath())
             {
                 attacking = true;
                 attackDelay.start();
