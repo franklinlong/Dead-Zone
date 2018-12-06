@@ -15,6 +15,7 @@ import sprite.animated.Player;
 import sprite.animated.Zombie;
 import gameMenu.*;
 import java.util.Arrays;
+import utilities.Assets;
 
 public class HudPanel extends JPanel implements Runnable {
     
@@ -66,9 +67,9 @@ public class HudPanel extends JPanel implements Runnable {
         }
         
         public void loadIndicator(){
-            ImageIcon red = new ImageIcon(getClass().getResource("/images/red.png"));
+            ImageIcon red = new ImageIcon(Assets.redIndicator);
             this.red_indicator = red.getImage();
-            ImageIcon green = new ImageIcon(getClass().getResource("/images/green.png"));
+            ImageIcon green = new ImageIcon(Assets.greenIndicator);
             this.green_indicator = green.getImage();
             
         }
@@ -81,7 +82,7 @@ public class HudPanel extends JPanel implements Runnable {
         }
         
         public void loadMiniMap(){
-        ImageIcon map = new ImageIcon(getClass().getResource("/images/grigionero.png"));
+        ImageIcon map = new ImageIcon(Assets.minimap);
         this.minimap = map.getImage();
         }
         public void drawMiniMap(Graphics g){

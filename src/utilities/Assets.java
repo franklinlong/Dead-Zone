@@ -63,9 +63,10 @@ public class Assets {
     public static BufferedImage ammo;
     public static BufferedImage nuke;
 
-//                public static BufferedImage minimap;
-//                public static BufferedImage greenIndicator;
-//                public static BufferedImage redIndicator;
+    public static BufferedImage minimap;
+    public static BufferedImage greenIndicator;
+    public static BufferedImage redIndicator;
+
     public static void init() {
 
         // animations
@@ -108,6 +109,7 @@ public class Assets {
             shotgunShootAnim[i] = Utilities.loadImage("/player/shoot/shotgun/" + i + ".png");
         }
 
+        //female animation
         for (int i = 0; i < femalepistolIdle.length; i++) {
             femalepistolIdle[i] = Utilities.loadImage("/femalePlayer/idle/pistolIdle/" + i + ".png");
         }
@@ -172,9 +174,7 @@ public class Assets {
         ak47 = Utilities.loadImage("/guns/ak-47.png");
         rifleLoader = Utilities.loadImage("/guns/rifleLoader.png");
 
-//                public static BufferedImage minimap;
-//                public static BufferedImage greenIndicator;
-//                public static BufferedImage redIndicator;
+
         //blood 
         blood = Utilities.loadImage("/images/blood.png");
         //sounds
@@ -208,8 +208,8 @@ public class Assets {
         nuke = Utilities.loadImage("/images/bombItem.png");
 
         //minimap
-//                    minimap = Utilities.loadImage("/images/grigionero.png");
-//                    greenIndicator = Utilities.loadImage("/images/green.png");
-//                    redIndicator = Utilities.loadImage("/images/red.png");
+                    minimap = Utilities.loadImage("/images/grigionero.png");
+                    greenIndicator = Utilities.loadImage("/images/green.png");
+                    redIndicator = Utilities.loadImage("/images/red.png");
     }
 }
