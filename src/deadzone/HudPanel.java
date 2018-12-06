@@ -14,6 +14,7 @@ import sprite.Sprite;
 import sprite.animated.Player;
 import sprite.animated.Zombie;
 import gameMenu.*;
+import java.util.Arrays;
 
 public class HudPanel extends JPanel implements Runnable {
     
@@ -326,9 +327,12 @@ public class HudPanel extends JPanel implements Runnable {
                     timer = 0;
             }
             
-        } while(!handler.getPlayer().isDeath() && PauseMenu.end==false);
+        } while(!handler.getPlayer().isDeath() && !PauseMenu.end);
         JFrame hudPanel = (JFrame) SwingUtilities.getWindowAncestor(this);
-        GameOver gameOver = new GameOver(hudPanel);
+        GameOver gameOver;
+        if(!PauseMenu.end){
+            gameOver = new GameOver(hudPanel);
+        }
         System.out.println("FINE PARTITA HUD");
     }
 }

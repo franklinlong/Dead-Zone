@@ -19,9 +19,21 @@ public class Assets {
     public static BufferedImage[] rifleShootAnim = new BufferedImage[3];
     public static BufferedImage[] shotgunShootAnim = new BufferedImage[3];
 
+    public static BufferedImage[] femalepistolIdle = new BufferedImage[20];
+    public static BufferedImage[] femalerifleIdle = new BufferedImage[20];
+    public static BufferedImage[] femaleshotgunIdle = new BufferedImage[20];
+
+    public static BufferedImage[] femalepistolReload = new BufferedImage[15];
+    public static BufferedImage[] femalerifleReload = new BufferedImage[20];
+    public static BufferedImage[] femaleshotgunReload = new BufferedImage[20];
+
+    public static BufferedImage[] femalepistolShootAnim = new BufferedImage[3];
+    public static BufferedImage[] femalerifleShootAnim = new BufferedImage[3];
+    public static BufferedImage[] femaleshotgunShootAnim = new BufferedImage[3];
+
     public static BufferedImage[] zombie = new BufferedImage[17];
     public static BufferedImage[] zombieAttack = new BufferedImage[9];
-    
+
     public static BufferedImage[] zombie2 = new BufferedImage[32];
     public static BufferedImage[] zombie2Attack = new BufferedImage[20];
 
@@ -29,15 +41,15 @@ public class Assets {
     public static BufferedImage pistolSkin, ak47, rifleLoader, shotgunSkin;
 
     //spittle
-                public static BufferedImage spittle_n;
-                public static BufferedImage spittle_ne;
-                public static BufferedImage spittle_e;
-                public static BufferedImage spittle_se;
-                public static BufferedImage spittle_s;
-                public static BufferedImage spittle_so;
-                public static BufferedImage spittle_o;
-                public static BufferedImage spittle_no;
-                
+    public static BufferedImage spittle_n;
+    public static BufferedImage spittle_ne;
+    public static BufferedImage spittle_e;
+    public static BufferedImage spittle_se;
+    public static BufferedImage spittle_s;
+    public static BufferedImage spittle_so;
+    public static BufferedImage spittle_o;
+    public static BufferedImage spittle_no;
+
     //sounds		
     public static Clip pistolShoot, rifleShoot, shotgunShoot, background, zombieHit, pistolReloadSound,
             rifleReloadSound, shotgunReloadSound, emptyGun, zombieBite;
@@ -96,6 +108,44 @@ public class Assets {
             shotgunShootAnim[i] = Utilities.loadImage("/player/shoot/shotgun/" + i + ".png");
         }
 
+        for (int i = 0; i < femalepistolIdle.length; i++) {
+            femalepistolIdle[i] = Utilities.loadImage("/femalePlayer/idle/pistolIdle/" + i + ".png");
+        }
+
+        for (int i = 0; i < femalerifleIdle.length; i++) {
+            femalerifleIdle[i] = Utilities.loadImage("/femalePlayer/idle/rifleIdle/" + i + ".png");
+        }
+
+        for (int i = 0; i < femaleshotgunIdle.length; i++) {
+            femaleshotgunIdle[i] = Utilities.loadImage("/femalePlayer/idle/shotgunIdle/" + i + ".png");
+        }
+
+        //reload
+        for (int i = 0; i < femalepistolReload.length; i++) {
+            femalepistolReload[i] = Utilities.loadImage("/femalePlayer/reload/Pistol/" + i + ".png");
+        }
+
+        for (int i = 0; i < femalerifleReload.length; i++) {
+            femalerifleReload[i] = Utilities.loadImage("/femalePlayer/reload/Rifle/" + i + ".png");
+        }
+
+        for (int i = 0; i < femaleshotgunReload.length; i++) {
+            femaleshotgunReload[i] = Utilities.loadImage("/femalePlayer/reload/Shot/" + i + ".png");
+        }
+
+        //shot
+        for (int i = 0; i < femalepistolShootAnim.length; i++) {
+            femalepistolShootAnim[i] = Utilities.loadImage("/femalePlayer/shoot/Pistol/" + i + ".png");
+        }
+
+        for (int i = 0; i < femalerifleShootAnim.length; i++) {
+            femalerifleShootAnim[i] = Utilities.loadImage("/femalePlayer/shoot/Rifle/" + i + ".png");
+        }
+
+        for (int i = 0; i < femaleshotgunShootAnim.length; i++) {
+            femaleshotgunShootAnim[i] = Utilities.loadImage("/femalePlayer/shoot/Shotgun/" + i + ".png");
+        }
+
         //zombie walk
         for (int i = 0; i < zombie.length; i++) {
             zombie[i] = Utilities.loadImage("/zombie/walk/" + i + ".png");
@@ -105,7 +155,7 @@ public class Assets {
         for (int i = 0; i < zombieAttack.length; i++) {
             zombieAttack[i] = Utilities.loadImage("/zombie/attack/" + i + ".png");
         }
-        
+
         //zombie2 walk
         for (int i = 0; i < zombie2.length; i++) {
             zombie2[i] = Utilities.loadImage("/zombie2/walk/" + i + ".png");
@@ -115,19 +165,16 @@ public class Assets {
         for (int i = 0; i < zombie2Attack.length; i++) {
             zombie2Attack[i] = Utilities.loadImage("/zombie2/attack/" + i + ".png");
         }
-        
-		
+
         //gun skins
         shotgunSkin = Utilities.loadImage("/guns/shotgun.png");
         pistolSkin = Utilities.loadImage("/guns/pistol.png");
         ak47 = Utilities.loadImage("/guns/ak-47.png");
         rifleLoader = Utilities.loadImage("/guns/rifleLoader.png");
-                
+
 //                public static BufferedImage minimap;
 //                public static BufferedImage greenIndicator;
 //                public static BufferedImage redIndicator;
-              
-
         //blood 
         blood = Utilities.loadImage("/images/blood.png");
         //sounds
@@ -145,9 +192,6 @@ public class Assets {
         shotgunReloadSound = Utilities.LoadSound("/sound/shotgunReload.wav");
         shotgunShoot = Utilities.LoadSound("/sound/shotgun.wav");
 
-                    
-
-                    
         //spittle
         spittle_n = Utilities.loadImage("/zombie/spittle/nord.png");
         spittle_ne = Utilities.loadImage("/zombie/spittle/nordest.png");
@@ -157,14 +201,13 @@ public class Assets {
         spittle_so = Utilities.loadImage("/zombie/spittle/sudovest.png");
         spittle_o = Utilities.loadImage("/zombie/spittle/ovest.png");
         spittle_no = Utilities.loadImage("/zombie/spittle/nordovest.png");
-                    
+
         //item
         mediKit = Utilities.loadImage("/images/medikitItem.png");
         ammo = Utilities.loadImage("/images/ammoItem.png");
         nuke = Utilities.loadImage("/images/bombItem.png");
-                    
-                    
-                    //minimap
+
+        //minimap
 //                    minimap = Utilities.loadImage("/images/grigionero.png");
 //                    greenIndicator = Utilities.loadImage("/images/green.png");
 //                    redIndicator = Utilities.loadImage("/images/red.png");

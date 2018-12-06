@@ -24,6 +24,8 @@ import utilities.Scoreboard;
  */
 public class SinglePlayer extends javax.swing.JFrame {
     
+    private boolean male;
+    
 
     private ImageIcon ridimensionaImageIcon(URL url, int nuovaW, int nuovaH){
         ImageIcon image = new ImageIcon(url);
@@ -97,7 +99,10 @@ public class SinglePlayer extends javax.swing.JFrame {
     public String getPlayerName(){
         return this.jTextField1.getText();
     }
-    
+
+    public boolean isMale() {
+        return male;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -369,12 +374,16 @@ public class SinglePlayer extends javax.swing.JFrame {
 
     private void jButtonUomoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUomoActionPerformed
         // TODO add your handling code here:
+        jButtonDonna.setBorderPainted(false);
         jButtonUomo.setBorderPainted(true);
+        this.male = true;
     }//GEN-LAST:event_jButtonUomoActionPerformed
 
     private void jButtonDonnaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDonnaActionPerformed
         // TODO add your handling code here:
         jButtonUomo.setBorderPainted(false);
+        jButtonDonna.setBorderPainted(true);
+        this.male = false;
     }//GEN-LAST:event_jButtonDonnaActionPerformed
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
