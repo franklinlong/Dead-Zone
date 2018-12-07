@@ -2,9 +2,9 @@ Cucchia 34560
 Oscar 750
 Monti 720
 Enrico 550
+Fenomeno 430
 Ciccio 400
 Alex 255
 Andrea 175
 Francesco 150
 Ciccio 145
-FRANKLINLO 95
