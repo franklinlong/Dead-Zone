@@ -48,7 +48,6 @@ public class Board extends JSplitPane {
 
     private void initBoard(String playerName, boolean male) {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        Assets.init();
 
         handler = new Handler(playerName, male);
         mapPanel = new MapPanel(handler);
