@@ -1,8 +1,11 @@
 package utilities;
 
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 
 import javax.sound.sampled.Clip;
+import javax.swing.ImageIcon;
 
 public class Assets {
 
@@ -72,9 +75,10 @@ public class Assets {
     public static BufferedImage ammo;
     public static BufferedImage nuke;
 
-    public static BufferedImage minimap;
+    public static Image minimap;
     public static BufferedImage greenIndicator;
     public static BufferedImage redIndicator;
+    
 
     public static void init() {
 
@@ -245,8 +249,14 @@ public class Assets {
         nuke = Utilities.loadImage("/images/bombItem.png");
 
         //minimap
-        minimap = Utilities.loadImage("/images/grigionero.png");
+        //minimap = Utilities.loadImage("/images/grigionero.png");
         greenIndicator = Utilities.loadImage("/images/green.png");
         redIndicator = Utilities.loadImage("/images/red.png");
+        
+        int mp_h = Toolkit.getDefaultToolkit().getScreenSize().width*18/100;
+        int mp_w = Toolkit.getDefaultToolkit().getScreenSize().width*18/100;
+        ImageIcon i = new ImageIcon("resources/images/grigionero.png");
+        minimap = i.getImage().getScaledInstance(mp_h, mp_w, Image.SCALE_DEFAULT);
+        
     }
 }

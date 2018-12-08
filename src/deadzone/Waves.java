@@ -60,6 +60,11 @@ public class Waves implements Runnable {
 
     @Override
     public void run() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Waves.class.getName()).log(Level.SEVERE, null, ex);
+        }
         float x = 0;
         float y = 0;
         while (!handler.getPlayer().isDeath()) {
@@ -68,7 +73,7 @@ public class Waves implements Runnable {
             this.numWeakRound += 8; //aumentano di 8 ogni round
             this.numFastRound += 5; //aumentano di 5 ogni round
             this.numSpittleRound += 2; //aumentano di 2 ogni round
-            this.numBossRound = 1; //aumentano di1 ogni round
+            this.numBossRound = 1; //aumentano di 1 ogni round
             if (this.waveCount % 5 == 0) {
                 this.numWeakRound -= 8; //numero di scarsi decrementato alle quinte ondate
                 this.numBossRound = this.waveCount / 5;
@@ -106,13 +111,13 @@ public class Waves implements Runnable {
             int i = 0;
             while (!handler.getPlayer().isDeath() && i < this.numZombieSpawn) {
 //                System.out.println("Sto nel while: " + i);
-//                System.out.println("Da creare: " + this.numZombieRound);
+//                System.out.println("Nel round: " + this.numZombieRound);
 //                System.out.println("Scarsi da creare: " + this.numWeakToCreate);
 //                System.out.println("Veloci da creare: " + this.numFastToCreate);
 //                System.out.println("boss da creare: " + this.numBossToCreate);
 //                System.out.println("Splitt da creare: " + this.numSpittleToCreate);
                 if (PauseMenu.isPause()) {
-                    //System.out.println("PAUSA WAVES");
+                    System.out.println("PAUSA WAVES");
                     synchronized (PauseMenu.PAUSELOCK) { //acquisisco il lock di Pausa
                         try {
                             PauseMenu.PAUSELOCK.wait(); //attendo che pause cambi
@@ -401,7 +406,7 @@ public class Waves implements Runnable {
                     }
                 }
                 try {
-                    //System.out.println("Dormo e ricomincio");
+                    //System.out.println("Dormo");
                     Thread.sleep(1000);//ne creo uno ogni secondo
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Waves.class.getName()).log(Level.SEVERE, null, ex);

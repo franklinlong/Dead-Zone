@@ -44,7 +44,6 @@ public class HudPanel extends JPanel implements Runnable {
 
     private class MinimapPanel extends JPanel {
 
-        private Image minimap;
         private final int h_minimap;
         private final int w_minimap;
         private final Image resized_minimap;
@@ -55,11 +54,10 @@ public class HudPanel extends JPanel implements Runnable {
 
         public MinimapPanel(Handler handler) {
             this.handler = handler;
-            loadMiniMap();
             Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
             h_minimap = (int) (dim.width * 18 / 100); //in modo da lasciare il 5% a dx e il 5% a sx
             w_minimap = (int) (dim.width * 18 / 100); //in modo da lasciare lo stesso margine sopra e sotto
-            resized_minimap = minimap.getScaledInstance(w_minimap, h_minimap, Image.SCALE_DEFAULT);
+            resized_minimap = Assets.minimap;
             loadIndicator();
             red_indicator = red_indicator.getScaledInstance((int) w_minimap / 20, (int) h_minimap / 20, Image.SCALE_DEFAULT);  //gli indicatori hanno come size il 5% di quelle della minimap
             green_indicator = green_indicator.getScaledInstance((int) w_minimap / 20, (int) h_minimap / 20, Image.SCALE_DEFAULT);
@@ -79,11 +77,6 @@ public class HudPanel extends JPanel implements Runnable {
 
         public int getW_minimap() {
             return w_minimap;
-        }
-
-        public void loadMiniMap() {
-            ImageIcon map = new ImageIcon(Assets.minimap);
-            this.minimap = map.getImage();
         }
 
         public void drawMiniMap(Graphics g) {
