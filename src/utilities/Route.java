@@ -40,7 +40,11 @@ public class Route {
         else {
             Vertex origin = new Vertex(zombie.getZona().getIndex());
             Edge edge = ((Player) target).getCamminiMinimi().get(origin);
+            System.out.println("origin:"+origin);
+            System.out.println("edge:"+edge);
             Vertex destination = edge.opposite(origin);
+            System.out.println("destination:"+destination);
+            System.out.println(Zona.centro(destination.getElement()));
             float c[] = Zona.centro(destination.getElement());
             float c_x = c[0];
             float c_y = c[1];

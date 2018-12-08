@@ -166,23 +166,23 @@ public class Waves implements Runnable {
                     this.numDiffToCreate(); //potrebbe essere inutile, il numero di differenti so che sono 2 al momento. può servire per dopo
 
                     if (this.numWeakToCreate == 0 && !(this.numFastToCreate == 0)) {
-                        this.createFastZombie(x, y, mult, (float) 1);
+                        this.createFastZombie(x, y, mult, (float) 25);
                         this.numFastToCreate -= 1; //decremento il numero di scarsi
                         i++;
                     } else if (!(this.numWeakToCreate == 0) && this.numFastToCreate == 0) {
-                        this.createWeakZommbie(x, y, mult, (float) 1);
+                        this.createWeakZommbie(x, y, mult, (float) 25);
                         this.numWeakToCreate -= 1; //decremento il numero di forti
                         i++;
                     } else {
                         n = (int) (Math.random() * this.diffToCreate); //randomicamente, creo uno o l'altro
                         switch (n) {
                             case 0:
-                                this.createWeakZommbie(x, y, mult, (float) 1);
+                                this.createWeakZommbie(x, y, mult, (float) 25);
                                 this.numWeakToCreate -= 1;
                                 i++;
                                 break;
                             case 1:
-                                this.createFastZombie(x, y, mult, (float) 1);
+                                this.createFastZombie(x, y, mult, (float) 25);
                                 this.numFastToCreate -= 1;
                                 i++;
                                 break;
