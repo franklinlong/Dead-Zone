@@ -23,6 +23,7 @@ public class Handler {
     private final List<Sprite> zombies = new ArrayList<>();
     private final List<Sprite> proiettili = new ArrayList<>();
     private final List<Sprite> spittles = new ArrayList<>();
+    private final List<Sprite> spawnSpittles = new ArrayList<>();
     private final List<Sprite> itemsAndBlood = new ArrayList<>();
 
     private static Camera camera;
@@ -62,7 +63,12 @@ public class Handler {
             Sprite s = spittles.get(i);
             s.animationCycle();
         }
-
+        
+        for (int i = 0; i <spawnSpittles.size(); i++) {
+            Sprite s = spawnSpittles.get(i);
+            s.animationCycle();
+        }
+        
         for (int i = 0; i < itemsAndBlood.size(); i++) {
             Sprite s = itemsAndBlood.get(i);
             s.animationCycle();
@@ -88,7 +94,12 @@ public class Handler {
             Sprite s = spittles.get(i);
             s.drawImage(g, offsetX, offsetY);
         }
-
+        
+        for (int i = 0; i < spawnSpittles.size(); i++) {
+            Sprite s = spawnSpittles.get(i);
+            s.drawImage(g, offsetX, offsetY);
+        }
+        
         for (int i = 0; i < itemsAndBlood.size(); i++) {
             Sprite s = itemsAndBlood.get(i);
         }
@@ -115,7 +126,9 @@ public class Handler {
             this.itemsAndBlood.add(s);
         } else if (s instanceof Spittle) {
             this.spittles.add(s);
-        } else {
+        }else if (s instanceof SpawnSpittle) {
+            this.spawnSpittles.add(s);
+        }else {
             System.err.println("ERROREEEE, in handler");
         }
 
@@ -133,7 +146,9 @@ public class Handler {
             this.itemsAndBlood.remove(s);
         } else if (s instanceof Spittle) {
             this.spittles.remove(s);
-        } else {
+        } else if (s instanceof SpawnSpittle) {
+            this.spawnSpittles.remove(s);
+        }else {
             System.err.println("ERROREEEE, in handler");
         }
     }
@@ -154,6 +169,10 @@ public class Handler {
         return spittles;
     }
 
+    public List<Sprite> getspawnSpittles() {
+        return spawnSpittles;
+    }
+    
     public List<Sprite> getitemsAndBlood() {
         return itemsAndBlood;
     }

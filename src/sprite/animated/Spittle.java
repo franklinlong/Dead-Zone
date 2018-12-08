@@ -96,7 +96,7 @@ public class Spittle extends AnimatedSprite {
     public void animationCycle() {
         setX(getX() + velX);
         setY(getY() + velY);
-
+        this.setHealth(this.getHealth() - 1);
         if (dye()) {
             this.handler.getSpittles().remove(this);
         }
@@ -120,6 +120,11 @@ public class Spittle extends AnimatedSprite {
         if (p.getBounds().contains(getX(), getY())) {
             Player y = p;
             y.hit(damage);
+            return true;
+        }
+        
+        //I proiettili hanno una portata limitata
+        if (this.getHealth() == 0) {
             return true;
         }
 

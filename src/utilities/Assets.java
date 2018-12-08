@@ -35,8 +35,16 @@ public class Assets {
     public static BufferedImage[] zombieAttack = new BufferedImage[9];
 
     public static BufferedImage[] zombie2 = new BufferedImage[32];
-    public static BufferedImage[] zombie2Attack = new BufferedImage[20];
+    public static BufferedImage[] zombie2Attack = new BufferedImage[9];
 
+    public static BufferedImage[] zombie3 = new BufferedImage[8];
+    public static BufferedImage[] zombie3Attack = new BufferedImage[5];
+    public static BufferedImage[] zombie3death = new BufferedImage[15];
+    
+    public static BufferedImage[] boss = new BufferedImage[8];
+    public static BufferedImage[] bossAttack = new BufferedImage[5];
+    public static BufferedImage[] bossdeath = new BufferedImage[15];
+    
     // guns skin
     public static BufferedImage pistolSkin, ak47, rifleLoader, shotgunSkin;
 
@@ -49,7 +57,8 @@ public class Assets {
     public static BufferedImage spittle_so;
     public static BufferedImage spittle_o;
     public static BufferedImage spittle_no;
-
+    public static BufferedImage spawnSpittle;
+    
     //sounds		
     public static Clip pistolShoot, rifleShoot, shotgunShoot, background, zombieHit, pistolReloadSound,
             rifleReloadSound, shotgunReloadSound, emptyGun, zombieBite;
@@ -167,7 +176,36 @@ public class Assets {
         for (int i = 0; i < zombie2Attack.length; i++) {
             zombie2Attack[i] = Utilities.loadImage("/zombie2/attack/" + i + ".png");
         }
-
+        
+        //zombie3 walk
+        for (int i = 0; i < zombie3.length; i++) {
+            zombie3[i] = Utilities.loadImage("/gargant/move/" + i + ".png");
+        }
+        
+        //zombie3 attack
+        for (int i = 0; i < zombie3Attack.length; i++) {
+            zombie3Attack[i] = Utilities.loadImage("/gargant/atk/" + i + ".png");
+        }
+        
+        //zombie3 death
+        for (int i = 0; i < zombie3death.length; i++) {
+            zombie3death[i] = Utilities.loadImage("/gargant/death/" + i + ".png");
+        }
+        
+        //boss walk
+        for (int i = 0; i < boss.length; i++) {
+            boss[i] = Utilities.loadImage("/boss/move/" + i + ".png");
+        }
+        
+        //boss attack
+        for (int i = 0; i < bossAttack.length; i++) {
+            bossAttack[i] = Utilities.loadImage("/boss/atk/" + i + ".png");
+        }
+        
+        //boss death
+        for (int i = 0; i < bossdeath.length; i++) {
+            bossdeath[i] = Utilities.loadImage("/boss/death/" + i + ".png");
+        }
         //gun skins
         shotgunSkin = Utilities.loadImage("/guns/shotgun.png");
         pistolSkin = Utilities.loadImage("/guns/pistol.png");
@@ -200,7 +238,7 @@ public class Assets {
         spittle_so = Utilities.loadImage("/zombie/spittle/sudovest.png");
         spittle_o = Utilities.loadImage("/zombie/spittle/ovest.png");
         spittle_no = Utilities.loadImage("/zombie/spittle/nordovest.png");
-
+        spawnSpittle= Utilities.loadImage("/zombie/spawnSpittle/1.png");
         //item
         mediKit = Utilities.loadImage("/images/medikitItem.png");
         ammo = Utilities.loadImage("/images/ammoItem.png");

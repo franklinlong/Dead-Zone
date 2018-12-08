@@ -10,6 +10,7 @@ import gameMenu.PauseMenu;
 import gameMenu.Settings;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sprite.animated.Boss;
 import sprite.animated.SpittleZombie;
 import sprite.animated.StandardZombie;
 import utilities.Animation;
@@ -26,8 +27,12 @@ public class Waves implements Runnable {
     private int numZombieRound;
     private int numWeakRound;
     private int numFastRound;
+    private int numSpittleRound;
+    private int numBossRound;
     private int numWeakToCreate;
     private int numFastToCreate;
+    private int numSpittleToCreate;
+    private int numBossToCreate;
     private int diffToCreate;
     private int numZombieKilledRound;
     private boolean allKilled;
@@ -36,17 +41,21 @@ public class Waves implements Runnable {
     private Sound endRound;
     private Handler handler;
     //private static final Object PL = new Object();
-
+    private int numZombieSpawn;
+    
     public Waves(Handler handler) {
         this.numZombieRound = 0;
         this.numWeakRound = 0;
         this.numFastRound = 0;
+        this.numBossRound=0;
+        this.numSpittleRound=0;
         this.handler = handler;
         this.waveCount = 0;
         this.diffToCreate = 0;
         this.mult = 1; //moltiplicatore per la salute dello zombie. Viene incrementato di 0.13 ogni 5 ondate
         this.numZombieKilledRound = 0; //zombie uccisi per round
         this.endRound = new Sound(Assets.endOfRound);
+        
     }
 
     @Override
@@ -58,27 +67,42 @@ public class Waves implements Runnable {
             this.allKilled = false; //boolean che indica se sono tutti uccisi
             this.numWeakRound += 8; //aumentano di 8 ogni round
             this.numFastRound += 5; //aumentano di 5 ogni round
+            this.numSpittleRound += 2; //aumentano di 2 ogni round
+            this.numBossRound=1; //aumentano di1 ogni round
+            if (this.waveCount % 5 == 0) {
+                this.numWeakRound -= 8; //numero di scarsi decrementato alle quinte ondate
+                this.numBossRound= this.waveCount/5;
+            }
+            if (!(this.numBossRound <= 3)) {
+                this.numBossRound = 4; //cosicché non siano più di 4
+            }
+            if (!(this.waveCount % 5 == 0)) {
+                this.numBossRound =0; //i boss spawnano ogni 5
+            }
+            if (this.waveCount % 5 == 2 || this.waveCount % 5 == 1) {
+                this.numFastRound = 0; //spawnano alle tre ondate finali in un set di 5 ondate
+            }
+            if (this.waveCount % 5 == 1) {
+                this.numSpittleRound = 0; //spawnano alle quattro ondate finali in un set di 5 ondate
+            }
             if (!(this.numWeakRound <= 40)) {
                 this.numWeakRound = 48; //cosicché non siano più di 48
-            }
-            if (this.waveCount % 5 == 0) {
-                this.numWeakRound -= 8; //numero di scarsi decrementato ogni 5 round
             }
             if (!(this.numFastRound <= 15)) {
                 this.numFastRound = 18; //cosicché non siano più di 18
             }
-            if (this.waveCount % 5 == 2 || this.waveCount % 5 == 1) {
-                this.numFastRound = 0; //spawnano dall'ondata 3 ogni 3,4,5 ondate
+            if (!(this.numSpittleRound <= 12)) {
+                this.numSpittleRound = 15; //cosicché non siano più di 15
             }
-
             this.numZombieRound = this.numFastRound + this.numWeakRound;
             this.numFastToCreate = this.numFastRound;
             this.numWeakToCreate = this.numWeakRound;
+            this.numZombieSpawn = this.numZombieRound;
             
             //inizio spawn
             //WARNING: CI SONO DELLE STAMPE COMMENTATE! NON CANCELLARE, SERVONO IN FASE DI TEST
             int i = 0;
-            while (!handler.getPlayer().isDeath() && i < this.numZombieRound) {
+            while (!handler.getPlayer().isDeath() && i < this.numZombieSpawn) {
                 //System.out.println("Sto nel while: " + i);
                 //System.out.println("Da creare: " + this.numZombieRound);
                 //System.out.println("Scarsi da creare: " + this.numWeakToCreate);
@@ -166,7 +190,7 @@ public class Waves implements Runnable {
                     }
                 }                
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(750);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Waves.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -196,6 +220,8 @@ public class Waves implements Runnable {
             }
             if (this.waveCount % 5 == 0) {
                 this.numWeakRound = 8;
+                this.numFastRound=0;
+                this.numSpittleRound=0;
                 this.mult += 0.13;
             }
 
@@ -241,10 +267,22 @@ public class Waves implements Runnable {
     }
 
     public void createFastZombie(float x, float y, float mulHealth, float prob) {
-        this.handler.addSprite(new StandardZombie(x, y, 1, (int) (35 * mulHealth), 40, handler.getPlayer(), this.handler, prob, 60, 60, 5, new Animation(Assets.zombie2, 15), new Animation(Assets.zombie2Attack, 15), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
+        this.handler.addSprite(new StandardZombie(x, y, 1, (int) (35 * mulHealth), 40, handler.getPlayer(), this.handler, prob, 60, 60, 5, new Animation(Assets.zombie2, 15), new Animation(Assets.zombie2Attack, 50), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
     }
 
     public void createSpittleZombie(float x, float y, float mulHealth, float prob) {
-        this.handler.addSprite(new SpittleZombie(x, y, 1, (int) (100 * mulHealth), 50, handler.getPlayer(), this.handler, prob, 60, 60, 5, new Animation(Assets.zombie2, 15), new Animation(Assets.zombie2Attack, 15), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
+        this.handler.addSprite(new SpittleZombie(x, y, 1, (int) (100 * mulHealth), 50, handler.getPlayer(), this.handler, prob, 60, 60, 5, new Animation(Assets.zombie3, 40), new Animation(Assets.zombie3Attack, 50), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
+    }
+    
+    public void createBoss(float x, float y, float mulHealth, float prob) {
+        this.handler.addSprite(new Boss(x, y, 1, 4000, 75, handler.getPlayer(), this.handler, prob, 120, 120, 100, new Animation(Assets.boss, 40), new Animation(Assets.bossAttack, 50), new Animation(Assets.bossdeath,70), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit),this));
+    }
+    
+    public void addEnemy(){
+        this.numZombieRound+=1;
+    }
+    
+    public void removeEnemy(){
+        this.numZombieRound-=1;
     }
 }
