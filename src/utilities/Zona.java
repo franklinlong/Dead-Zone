@@ -373,6 +373,24 @@ public class Zona {
             case 88:
                 index = 112;
                 break;
+            case 93:
+                index = 113;
+                break;
+            case 98:
+                index = 114;
+                break;
+            case 103:
+                index = 115;
+                break;
+            case 108:
+                index = 116;
+                break;
+            case 113:
+                index = 117;
+                break;
+            case 118:
+                index = 118;
+                break;
         }
         if(index==0){
             System.out.println("x:"+this.posX+" y: "+this.posY);
@@ -417,7 +435,7 @@ public class Zona {
                 break;
             case 9:
                 coordinate[0]=1470;
-                coordinate[1]=2685;
+                coordinate[1]=2490;
                 break;
             case 10:
                 coordinate[0]=2000;
@@ -438,6 +456,7 @@ public class Zona {
             case 14:
                 coordinate[0]=30;
                 coordinate[1]=3120;
+                break;
             case 15:
                 coordinate[0]=633;
                 coordinate[1]=2900;
@@ -587,16 +606,16 @@ public class Zona {
                 coordinate[1]=1100;
                 break;
             case 52:
-                coordinate[0]=185;
-                coordinate[1]=1090;
+                coordinate[0]=40;
+                coordinate[1]=1100;
                 break;
             case 53:
                 coordinate[0]=250;
                 coordinate[1]=710;
                 break;
             case 54:
-                coordinate[0]=537;
-                coordinate[1]=712;
+                coordinate[0]=500;
+                coordinate[1]=700;
                 break;
             case 55:
                 coordinate[0]=105;
@@ -619,16 +638,16 @@ public class Zona {
                 coordinate[1]=101;
                 break;
             case 60:
-                coordinate[0]=1515;
+                coordinate[0]=1465;
                 coordinate[1]=520;
                 break;
             case 61:
-                coordinate[0]=1525;
+                coordinate[0]=1300;
                 coordinate[1]=510;
                 break;
             case 62:
-                coordinate[0]=1480;
-                coordinate[1]=670;
+                coordinate[0]=1470;
+                coordinate[1]=700;
                 break;
             case 63:
                 coordinate[0]=1390;
@@ -652,7 +671,7 @@ public class Zona {
                 break;
             case 68:
                 coordinate[0]=1800;
-                coordinate[1]=1720;
+                coordinate[1]=1740;
                 break;
             case 69:
                 coordinate[0]=2794;
@@ -683,8 +702,8 @@ public class Zona {
                 coordinate[1]=550;
                 break;
             case 76:
-                coordinate[0]=1927;
-                coordinate[1]=504;
+                coordinate[0]=2480;
+                coordinate[1]=325;
                 break;
             case 77:
                 coordinate[0]=1675;
@@ -829,6 +848,30 @@ public class Zona {
             case 112:
                 coordinate[0]=2456;
                 coordinate[1]=620;
+                break;
+            case 113:
+                coordinate[0]=714;
+                coordinate[1]=885;
+                break;
+            case 114:
+                coordinate[0]=715;
+                coordinate[1]=720;
+                break;
+            case 115:
+                coordinate[0]=715;
+                coordinate[1]=530;
+                break;
+            case 116:
+                coordinate[0]=560;
+                coordinate[1]=900;
+                break;
+            case 117:
+                coordinate[0]=1600;
+                coordinate[1]=700;
+                break;
+            case 118:
+                coordinate[0]=1930;
+                coordinate[1]=510;
                 break;
         }
        
