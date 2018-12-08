@@ -68,7 +68,7 @@ public class StandardZombie extends Zombie {
         yy = getY() - offsetY;
 
         at = AffineTransform.getTranslateInstance(xx, yy);
-        at.rotate(angle, this.width / 2, this.height / 2);
+        at.rotate(angle, ZOMBIESIZE/2, ZOMBIESIZE/2);
 
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(currentAnimation.getCurrentFrame(), at, null);

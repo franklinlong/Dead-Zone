@@ -40,11 +40,9 @@ public class Route {
         else {
             Vertex origin = new Vertex(zombie.getZona().getIndex());
             Edge edge = ((Player) target).getCamminiMinimi().get(origin);
-            System.out.println("origin:"+origin);
-            System.out.println("edge:"+edge);
+
             Vertex destination = edge.opposite(origin);
-            System.out.println("destination:"+destination);
-            System.out.println(Zona.centro(destination.getElement()));
+            
             float c[] = Zona.centro(destination.getElement());
             float c_x = c[0];
             float c_y = c[1];
@@ -117,22 +115,23 @@ public class Route {
             vy = +1;
         }
 
-        //Codice per ricalcolare la direzione in base alla presenza di zombie vicini ... DA MODIFICARE
-//        ArrayList<Zombie> vicino = this.evitaZombies(vx, vy, handler.getZombies());
-//        if (!vicino.isEmpty()) {
-//            for (int i = 0; i < vicino.size(); i++) {
-//                Route r2 = new Route(this.zombie, vicino.get(i), handler);
-//                velX = (velX + r2.seek()[0]);
-//                velY = (velY + r2.seek()[1]);
-//            }
-//        } else {
+        //Codice per ricalcolare la direzione in base alla presenza di zombie vicini
+        ArrayList<Zombie> vicino = this.evitaZombies(vx, vy, handler.getZombies());
+        if (!vicino.isEmpty()) {
+            for (int i = 0; i < vicino.size(); i++) {
+                Route r2 = new Route(this.zombie, vicino.get(i), handler);
+                float[] a = r2.seek(this.zombie.getX(),this.zombie.getY(),this.zombie.width,this.zombie.height);
+                velX = (velX + a[0]);
+                velY = (velY + a[1]);
+            }
+        } else {
             if (vx != 0 && vy != 0) {
                 zombie.setAngle((float) Math.acos(velX));
                 if (velY < 0) {
                     zombie.setAngle(zombie.getAngle() * -1);
                 }
             }
-        //}
+        }
 
         float x = zombie.getX();
         float y = zombie.getY();
