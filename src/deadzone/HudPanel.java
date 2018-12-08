@@ -25,30 +25,30 @@ public class HudPanel extends JPanel implements Runnable {
         return new ImageIcon(immagineScalata);
     }
 
-    private JLabel nameLabel;
-    private JLabel scoreLabel;
-    private JLabel scoreTextLabel;
-    private JLabel gunLabel;
-    private JLabel numWave;
-    private JLabel wave;
-    private JProgressBarH playerHealth;
-    private JLabel numBullets;
-    private JLabel imageLabel;
-    private JLabel enemies;
-    private JLabel numEnemies;
-    private JLabel fpsLabel;
-    private Handler handler;
-    private MinimapPanel minimapPanel;
+    private final JLabel nameLabel;
+    private final JLabel scoreLabel;
+    private final JLabel scoreTextLabel;
+    private final JLabel gunLabel;
+    private final JLabel numWave;
+    private final JLabel wave;
+    private final JProgressBarH playerHealth;
+    private final JLabel numBullets;
+    private final JLabel imageLabel;
+    private final JLabel enemies;
+    private final JLabel numEnemies;
+    private final JLabel fpsLabel;
+    private final Handler handler;
+    private final MinimapPanel minimapPanel;
     private ImageIcon actualWeapon;
     private long averageFPS = 0;
 
     private class MinimapPanel extends JPanel {
 
         private Image minimap;
-        private int h_minimap;
-        private int w_minimap;
-        private Image resized_minimap;
-        private Handler handler;
+        private final int h_minimap;
+        private final int w_minimap;
+        private final Image resized_minimap;
+        private final Handler handler;
         private Image red_indicator;
         private Image green_indicator;
         private int sizeMap = 3200;
