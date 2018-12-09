@@ -30,7 +30,7 @@ public class StandardZombie extends Zombie {
     //Timer
     Timer attackDelay, hitZombie;
 
-    public StandardZombie(float x, float y, int vel, int health, int damage, Player player, Handler handler,
+    public StandardZombie(float x, float y, float vel, int health, int damage, Player player, Handler handler,
             float probabilityDrop, int width, int height, int score, Animation walkAnimation, Animation attackAnimation, Sound biteSound, Sound hitSound) {
         super(x, y, vel, health, player, handler, probabilityDrop, width, height, score, walkAnimation, attackAnimation, biteSound, hitSound);
 
@@ -68,7 +68,7 @@ public class StandardZombie extends Zombie {
         yy = getY() - offsetY;
 
         if(this.damage == 40){ //Zombie fast
-            at = AffineTransform.getTranslateInstance(xx - 30, yy - 30);
+            at = AffineTransform.getTranslateInstance(xx - 15, yy - 35);
             at.rotate(angle, 90/2, 130/2);
         }
         else{ //Zombie normale
@@ -95,13 +95,35 @@ public class StandardZombie extends Zombie {
         //Velocità dello zombie per raggiungere la zona corretta
         float[] velStandard = traiettoria.raggiungiZona();
 
-        float toPlayerX = player.getX() - this.getX();
-        float toPlayerY = player.getY() - this.getY();
+        if(velStandard[0] == 0){
+            if(velStandard[1] > 0)
+                this.setAngle((float) - Math.PI/2);
+            else if(velStandard[1]<0)
+                this.setAngle((float) + Math.PI/2);
+        }
+        else{
+            this.setAngle((float) Math.atan(velStandard[1] / velStandard[0]));
+            if (velStandard[0] < 0) {
+                this.setAngle((float) -Math.PI + this.getAngle());
+            }
+        }
+        
+        
+        int portata;
+        if(this.damage == 40){ //Zombie fast
+            portata = 60;
+        }
+        else{ //Zombie normale
+            portata = 30;
+        }
+        
+        float toPlayerX = (player.getX()+ player.width) - (this.getX() + this.width);
+        float toPlayerY = (player.getY() + player.height) - (this.getY() + this.height);
         distanceToPlayerX = (float) (Math.sqrt(toPlayerX * toPlayerX + toPlayerY * toPlayerY));
         distanceToPlayerY = (float) (Math.sqrt(toPlayerX * toPlayerX + toPlayerY * toPlayerY));
 
         //Se lo zombie è vicino al player lo attacca e quindi non si deve muovere
-        if (distanceToPlayerX < player.width / 2 && distanceToPlayerY < player.height / 2 && !attackDelay.isRunning() && !player.isDeath()) {
+        if (distanceToPlayerX < portata && distanceToPlayerY < portata && !attackDelay.isRunning() && !player.isDeath()) {
             attacking = true;
             attackDelay.start();
             currentAnimation = attackAnimation;
@@ -117,13 +139,6 @@ public class StandardZombie extends Zombie {
 
         //posizione futura dello zombie considerando gli ostacoli
         float[] pos = traiettoria.gestisciOstacoli(velStandard[0], velStandard[1]);
-
-        float aX = pos[0] - this.getX();
-        float aY = pos[1] - this.getY();
-        angle = (float) Math.atan(aY / aX);
-        if (aX < 0) {
-            angle = (float) -Math.PI + angle;
-        }
         
         setX(pos[0]);
         setY(pos[1]);

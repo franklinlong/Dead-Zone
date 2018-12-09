@@ -32,7 +32,7 @@ public class Boss extends Zombie{
     private Animation deathAnimation;
     private Waves wave;
     
-    public Boss(float x, float y, int vel, int health, int damage, Player player, Handler handler,
+    public Boss(float x, float y, float vel, int health, int damage, Player player, Handler handler,
             float probabilityDrop, int width, int height, int score, Animation walkAnimation, Animation attackAnimation, Animation deathAnimation, Sound biteSound, Sound hitSound, Waves wave){
         
         super(x, y, vel, health, player, handler, probabilityDrop, width, height, score, walkAnimation, attackAnimation, biteSound, hitSound);

@@ -21,7 +21,7 @@ public class Spittle extends AnimatedSprite {
     private Player p;
     private String angle;
 
-    public Spittle(float x, float y, float velX, float velY, int velocita, int health, Handler handler,
+    public Spittle(float x, float y, float velX, float velY, float velocita, int health, Handler handler,
             int damage, Player p) {
         super(x, y, 3, 3, velocita, health);
         this.damage = damage;

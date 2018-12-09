@@ -12,7 +12,7 @@ public class Projectile extends AnimatedSprite {
     private final int damage;
 
     public Projectile(float x, float y, float velX, float velY, int velocita, int health, Handler handler, int damage) {
-        super(x, y, BULLETDIAMETER, BULLETDIAMETER, velocita, health);
+        super(x, y, BULLETDIAMETER, BULLETDIAMETER, (float)velocita, health);
         this.damage = damage;
         this.velX = velocita * velX;
         this.velY = velocita * velY;

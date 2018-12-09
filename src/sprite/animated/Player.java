@@ -60,7 +60,7 @@ public class Player extends AnimatedSprite {
     private Map<Vertex,Edge> camminiMinimi;
 
     public Player(float x, float y, int vel, int health, Handler handler, String name, boolean male) {
-        super(x, y, PLAYERSIZE, PLAYERSIZE, vel, health);
+        super(x, y, PLAYERSIZE, PLAYERSIZE, (float)vel, health);
         this.punteggioAttuale = 0;
         this.handler = handler;
         this.male = male;

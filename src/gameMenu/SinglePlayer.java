@@ -45,6 +45,29 @@ public class SinglePlayer extends javax.swing.JFrame {
         this.setPreferredSize(dim.getSize());
 
         initComponents();
+        List<javax.swing.JLabel> p = new java.util.ArrayList();
+        p.add(jScore1);
+        p.add(jScore2);
+        p.add(jScore3);
+        p.add(jScore4);
+        p.add(jScore5);
+        p.add(jScore6);
+        p.add(jScore7);
+        p.add(jScore8);
+        p.add(jScore9);
+        p.add(jScore10);
+        
+        List<javax.swing.JLabel> s = new java.util.ArrayList();
+        s.add(jPunt1);
+        s.add(jPunt2);
+        s.add(jPunt3);
+        s.add(jPunt4);
+        s.add(jPunt5);
+        s.add(jPunt6);
+        s.add(jPunt7);
+        s.add(jPunt8);
+        s.add(jPunt9);
+        s.add(jPunt10);
 
         sfondo.setPreferredSize(dim.getSize());
         jTextField1.setBackground(new Color(0, 0, 0, 0));
@@ -59,28 +82,15 @@ public class SinglePlayer extends javax.swing.JFrame {
 
         Scoreboard scoreboard = new Scoreboard();
         List<Score> scoreList = scoreboard.getScoreboard();
+        
+        for(int j = 0; j<scoreList.size(); j++){
+           p.get(j).setText((j+1) + ") " + scoreList.get(j).getPlayer());
+        }
+        
+        for(int j = 0; j<scoreList.size(); j++){
+            s.get(j).setText(Integer.toString(scoreList.get(j).getScore()));
+        }
 
-        this.jScore1.setText("1) " + scoreList.get(0).getPlayer());
-        this.jScore2.setText("2) " + scoreList.get(1).getPlayer());
-        this.jScore3.setText("3) " + scoreList.get(2).getPlayer());
-        this.jScore4.setText("4) " + scoreList.get(3).getPlayer());
-        this.jScore5.setText("5) " + scoreList.get(4).getPlayer());
-        this.jScore6.setText("6) " + scoreList.get(5).getPlayer());
-        this.jScore7.setText("7) " + scoreList.get(6).getPlayer());
-        this.jScore8.setText("8) " + scoreList.get(7).getPlayer());
-        this.jScore9.setText("9) " + scoreList.get(8).getPlayer());
-        this.jScore10.setText("10) " + scoreList.get(9).getPlayer());
-
-        this.jPunt1.setText(Integer.toString(scoreList.get(0).getScore()));
-        this.jPunt2.setText(Integer.toString(scoreList.get(1).getScore()));
-        this.jPunt3.setText(Integer.toString(scoreList.get(2).getScore()));
-        this.jPunt4.setText(Integer.toString(scoreList.get(3).getScore()));
-        this.jPunt5.setText(Integer.toString(scoreList.get(4).getScore()));
-        this.jPunt6.setText(Integer.toString(scoreList.get(5).getScore()));
-        this.jPunt7.setText(Integer.toString(scoreList.get(6).getScore()));
-        this.jPunt8.setText(Integer.toString(scoreList.get(7).getScore()));
-        this.jPunt9.setText(Integer.toString(scoreList.get(8).getScore()));
-        this.jPunt10.setText(Integer.toString(scoreList.get(9).getScore()));
 
         jTextField1.addKeyListener(new KeyAdapter() {
             @Override

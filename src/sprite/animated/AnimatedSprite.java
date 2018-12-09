@@ -17,11 +17,11 @@ public abstract class AnimatedSprite extends Sprite {
     //essendo protected, non ho bisono di get e set
     protected float angle;
     private int health;
-    protected final int initialVelocity;
+    protected final float initialVelocity;
     public float velX, velY;
     protected AffineTransform at;
 
-    public AnimatedSprite(float x, float y, int width, int height, int vel, int health) {
+    public AnimatedSprite(float x, float y, int width, int height, float vel, int health) {
         super(x, y, width, height);
         this.health = health;
         this.initialVelocity = vel;
@@ -319,7 +319,7 @@ public abstract class AnimatedSprite extends Sprite {
         return 0;
     }
 
-    public int getInitialVelocity() {
+    public float getInitialVelocity() {
         return initialVelocity;
     }
     

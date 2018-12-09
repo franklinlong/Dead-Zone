@@ -12,6 +12,9 @@ import sprite.Blood;
 import sprite.DropItem;
 import sprite.Sprite;
 import sprite.animated.*;
+import utilities.Animation;
+import utilities.Assets;
+import utilities.Sound;
 
 /**
  *
@@ -34,6 +37,8 @@ public class Handler {
         player = new Player(1600, 1600, 3, 3000, this, playerName, male);
         camera = new Camera(player);
         players.add(player);
+
+        this.addSprite(new StandardZombie(1800, 1600, (float) 1.5, (int) (35 * 1), 40, this.getPlayer(), this, 5, 60, 60, 5, new Animation(Assets.zombie2, 15), new Animation(Assets.zombie2Attack, 50), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
 
         this.waves = new Waves(this);
                

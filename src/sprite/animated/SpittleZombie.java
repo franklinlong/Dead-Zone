@@ -30,7 +30,7 @@ public class SpittleZombie extends Zombie {
     //Timer
     Timer attackDelay, hitZombie;
 
-    public SpittleZombie(float x, float y, int vel, int health, int damage, Player player, Handler handler,
+    public SpittleZombie(float x, float y, float vel, int health, int damage, Player player, Handler handler,
             float probabilityDrop, int width, int height, int score, Animation walkAnimation, Animation attackAnimation, Sound biteSound, Sound hitSound) {
         super(x, y, vel, health, player, handler, probabilityDrop, width, height, score, walkAnimation, attackAnimation, biteSound, hitSound);
 
@@ -97,7 +97,7 @@ public class SpittleZombie extends Zombie {
         //Se lo zombie è nelle vicinanze del player lo attacca
         if (distanceToPlayerX < player.width * 5 && distanceToPlayerY < player.height * 5 && !attackDelay.isRunning() && !player.isDeath()) {
             Spittle s = new Spittle(this.getX(), this.getY(), spittledirectionX,
-                    spittledirectionY, 3, 100, this.handler, damage,
+                    spittledirectionY, (float)3, 100, this.handler, damage,
                     this.handler.getPlayer());
             this.handler.addSprite(s);
             attacking = true;

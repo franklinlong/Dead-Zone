@@ -38,7 +38,7 @@ public abstract class Zombie extends AnimatedSprite {
     protected final Handler handler;
     private final float probabilityDrop; //probabilità percentuale di rilascio oggetto dello zombie
 
-    public Zombie(float x, float y, int vel, int health, Player player, Handler handler,
+    public Zombie(float x, float y, float vel, int health, Player player, Handler handler,
             float probabilityDrop, int width, int height, int score, Animation walkAnimation, Animation attackAnimation, Sound biteSound, Sound hitSound) {
         super(x, y, width, height, vel, health);
         this.velX = vel;

@@ -56,14 +56,22 @@ public class Route {
         float[] a;
         a = new float[2];
         
-        float x = (x_t + t_width/2 ) - (zombie.getX() + zombie.width/2);
-        float y  = (y_t + t_height/2 ) - (zombie.getY() + zombie.height/2);
+        
+        float x = ((int)x_t + t_width/2 ) - ((int)zombie.getX() + zombie.width/2);
+        float y  = ((int)y_t + t_height/2 ) - ((int)zombie.getY() + zombie.height/2);
+
+        if(y < zombie.getInitialVelocity() && y > -1*zombie.getInitialVelocity()){
+            y = 0;
+        }
+        if(x < zombie.getInitialVelocity() && x > -1*zombie.getInitialVelocity()){
+            x = 0;
+        }
         
         x = (x/ (float)Math.sqrt(x*x + y*y));
         y = (y/ (float)Math.sqrt(x*x + y*y));
-        
-        x = x * zombie.velX;
-        y = y * zombie.velY;
+
+        x = x * zombie.getInitialVelocity();
+        y = y * zombie.getInitialVelocity();
         
         a[0] = x;
         a[1] = y;
@@ -100,19 +108,19 @@ public class Route {
     }
 
     public float[] gestisciOstacoli(float velX, float velY) {
-
+        
         //Velocità fittizie per capire se ci sono ostacoli
         int vx = 0;
         int vy = 0;
         if (velX < 0) {
-            vx = -1;
+            vx = -1*(int)zombie.getInitialVelocity();
         } else if (velX > 0) {
-            vx = +1;
+            vx = +1*(int)zombie.getInitialVelocity();
         }
         if (velY < 0) {
-            vy = -1;
+            vy = -1*(int)zombie.getInitialVelocity();
         } else if (velY > 0) {
-            vy = +1;
+            vy = +1*(int)zombie.getInitialVelocity();
         }
 
         //Codice per ricalcolare la direzione in base alla presenza di zombie vicini
