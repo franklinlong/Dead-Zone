@@ -128,6 +128,19 @@ public class Boss extends Zombie{
             //Velocità dello zombie per raggiungere la zona corretta
             float[] velStandard = traiettoria.raggiungiZona();
         
+            if(velStandard[0] == 0){
+                if(velStandard[1] > 0)
+                    this.setAngle((float) - Math.PI/2);
+                else if(velStandard[1]<0)
+                    this.setAngle((float) + Math.PI/2);
+            }
+            else{
+                this.setAngle((float) Math.atan(velStandard[1] / velStandard[0]));
+                if (velStandard[0] < 0) {
+                    this.setAngle((float) -Math.PI + this.getAngle());
+                }
+            }
+            
             float toPlayerX = player.getX() - this.getX();
             float toPlayerY = player.getY() - this.getY();
             distanceToPlayerX = (float) (Math.sqrt(toPlayerX * toPlayerX + toPlayerY * toPlayerY));

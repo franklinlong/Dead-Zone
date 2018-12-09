@@ -5,7 +5,6 @@
  */
 package utilities;
 
-import java.util.ArrayList;
 import static sprite.Sprite.mapRGB;
 
 /**
@@ -551,7 +550,7 @@ public class Zona {
                 break;
             case 34:
                 coordinate[0]=2340;
-                coordinate[1]=1828;
+                coordinate[1]=1800;
                 break;
             case 35:
                 coordinate[0]=2173;
@@ -810,12 +809,12 @@ public class Zona {
                 coordinate[1]=1050;
                 break;
             case 99:
-                coordinate[0]=2180;
-                coordinate[1]=1050;
+                coordinate[0]=2170;
+                coordinate[1]=1150;
                 break;
             case 100:
                 coordinate[0]=2050;
-                coordinate[1]=1050;
+                coordinate[1]=1150;
                 break;
             case 101:
                 coordinate[0]=2050;

@@ -46,13 +46,7 @@ public class Route {
             float c[] = Zona.centro(destination.getElement());
             float c_x = c[0];
             float c_y = c[1];
-            
-            System.out.println(origin.getElement());
-            System.out.println("origin:"+origin);
-            System.out.println("edge:"+edge);
 
-            System.out.println("destination:"+destination);
-  
             return seek(c_x, c_y, 0, 0);
         }
     }
