@@ -9,6 +9,7 @@ import deadzone.Gun;
 import deadzone.Handler;
 import java.awt.Graphics;
 import utilities.Assets;
+import utilities.Sound;
 
 /**
  *
@@ -20,6 +21,7 @@ public class Ammo extends DropItem {
     private Gun gun;
     private int incremento; //colpi aggiuntivi nel caricatore se raccolto
     private int incrementoTot; //colpi aggiuntivi totali se raccolto
+    private Sound sound;
 
     public Ammo(float x, float y, int width, int height, Handler handler) {
         super(x, y, width, height);
@@ -27,6 +29,7 @@ public class Ammo extends DropItem {
         this.gun = handler.getPlayer().getCurrentGun();
         this.incremento = 3;
         this.incrementoTot = 100;
+        this.sound = new Sound(Assets.pistolReloadSound);
     }
 
     @Override
@@ -37,7 +40,7 @@ public class Ammo extends DropItem {
     @Override
     public void animationCycle() {
         if (this.isCollected(handler)) {
-            //Bisogna caricare Suono
+            sound.playSound();
             gun.setTotalBullets(gun.getTotalBullets() + 50);
             handler.removeSprite(this);
         }
