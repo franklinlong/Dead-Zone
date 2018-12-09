@@ -38,9 +38,9 @@ public class Waves implements Runnable {
     private boolean allKilled;
     private static final Object KL = new Object(); //lock per l'allKilled
     private float mult;
-    private Sound endRound;
-    private Handler handler;
-    //private static final Object PL = new Object();
+    private final Sound endRound;
+    private final Handler handler;
+    private int score;
     private int numZombieSpawn;
 
     public Waves(Handler handler) {
@@ -54,6 +54,7 @@ public class Waves implements Runnable {
         this.diffToCreate = 0;
         this.mult = 1; //moltiplicatore per la salute dello zombie. Viene incrementato di 0.13 ogni 5 ondate
         this.numZombieKilledRound = 0; //zombie uccisi per round
+        this.score = 0; //variabile di punteggio dell'ondata. Inizialmente è 0, verrà incrementata di 5 ogni round
         this.endRound = new Sound(Assets.endOfRound);
 
     }
@@ -74,6 +75,7 @@ public class Waves implements Runnable {
             this.numFastRound += 5; //aumentano di 5 ogni round
             this.numSpittleRound += 2; //aumentano di 2 ogni round
             this.numBossRound = 1; //aumentano di 1 ogni round
+            this.score += 5;
             if (this.waveCount % 5 == 0) {
                 this.numWeakRound -= 8; //numero di scarsi decrementato alle quinte ondate
                 this.numBossRound = this.waveCount / 5;
@@ -425,6 +427,7 @@ public class Waves implements Runnable {
                 }
             }
             //System.out.println("Fine ondata");
+            this.handler.getPlayer().updatePunteggio(score);
             if (Settings.soundMusic) {
                 Menu.gameMusic.stopSound();
                 endRound.playSound();
