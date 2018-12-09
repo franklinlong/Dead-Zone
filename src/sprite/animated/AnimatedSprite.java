@@ -59,7 +59,8 @@ public abstract class AnimatedSprite extends Sprite {
         //dove ero
         int x = xf.intValue() - avanzamentoX;
         int y = yf.intValue() - avanzamentoY;
-
+        
+        try{
         if (avanzamentoX > 0) {
             if (avanzamentoY == 0) {
                 //destra
@@ -315,6 +316,10 @@ public abstract class AnimatedSprite extends Sprite {
                     }
                 }
             }
+        }
+        }catch (ArrayIndexOutOfBoundsException e){
+            System.err.println("Eccezione in collisioni con queste coordinate: ");
+            System.err.println("X: " + x +" --- Y: " + y);
         }
         return 0;
     }
