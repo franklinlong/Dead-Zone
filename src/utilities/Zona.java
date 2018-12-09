@@ -406,6 +406,9 @@ public class Zona {
             case 153:
                 index = 125;
                 break;
+            case 158:
+                index = 126;
+                break;
         }
         if(index==0){
             System.out.println("index 0 = x:"+this.posX+" y: "+this.posY);
@@ -915,6 +918,10 @@ public class Zona {
             case 125:
                 coordinate[0]=2270;
                 coordinate[1]=1140;
+                break;
+            case 126:
+                coordinate[0]=1875;
+                coordinate[1]=115;
                 break;
         }
        
