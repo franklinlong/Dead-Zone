@@ -28,7 +28,7 @@ public class SpawnSpittle extends AnimatedSprite {
     private float zombie_x;
     private float zombie_y;
 
-    public SpawnSpittle(float x, float y, float velX, float velY, int velocita, int health, Handler handler,
+    public SpawnSpittle(float x, float y, float velX, float velY, float velocita, int health, Handler handler,
             Player p) {
         super(x, y, 3, 3, velocita, health);
         //this.damage = damage;
