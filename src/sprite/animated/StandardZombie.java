@@ -63,13 +63,19 @@ public class StandardZombie extends Zombie {
 
     @Override
     public void drawImage(Graphics g, float offsetX, float offsetY) {
-        double xx, yy;
+        float xx, yy;
         xx = getX() - offsetX;
         yy = getY() - offsetY;
 
-        at = AffineTransform.getTranslateInstance(xx, yy);
-        at.rotate(angle, ZOMBIESIZE/2, ZOMBIESIZE/2);
-
+        if(this.damage == 40){ //Zombie fast
+            at = AffineTransform.getTranslateInstance(xx - 30, yy - 30);
+            at.rotate(angle, 90/2, 130/2);
+        }
+        else{ //Zombie normale
+            at = AffineTransform.getTranslateInstance(xx, yy);
+            at.rotate(angle, ZOMBIESIZE/2, ZOMBIESIZE/2);
+        }
+        
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(currentAnimation.getCurrentFrame(), at, null);
 
@@ -112,6 +118,13 @@ public class StandardZombie extends Zombie {
         //posizione futura dello zombie considerando gli ostacoli
         float[] pos = traiettoria.gestisciOstacoli(velStandard[0], velStandard[1]);
 
+        float aX = pos[0] - this.getX();
+        float aY = pos[1] - this.getY();
+        angle = (float) Math.atan(aY / aX);
+        if (aX < 0) {
+            angle = (float) -Math.PI + angle;
+        }
+        
         setX(pos[0]);
         setY(pos[1]);
 

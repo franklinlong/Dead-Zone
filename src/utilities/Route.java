@@ -124,15 +124,8 @@ public class Route {
                 velX = (velX + a[0]);
                 velY = (velY + a[1]);
             }
-        } else {
-            if (vx != 0 && vy != 0) {
-                zombie.setAngle((float) Math.acos(velX));
-                if (velY < 0) {
-                    zombie.setAngle(zombie.getAngle() * -1);
-                }
-            }
-        }
-
+        } 
+        
         float x = zombie.getX();
         float y = zombie.getY();
 
