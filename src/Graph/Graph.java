@@ -5,6 +5,8 @@
  */
 package Graph;
 
+import Graph.Edge;
+import Graph.Vertex;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -136,7 +138,14 @@ public class Graph {
     Vertex zona116;
     Vertex zona117;
     Vertex zona118;
-    
+    Vertex zona119;
+    Vertex zona120;
+    Vertex zona121;
+    Vertex zona122;
+    Vertex zona123;
+    Vertex zona124;
+    Vertex zona125;
+            
     public Graph() {
         adjList = new HashMap<>();
         init();
@@ -261,6 +270,13 @@ public class Graph {
         zona116 = new Vertex(116);
         zona117 = new Vertex(117);
         zona118 = new Vertex(118);
+        zona119 = new Vertex(119);
+        zona120 = new Vertex(120);
+        zona121 = new Vertex(121);
+        zona122 = new Vertex(122);
+        zona123 = new Vertex(123);
+        zona124 = new Vertex(124);
+        zona125 = new Vertex(125);
         
         this.insert_vertex(zona1);
         this.insert_vertex(zona2);
@@ -380,6 +396,13 @@ public class Graph {
         this.insert_vertex(zona116);
         this.insert_vertex(zona117);
         this.insert_vertex(zona118);
+        this.insert_vertex(zona119);
+        this.insert_vertex(zona120);
+        this.insert_vertex(zona121);
+        this.insert_vertex(zona122);
+        this.insert_vertex(zona123);
+        this.insert_vertex(zona124);
+        this.insert_vertex(zona125);
         
         this.insert_edge(zona1, zona2, 0);
         this.insert_edge(zona1, zona15, 0);
@@ -455,8 +478,6 @@ public class Graph {
         this.insert_edge(zona26, zona27, 0);
         this.insert_edge(zona26, zona28, 0);
         
-        this.insert_edge(zona27, zona28, 0);
-        
         this.insert_edge(zona28, zona71, 0);
         
         this.insert_edge(zona29, zona85, 0);
@@ -489,9 +510,9 @@ public class Graph {
 
         this.insert_edge(zona39, zona109, 0);
         
-        this.insert_edge(zona40, zona87, 0);
-        this.insert_edge(zona40, zona89, 0);
-        this.insert_edge(zona40, zona111, 0);
+//        this.insert_edge(zona40, zona89, 0);
+        this.insert_edge(zona40, zona123, 0);
+        this.insert_edge(zona40, zona124, 0);
         
         this.insert_edge(zona41, zona102, 0);
         this.insert_edge(zona41, zona118, 0);
@@ -510,7 +531,7 @@ public class Graph {
         this.insert_edge(zona45, zona49, 0);
         this.insert_edge(zona45, zona63, 0);
         
-        this.insert_edge(zona46, zona71, 0);
+        this.insert_edge(zona46, zona119, 0);
         this.insert_edge(zona46, zona48, 0);
         this.insert_edge(zona46, zona47, 0);
         this.insert_edge(zona46, zona52, 0);
@@ -578,11 +599,10 @@ public class Graph {
         
         //70
         
-        //71
+        this.insert_edge(zona71, zona119, 0);
         
-        this.insert_edge(zona72, zona117, 0);
+        //72
 
-        
         //73
         
         //74
@@ -591,13 +611,15 @@ public class Graph {
         
         this.insert_edge(zona76, zona109, 0);
         this.insert_edge(zona76, zona118, 0);
-                
-        this.insert_edge(zona78, zona79, 0);
+              
+        this.insert_edge(zona77, zona117, 0);
+        
+        this.insert_edge(zona78, zona120, 0);
         this.insert_edge(zona78, zona109, 0);
-        this.insert_edge(zona78, zona86, 0);
+        this.insert_edge(zona78, zona121, 0);
         
         this.insert_edge(zona79, zona80, 0);
-        
+        this.insert_edge(zona79, zona120, 0);
         this.insert_edge(zona80, zona81, 0);
         
         this.insert_edge(zona81, zona82, 0);
@@ -613,13 +635,16 @@ public class Graph {
         
         this.insert_edge(zona86, zona87, 0);
         this.insert_edge(zona86, zona110, 0);
+        this.insert_edge(zona86, zona121, 0);
         
         this.insert_edge(zona87, zona90, 0);
+        this.insert_edge(zona87, zona124, 0);
         
         this.insert_edge(zona88, zona95, 0);
         this.insert_edge(zona88, zona98, 0);
+        this.insert_edge(zona88, zona125, 0);
         
-        // 89
+        this.insert_edge(zona89, zona123, 0);
         
         this.insert_edge(zona90, zona112, 0);
         
@@ -630,7 +655,7 @@ public class Graph {
         // 92
         
         this.insert_edge(zona93, zona94, 0);
-        this.insert_edge(zona93, zona105, 0);
+        this.insert_edge(zona93, zona122, 0);
         
         this.insert_edge(zona94, zona95, 0);
         
@@ -656,6 +681,7 @@ public class Graph {
         this.insert_edge(zona104, zona106, 0);
         
         this.insert_edge(zona105, zona107, 0);
+        this.insert_edge(zona105, zona122, 0);
         
         this.insert_edge(zona106, zona107, 0);
         
@@ -667,7 +693,7 @@ public class Graph {
         
         // 110
         
-        // 111
+        this.insert_edge(zona111, zona123, 0);
         
         // 112
         
@@ -682,6 +708,18 @@ public class Graph {
         // 117
         
         // 118
+        
+        // 119
+        
+        // 120
+        
+        // 121
+        
+        // 122
+        
+        // 123
+        
+        // 124
     }
     public int vertex_count(){
         return adjList.size();

@@ -488,11 +488,11 @@ public class Waves implements Runnable {
     }
 
     public void createWeakZombie(float x, float y, float mulHealth, float prob) {
-        this.handler.addSprite(new StandardZombie(x, y, (float) 1.5, (int) (100 * mulHealth), 25, handler.getPlayer(), this.handler, prob, 60, 60, 5, new Animation(Assets.zombie, 20), new Animation(Assets.zombieAttack, 35), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
+        this.handler.addSprite(new StandardZombie(x, y, (float) 1, (int) (100 * mulHealth), 25, handler.getPlayer(), this.handler, prob, 60, 60, 5, new Animation(Assets.zombie, 20), new Animation(Assets.zombieAttack, 35), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
     }
 
     public void createFastZombie(float x, float y, float mulHealth, float prob) {
-        this.handler.addSprite(new StandardZombie(x, y, (float) 2, (int) (35 * mulHealth), 40, handler.getPlayer(), this.handler, prob, 60, 60, 5, new Animation(Assets.zombie2, 15), new Animation(Assets.zombie2Attack, 50), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
+        this.handler.addSprite(new StandardZombie(x, y, (float) 1, (int) (35 * mulHealth), 40, handler.getPlayer(), this.handler, prob, 60, 60, 5, new Animation(Assets.zombie2, 15), new Animation(Assets.zombie2Attack, 50), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
     }
 
     public void createSpittleZombie(float x, float y, float mulHealth, float prob) {
