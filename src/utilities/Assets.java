@@ -48,6 +48,7 @@ public class Assets {
     public static BufferedImage[] bossAttack = new BufferedImage[5];
     public static BufferedImage[] bossdeath = new BufferedImage[15];
     
+    public static BufferedImage[] fulmini = new BufferedImage[6];
     // guns skin
     public static BufferedImage pistolSkin, ak47, rifleLoader, shotgunSkin;
 
@@ -211,6 +212,11 @@ public class Assets {
         for (int i = 0; i < bossdeath.length; i++) {
             bossdeath[i] = Utilities.loadImage("/boss/death/" + i + ".png");
         }
+        //Shock trap
+        for (int i = 0; i < fulmini.length; i++) {
+            fulmini[i] = Utilities.loadImage("/images/fulmine/fulmine" + (i+1) + ".png");
+        }
+        
         //gun skins
         shotgunSkin = Utilities.loadImage("/guns/shotgun.png");
         pistolSkin = Utilities.loadImage("/guns/pistol.png");
