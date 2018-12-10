@@ -38,7 +38,6 @@ public class Nuke extends DropItem {
             for (int i = 0; i < handler.getZombies().size(); i++) {
                 Sprite s = handler.getZombies().get(i);
                 if (!(s instanceof Boss)) {
-                    System.out.println("T?ACCIC");
                     s.death();
                 }
 
