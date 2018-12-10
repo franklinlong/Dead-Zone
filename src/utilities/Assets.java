@@ -69,7 +69,7 @@ public class Assets {
     public static Clip pistolShoot, rifleShoot, shotgunShoot,rpgShoot, background, zombieHit, pistolReloadSound,
             rifleReloadSound, shotgunReloadSound, rpgReloadSound,rpgExplosionSound, emptyGun, zombieBite;
     public static Clip endGame, endOfRound;
-    public static Clip restoreHealth, nukeExplosion;
+    public static Clip restoreHealth, nukeExplosion, coinsDrop;
 
     //blood
     public static BufferedImage blood;
@@ -78,6 +78,7 @@ public class Assets {
     public static BufferedImage mediKit;
     public static BufferedImage ammo;
     public static BufferedImage nuke;
+    public static BufferedImage coins;
 
     public static Image minimap;
     public static BufferedImage greenIndicator;
@@ -249,6 +250,7 @@ public class Assets {
         
         restoreHealth = Utilities.LoadSound("/sound/restoreHealth.wav");
         nukeExplosion = Utilities.LoadSound("/sound/soundExplosion.wav");
+        coinsDrop = Utilities.LoadSound("/sound/coin.wav");
         
         shotgunReloadSound = Utilities.LoadSound("/sound/shotgunReload.wav");
         shotgunShoot = Utilities.LoadSound("/sound/shotgun.wav");
@@ -267,6 +269,7 @@ public class Assets {
         mediKit = Utilities.loadImage("/images/medikitItem.png");
         ammo = Utilities.loadImage("/images/ammoItem.png");
         nuke = Utilities.loadImage("/images/bombItem.png");
+        coins = Utilities.loadImage("/images/coins.png");
 
         //minimap
         //minimap = Utilities.loadImage("/images/grigionero.png");

@@ -10,6 +10,7 @@ import gameMenu.PauseMenu;
 import gameMenu.Settings;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sprite.Coins;
 import sprite.animated.Boss;
 import sprite.animated.SpittleZombie;
 import sprite.animated.StandardZombie;
@@ -70,6 +71,7 @@ public class Waves implements Runnable {
         float y = 0;
         while (!handler.getPlayer().isDeath()) {
             this.waveCount += 1; //incrementa di 1 il contatore delle ondate ogni volta
+            this.spawnCoins();
             this.allKilled = false; //boolean che indica se sono tutti uccisi
             this.numWeakRound += 8; //aumentano di 8 ogni round
             this.numFastRound += 5; //aumentano di 5 ogni round
@@ -448,6 +450,35 @@ public class Waves implements Runnable {
 
         }
 
+    }
+    
+    public void spawnCoins(){
+        switch (this.waveCount % 8) {
+            case 1:
+                this.handler.addSprite(new Coins(2170, 715, 20, 20, handler));
+                break;
+            case 2:
+                this.handler.addSprite(new Coins(2478, 840, 20, 20, handler));
+                break;
+            case 3:
+                this.handler.addSprite(new Coins(2693, 834, 20, 20, handler));
+                break;
+            case 4:
+                this.handler.addSprite(new Coins(2958, 827, 20, 20, handler));
+                break;
+            case 5:
+                this.handler.addSprite(new Coins(2741, 1058, 20, 20, handler));
+                break;
+            case 6:
+                this.handler.addSprite(new Coins(2371, 1137, 20, 20, handler));
+                break;
+            case 7:
+                this.handler.addSprite(new Coins(2273, 1151, 20, 20, handler));
+                break;
+            default:
+                this.handler.addSprite(new Coins(2961, 847, 20, 20, handler));
+                break;
+        }
     }
 
     public int getWaveCount() {
