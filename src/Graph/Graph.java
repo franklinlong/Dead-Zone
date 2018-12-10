@@ -5,8 +5,6 @@
  */
 package Graph;
 
-import Graph.Edge;
-import Graph.Vertex;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -145,7 +143,8 @@ public class Graph {
     Vertex zona123;
     Vertex zona124;
     Vertex zona125;
-            
+    Vertex zona126;
+    
     public Graph() {
         adjList = new HashMap<>();
         init();
@@ -277,6 +276,7 @@ public class Graph {
         zona123 = new Vertex(123);
         zona124 = new Vertex(124);
         zona125 = new Vertex(125);
+        zona126 = new Vertex(126);
         
         this.insert_vertex(zona1);
         this.insert_vertex(zona2);
@@ -403,6 +403,7 @@ public class Graph {
         this.insert_vertex(zona123);
         this.insert_vertex(zona124);
         this.insert_vertex(zona125);
+        this.insert_vertex(zona126);
         
         this.insert_edge(zona1, zona2, 0);
         this.insert_edge(zona1, zona15, 0);
@@ -572,7 +573,7 @@ public class Graph {
         this.insert_edge(zona58, zona108, 0);
         
         this.insert_edge(zona59, zona108, 0);
-        this.insert_edge(zona59, zona118, 0);
+        this.insert_edge(zona59, zona126, 0);
         
         this.insert_edge(zona60, zona61, 0);
         this.insert_edge(zona60, zona62, 0);        
@@ -611,7 +612,8 @@ public class Graph {
         
         this.insert_edge(zona76, zona109, 0);
         this.insert_edge(zona76, zona118, 0);
-              
+        this.insert_edge(zona76, zona126, 0);
+        
         this.insert_edge(zona77, zona117, 0);
         
         this.insert_edge(zona78, zona120, 0);
@@ -707,7 +709,7 @@ public class Graph {
         
         // 117
         
-        // 118
+        this.insert_edge(zona111, zona118, 0);
         
         // 119
         
@@ -720,6 +722,8 @@ public class Graph {
         // 123
         
         // 124
+        
+        // 125
     }
     public int vertex_count(){
         return adjList.size();

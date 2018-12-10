@@ -31,7 +31,7 @@ public class Handler {
     private final Waves waves;
 
     public Handler(String playerName, boolean male) {
-        player = new Player(1600, 1600, 3, 3000, this, playerName, male);
+        player = new Player(1600, 1600, 2, 3000, this, playerName, male);
         camera = new Camera(player);
         players.add(player);
 

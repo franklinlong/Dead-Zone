@@ -9,6 +9,7 @@ import deadzone.Handler;
 import java.awt.Graphics;
 import sprite.animated.Boss;
 import utilities.Assets;
+import utilities.Sound;
 
 /**
  *
@@ -17,10 +18,12 @@ import utilities.Assets;
 public class Nuke extends DropItem {
 
     private Handler handler;
-
+    private Sound explosion;
+    
     public Nuke(float x, float y, int width, int height, Handler handler) {
         super(x, y, width, height);
         this.handler = handler;
+        this.explosion = new Sound(Assets.nukeExplosion);
     }
 
     @Override
@@ -31,7 +34,7 @@ public class Nuke extends DropItem {
     @Override
     public void animationCycle() {
         if (this.isCollected(handler)) {
-            //Bisogna caricare Suono
+            explosion.playSound();
             for (int i = 0; i < handler.getZombies().size(); i++) {
                 Sprite s = handler.getZombies().get(i);
                 if (!(s instanceof Boss)) {

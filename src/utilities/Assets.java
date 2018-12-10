@@ -66,6 +66,7 @@ public class Assets {
     public static Clip pistolShoot, rifleShoot, shotgunShoot, background, zombieHit, pistolReloadSound,
             rifleReloadSound, shotgunReloadSound, emptyGun, zombieBite;
     public static Clip endGame, endOfRound;
+    public static Clip restoreHealth, nukeExplosion;
 
     //blood
     public static BufferedImage blood;
@@ -229,7 +230,10 @@ public class Assets {
 
         endGame = Utilities.LoadSound("/sound/endGame.wav");
         endOfRound = Utilities.LoadSound("/sound/round.wav");
-
+        
+        restoreHealth = Utilities.LoadSound("/sound/restoreHealth.wav");
+        nukeExplosion = Utilities.LoadSound("/sound/soundExplosion.wav");
+        
         shotgunReloadSound = Utilities.LoadSound("/sound/shotgunReload.wav");
         shotgunShoot = Utilities.LoadSound("/sound/shotgun.wav");
 
