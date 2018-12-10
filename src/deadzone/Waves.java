@@ -500,7 +500,7 @@ public class Waves implements Runnable {
     }
 
     public void createBoss(float x, float y, float mulHealth, float prob) {
-        this.handler.addSprite(new Boss(x, y, (float) 1, 4000, 75, handler.getPlayer(), this.handler, prob, 120, 120, 100, new Animation(Assets.boss, 40), new Animation(Assets.bossAttack, 50), new Animation(Assets.bossdeath, 70), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit), this));
+        this.handler.addSprite(new Boss(x, y, (float) 1, 4000, 75, handler.getPlayer(), this.handler, prob, 120, 120, 100, new Animation(Assets.boss, 40), new Animation(Assets.bossAttack, 50), new Animation(Assets.bossdeath, 70), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
     }
 
     public void addEnemy() {
