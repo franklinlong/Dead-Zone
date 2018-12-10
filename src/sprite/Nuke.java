@@ -7,6 +7,7 @@ package sprite;
 
 import deadzone.Handler;
 import java.awt.Graphics;
+import sprite.animated.Boss;
 import utilities.Assets;
 
 /**
@@ -33,7 +34,11 @@ public class Nuke extends DropItem {
             //Bisogna caricare Suono
             for (int i = 0; i < handler.getZombies().size(); i++) {
                 Sprite s = handler.getZombies().get(i);
-                s.death();
+                if (!(s instanceof Boss)) {
+                    System.out.println("T?ACCIC");
+                    s.death();
+                }
+
             }
             handler.removeSprite(this);
         }

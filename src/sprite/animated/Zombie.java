@@ -75,9 +75,9 @@ public abstract class Zombie extends AnimatedSprite {
         //Alla morte dello zombie, con una data probabilita, viene rilasciato un nuovo item
         boolean drop = (Math.random() * 100) <= probabilityDrop;
         if (drop) {
-            float probAmmo = 50;
-            float probNuke = 20;
-            float probMK = 30;
+            float probAmmo = 60;
+            float probNuke = 5;
+            float probMK = 35;
             float valoreCasuale = (float) (Math.random() * 100);
 
             if (valoreCasuale < probNuke) {
