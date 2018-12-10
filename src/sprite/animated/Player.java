@@ -20,7 +20,10 @@ import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.util.Map;
 import listeners.*;
+import sprite.FireTrap;
+import sprite.HoleTrap;
 import sprite.ShockTrap;
+import sprite.WallTrap;
 import utilities.Zona;
 
 /**
@@ -61,6 +64,8 @@ public class Player extends AnimatedSprite {
     private int zombieKilled;
     private int maximumHealth;
     private int coins;
+    
+    private boolean premuto = false;
     
     private Map<Vertex,Edge> camminiMinimi;
 
@@ -272,6 +277,26 @@ public class Player extends AnimatedSprite {
                     break;
                 case 115:
                     handler.addSprite(new ShockTrap((float) 560,(float) 2970, 155, 24, handler));
+                    break;
+                case 255:
+                    if(!premuto){
+                        handler.addSprite(new FireTrap((float) 322,(float) 1350, 1321, 600, handler));
+                        premuto =true;
+                    }
+                    break;
+                case 150:
+                    handler.addSprite(new WallTrap((float)2400, (float)1890, 200, 30, handler));
+                    break;
+                case 155:
+                    handler.addSprite(new HoleTrap((float)2600, (float)2200, 120, 120, handler));
+                    break;
+                case 99:
+                    handler.addSprite(new HoleTrap((float)1400, (float)980, 120, 120, handler));
+                    break;
+                case 189:
+                    handler.addSprite(new WallTrap((float)2525, (float)1217, 200, 30, handler));
+                    handler.addSprite(new WallTrap((float)2750, (float)545, 200, 30, handler));
+                    handler.addSprite(new WallTrap((float)1958, (float)727, 200, 30, handler));
                     break;
             }
         }

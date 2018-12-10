@@ -15,8 +15,8 @@ import sprite.animated.Zombie;
  * @author giova
  */
 public abstract class Trap extends Sprite{
-    Handler handler;
-    Rectangle rectangle;
+    protected Handler handler;
+    protected Rectangle rectangle;
     
     public Trap(float x, float y, int width, int height, Handler handler){
         super(x, y, width, height);
