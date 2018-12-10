@@ -13,6 +13,8 @@ import utilities.Assets;
 import deadzone.Gun;
 import deadzone.Handler;
 import gameMenu.Menu;
+import java.awt.Color;
+import java.awt.Font;
 import utilities.Sound;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -64,9 +66,9 @@ public class Player extends AnimatedSprite {
     private int coins;
     
     private Map<Vertex,Edge> camminiMinimi;
-    
     //Timer trap
     Timer shockTrap1,shockTrap2,shockTrap3;
+    private boolean trap;
 
     public Player(float x, float y, int vel, int health, Handler handler, String name, boolean male) {
         super(x, y, PLAYERSIZE, PLAYERSIZE, (float)vel, health);
@@ -76,7 +78,8 @@ public class Player extends AnimatedSprite {
         this.name = name;
         this.maximumHealth = health;
         this.coins = 5;
-
+        this.trap = true;
+        
         this.zona = new Zona(getX(), getY());
         new Graph();
         camminiMinimi = Graph.BFS_complete(new Vertex(zona.getIndex()));
@@ -193,6 +196,13 @@ public class Player extends AnimatedSprite {
         at.rotate(angle, width / 2, height / 2);
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(currentGun.getCurrentAnimation().getCurrentFrame(), at, null);
+        
+        //Controllo se mi trovo in vicinanza di una trappola
+        if(controlloAction()){
+            g2d.setColor(Color.yellow);
+            g2d.setFont(new Font("Comic Sans", Font.PLAIN, 20));
+            g2d.drawString("press Q to activate the trap", getX()-offsetX-250, getY()-offsetY);
+        }
     }
 
     public float getXX() {
@@ -397,4 +407,10 @@ public class Player extends AnimatedSprite {
     public void updateCoins(int coins){
         this.coins += coins;
     }    
+    
+    private boolean controlloAction(){
+        int pixel = mapRGB.getRGB((int)getX()+width/2,(int)getY()+height/2);
+        pixel = (pixel >> 8) & 0xff;
+        return pixel==130 || pixel == 115 || pixel == 49;
+    }
 }
