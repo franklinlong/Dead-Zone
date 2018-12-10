@@ -120,7 +120,7 @@ public class SpawnSpittle extends AnimatedSprite {
         if(red==255){this.handler.getWaves().removeEnemy(); return true;}
         else{zombie_x = getX(); zombie_y = getY();}
         //I proiettili hanno una portata limitata o se ha colpito il player o se è uscito dalla mappa o se è andato contro un muro
-        if ((this.getHealth() == 0) ||  (p.getBounds().contains(getX(), getY()))) {
+        if ((this.getHealth() == 0) ||  (p.getBounds().contains(getX(), getY())) || (getX() > 3200 || getX() < 0 || getY() < 0 || getY() > 3200)) {
             int n = (int) (Math.random() * 10);
             if(n>1) n=2;
             switch (n) {
