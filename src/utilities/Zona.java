@@ -572,8 +572,8 @@ public class Zona {
                 coordinate[1]=800;
                 break;
             case 39:
-                coordinate[0]=3073;
-                coordinate[1]=1300;
+                coordinate[0]=3110;
+                coordinate[1]=300;
                 break;
             case 40:
                 coordinate[0]=2590;
