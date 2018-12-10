@@ -56,6 +56,7 @@ public class Player extends AnimatedSprite {
     private final boolean male;
     private int zombieKilled;
     private int maximumHealth;
+    private int coins;
     
     private Map<Vertex,Edge> camminiMinimi;
 
@@ -66,6 +67,7 @@ public class Player extends AnimatedSprite {
         this.male = male;
         this.name = name;
         this.maximumHealth = health;
+        this.coins = 0;
 
         this.zona = new Zona(getX(), getY());
         new Graph();
@@ -317,4 +319,12 @@ public class Player extends AnimatedSprite {
     public boolean isMale(){
         return this.male;
     }
+
+    public int getCoins() {
+        return coins;
+    }
+    
+    public void updateCoins(int coins){
+        this.coins += coins;
+    }    
 }

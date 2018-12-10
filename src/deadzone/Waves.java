@@ -10,6 +10,7 @@ import gameMenu.PauseMenu;
 import gameMenu.Settings;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sprite.Coins;
 import sprite.animated.Boss;
 import sprite.animated.SpittleZombie;
 import sprite.animated.StandardZombie;
@@ -61,6 +62,7 @@ public class Waves implements Runnable {
 
     @Override
     public void run() {
+        handler.addSprite(new Coins(1600, 1300, 20, 20, handler));
         try {
             Thread.sleep(1000);
         } catch (InterruptedException ex) {

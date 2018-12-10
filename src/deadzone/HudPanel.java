@@ -50,7 +50,7 @@ public class HudPanel extends JPanel implements Runnable {
         private final Handler handler;
         private Image red_indicator;
         private Image green_indicator;
-        private int sizeMap = 3200;
+        private final int sizeMap = 3200;
 
         public MinimapPanel(Handler handler) {
             this.handler = handler;

@@ -66,7 +66,7 @@ public class Assets {
     public static Clip pistolShoot, rifleShoot, shotgunShoot, background, zombieHit, pistolReloadSound,
             rifleReloadSound, shotgunReloadSound, emptyGun, zombieBite;
     public static Clip endGame, endOfRound;
-    public static Clip restoreHealth, nukeExplosion;
+    public static Clip restoreHealth, nukeExplosion, coinsDrop;
 
     //blood
     public static BufferedImage blood;
@@ -75,6 +75,7 @@ public class Assets {
     public static BufferedImage mediKit;
     public static BufferedImage ammo;
     public static BufferedImage nuke;
+    public static BufferedImage coins;
 
     public static Image minimap;
     public static BufferedImage greenIndicator;
@@ -251,6 +252,7 @@ public class Assets {
         mediKit = Utilities.loadImage("/images/medikitItem.png");
         ammo = Utilities.loadImage("/images/ammoItem.png");
         nuke = Utilities.loadImage("/images/bombItem.png");
+        coins = Utilities.loadImage("/images/coins.png");
 
         //minimap
         //minimap = Utilities.loadImage("/images/grigionero.png");

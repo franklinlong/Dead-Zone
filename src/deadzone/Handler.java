@@ -12,9 +12,6 @@ import sprite.Blood;
 import sprite.DropItem;
 import sprite.Sprite;
 import sprite.animated.*;
-import utilities.Animation;
-import utilities.Assets;
-import utilities.Sound;
 
 /**
  *
