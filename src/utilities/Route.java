@@ -77,7 +77,7 @@ public class Route {
         }
         
         if(x == 0 && y ==0){
-            System.out.println("Entrambi zero in seek()");
+            //System.out.println("Entrambi zero in seek()");
             a[0] = 0;
             a[1] = 0;
         }

@@ -72,7 +72,9 @@ public class Player extends AnimatedSprite {
     //Timer trap
     Timer shockTrap1,shockTrap2,shockTrap3;
     Timer fireTrap,wallTrap1,wallTrap2, holeTrap1,holeTrap2;
+    Timer durataWall1, durataWall2;
     private boolean trap;
+    private final Graph grafo;
 
     public Player(float x, float y, int vel, int health, Handler handler, String name, boolean male) {
         super(x, y, PLAYERSIZE, PLAYERSIZE, (float)vel, health);
@@ -85,7 +87,7 @@ public class Player extends AnimatedSprite {
         this.trap = true;
         
         this.zona = new Zona(getX(), getY());
-        new Graph();
+        grafo = new Graph();
         camminiMinimi = Graph.BFS_complete(new Vertex(zona.getIndex()));
         if (this.male) {
             pistolIdle = new Animation(Assets.pistolIdle, 20);
@@ -195,6 +197,15 @@ public class Player extends AnimatedSprite {
             //stop musica
         });
         
+        durataWall1 = new Timer(5000, (ActionEvent ae) -> {
+            durataWall1.stop();
+            this.grafo.inserisciCorridoio();
+        });
+        
+        durataWall2 = new Timer(5000, (ActionEvent ae) -> {
+            durataWall2.stop();
+            this.grafo.inserisciEntrataLabirinto();
+        });
     }
 
     @Override
@@ -358,8 +369,10 @@ public class Player extends AnimatedSprite {
                     break;
                 case 150:
                     if(this.coins >=2 && !wallTrap1.isRunning()){
+                        this.grafo.rimuoviCorridoio();
                         handler.addSprite(new WallTrap((float)2400, (float)1890, 200, 30, handler, true));
                         wallTrap1.start();
+                        durataWall1.start();
                         this.updateCoins(-2);
                     }
                     break;
@@ -379,10 +392,12 @@ public class Player extends AnimatedSprite {
                     break;
                 case 189:
                     if(this.coins >=2 && !wallTrap2.isRunning()){
+                        this.grafo.rimuoviEntrataLabirinto();
                         handler.addSprite(new WallTrap((float)2525, (float)1217, 200, 30, handler, true));
                         handler.addSprite(new WallTrap((float)2750, (float)545, 200, 30, handler, true));
                         handler.addSprite(new WallTrap((float)1965, (float)727, 200, 30, handler, false));
                         
+                        durataWall2.start();
                         wallTrap2.start();
                         this.updateCoins(-2);
                     }

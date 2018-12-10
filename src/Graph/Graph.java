@@ -620,7 +620,7 @@ public class Graph {
         this.insert_edge(zona77, zona117, 0);
         
         this.insert_edge(zona78, zona120, 0);
-        b = this.insert_edge(zona29, zona85, 0);
+        c = this.insert_edge(zona78, zona109, 0);
         this.insert_edge(zona78, zona121, 0);
         
         this.insert_edge(zona79, zona80, 0);
@@ -850,7 +850,7 @@ public class Graph {
     public void inserisciEntrataLabirinto(){
         a = this.insert_edge(zona41, zona102, 0);
         b = this.insert_edge(zona29, zona85, 0);
-        c = this.insert_edge(zona29, zona85, 0);
+        c = this.insert_edge(zona78, zona109, 0);
     }
     
     public void rimuoviCorridoio(){
