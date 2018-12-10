@@ -8,8 +8,8 @@ import sprite.Sprite;
 public class Projectile extends AnimatedSprite {
 
     private final static int BULLETDIAMETER = 6;
-    private Handler handler;
-    private final int damage;
+    protected Handler handler;
+    protected final int damage;
 
     public Projectile(float x, float y, float velX, float velY, int velocita, int health, Handler handler, int damage) {
         super(x, y, BULLETDIAMETER, BULLETDIAMETER, (float)velocita, health);

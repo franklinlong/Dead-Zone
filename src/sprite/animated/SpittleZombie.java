@@ -36,12 +36,13 @@ public class SpittleZombie extends Zombie {
 
         this.damage = damage;
 
-        attackDelay = new Timer(5000, new ActionListener() {
+        attackDelay = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 biteSound.playSound();
                 attackDelay.stop();
                 currentAnimation = walkAnimation;
+                attacking = false;
             }
 
         });
@@ -62,7 +63,7 @@ public class SpittleZombie extends Zombie {
         xx = getX() - offsetX;
         yy = getY() - offsetY;
 
-        at = AffineTransform.getTranslateInstance(xx, yy);
+        at = AffineTransform.getTranslateInstance(xx - 2, yy - 2); //Perchè la size dell'immagine è circa 4 in più di x e di y
         at.rotate(angle, this.width / 2, this.height / 2);
 
         Graphics2D g2d = (Graphics2D) g;
@@ -108,22 +109,17 @@ public class SpittleZombie extends Zombie {
         float spittledirectionY = ybullet / (float) Math.sqrt(ybullet * ybullet + xbullet * xbullet);
 
         //Se lo zombie è nelle vicinanze del player lo attacca
-        if (distanceToPlayerX < player.width * 5 && distanceToPlayerY < player.height * 5 && !attackDelay.isRunning() && !player.isDeath()) {
-            Spittle s = new Spittle(this.getX(), this.getY(), spittledirectionX,
-                    spittledirectionY, (float)3, 100, this.handler, damage,
-                    this.handler.getPlayer());
+        if (distanceToPlayerX < 300 && distanceToPlayerY < 300 && !attackDelay.isRunning() && !player.isDeath()) {
+            Spittle s = new Spittle(this.getX() + this.width/2, this.getY() + this.height/2, spittledirectionX,
+                    spittledirectionY, 5, 100, this.handler, damage);
             this.handler.addSprite(s);
             attacking = true;
             attackDelay.start();
         }
 
-        if (distanceToPlayerX > player.width * 5 && distanceToPlayerY > player.height * 5 && !player.isDeath()) {
-            attacking = false;
-        }
-
         //Se è in corso l'animazione dell'attacco lo zombie non si muove
         //Se il player è morto lo zombie non s muove
-        if (attacking || player.isDeath()) {
+        if (player.isDeath()) {
             velStandard[0] = 0;
             velStandard[1] = 0;
         }
