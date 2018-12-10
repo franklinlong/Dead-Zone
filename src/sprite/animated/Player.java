@@ -16,9 +16,11 @@ import gameMenu.Menu;
 import utilities.Sound;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.util.Map;
 import listeners.*;
+import sprite.ShockTrap;
 import utilities.Zona;
 
 /**
@@ -238,6 +240,19 @@ public class Player extends AnimatedSprite {
         }
         if (KAdapter.three) {
             currentGun = shotgun;
+        }
+        
+        if(KAdapter.action){
+            int pixel = mapRGB.getRGB((int)getX()+width/2,(int)getY()+height/2);
+            pixel = (pixel >> 8) & 0xff;
+            switch(pixel){
+                case 130:
+                    handler.addSprite(new ShockTrap((float) 564,(float) 2253, 155, 24, handler));
+                    break;
+                case 115:
+                    handler.addSprite(new ShockTrap((float) 560,(float) 2970, 155, 24, handler));
+                    break;
+            }
         }
 
         //viene premuto R quindi reload
