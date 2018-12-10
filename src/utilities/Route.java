@@ -40,9 +40,7 @@ public class Route {
         else {
             Vertex origin = new Vertex(zombie.getZona().getIndex());
             Edge edge = ((Player) target).getCamminiMinimi().get(origin);
-
             Vertex destination = edge.opposite(origin);
-            
             float c[] = Zona.centro(destination.getElement());
             float c_x = c[0];
             float c_y = c[1];
@@ -125,16 +123,16 @@ public class Route {
         }
 
         //Codice per ricalcolare la direzione in base alla presenza di zombie vicini
-        ArrayList<Zombie> vicino = this.evitaZombies(vx, vy, handler.getZombies());
-        if (!vicino.isEmpty()) {
-            for (int i = 0; i < vicino.size(); i++) {
-                Route r2 = new Route(this.zombie, vicino.get(i), handler);
-                float[] a = r2.seek(this.zombie.getX(),this.zombie.getY(),this.zombie.width,this.zombie.height);
-                velX = (velX + a[0]);
-                velY = (velY + a[1]);
-            }
-        } 
-        
+//        ArrayList<Zombie> vicino = this.evitaZombies(vx, vy, handler.getZombies());
+//        if (!vicino.isEmpty()) {
+//            for (int i = 0; i < vicino.size(); i++) {
+//                Route r2 = new Route(this.zombie, vicino.get(i), handler);
+//                float[] a = r2.seek(this.zombie.getX(),this.zombie.getY(),this.zombie.width,this.zombie.height);
+//                velX = (velX + a[0]);
+//                velY = (velY + a[1]);
+//            }
+//        } 
+//        
         float x = zombie.getX();
         float y = zombie.getY();
 
