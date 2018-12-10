@@ -3,7 +3,9 @@ package sprite.animated;
 import deadzone.Handler;
 import java.awt.Color;
 import java.awt.Graphics;
+import sprite.Circle;
 import sprite.Sprite;
+import utilities.Assets;
 
 public class Projectile extends AnimatedSprite {
 
@@ -30,11 +32,16 @@ public class Projectile extends AnimatedSprite {
         setX(getX() + velX);
         setY(getY() + velY);
         this.setHealth(this.getHealth() - 1);
-
         if (dye()) {
             this.handler.getProiettili().remove(this);
-        }
+            if(this.handler.getPlayer().getCurrentGun().getSkin() == Assets.rpgSkin){
+                //ventaglio a 360 di proiettili
+                Circle circle = new Circle(this.getX(),this.getY(),200,200,1000,this.handler);
+                this.handler.addSprite(circle);
+                }
+            }
     }
+    
 
     //Collisioni statiche implementate con la mappa RBG
     public boolean dye() {
@@ -49,7 +56,7 @@ public class Projectile extends AnimatedSprite {
         if (red == 255) {
             return true;
         }
-
+        
         //se ha colpito uno zombie
         for (Sprite x : handler.getZombies()) {
             if (x.getBounds().contains(getX(), getY())) {
@@ -63,7 +70,7 @@ public class Projectile extends AnimatedSprite {
         if (this.getHealth() == 0) {
             return true;
         }
-
+        
         return false;
     }
 }

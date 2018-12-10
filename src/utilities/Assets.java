@@ -13,15 +13,18 @@ public class Assets {
     public static BufferedImage[] pistolIdle = new BufferedImage[20];
     public static BufferedImage[] rifleIdle = new BufferedImage[20];
     public static BufferedImage[] shotgunIdle = new BufferedImage[20];
-
+    public static BufferedImage[] rpgIdle = new BufferedImage[20];  
+    
     public static BufferedImage[] pistolReload = new BufferedImage[15];
     public static BufferedImage[] rifleReload = new BufferedImage[20];
     public static BufferedImage[] shotgunReload = new BufferedImage[20];
-
+    public static BufferedImage[] rpgReload = new BufferedImage[20]; 
+    
     public static BufferedImage[] pistolShootAnim = new BufferedImage[3];
     public static BufferedImage[] rifleShootAnim = new BufferedImage[3];
     public static BufferedImage[] shotgunShootAnim = new BufferedImage[3];
-
+    public static BufferedImage[] rpgShootAnim = new BufferedImage[3];
+    
     public static BufferedImage[] femalepistolIdle = new BufferedImage[20];
     public static BufferedImage[] femalerifleIdle = new BufferedImage[20];
     public static BufferedImage[] femaleshotgunIdle = new BufferedImage[20];
@@ -50,7 +53,7 @@ public class Assets {
     
     public static BufferedImage[] fulmini = new BufferedImage[6];
     // guns skin
-    public static BufferedImage pistolSkin, ak47, rifleLoader, shotgunSkin;
+    public static BufferedImage pistolSkin, ak47, rpgSkin,rifleLoader, shotgunSkin;
 
     //spittle
     public static BufferedImage spittle_n;
@@ -64,10 +67,10 @@ public class Assets {
     public static BufferedImage spawnSpittle;
     
     //sounds		
-    public static Clip pistolShoot, rifleShoot, shotgunShoot, background, zombieHit, pistolReloadSound,
-            rifleReloadSound, shotgunReloadSound, emptyGun, zombieBite;
+    public static Clip pistolShoot, rifleShoot, shotgunShoot,rpgShoot, background, zombieHit, pistolReloadSound,
+            rifleReloadSound, shotgunReloadSound, rpgReloadSound,rpgExplosionSound, emptyGun, zombieBite;
     public static Clip endGame, endOfRound;
-    public static Clip restoreHealth, nukeExplosion;
+    public static Clip restoreHealth, nukeExplosion, coinsDrop;
 
     //blood
     public static BufferedImage blood;
@@ -76,6 +79,7 @@ public class Assets {
     public static BufferedImage mediKit;
     public static BufferedImage ammo;
     public static BufferedImage nuke;
+    public static BufferedImage coins;
 
     public static Image minimap;
     public static BufferedImage greenIndicator;
@@ -97,7 +101,10 @@ public class Assets {
         for (int i = 0; i < shotgunIdle.length; i++) {
             shotgunIdle[i] = Utilities.loadImage("/player/idle/shotgunIdle/" + i + ".png");
         }
-
+        
+        for (int i = 0; i < rpgIdle.length; i++) {
+            rpgIdle[i] = Utilities.loadImage("/player/idle/rpgIdle/" + i + ".png");
+        }
         //reload
         for (int i = 0; i < pistolReload.length; i++) {
             pistolReload[i] = Utilities.loadImage("/player/reload/pistol/" + i + ".png");
@@ -110,7 +117,10 @@ public class Assets {
         for (int i = 0; i < shotgunReload.length; i++) {
             shotgunReload[i] = Utilities.loadImage("/player/reload/shotgun/" + i + ".png");
         }
-
+        
+        for (int i = 0; i < rpgReload.length; i++) {
+            rpgReload[i] = Utilities.loadImage("/player/reload/rpg/" + i + ".png");
+        }
         //shot
         for (int i = 0; i < pistolShootAnim.length; i++) {
             pistolShootAnim[i] = Utilities.loadImage("/player/shoot/pistol/" + i + ".png");
@@ -123,7 +133,10 @@ public class Assets {
         for (int i = 0; i < shotgunShootAnim.length; i++) {
             shotgunShootAnim[i] = Utilities.loadImage("/player/shoot/shotgun/" + i + ".png");
         }
-
+        
+        for (int i = 0; i < rpgShootAnim.length; i++) {
+            rpgShootAnim[i] = Utilities.loadImage("/player/shoot/rpg/" + i + ".png");
+        }
         //female animation
         for (int i = 0; i < femalepistolIdle.length; i++) {
             femalepistolIdle[i] = Utilities.loadImage("/femalePlayer/idle/pistolIdle/" + i + ".png");
@@ -220,6 +233,7 @@ public class Assets {
         //gun skins
         shotgunSkin = Utilities.loadImage("/guns/shotgun.png");
         pistolSkin = Utilities.loadImage("/guns/pistol.png");
+        rpgSkin = Utilities.loadImage("/guns/rpg.png");
         ak47 = Utilities.loadImage("/guns/ak-47.png");
         rifleLoader = Utilities.loadImage("/guns/rifleLoader.png");
 
@@ -228,8 +242,11 @@ public class Assets {
         //sounds
         pistolShoot = Utilities.LoadSound("/sound/pistol.wav");
         rifleShoot = Utilities.LoadSound("/sound/machinegun.wav");
+        rpgShoot = Utilities.LoadSound("/sound/rpgShoot.wav");
         pistolReloadSound = Utilities.LoadSound("/sound/pistolReload.wav");
         rifleReloadSound = Utilities.LoadSound("/sound/rifleReload.wav");
+        rpgReloadSound = Utilities.LoadSound("/sound/rpgReload.wav");
+        rpgExplosionSound = Utilities.LoadSound("/sound/rpgExplosion.wav");
         emptyGun = Utilities.LoadSound("/sound/emptygun.wav");
         zombieBite = Utilities.LoadSound("/sound/zombieBite.wav");
         zombieHit = Utilities.LoadSound("/sound/zombiehit.wav");
@@ -239,6 +256,7 @@ public class Assets {
         
         restoreHealth = Utilities.LoadSound("/sound/restoreHealth.wav");
         nukeExplosion = Utilities.LoadSound("/sound/soundExplosion.wav");
+        coinsDrop = Utilities.LoadSound("/sound/coin.wav");
         
         shotgunReloadSound = Utilities.LoadSound("/sound/shotgunReload.wav");
         shotgunShoot = Utilities.LoadSound("/sound/shotgun.wav");
@@ -257,6 +275,7 @@ public class Assets {
         mediKit = Utilities.loadImage("/images/medikitItem.png");
         ammo = Utilities.loadImage("/images/ammoItem.png");
         nuke = Utilities.loadImage("/images/bombItem.png");
+        coins = Utilities.loadImage("/images/coins.png");
 
         //minimap
         //minimap = Utilities.loadImage("/images/grigionero.png");
