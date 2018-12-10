@@ -20,6 +20,8 @@ public class HoleTrap extends Trap{
     public HoleTrap(float x, float y, int width, int height, Handler handler) {
         super(x, y, width, height, handler);
         this.durata=300;
+        this.setX(x);
+        this.setY(y);
     }
 
     @Override
@@ -27,7 +29,7 @@ public class HoleTrap extends Trap{
 //        g.setColor(Color.yellow);
 //        g.fillRect((int) (getX() - offsetX),(int) (getY() - offsetY), width, height);
         
-        g.drawImage(Assets.hole, (int) (getX() - offsetX), (int) (getY() - offsetY), null);
+        g.drawImage(Assets.hole, (int) (getX()-40 - offsetX), (int) (getY()-40 - offsetY), null);
     }
     
     @Override

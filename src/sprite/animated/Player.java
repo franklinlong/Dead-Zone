@@ -13,12 +13,15 @@ import utilities.Assets;
 import deadzone.Gun;
 import deadzone.Handler;
 import gameMenu.Menu;
+import java.awt.Color;
+import java.awt.Font;
 import utilities.Sound;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
 import java.awt.geom.AffineTransform;
 import java.util.Map;
+import javax.swing.Timer;
 import listeners.*;
 import sprite.FireTrap;
 import sprite.HoleTrap;
@@ -62,12 +65,14 @@ public class Player extends AnimatedSprite {
     private final String name;
     private final boolean male;
     private int zombieKilled;
-    private int maximumHealth;
+    private final int maximumHealth;
     private int coins;
-    
-    private boolean premuto = false;
-    
+        
     private Map<Vertex,Edge> camminiMinimi;
+    //Timer trap
+    Timer shockTrap1,shockTrap2,shockTrap3;
+    Timer fireTrap,wallTrap1,wallTrap2, holeTrap1,holeTrap2;
+    private boolean trap;
 
     public Player(float x, float y, int vel, int health, Handler handler, String name, boolean male) {
         super(x, y, PLAYERSIZE, PLAYERSIZE, (float)vel, health);
@@ -76,8 +81,9 @@ public class Player extends AnimatedSprite {
         this.male = male;
         this.name = name;
         this.maximumHealth = health;
-        this.coins = 0;
-
+        this.coins = 11;
+        this.trap = true;
+        
         this.zona = new Zona(getX(), getY());
         new Graph();
         camminiMinimi = Graph.BFS_complete(new Vertex(zona.getIndex()));
@@ -147,6 +153,48 @@ public class Player extends AnimatedSprite {
                 1, 9, handler, 1000);
         
         currentGun = pistol;
+        
+        shockTrap1 = new Timer(10000, (ActionEvent ae) -> {
+            shockTrap1.stop();
+            //stop musica
+        });
+        
+        shockTrap2 = new Timer(10000, (ActionEvent ae) -> {
+            //stop musica
+            shockTrap2.stop();
+
+        });
+        
+        shockTrap3 = new Timer(10000, (ActionEvent ae) -> {
+            shockTrap3.stop();    
+            //stop musica
+        });
+
+        fireTrap = new Timer(10000, (ActionEvent ae) -> {
+            fireTrap.stop();    
+            //stop musica
+        });
+        
+        wallTrap1 = new Timer(10000, (ActionEvent ae) -> {
+            wallTrap1.stop();    
+            //stop musica
+        });
+        
+        wallTrap2 = new Timer(10000, (ActionEvent ae) -> {
+            wallTrap2.stop();    
+            //stop musica
+        });
+        
+        holeTrap1 = new Timer(10000, (ActionEvent ae) -> {
+            holeTrap1.stop();    
+            //stop musica
+        });
+        
+        holeTrap2 = new Timer(10000, (ActionEvent ae) -> {
+            holeTrap2.stop();    
+            //stop musica
+        });
+        
     }
 
     @Override
@@ -176,6 +224,13 @@ public class Player extends AnimatedSprite {
         at.rotate(angle, width / 2, height / 2);
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(currentGun.getCurrentAnimation().getCurrentFrame(), at, null);
+        
+        //Controllo se mi trovo in vicinanza di una trappola
+        if(controlloAction()){
+            g2d.setColor(Color.RED);
+            g2d.setFont(new Font("Comic Sans", Font.PLAIN, 20));
+            g2d.drawString("press Q to activate the trap", getX()-offsetX-250, getY()-offsetY);
+        }
     }
 
     public float getXX() {
@@ -205,12 +260,6 @@ public class Player extends AnimatedSprite {
         setX(x);
         setY(y);
 
-//          if (x < 0) {
-//              x = 2;
-//          }
-//          if (y < 0) {
-//              y = 2;
-//          }
         int k = collision(velX, velY, x, y);
         switch (k) {
             case 1:
@@ -268,35 +317,75 @@ public class Player extends AnimatedSprite {
         if (KAdapter.four) {
             currentGun = rpg;
         }
+        
         if(KAdapter.action){
             int pixel = mapRGB.getRGB((int)getX()+width/2,(int)getY()+height/2);
             pixel = (pixel >> 8) & 0xff;
             switch(pixel){
                 case 130:
-                    handler.addSprite(new ShockTrap((float) 564,(float) 2253, 155, 24, handler));
+                    if(this.coins>=2 && !shockTrap1.isRunning()){
+                        handler.addSprite(new ShockTrap((float) 564,(float) 2253, 155, 24, handler, true));
+                        shockTrap1.start();
+                        //start musica
+                        this.updateCoins(-2);
+                    }
                     break;
+                    
                 case 115:
-                    handler.addSprite(new ShockTrap((float) 560,(float) 2970, 155, 24, handler));
+                    if(this.coins>=2 && !shockTrap2.isRunning()){
+                        handler.addSprite(new ShockTrap((float) 560,(float) 2970, 155, 24, handler, true));
+                        shockTrap2.start();
+                        //start musica
+                        this.updateCoins(-2);
+                    }
+                    break;
+                 
+                case 49:
+                    if(this.coins>=2 && !shockTrap3.isRunning()){
+                        handler.addSprite(new ShockTrap((float) 221,(float) 630, 155, 24, handler, false));
+                        shockTrap3.start();
+                        //start musica
+                        this.updateCoins(-2);
+                    }
                     break;
                 case 255:
-                    if(!premuto){
+                    if(this.coins>=2 && !fireTrap.isRunning()){
                         handler.addSprite(new FireTrap((float) 322,(float) 1350, 1321, 600, handler));
-                        premuto =true;
+                        fireTrap.start();
+                        //start musica
+                        this.updateCoins(-2);
                     }
                     break;
                 case 150:
-                    handler.addSprite(new WallTrap((float)2400, (float)1890, 200, 30, handler));
+                    if(this.coins >=2 && !wallTrap1.isRunning()){
+                        handler.addSprite(new WallTrap((float)2400, (float)1890, 200, 30, handler, true));
+                        wallTrap1.start();
+                        this.updateCoins(-2);
+                    }
                     break;
                 case 155:
-                    handler.addSprite(new HoleTrap((float)2600, (float)2200, 120, 120, handler));
+                    if(this.coins >=2 && !holeTrap1.isRunning()){
+                        handler.addSprite(new HoleTrap((float)2670, (float)2240, 60, 60, handler));
+                        holeTrap1.start();
+                        this.updateCoins(-2);
+                    }
                     break;
                 case 99:
-                    handler.addSprite(new HoleTrap((float)1400, (float)980, 120, 120, handler));
+                    if(this.coins >=2 && !holeTrap2.isRunning()){
+                        handler.addSprite(new HoleTrap((float)1440, (float)1020, 60, 60, handler));
+                        holeTrap2.start();
+                        this.updateCoins(-2);
+                    }
                     break;
                 case 189:
-                    handler.addSprite(new WallTrap((float)2525, (float)1217, 200, 30, handler));
-                    handler.addSprite(new WallTrap((float)2750, (float)545, 200, 30, handler));
-                    handler.addSprite(new WallTrap((float)1958, (float)727, 200, 30, handler));
+                    if(this.coins >=2 && !wallTrap2.isRunning()){
+                        handler.addSprite(new WallTrap((float)2525, (float)1217, 200, 30, handler, true));
+                        handler.addSprite(new WallTrap((float)2750, (float)545, 200, 30, handler, true));
+                        handler.addSprite(new WallTrap((float)1965, (float)727, 200, 30, handler, false));
+                        
+                        wallTrap2.start();
+                        this.updateCoins(-2);
+                    }
                     break;
             }
         }
@@ -385,4 +474,10 @@ public class Player extends AnimatedSprite {
     public void updateCoins(int coins){
         this.coins += coins;
     }    
+    
+    private boolean controlloAction(){
+        int pixel = mapRGB.getRGB((int)getX()+width/2,(int)getY()+height/2);
+        pixel = (pixel >> 8) & 0xff;
+        return pixel==130 || pixel == 115 || pixel == 49;
+    }
 }

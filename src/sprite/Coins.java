@@ -16,9 +16,9 @@ import utilities.Sound;
  */
 public class Coins extends DropItem {
     
-    private Handler handler;
-    private Sound coinsDrop;
-    private int value;
+    private final Handler handler;
+    private final Sound coinsDrop;
+    private final int value;
 
     public Coins(float x, float y, int width, int height, Handler handler) {
         super(x, y, width, height);

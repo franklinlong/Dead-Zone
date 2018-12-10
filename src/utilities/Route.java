@@ -66,14 +66,21 @@ public class Route {
             x = 0;
         }
         
-        x = (x/ (float)Math.sqrt(x*x + y*y));
-        y = (y/ (float)Math.sqrt(x*x + y*y));
+        if(x == 0 && y ==0){
+            System.out.println("Entrambi zero in seek()");
+            a[0] = 0;
+            a[1] = 0;
+        }
+        else{
+            x = (x/ (float)Math.sqrt(x*x + y*y));
+            y = (y/ (float)Math.sqrt(x*x + y*y));
 
-        x = x * zombie.getInitialVelocity();
-        y = y * zombie.getInitialVelocity();
-        
-        a[0] = x;
-        a[1] = y;
+            x = x * zombie.getInitialVelocity();
+            y = y * zombie.getInitialVelocity();
+
+            a[0] = x;
+            a[1] = y;
+        }
         
         return a;
     }

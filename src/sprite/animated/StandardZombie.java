@@ -100,6 +100,8 @@ public class StandardZombie extends Zombie {
                 this.setAngle((float) - Math.PI/2);
             else if(velStandard[1]<0)
                 this.setAngle((float) + Math.PI/2);
+            else
+                System.err.println("Penso sia tutto ok... StandardZombie riga 104");
         }
         else{
             this.setAngle((float) Math.atan(velStandard[1] / velStandard[0]));

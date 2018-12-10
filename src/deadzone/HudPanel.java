@@ -36,9 +36,10 @@ public class HudPanel extends JPanel implements Runnable {
     private final JLabel imageLabel;
     private final JLabel enemies;
     private final JLabel numEnemies;
-    private final JLabel fpsLabel;
+    private final JLabel coinsLabel;
     private final Handler handler;
     private final MinimapPanel minimapPanel;
+    private final JLabel numCoins;
     private ImageIcon actualWeapon;
     private long averageFPS = 0;
 
@@ -214,12 +215,20 @@ public class HudPanel extends JPanel implements Runnable {
         scoreLabel.setSize(this.getWidth(), 39);
         scoreLabel.setLocation(0, scoreTextLabel.getY() + scoreTextLabel.getHeight());
         this.add(scoreLabel);
-
-        this.fpsLabel = new JLabel();
-        fpsLabel.setFont(font);
-        fpsLabel.setSize(this.getWidth(), 39);
-        fpsLabel.setLocation(0, scoreLabel.getY() + scoreLabel.getHeight() * 2);
-        this.add(fpsLabel);
+        
+        this.coinsLabel = new JLabel();
+        coinsLabel.setSize(Assets.coins.getWidth(), Assets.coins.getWidth());
+        coinsLabel.setIcon(new ImageIcon(Assets.coins));
+        coinsLabel.setLocation(imageLabel.getX(), scoreLabel.getY() + scoreLabel.getHeight() * 2);
+        this.add(coinsLabel);
+        
+        this.numCoins = new JLabel();
+        numCoins.setSize(this.getWidth(), 39);
+        numCoins.setForeground(Color.white);
+        numCoins.setText(Integer.toString(handler.getPlayer().getCoins()));
+        numCoins.setFont(font);
+        numCoins.setLocation(coinsLabel.getX() + coinsLabel.getWidth(), coinsLabel.getY());
+        this.add(numCoins);
 
         JButton pauseButton = new JButton();
         pauseButton.setSize(playerHealth.getWidth(), playerHealth.getHeight() * 3 / 2);
@@ -313,6 +322,8 @@ public class HudPanel extends JPanel implements Runnable {
                     playerHealth.setHealth(this.handler.getPlayer().getHealth()); //aggiorna progressBar player
                     numWave.setText(Integer.toString(handler.getWaves().getWaveCount()) + " - \u221e");
                     numEnemies.setText(Integer.toString(handler.getWaves().getNumZombieRemaining()));
+                    numCoins.setText(Integer.toString(handler.getPlayer().getCoins()));
+                    
 
                     this.repaint();
                     minimapPanel.repaint();
@@ -322,10 +333,10 @@ public class HudPanel extends JPanel implements Runnable {
 
                 if (timer >= 1000000000) {
                     this.averageFPS = ticks;
-                    fpsLabel.setForeground(Color.WHITE);
-                    fpsLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                    fpsLabel.setVerticalAlignment(SwingConstants.CENTER);
-                    fpsLabel.setText("fps: " + Long.toString(averageFPS));
+//                    fpsLabel.setForeground(Color.WHITE);
+//                    fpsLabel.setHorizontalAlignment(SwingConstants.CENTER);
+//                    fpsLabel.setVerticalAlignment(SwingConstants.CENTER);
+//                    fpsLabel.setText("fps: " + Long.toString(averageFPS));
                     ticks = 0;
                     timer = 0;
                 }
