@@ -80,6 +80,7 @@ public class Assets {
     public static BufferedImage ammo;
     public static BufferedImage nuke;
     public static BufferedImage coins;
+    public static BufferedImage coinsHud;
 
     public static Image minimap;
     public static BufferedImage greenIndicator;
@@ -276,6 +277,7 @@ public class Assets {
         ammo = Utilities.loadImage("/images/ammoItem.png");
         nuke = Utilities.loadImage("/images/bombItem.png");
         coins = Utilities.loadImage("/images/coins.png");
+        coinsHud = Utilities.loadImage("/images/coinsHud.png");
 
         //minimap
         //minimap = Utilities.loadImage("/images/grigionero.png");

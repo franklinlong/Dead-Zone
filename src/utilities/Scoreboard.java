@@ -38,11 +38,15 @@ public class Scoreboard {
     }
 
     public void addScore(String player, int score) {
-        if (this.SIZE < this.scoreboard.size()) {
-        } else if (score <= this.scoreboard.getLast().getScore()) {
-            return;
-        } else {
-            this.scoreboard.removeLast();
+        System.out.println("CIAO");
+        System.out.println("Score:" + score + "Ultimo: " + this.scoreboard.getLast().getScore());
+        System.out.println(this.scoreboard.size());
+        if(this.scoreboard.size() == this.SIZE){
+            if(score <= this.scoreboard.getLast().getScore()){
+                return;
+            }else{
+                this.scoreboard.removeLast();
+            }
         }
 
         int index = this.findGT(score);
@@ -70,7 +74,7 @@ public class Scoreboard {
                 return this.scoreboard.indexOf(item);
             }
         }
-        return -1;
+        return this.scoreboard.size();
     }
 
 }

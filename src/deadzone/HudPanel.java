@@ -217,8 +217,10 @@ public class HudPanel extends JPanel implements Runnable {
         this.add(scoreLabel);
         
         this.coinsLabel = new JLabel();
-        coinsLabel.setSize(Assets.coins.getWidth(), Assets.coins.getWidth());
-        coinsLabel.setIcon(new ImageIcon(Assets.coins));
+        coinsLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        //coinsLabel.setVerticalAlignment(SwingConstants.RIGHT);
+        coinsLabel.setSize(this.getWidth()/2, 80);
+        coinsLabel.setIcon(new ImageIcon(Assets.coinsHud));
         coinsLabel.setLocation(imageLabel.getX(), scoreLabel.getY() + scoreLabel.getHeight() * 2);
         this.add(coinsLabel);
         
@@ -227,7 +229,7 @@ public class HudPanel extends JPanel implements Runnable {
         numCoins.setForeground(Color.white);
         numCoins.setText(Integer.toString(handler.getPlayer().getCoins()));
         numCoins.setFont(font);
-        numCoins.setLocation(coinsLabel.getX() + coinsLabel.getWidth(), coinsLabel.getY());
+        numCoins.setLocation(coinsLabel.getX() + coinsLabel.getWidth() + 10, coinsLabel.getY() + coinsLabel.getHeight()/3);
         this.add(numCoins);
 
         JButton pauseButton = new JButton();
