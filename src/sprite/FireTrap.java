@@ -6,22 +6,21 @@
 package sprite;
 
 import deadzone.Handler;
-import java.awt.Color;
 import java.awt.Graphics;
 import utilities.Animation;
 import utilities.Assets;
 
 /**
  *
- * @author giova
+ * @author USER
  */
-public class ShockTrap extends Trap{
+public class FireTrap extends Trap{
     private int durata;
     private Animation animazione;
     
-    public ShockTrap(float x, float y, int width, int height, Handler handler) {
+    public FireTrap(float x, float y, int width, int height, Handler handler) {
         super(x, y, width, height, handler);
-        this.durata=300;
+        this.durata=600;
         this.animazione = new Animation(Assets.fulmini, 50);
     }
 
@@ -43,7 +42,4 @@ public class ShockTrap extends Trap{
         
         animazione.update();
     }
-    
-    
-    
 }

@@ -31,10 +31,6 @@ public abstract class Trap extends Sprite{
     public void animationCycle() {
         for (Sprite s : handler.getZombies()){
             if(s instanceof Zombie){
-                System.out.println("ciao2");
-                System.out.println("sx="+s.getBounds().x + " sy=" + s.getBounds().y);
-                System.out.println("s="+rectangle.x + " s=" + rectangle.y);
-                
                 if(s.getBounds().intersects(rectangle))
                     ((Zombie) s).hit(500);
             }
