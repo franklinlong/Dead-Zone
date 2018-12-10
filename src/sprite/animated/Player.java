@@ -16,9 +16,10 @@ import gameMenu.Menu;
 import utilities.Sound;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
 import java.awt.geom.AffineTransform;
 import java.util.Map;
+import javax.swing.Timer;
 import listeners.*;
 import sprite.ShockTrap;
 import utilities.Zona;
@@ -59,10 +60,13 @@ public class Player extends AnimatedSprite {
     private final String name;
     private final boolean male;
     private int zombieKilled;
-    private int maximumHealth;
+    private final int maximumHealth;
     private int coins;
     
     private Map<Vertex,Edge> camminiMinimi;
+    
+    //Timer trap
+    Timer shockTrap1,shockTrap2,shockTrap3;
 
     public Player(float x, float y, int vel, int health, Handler handler, String name, boolean male) {
         super(x, y, PLAYERSIZE, PLAYERSIZE, (float)vel, health);
@@ -71,7 +75,7 @@ public class Player extends AnimatedSprite {
         this.male = male;
         this.name = name;
         this.maximumHealth = health;
-        this.coins = 0;
+        this.coins = 5;
 
         this.zona = new Zona(getX(), getY());
         new Graph();
@@ -142,6 +146,24 @@ public class Player extends AnimatedSprite {
                 1, 9, handler, 1000);
         
         currentGun = pistol;
+        
+        shockTrap1 = new Timer(10000, (ActionEvent ae) -> {
+            shockTrap1.stop();
+            //stop musica
+        });
+        
+        shockTrap2 = new Timer(10000, (ActionEvent ae) -> {
+            //stop musica
+            shockTrap2.stop();
+
+        });
+        
+        shockTrap3 = new Timer(10000, (ActionEvent ae) -> {
+        shockTrap3.stop();    
+        //stop musica
+        });
+        
+        
     }
 
     @Override
@@ -257,16 +279,37 @@ public class Player extends AnimatedSprite {
         if (KAdapter.four) {
             currentGun = rpg;
         }
+        
         if(KAdapter.action){
             int pixel = mapRGB.getRGB((int)getX()+width/2,(int)getY()+height/2);
             pixel = (pixel >> 8) & 0xff;
             switch(pixel){
                 case 130:
-                    handler.addSprite(new ShockTrap((float) 564,(float) 2253, 155, 24, handler));
+                    if(this.coins>=2 && !shockTrap1.isRunning()){
+                        handler.addSprite(new ShockTrap((float) 564,(float) 2253, 155, 24, handler, true));
+                        shockTrap1.start();
+                        //start musica
+                        this.updateCoins(-2);
+                    }
                     break;
+                    
                 case 115:
-                    handler.addSprite(new ShockTrap((float) 560,(float) 2970, 155, 24, handler));
+                    if(this.coins>=2 && !shockTrap2.isRunning()){
+                        handler.addSprite(new ShockTrap((float) 560,(float) 2970, 155, 24, handler, true));
+                        shockTrap2.start();
+                        //start musica
+                        this.updateCoins(-2);
+                    }
                     break;
+                 
+                case 49:
+                    if(this.coins>=2 && !shockTrap3.isRunning()){
+                        handler.addSprite(new ShockTrap((float) 221,(float) 630, 155, 24, handler, false));
+                        shockTrap3.start();
+                        //start musica
+                        this.updateCoins(-2);
+                    }
+                    break;                    
             }
         }
         //viene premuto R quindi reload
