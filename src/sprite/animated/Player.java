@@ -16,7 +16,6 @@ import gameMenu.Menu;
 import utilities.Sound;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.util.Map;
 import listeners.*;
@@ -59,7 +58,7 @@ public class Player extends AnimatedSprite {
     private final String name;
     private final boolean male;
     private int zombieKilled;
-    private int maximumHealth;
+    private final int maximumHealth;
     private int coins;
     
     private Map<Vertex,Edge> camminiMinimi;

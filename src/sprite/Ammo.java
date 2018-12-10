@@ -41,10 +41,16 @@ public class Ammo extends DropItem {
     public void animationCycle() {
         if (this.isCollected(handler)) {
             sound.playSound();
-            gun.setTotalBullets(gun.getTotalBullets() + 50);
-            handler.removeSprite(this);
+            if (!(gun.getSkin().equals(Assets.rpgSkin))) {
+                gun.setTotalBullets(gun.getTotalBullets() + 20);
+                handler.removeSprite(this);
+            } else {
+                gun.setTotalBullets(gun.getTotalBullets() + 2);
+                handler.removeSprite(this);
+            }
+
         }
     }
-;
+
 
 }
