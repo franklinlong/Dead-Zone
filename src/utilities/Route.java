@@ -10,6 +10,7 @@ import deadzone.Handler;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import sprite.Sprite;
 import sprite.animated.Player;
 import sprite.animated.Zombie;
@@ -40,12 +41,21 @@ public class Route {
         else {
             Vertex origin = new Vertex(zombie.getZona().getIndex());
             Edge edge = ((Player) target).getCamminiMinimi().get(origin);
-            Vertex destination = edge.opposite(origin);
-            float c[] = Zona.centro(destination.getElement());
-            float c_x = c[0];
-            float c_y = c[1];
+            Vertex destination;
+            try{
+                destination = edge.opposite(origin);
+                float c[] = Zona.centro(destination.getElement());
+                float c_x = c[0];
+                float c_y = c[1];
+                return seek(c_x, c_y, 0, 0);
+            }catch(NullPointerException e){
+                float c[] = Zona.centro(origin.getElement());
+                float c_x = c[0];
+                float c_y = c[1];
+                System.out.println("c_x:"+c_x +" c_y="+c_y);
+                return seek(c_x, c_y, 0, 0);
+            }
 
-            return seek(c_x, c_y, 0, 0);
         }
     }
 
