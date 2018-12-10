@@ -149,7 +149,6 @@ public class Gun {
                 this.handler.addSprite(p4);
                 this.handler.addSprite(p5);
             }
-
         }
 
     }

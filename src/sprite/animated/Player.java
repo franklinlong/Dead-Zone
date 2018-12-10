@@ -34,19 +34,21 @@ public class Player extends AnimatedSprite {
     private final Animation shotgunIdle, shotgunReload, shotgunShoot;
     private final Animation pistolIdle, pistolReload, pistolShoot;
     private final Animation rifleIdle, rifleReload, rifleShoot;
-
+    private final Animation rpgIdle, rpgReload, rpgShoot;
+    
     // sounds
     private final Sound rifleShootSound, rifleReloadSound;
     private final Sound pistolShootSound, pistolReloadSound;
     private final Sound shotgunShootSound, shotgunReloadSound;
-
+    private final Sound rpgShootSound, rpgReloadSound;
+    
     private final Sound soundEndGame;
 
     //Handler che serve per rimuovere il player quando muore
     private final Handler handler;
 
     private Gun currentGun;
-    private final Gun pistol, rifle, shotgun;
+    private final Gun pistol, rifle, shotgun,rpg;
 
     private float xx, yy;
     private boolean isDeath;
@@ -82,6 +84,10 @@ public class Player extends AnimatedSprite {
             shotgunIdle = new Animation(Assets.shotgunIdle, 20);
             shotgunReload = new Animation(Assets.shotgunReload, 100);
             shotgunShoot = new Animation(Assets.shotgunShootAnim, 80);
+            
+            rpgIdle = new Animation(Assets.rpgIdle, 20);
+            rpgReload = new Animation(Assets.rpgReload, 100);
+            rpgShoot = new Animation(Assets.rpgShootAnim, 80);
         } else {
             pistolIdle = new Animation(Assets.femalepistolIdle, 20);
             pistolReload = new Animation(Assets.femalepistolReload, 100);
@@ -94,6 +100,10 @@ public class Player extends AnimatedSprite {
             shotgunIdle = new Animation(Assets.femaleshotgunIdle, 20);
             shotgunReload = new Animation(Assets.femaleshotgunReload, 100);
             shotgunShoot = new Animation(Assets.femaleshotgunShootAnim, 80);
+            
+            rpgIdle = new Animation(Assets.rpgIdle, 20);
+            rpgReload = new Animation(Assets.rpgReload, 100);
+            rpgShoot = new Animation(Assets.rpgShootAnim, 80);
         }
 
         pistolShootSound = new Sound(Assets.pistolShoot);
@@ -107,6 +117,9 @@ public class Player extends AnimatedSprite {
         shotgunShootSound = new Sound(Assets.shotgunShoot);
         shotgunReloadSound = new Sound(Assets.shotgunReloadSound);
 
+        rpgShootSound = new Sound(Assets.rpgShoot);
+        rpgReloadSound = new Sound(Assets.rpgReloadSound);
+        
         soundEndGame = new Sound(Assets.endGame);
         soundEndGame.changeVolume(6);
         pistol = new Gun(Assets.pistolSkin, pistolIdle, pistolReload, pistolShoot, pistolShootSound,
@@ -120,6 +133,10 @@ public class Player extends AnimatedSprite {
                 shotgunReloadSound, this, 800,
                 5, 200, handler, 45);
 
+        rpg = new Gun(Assets.rpgSkin, rpgIdle, rpgReload, rpgShoot, rpgShootSound,
+                rpgReloadSound, this, 1600,
+                1, 9, handler, 1000);
+        
         currentGun = pistol;
     }
 
@@ -239,7 +256,9 @@ public class Player extends AnimatedSprite {
         if (KAdapter.three) {
             currentGun = shotgun;
         }
-
+        if (KAdapter.four) {
+            currentGun = rpg;
+        }
         //viene premuto R quindi reload
         if (KAdapter.reload && currentGun.getRound() != currentGun.getBulletsPerRound()
                 && currentGun.getTotalBullets() > 0) {

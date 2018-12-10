@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 import sprite.Blood;
+import sprite.Circle;
 import sprite.DropItem;
 import sprite.Sprite;
 import sprite.animated.*;
@@ -25,7 +26,8 @@ public class Handler {
     private final List<Sprite> spittles = new ArrayList<>();
     private final List<Sprite> spawnSpittles = new ArrayList<>();
     private final List<Sprite> itemsAndBlood = new ArrayList<>();
-
+    private final List<Sprite> circle = new ArrayList<>();
+    
     private static Camera camera;
     private final Player player;
     private final Waves waves;
@@ -73,6 +75,10 @@ public class Handler {
             Sprite s = itemsAndBlood.get(i);
             s.animationCycle();
         }
+        for (int i = 0; i < circle.size(); i++) {
+            Sprite s = circle.get(i);
+            s.animationCycle();
+        }
     }
 
     public void drawImage(Graphics g) {
@@ -112,6 +118,11 @@ public class Handler {
             Sprite s = players.get(i);
             s.drawImage(g, offsetX, offsetY);
         }
+        
+        for (int i = 0; i < circle.size(); i++) {
+            Sprite s = circle.get(i);
+            s.drawImage(g, offsetX, offsetY);
+        }
     }
 
     public void addSprite(Sprite s) {
@@ -128,6 +139,8 @@ public class Handler {
             this.spittles.add(s);
         }else if (s instanceof SpawnSpittle) {
             this.spawnSpittles.add(s);
+        }else if (s instanceof Circle) {
+            this.circle.add(s);
         }else {
             System.err.println("ERROREEEE, in handler");
         }
@@ -148,6 +161,8 @@ public class Handler {
             this.spittles.remove(s);
         } else if (s instanceof SpawnSpittle) {
             this.spawnSpittles.remove(s);
+        } else if (s instanceof Circle) {
+            this.circle.remove(s);
         }else {
             System.err.println("ERROREEEE, in handler");
         }
@@ -175,6 +190,10 @@ public class Handler {
     
     public List<Sprite> getitemsAndBlood() {
         return itemsAndBlood;
+    }
+    
+    public List<Sprite> getiCircle() {
+        return circle;
     }
 
     public Camera getCamera() {
