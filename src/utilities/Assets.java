@@ -234,6 +234,7 @@ public class Assets {
         
         restoreHealth = Utilities.LoadSound("/sound/restoreHealth.wav");
         nukeExplosion = Utilities.LoadSound("/sound/soundExplosion.wav");
+        coinsDrop = Utilities.LoadSound("/sound/coin.wav");
         
         shotgunReloadSound = Utilities.LoadSound("/sound/shotgunReload.wav");
         shotgunShoot = Utilities.LoadSound("/sound/shotgun.wav");

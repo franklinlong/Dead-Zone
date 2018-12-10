@@ -18,11 +18,13 @@ public class Coins extends DropItem {
     
     private Handler handler;
     private Sound coinsDrop;
+    private int value;
 
     public Coins(float x, float y, int width, int height, Handler handler) {
         super(x, y, width, height);
         this.handler = handler;
-        //this.coinsDrop = new Sound(Assets.coinsDrop);
+        this.value = 10;
+        this.coinsDrop = new Sound(Assets.coinsDrop);
     }
     
     
@@ -35,9 +37,8 @@ public class Coins extends DropItem {
     @Override
     public void animationCycle() {
         if(this.isCollected(handler)){
-            //coinsDrop.playSound();
-            handler.getPlayer().updateCoins(10);
-            System.out.println(handler.getPlayer().getCoins());
+            coinsDrop.playSound();
+            handler.getPlayer().updateCoins(value);
             handler.removeSprite(this);
         }
     }
