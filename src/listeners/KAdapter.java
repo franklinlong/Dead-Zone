@@ -17,14 +17,14 @@ public class KAdapter extends KeyAdapter {
 
     public static boolean[] keys;
     public static boolean up, left, right, down;
-    public static boolean one, two, three,four, reload;
-
+    public static boolean one, two, three,four, reload, action;
     public KAdapter() {
         keys = new boolean[256];
         up = false;
         left = false;
         right = false;
         down = false;
+        action = false;
     }
 
     public void update() {
@@ -46,6 +46,7 @@ public class KAdapter extends KeyAdapter {
         three = keys[KeyEvent.VK_3];
         four=keys[KeyEvent.VK_4];
         reload = keys[KeyEvent.VK_R];
+        action = keys[KeyEvent.VK_Q];
     }
 
     @Override

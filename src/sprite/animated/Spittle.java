@@ -7,6 +7,8 @@ package sprite.animated;
 
 import deadzone.Handler;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import static sprite.Sprite.mapRGB;
 import utilities.Assets;
 
@@ -14,95 +16,34 @@ import utilities.Assets;
  *
  * @author casang
  */
-public class Spittle extends AnimatedSprite {
+public class Spittle extends Projectile {
 
-    private Handler handler;
-    private final int damage;
-    private Player p;
-    private String angle;
-
-    public Spittle(float x, float y, float velX, float velY, float velocita, int health, Handler handler,
-            int damage, Player p) {
-        super(x, y, 3, 3, velocita, health);
-        this.damage = damage;
-        this.velX = velocita * velX;
-        this.velY = velocita * velY;
-        this.handler = handler;
-        this.p = p;
-        addAngle();
-    }
-
-    private void addAngle() {
-        float playerx = p.getX();
-        float playery = p.getY();
-
-        if (playery < this.getY()) {
-            if (playerx < this.getX()) {
-                angle = "nordovest";
-            } else if (playerx > this.getX()) {
-                angle = "nordest";
-            } else {
-                angle = "nord";
-            }
-        } else if (playery > this.getY()) {
-            if (playerx < this.getX()) {
-                angle = "sudovest";
-            } else if (playerx > this.getX()) {
-                angle = "sudest";
-            } else {
-                angle = "sud";
-            }
-        } else {
-            if (playerx < this.getX()) {
-                angle = "ovest";
-            } else {
-                angle = "est";
-            }
+    public Spittle(float x, float y, float velX, float velY, int velocita, int health, Handler handler, int damage) {
+        super(x, y, velX, velY, velocita, health, handler, damage);
+        
+        angle = (float) Math.atan(velY / velX);
+        if (velX < 0) {
+            angle = (float) -Math.PI + angle;
         }
-
+        
     }
 
     @Override
     public void drawImage(Graphics g, float offsetX, float offsetY) {
+        float xx, yy;
+        xx = getX() - offsetX;
+        yy = getY() - offsetY;
 
-        switch (angle) {
-            case "nordovest":
-                g.drawImage(Assets.spittle_no, (int) (getX() - offsetX), (int) (getY() - offsetY), null);
-                break;
-            case "nordest":
-                g.drawImage(Assets.spittle_ne, (int) (getX() - offsetX), (int) (getY() - offsetY), null);
-                break;
-            case "nord":
-                g.drawImage(Assets.spittle_n, (int) (getX() - offsetX), (int) (getY() - offsetY), null);
-                break;
-            case "sudovest":
-                g.drawImage(Assets.spittle_so, (int) (getX() - offsetX), (int) (getY() - offsetY), null);
-                break;
-            case "sudest":
-                g.drawImage(Assets.spittle_se, (int) (getX() - offsetX), (int) (getY() - offsetY), null);
-                break;
-            case "sud":
-                g.drawImage(Assets.spittle_s, (int) (getX() - offsetX), (int) (getY() - offsetY), null);
-                break;
-            case "ovest":
-                g.drawImage(Assets.spittle_o, (int) (getX() - offsetX), (int) (getY() - offsetY), null);
-                break;
-            default:
-                g.drawImage(Assets.spittle_e, (int) (getX() - offsetX), (int) (getY() - offsetY), null);
-        }
-    }
-
-    @Override
-    public void animationCycle() {
-        setX(getX() + velX);
-        setY(getY() + velY);
-        this.setHealth(this.getHealth() - 1);
-        if (dye()) {
-            this.handler.getSpittles().remove(this);
-        }
+        at = AffineTransform.getTranslateInstance(xx, yy);
+        at.rotate(angle, this.width/2, this.height/2);
+        
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.drawImage(Assets.spittle_e, at, null);
+        
     }
 
     //Collisioni statiche implementate con la mappa RBG
+    @Override
     public boolean dye() {
         //Se è uscito dalla mappa
         if (getX() > 3200 || getX() < 0 || getY() < 0 || getY() > 3200) {
@@ -117,8 +58,8 @@ public class Spittle extends AnimatedSprite {
         }
 
         //se ha colpito il player
-        if (p.getBounds().contains(getX(), getY())) {
-            Player y = p;
+        if (handler.getPlayer().getBounds().contains(getX(), getY())) {
+            Player y = handler.getPlayer();
             y.hit(damage);
             return true;
         }

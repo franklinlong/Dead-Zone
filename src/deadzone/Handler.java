@@ -12,7 +12,11 @@ import sprite.Blood;
 import sprite.Circle;
 import sprite.DropItem;
 import sprite.Sprite;
+import sprite.Trap;
 import sprite.animated.*;
+import utilities.Animation;
+import utilities.Assets;
+import utilities.Sound;
 
 /**
  *
@@ -25,9 +29,8 @@ public class Handler {
     private final List<Sprite> proiettili = new ArrayList<>();
     private final List<Sprite> spittles = new ArrayList<>();
     private final List<Sprite> spawnSpittles = new ArrayList<>();
-    private final List<Sprite> itemsAndBlood = new ArrayList<>();
+    private final List<Sprite> itemsAndBloodAndTrap = new ArrayList<>();
     private final List<Sprite> circle = new ArrayList<>();
-    
     private static Camera camera;
     private final Player player;
     private final Waves waves;
@@ -36,7 +39,7 @@ public class Handler {
         player = new Player(1600, 1600, 3, 3000, this, playerName, male);
         camera = new Camera(player);
         players.add(player);
-
+        
         this.waves = new Waves(this);
                
         Thread t = new Thread(waves);
@@ -71,8 +74,8 @@ public class Handler {
             s.animationCycle();
         }
         
-        for (int i = 0; i < itemsAndBlood.size(); i++) {
-            Sprite s = itemsAndBlood.get(i);
+        for (int i = 0; i < itemsAndBloodAndTrap.size(); i++) {
+            Sprite s = itemsAndBloodAndTrap.get(i);
             s.animationCycle();
         }
         for (int i = 0; i < circle.size(); i++) {
@@ -86,8 +89,8 @@ public class Handler {
         float offsetY = camera.getOffset_y();
 
         //Faccio partire il draw image di tutti gli sprite della mappa
-        for (int i = 0; i < itemsAndBlood.size(); i++) {
-            Sprite s = itemsAndBlood.get(i);
+        for (int i = 0; i < itemsAndBloodAndTrap.size(); i++) {
+            Sprite s = itemsAndBloodAndTrap.get(i);
             s.drawImage(g, offsetX, offsetY);
         }
 
@@ -106,8 +109,8 @@ public class Handler {
             s.drawImage(g, offsetX, offsetY);
         }
         
-        for (int i = 0; i < itemsAndBlood.size(); i++) {
-            Sprite s = itemsAndBlood.get(i);
+        for (int i = 0; i < itemsAndBloodAndTrap.size(); i++) {
+            Sprite s = itemsAndBloodAndTrap.get(i);
         }
         for (int i = 0; i < zombies.size(); i++) {
             Sprite s = zombies.get(i);
@@ -133,8 +136,8 @@ public class Handler {
             this.players.add(s);
         } else if (s instanceof Projectile) {
             this.proiettili.add(s);
-        } else if (s instanceof DropItem || s instanceof Blood) {
-            this.itemsAndBlood.add(s);
+        } else if (s instanceof DropItem || s instanceof Blood || s instanceof Trap) {
+            this.itemsAndBloodAndTrap.add(s);
         } else if (s instanceof Spittle) {
             this.spittles.add(s);
         }else if (s instanceof SpawnSpittle) {
@@ -142,7 +145,7 @@ public class Handler {
         }else if (s instanceof Circle) {
             this.circle.add(s);
         }else {
-            System.err.println("ERROREEEE, in handler");
+            System.err.println("ERROREEEE, in handler add sprite");
         }
 
     }
@@ -155,8 +158,8 @@ public class Handler {
             this.players.remove(s);
         } else if (s instanceof Projectile) {
             this.proiettili.remove(s);
-        } else if (s instanceof DropItem || s instanceof Blood) {
-            this.itemsAndBlood.remove(s);
+        } else if (s instanceof DropItem || s instanceof Blood || s instanceof Trap) {
+            this.itemsAndBloodAndTrap.remove(s);
         } else if (s instanceof Spittle) {
             this.spittles.remove(s);
         } else if (s instanceof SpawnSpittle) {
@@ -164,7 +167,7 @@ public class Handler {
         } else if (s instanceof Circle) {
             this.circle.remove(s);
         }else {
-            System.err.println("ERROREEEE, in handler");
+            System.err.println("ERROREEEE, in handler remove sprite");
         }
     }
 
@@ -189,7 +192,7 @@ public class Handler {
     }
     
     public List<Sprite> getitemsAndBlood() {
-        return itemsAndBlood;
+        return itemsAndBloodAndTrap;
     }
     
     public List<Sprite> getiCircle() {
