@@ -23,7 +23,10 @@ import java.awt.geom.AffineTransform;
 import java.util.Map;
 import javax.swing.Timer;
 import listeners.*;
+import sprite.FireTrap;
+import sprite.HoleTrap;
 import sprite.ShockTrap;
+import sprite.WallTrap;
 import utilities.Zona;
 
 /**
@@ -64,11 +67,14 @@ public class Player extends AnimatedSprite {
     private int zombieKilled;
     private final int maximumHealth;
     private int coins;
-    
+        
     private Map<Vertex,Edge> camminiMinimi;
     //Timer trap
     Timer shockTrap1,shockTrap2,shockTrap3;
+    Timer fireTrap,wallTrap1,wallTrap2, holeTrap1,holeTrap2;
+    Timer durataWall1, durataWall2;
     private boolean trap;
+    private final Graph grafo;
 
     public Player(float x, float y, int vel, int health, Handler handler, String name, boolean male) {
         super(x, y, PLAYERSIZE, PLAYERSIZE, (float)vel, health);
@@ -77,11 +83,11 @@ public class Player extends AnimatedSprite {
         this.male = male;
         this.name = name;
         this.maximumHealth = health;
-        this.coins = 5;
+        this.coins = 11;
         this.trap = true;
         
         this.zona = new Zona(getX(), getY());
-        new Graph();
+        grafo = new Graph();
         camminiMinimi = Graph.BFS_complete(new Vertex(zona.getIndex()));
         if (this.male) {
             pistolIdle = new Animation(Assets.pistolIdle, 20);
@@ -162,11 +168,44 @@ public class Player extends AnimatedSprite {
         });
         
         shockTrap3 = new Timer(10000, (ActionEvent ae) -> {
-        shockTrap3.stop();    
-        //stop musica
+            shockTrap3.stop();    
+            //stop musica
+        });
+
+        fireTrap = new Timer(10000, (ActionEvent ae) -> {
+            fireTrap.stop();    
+            //stop musica
         });
         
+        wallTrap1 = new Timer(10000, (ActionEvent ae) -> {
+            wallTrap1.stop();    
+            //stop musica
+        });
         
+        wallTrap2 = new Timer(10000, (ActionEvent ae) -> {
+            wallTrap2.stop();    
+            //stop musica
+        });
+        
+        holeTrap1 = new Timer(10000, (ActionEvent ae) -> {
+            holeTrap1.stop();    
+            //stop musica
+        });
+        
+        holeTrap2 = new Timer(10000, (ActionEvent ae) -> {
+            holeTrap2.stop();    
+            //stop musica
+        });
+        
+        durataWall1 = new Timer(5000, (ActionEvent ae) -> {
+            durataWall1.stop();
+            this.grafo.inserisciCorridoio();
+        });
+        
+        durataWall2 = new Timer(5000, (ActionEvent ae) -> {
+            durataWall2.stop();
+            this.grafo.inserisciEntrataLabirinto();
+        });
     }
 
     @Override
@@ -199,7 +238,7 @@ public class Player extends AnimatedSprite {
         
         //Controllo se mi trovo in vicinanza di una trappola
         if(controlloAction()){
-            g2d.setColor(Color.yellow);
+            g2d.setColor(Color.RED);
             g2d.setFont(new Font("Comic Sans", Font.PLAIN, 20));
             g2d.drawString("press Q to activate the trap", getX()-offsetX-250, getY()-offsetY);
         }
@@ -319,7 +358,50 @@ public class Player extends AnimatedSprite {
                         //start musica
                         this.updateCoins(-2);
                     }
-                    break;                    
+                    break;
+                case 255:
+                    if(this.coins>=2 && !fireTrap.isRunning()){
+                        handler.addSprite(new FireTrap((float) 322,(float) 1350, 1321, 600, handler));
+                        fireTrap.start();
+                        //start musica
+                        this.updateCoins(-2);
+                    }
+                    break;
+                case 150:
+                    if(this.coins >=2 && !wallTrap1.isRunning()){
+                        this.grafo.rimuoviCorridoio();
+                        handler.addSprite(new WallTrap((float)2400, (float)1890, 200, 30, handler, true));
+                        wallTrap1.start();
+                        durataWall1.start();
+                        this.updateCoins(-2);
+                    }
+                    break;
+                case 155:
+                    if(this.coins >=2 && !holeTrap1.isRunning()){
+                        handler.addSprite(new HoleTrap((float)2670, (float)2240, 60, 60, handler));
+                        holeTrap1.start();
+                        this.updateCoins(-2);
+                    }
+                    break;
+                case 99:
+                    if(this.coins >=2 && !holeTrap2.isRunning()){
+                        handler.addSprite(new HoleTrap((float)1440, (float)1020, 60, 60, handler));
+                        holeTrap2.start();
+                        this.updateCoins(-2);
+                    }
+                    break;
+                case 189:
+                    if(this.coins >=2 && !wallTrap2.isRunning()){
+                        this.grafo.rimuoviEntrataLabirinto();
+                        handler.addSprite(new WallTrap((float)2525, (float)1217, 200, 30, handler, true));
+                        handler.addSprite(new WallTrap((float)2750, (float)545, 200, 30, handler, true));
+                        handler.addSprite(new WallTrap((float)1965, (float)727, 200, 30, handler, false));
+                        
+                        durataWall2.start();
+                        wallTrap2.start();
+                        this.updateCoins(-2);
+                    }
+                    break;
             }
         }
         //viene premuto R quindi reload

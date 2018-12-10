@@ -52,6 +52,10 @@ public class Assets {
     public static BufferedImage[] bossdeath = new BufferedImage[15];
     
     public static BufferedImage[] fulmini = new BufferedImage[6];
+    public static BufferedImage[] fuochi = new BufferedImage[2];
+    public static BufferedImage wall;
+    public static BufferedImage hole;
+
     // guns skin
     public static BufferedImage pistolSkin, ak47, rpgSkin,rifleLoader, shotgunSkin;
 
@@ -231,6 +235,10 @@ public class Assets {
             fulmini[i] = Utilities.loadImage("/images/fulmine/fulmine" + (i+1) + ".png");
         }
         
+        for (int i = 0; i < fuochi.length; i++) {
+            fuochi[i] = Utilities.loadImage("/images/fuoco/" + i + ".png");
+        }
+        
         //gun skins
         shotgunSkin = Utilities.loadImage("/guns/shotgun.png");
         pistolSkin = Utilities.loadImage("/guns/pistol.png");
@@ -238,6 +246,10 @@ public class Assets {
         ak47 = Utilities.loadImage("/guns/ak-47.png");
         rifleLoader = Utilities.loadImage("/guns/rifleLoader.png");
 
+        //Trap skins
+        hole = Utilities.loadImage("/images/buca.png");
+        wall = Utilities.loadImage("/images/muro.png");
+        
         //blood 
         blood = Utilities.loadImage("/images/blood.png");
         //sounds

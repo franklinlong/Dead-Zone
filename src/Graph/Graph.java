@@ -145,6 +145,9 @@ public class Graph {
     Vertex zona125;
     Vertex zona126;
     
+    Edge a,b,c;     //Archi entrata labirinto
+    Edge d;         //Arco corridoio
+    
     public Graph() {
         adjList = new HashMap<>();
         init();
@@ -462,7 +465,7 @@ public class Graph {
         
         this.insert_edge(zona21, zona66, 0);
         
-        this.insert_edge(zona22, zona67, 0);
+        d = this.insert_edge(zona22, zona67, 0);
         this.insert_edge(zona22, zona30, 0);
         this.insert_edge(zona22, zona34, 0);
         this.insert_edge(zona22, zona29, 0);
@@ -481,7 +484,7 @@ public class Graph {
         
         this.insert_edge(zona28, zona71, 0);
         
-        this.insert_edge(zona29, zona85, 0);
+        b = this.insert_edge(zona29, zona85, 0);
         this.insert_edge(zona29, zona69, 0);
         this.insert_edge(zona29, zona70, 0);
         
@@ -515,7 +518,7 @@ public class Graph {
         this.insert_edge(zona40, zona123, 0);
         this.insert_edge(zona40, zona124, 0);
         
-        this.insert_edge(zona41, zona102, 0);
+        a = this.insert_edge(zona41, zona102, 0);
         this.insert_edge(zona41, zona118, 0);
         
         this.insert_edge(zona42, zona43, 0);
@@ -617,7 +620,7 @@ public class Graph {
         this.insert_edge(zona77, zona117, 0);
         
         this.insert_edge(zona78, zona120, 0);
-        this.insert_edge(zona78, zona109, 0);
+        c = this.insert_edge(zona78, zona109, 0);
         this.insert_edge(zona78, zona121, 0);
         
         this.insert_edge(zona79, zona80, 0);
@@ -709,7 +712,7 @@ public class Graph {
         
         // 117
         
-        this.insert_edge(zona111, zona118, 0);
+       this.insert_edge(zona111, zona118, 0);
         
         // 119
         
@@ -724,6 +727,8 @@ public class Graph {
         // 124
         
         // 125
+        
+        // 126
     }
     public int vertex_count(){
         return adjList.size();
@@ -787,6 +792,14 @@ public class Graph {
         
     }
     
+    public void remove_edge(Edge e){
+        Vertex u = e.origin;
+        Vertex v = e.destination;
+        
+        adjList.get(u).remove(v);
+        adjList.get(v).remove(u);
+    }
+    
     public void stampa(){
         for (Vertex v: adjList.keySet()){
             System.out.println("map fuori: "+v);
@@ -826,5 +839,25 @@ public class Graph {
             }
             level = nextLevel;
         }
+    }
+    
+    public void rimuoviEntrataLabirinto(){
+        this.remove_edge(a);
+        this.remove_edge(b);
+        this.remove_edge(c);
+    }
+    
+    public void inserisciEntrataLabirinto(){
+        a = this.insert_edge(zona41, zona102, 0);
+        b = this.insert_edge(zona29, zona85, 0);
+        c = this.insert_edge(zona78, zona109, 0);
+    }
+    
+    public void rimuoviCorridoio(){
+        this.remove_edge(d);
+    }
+    
+    public void inserisciCorridoio(){
+        d = this.insert_edge(zona22, zona67, 0);
     }
 }
