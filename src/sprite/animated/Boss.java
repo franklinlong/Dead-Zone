@@ -121,8 +121,9 @@ public class Boss extends Zombie{
             
         }
         
-        this.zona.aggiorna(getX(),getY());
+        
         if (morto==false){
+            this.zona.aggiorna(getX(),getY());
             Route traiettoria = new Route(player, this, handler);
 
             //Velocità dello zombie per raggiungere la zona corretta
