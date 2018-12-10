@@ -181,12 +181,6 @@ public class Player extends AnimatedSprite {
         setX(x);
         setY(y);
 
-//          if (x < 0) {
-//              x = 2;
-//          }
-//          if (y < 0) {
-//              y = 2;
-//          }
         int k = collision(velX, velY, x, y);
         switch (k) {
             case 1:
