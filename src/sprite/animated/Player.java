@@ -118,9 +118,9 @@ public class Player extends AnimatedSprite {
             shotgunReload = new Animation(Assets.femaleshotgunReload, 100);
             shotgunShoot = new Animation(Assets.femaleshotgunShootAnim, 80);
             
-            rpgIdle = new Animation(Assets.rpgIdle, 20);
-            rpgReload = new Animation(Assets.rpgReload, 100);
-            rpgShoot = new Animation(Assets.rpgShootAnim, 80);
+            rpgIdle = new Animation(Assets.femalerpgIdle, 20);
+            rpgReload = new Animation(Assets.femalerpgReload, 100);
+            rpgShoot = new Animation(Assets.femalerpgShootAnim, 80);
         }
 
         pistolShootSound = new Sound(Assets.pistolShoot);
@@ -151,7 +151,7 @@ public class Player extends AnimatedSprite {
                 5, 200, handler, 45);
 
         rpg = new Gun(Assets.rpgSkin, rpgIdle, rpgReload, rpgShoot, rpgShootSound,
-                rpgReloadSound, this, 1600,
+                rpgReloadSound, this, 1200,
                 1, 9, handler, 1000);
         
         currentGun = pistol;

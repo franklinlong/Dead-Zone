@@ -16,7 +16,7 @@ public class Projectile extends AnimatedSprite {
     private final static int BULLETDIAMETER = 6;
     protected Handler handler;
     protected final int damage;
-    
+    private boolean rpgEquip;
     
     public Projectile(float x, float y, float velX, float velY, int velocita, int health, Handler handler, int damage) {
         super(x, y, BULLETDIAMETER, BULLETDIAMETER, (float)velocita, health);
@@ -24,13 +24,9 @@ public class Projectile extends AnimatedSprite {
         this.velX = velocita * velX;
         this.velY = velocita * velY;
         this.handler = handler;
-    }
-
-    @Override
-    public void drawImage(Graphics g, float offsetX, float offsetY) {
-        if (this.handler.getPlayer().getCurrentGun().getSkin() == Assets.rpgSkin) {
-            //QUI FUNZIONA MA VA RIFATTO MEGLIO
-            if (velX == 0) {
+        rpgEquip=this.handler.getPlayer().getCurrentGun().getSkin() == Assets.rpgSkin;
+        //QUI FUNZIONA MA VA RIFATTO MEGLIO, da qui-->
+        if (velX == 0) {
                 if (velY > 0) {
                     this.setAngle((float) -Math.PI / 2);
                 } else if (velY < 0) {
@@ -44,6 +40,12 @@ public class Projectile extends AnimatedSprite {
                     this.setAngle((float) -Math.PI + this.getAngle());
                 }
             }
+        //<--fino a qui
+    }
+
+    @Override
+    public void drawImage(Graphics g, float offsetX, float offsetY) {
+        if (rpgEquip) {
             float xx, yy;
             xx = getX() - offsetX;
             yy = getY() - offsetY;
@@ -64,9 +66,9 @@ public class Projectile extends AnimatedSprite {
         this.setHealth(this.getHealth() - 1);
         if (dye()) {
             this.handler.getProiettili().remove(this);
-            if(this.handler.getPlayer().getCurrentGun().getSkin() == Assets.rpgSkin){
+            if(rpgEquip){
                 //ventaglio a 360 di proiettili
-                Circle circle = new Circle(this.getX(),this.getY(),200,200,1000,this.handler,new Animation(Assets.bossdeath,20));
+                Circle circle = new Circle(this.getX(),this.getY(),200,200,1000,this.handler);
                 this.handler.addSprite(circle);
                 }
             }
