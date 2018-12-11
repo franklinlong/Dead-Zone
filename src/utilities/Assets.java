@@ -28,15 +28,18 @@ public class Assets {
     public static BufferedImage[] femalepistolIdle = new BufferedImage[20];
     public static BufferedImage[] femalerifleIdle = new BufferedImage[20];
     public static BufferedImage[] femaleshotgunIdle = new BufferedImage[20];
-
+    public static BufferedImage[] femalerpgIdle = new BufferedImage[20];
+    
     public static BufferedImage[] femalepistolReload = new BufferedImage[15];
     public static BufferedImage[] femalerifleReload = new BufferedImage[20];
     public static BufferedImage[] femaleshotgunReload = new BufferedImage[20];
-
+    public static BufferedImage[] femalerpgReload = new BufferedImage[20];
+    
     public static BufferedImage[] femalepistolShootAnim = new BufferedImage[3];
     public static BufferedImage[] femalerifleShootAnim = new BufferedImage[3];
     public static BufferedImage[] femaleshotgunShootAnim = new BufferedImage[3];
-
+    public static BufferedImage[] femalerpgShootAnim = new BufferedImage[3];
+    
     public static BufferedImage[] zombie = new BufferedImage[17];
     public static BufferedImage[] zombieAttack = new BufferedImage[9];
 
@@ -53,6 +56,7 @@ public class Assets {
     
     public static BufferedImage[] fulmini = new BufferedImage[6];
     public static BufferedImage[] fuochi = new BufferedImage[2];
+    public static BufferedImage[] explosion = new BufferedImage[23];
     public static BufferedImage wall;
     public static BufferedImage hole;
 
@@ -69,7 +73,7 @@ public class Assets {
     public static BufferedImage spittle_o;
     public static BufferedImage spittle_no;
     public static BufferedImage spawnSpittle;
-    
+    public static BufferedImage rocketbull;
     //sounds		
     public static Clip pistolShoot, rifleShoot, shotgunShoot,rpgShoot, background, zombieHit, pistolReloadSound,
             rifleReloadSound, shotgunReloadSound, rpgReloadSound,rpgExplosionSound, emptyGun, zombieBite;
@@ -154,7 +158,10 @@ public class Assets {
         for (int i = 0; i < femaleshotgunIdle.length; i++) {
             femaleshotgunIdle[i] = Utilities.loadImage("/femalePlayer/idle/shotgunIdle/" + i + ".png");
         }
-
+        
+        for (int i = 0; i < femalerpgIdle.length; i++) {
+            femalerpgIdle[i] = Utilities.loadImage("/femalePlayer/idle/rocketIdle/" + i + ".png");
+        }
         //reload
         for (int i = 0; i < femalepistolReload.length; i++) {
             femalepistolReload[i] = Utilities.loadImage("/femalePlayer/reload/Pistol/" + i + ".png");
@@ -167,7 +174,10 @@ public class Assets {
         for (int i = 0; i < femaleshotgunReload.length; i++) {
             femaleshotgunReload[i] = Utilities.loadImage("/femalePlayer/reload/Shot/" + i + ".png");
         }
-
+        
+        for (int i = 0; i < femalerpgReload.length; i++) {
+            femalerpgReload[i] = Utilities.loadImage("/femalePlayer/reload/Rocket/" + i + ".png");
+        }
         //shot
         for (int i = 0; i < femalepistolShootAnim.length; i++) {
             femalepistolShootAnim[i] = Utilities.loadImage("/femalePlayer/shoot/Pistol/" + i + ".png");
@@ -179,6 +189,10 @@ public class Assets {
 
         for (int i = 0; i < femaleshotgunShootAnim.length; i++) {
             femaleshotgunShootAnim[i] = Utilities.loadImage("/femalePlayer/shoot/Shotgun/" + i + ".png");
+        }
+        
+        for (int i = 0; i < femalerpgShootAnim.length; i++) {
+            femalerpgShootAnim[i] = Utilities.loadImage("/femalePlayer/shoot/Rocket/" + i + ".png");
         }
 
         //zombie walk
@@ -239,13 +253,18 @@ public class Assets {
             fuochi[i] = Utilities.loadImage("/images/fuoco/" + i + ".png");
         }
         
+        //rocket explosion
+        for (int i = 0; i < explosion.length; i++) {
+            explosion[i] = Utilities.loadImage("/explosion/" + i + ".png");
+        }
+        
         //gun skins
         shotgunSkin = Utilities.loadImage("/guns/shotgun.png");
         pistolSkin = Utilities.loadImage("/guns/pistol.png");
         rpgSkin = Utilities.loadImage("/guns/rpg.png");
         ak47 = Utilities.loadImage("/guns/ak-47.png");
         rifleLoader = Utilities.loadImage("/guns/rifleLoader.png");
-
+        rocketbull= Utilities.loadImage("/guns/rocketbull.png");
         //Trap skins
         hole = Utilities.loadImage("/images/buca.png");
         wall = Utilities.loadImage("/images/muro.png");
