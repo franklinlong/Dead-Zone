@@ -5,7 +5,7 @@
  */
 package deadzone;
 
-import gameMenu.Menu;
+import gameMenu.MapFrame;
 import gameMenu.PauseMenu;
 import gameMenu.Settings;
 import java.util.logging.Level;
@@ -430,7 +430,7 @@ public class Waves implements Runnable {
             //System.out.println("Fine ondata");
             this.handler.getPlayer().updatePunteggio(score);
             if (Settings.soundMusic) {
-                Menu.gameMusic.stopSound();
+                MapFrame.gameMusic.stopSound();
                 endRound.playSound();
             }
             try {
@@ -439,7 +439,7 @@ public class Waves implements Runnable {
                 Logger.getLogger(Waves.class.getName()).log(Level.SEVERE, null, ex);
             }
             if (Settings.soundMusic) {
-                Menu.gameMusic.loopSound();
+                MapFrame.gameMusic.loopSound();
             }
             if (this.waveCount % 5 == 0) {
                 this.numWeakRound = 8;
