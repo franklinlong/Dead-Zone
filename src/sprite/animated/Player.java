@@ -210,6 +210,15 @@ public class Player extends AnimatedSprite {
 
     @Override
     public void drawImage(Graphics g, float offsetX, float offsetY) {
+        Graphics2D g2d = (Graphics2D) g;
+
+        //Controllo se mi trovo in vicinanza di una trappola
+        if(controlloAction()){
+            g2d.setColor(Color.YELLOW);
+            g2d.setFont(new Font("Comic Sans", Font.PLAIN, 20));
+            g2d.drawImage(Assets.actionImg, (int) (getX()-offsetX-115), (int) (getY()-offsetY) - 30, null);
+        }
+        
         xx = this.getX() - offsetX;
         yy = this.getY() - offsetY;
 
@@ -233,15 +242,10 @@ public class Player extends AnimatedSprite {
 
         at = AffineTransform.getTranslateInstance(xx, yy);
         at.rotate(angle, width / 2, height / 2);
-        Graphics2D g2d = (Graphics2D) g;
+        g2d = (Graphics2D) g;
         g2d.drawImage(currentGun.getCurrentAnimation().getCurrentFrame(), at, null);
         
-        //Controllo se mi trovo in vicinanza di una trappola
-        if(controlloAction()){
-            g2d.setColor(Color.RED);
-            g2d.setFont(new Font("Comic Sans", Font.PLAIN, 20));
-            g2d.drawString("press Q to activate the trap", getX()-offsetX-250, getY()-offsetY);
-        }
+        
     }
 
     public float getXX() {
@@ -370,7 +374,7 @@ public class Player extends AnimatedSprite {
                 case 150:
                     if(this.coins >=2 && !wallTrap1.isRunning()){
                         this.grafo.rimuoviCorridoio();
-                        handler.addSprite(new WallTrap((float)2400, (float)1890, 200, 30, handler, true));
+                        handler.addSprite(new WallTrap((float)2395, (float)1890, 200, 30, handler, true));
                         wallTrap1.start();
                         durataWall1.start();
                         this.updateCoins(-2);
@@ -395,7 +399,7 @@ public class Player extends AnimatedSprite {
                         this.grafo.rimuoviEntrataLabirinto();
                         handler.addSprite(new WallTrap((float)2525, (float)1217, 200, 30, handler, true));
                         handler.addSprite(new WallTrap((float)2750, (float)545, 200, 30, handler, true));
-                        handler.addSprite(new WallTrap((float)1965, (float)727, 200, 30, handler, false));
+                        handler.addSprite(new WallTrap((float)1980, (float)727, 200, 30, handler, false));
                         
                         durataWall2.start();
                         wallTrap2.start();
@@ -404,11 +408,6 @@ public class Player extends AnimatedSprite {
                     break;
             }
         }
-        //viene premuto R quindi reload
-        if (KAdapter.reload && currentGun.getRound() != currentGun.getBulletsPerRound()
-                && currentGun.getTotalBullets() > 0) {
-            currentGun.reload();
-        }
 
         //viene premuto left(mouse) quindi sparo
         if (MAdapter.left) {
@@ -416,6 +415,12 @@ public class Player extends AnimatedSprite {
             currentGun.shoot((float) (angle + (Math.random() - 0.5) * (Math.PI) / 36), x, y);
         }
 
+        //viene premuto tasto destro del mouse quindi reload
+        if(MAdapter.right && currentGun.getRound() != currentGun.getBulletsPerRound()
+                && currentGun.getTotalBullets() > 0){
+            currentGun.reload();
+        }
+        
         //aggiorno animazione del personaggio
         currentGun.update();
     }
@@ -493,6 +498,6 @@ public class Player extends AnimatedSprite {
     private boolean controlloAction(){
         int pixel = mapRGB.getRGB((int)getX()+width/2,(int)getY()+height/2);
         pixel = (pixel >> 8) & 0xff;
-        return pixel==130 || pixel == 115 || pixel == 49;
+        return pixel==130 || pixel == 115 || pixel == 49 || pixel == 255 || pixel == 150 || pixel == 155 || pixel == 99 || pixel == 189;
     }
 }

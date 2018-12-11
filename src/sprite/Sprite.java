@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import utilities.Assets;
 
 /**
  *
@@ -20,7 +21,7 @@ public abstract class Sprite {
 
     private float x, y;
     public int width, height;
-    public static BufferedImage mapRGB = Sprite.caricaMappaRGB();
+    public static BufferedImage mapRGB = Assets.mapRGB;
 
     public Sprite(float x, float y, int width, int height) {
         this.x = x;
@@ -47,18 +48,6 @@ public abstract class Sprite {
 
     public void setY(float y) {
         this.y = y;
-    }
-
-    private static BufferedImage caricaMappaRGB() {
-        BufferedImage image = null;
-
-        try {
-            image = ImageIO.read(new File("mapRGB.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return image;
     }
 
     public int getWidth() {

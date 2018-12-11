@@ -8,6 +8,7 @@ package listeners;
 import gameMenu.Settings;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 /**
  *
@@ -17,7 +18,7 @@ public class KAdapter extends KeyAdapter {
 
     public static boolean[] keys;
     public static boolean up, left, right, down;
-    public static boolean one, two, three,four, reload, action;
+    public static boolean one, two, three,four, action;
     public KAdapter() {
         keys = new boolean[256];
         up = false;
@@ -44,9 +45,8 @@ public class KAdapter extends KeyAdapter {
         one = keys[KeyEvent.VK_1];
         two = keys[KeyEvent.VK_2];
         three = keys[KeyEvent.VK_3];
-        four=keys[KeyEvent.VK_4];
-        reload = keys[KeyEvent.VK_R];
-        action = keys[KeyEvent.VK_Q];
+        four = keys[KeyEvent.VK_4];
+        action = keys[KeyEvent.VK_SPACE];
     }
 
     @Override

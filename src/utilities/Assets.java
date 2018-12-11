@@ -3,6 +3,11 @@ package utilities;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
@@ -90,6 +95,9 @@ public class Assets {
     public static BufferedImage greenIndicator;
     public static BufferedImage redIndicator;
     
+    public static BufferedImage mapRGB;
+    public static BufferedImage mapRGB2;
+    public static BufferedImage actionImg;
 
     public static void init() {
 
@@ -250,6 +258,9 @@ public class Assets {
         hole = Utilities.loadImage("/images/buca.png");
         wall = Utilities.loadImage("/images/muro.png");
         
+        //Action String Image
+        actionImg = Utilities.loadImage("/images/actionImg.png");
+        
         //blood 
         blood = Utilities.loadImage("/images/blood.png");
         //sounds
@@ -300,6 +311,13 @@ public class Assets {
         int mp_w = Toolkit.getDefaultToolkit().getScreenSize().width*18/100;
         ImageIcon i = new ImageIcon("resources/images/grigionero.png");
         minimap = i.getImage().getScaledInstance(mp_h, mp_w, Image.SCALE_DEFAULT);
+        
+        try {
+            mapRGB = ImageIO.read(new File("mapRGB.png"));
+            mapRGB2 = ImageIO.read(new File("mapRGB.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(Assets.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
 }
