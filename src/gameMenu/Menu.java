@@ -58,7 +58,7 @@ public class Menu extends javax.swing.JFrame {
         logo.setIcon(immagineLogo);
 
         if (gameMusic == null) {
-            this.gameClip = Utilities.LoadSound("/sound/gameMusic.wav");
+            this.gameClip = Utilities.LoadSound("/sound/MenuSong.wav");
             this.gameMusic = new Sound(gameClip);
             this.gameMusic.loopSound();
         }

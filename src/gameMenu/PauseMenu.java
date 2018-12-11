@@ -154,6 +154,8 @@ public class PauseMenu extends javax.swing.JDialog {
         JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
         topFrame.dispose();
         Menu menu = new Menu();
+        MapFrame.gameMusic.stopSound();
+        Menu.gameMusic.loopSound();
         menu.setVisible(true);
     }//GEN-LAST:event_ExitActionPerformed
 

@@ -6,11 +6,16 @@
 package gameMenu;
 
 import deadzone.Window;
+import utilities.Sound;
+import utilities.Utilities;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;
+
+import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -21,7 +26,9 @@ import javax.swing.JOptionPane;
 public class MapFrame extends javax.swing.JFrame {
 
     SinglePlayer sp;
-
+    public static Sound gameMusic;
+    public static Clip gameClip;
+    
     /**
      * Creates new form MapFrame
      */
@@ -163,6 +170,10 @@ public class MapFrame extends javax.swing.JFrame {
         if (jButtonStandardMap.isBorderPainted()) {
             new Window(sp.getPlayerName(), sp.isMale()).setVisible(true);
             this.setVisible(false);
+            Menu.gameMusic.stopSound();
+            this.gameClip = Utilities.LoadSound("/sound/gameMusic.wav");
+            this.gameMusic = new Sound(gameClip);
+            this.gameMusic.loopSound();
 
         } else {
             int w = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconWidth() * 1 / 6;

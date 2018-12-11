@@ -6,8 +6,14 @@
 package gameMenu;
 
 import java.awt.Image;
+
+import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+
+import utilities.Assets;
+import utilities.Sound;
+import utilities.Utilities;
 
 /**
  *
@@ -16,7 +22,8 @@ import javax.swing.JFrame;
 public class GameOver extends javax.swing.JFrame {
 
     JFrame parent;
-
+    public static Sound soundEndGame;
+    public static Clip clipEndGame;
     /**
      * Creates new form GameOver
      *
@@ -31,6 +38,9 @@ public class GameOver extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+        this.clipEndGame = Utilities.LoadSound("/sound/endGame.wav");
+        this.soundEndGame = new Sound(clipEndGame);
+        this.soundEndGame.playSound();
     }
 
     /**
@@ -72,6 +82,8 @@ public class GameOver extends javax.swing.JFrame {
         parent.dispose();
         Menu menu = new Menu();
         menu.setVisible(true);
+        this.soundEndGame.stopSound();
+        Menu.gameMusic.loopSound();
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
