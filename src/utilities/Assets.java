@@ -84,6 +84,8 @@ public class Assets {
             rifleReloadSound, shotgunReloadSound, rpgReloadSound,rpgExplosionSound, emptyGun, zombieBite;
     public static Clip endGame, endOfRound;
     public static Clip restoreHealth, nukeExplosion, coinsDrop;
+    
+    public static Clip shockTrap, wallTrap, holeTrap, fireTrap;
 
     //blood
     public static BufferedImage blood;
@@ -337,6 +339,12 @@ public class Assets {
         } catch (IOException ex) {
             Logger.getLogger(Assets.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        //Trap
+        
+        shockTrap = Utilities.LoadSound("/sound/scossa.wav");
+        fireTrap = Utilities.LoadSound("/sound/fuoco.wav");
+        wallTrap = Utilities.LoadSound("/sound/muro.wav");
         
     }
 }

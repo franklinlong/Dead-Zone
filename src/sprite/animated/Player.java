@@ -51,6 +51,11 @@ public class Player extends AnimatedSprite {
     private final Sound shotgunShootSound, shotgunReloadSound;
     private final Sound rpgShootSound, rpgReloadSound;
 
+    
+    // trap
+    
+    private final Sound shockTrapS, wallTrapS, fireTrapS;
+    
     //Handler che serve per rimuovere il player quando muore
     private final Handler handler;
 
@@ -138,6 +143,10 @@ public class Player extends AnimatedSprite {
         rpgShootSound = new Sound(Assets.rpgShoot);
         rpgReloadSound = new Sound(Assets.rpgReloadSound);
         
+        shockTrapS = new Sound(Assets.shockTrap);
+        fireTrapS = new Sound(Assets.fireTrap);
+        wallTrapS = new Sound(Assets.wallTrap);
+        
         pistol = new Gun(Assets.pistolSkin, pistolIdle, pistolReload, pistolShoot, pistolShootSound,
                 pistolReloadSound, this, 400,
                 9, 200, handler, 50);
@@ -157,33 +166,36 @@ public class Player extends AnimatedSprite {
         
         shockTrap1 = new Timer(10000, (ActionEvent ae) -> {
             shockTrap1.stop();
-            //stop musica
+            shockTrapS.stopSound();
         });
         
         shockTrap2 = new Timer(10000, (ActionEvent ae) -> {
             //stop musica
             shockTrap2.stop();
+            shockTrapS.stopSound();
 
         });
         
         shockTrap3 = new Timer(10000, (ActionEvent ae) -> {
             shockTrap3.stop();    
-            //stop musica
+            shockTrapS.stopSound();
+
         });
 
         fireTrap = new Timer(10000, (ActionEvent ae) -> {
             fireTrap.stop();    
-            //stop musica
+            fireTrapS.stopSound();
+
         });
         
         wallTrap1 = new Timer(10000, (ActionEvent ae) -> {
             wallTrap1.stop();    
-            //stop musica
+            wallTrapS.stopSound();
         });
         
         wallTrap2 = new Timer(10000, (ActionEvent ae) -> {
             wallTrap2.stop();    
-            //stop musica
+            wallTrapS.stopSound();
         });
         
         holeTrap1 = new Timer(10000, (ActionEvent ae) -> {
@@ -196,12 +208,12 @@ public class Player extends AnimatedSprite {
             //stop musica
         });
         
-        durataWall1 = new Timer(5000, (ActionEvent ae) -> {
+        durataWall1 = new Timer(10000, (ActionEvent ae) -> {
             durataWall1.stop();
             this.grafo.inserisciCorridoio();
         });
         
-        durataWall2 = new Timer(5000, (ActionEvent ae) -> {
+        durataWall2 = new Timer(10000, (ActionEvent ae) -> {
             durataWall2.stop();
             this.grafo.inserisciEntrataLabirinto();
         });
@@ -335,77 +347,8 @@ public class Player extends AnimatedSprite {
         if(KAdapter.action){
             int pixel = mapRGB.getRGB((int)getX()+width/2,(int)getY()+height/2);
             pixel = (pixel >> 8) & 0xff;
-            switch(pixel){
-                case 130:
-                    if(this.coins>=2 && !shockTrap1.isRunning()){
-                        handler.addSprite(new ShockTrap((float) 564,(float) 2253, 155, 24, handler, true));
-                        shockTrap1.start();
-                        //start musica
-                        this.updateCoins(-2);
-                    }
-                    break;
-                    
-                case 115:
-                    if(this.coins>=2 && !shockTrap2.isRunning()){
-                        handler.addSprite(new ShockTrap((float) 560,(float) 2970, 155, 24, handler, true));
-                        shockTrap2.start();
-                        //start musica
-                        this.updateCoins(-2);
-                    }
-                    break;
-                 
-                case 49:
-                    if(this.coins>=2 && !shockTrap3.isRunning()){
-                        handler.addSprite(new ShockTrap((float) 221,(float) 630, 155, 24, handler, false));
-                        shockTrap3.start();
-                        //start musica
-                        this.updateCoins(-2);
-                    }
-                    break;
-                case 255:
-                    if(this.coins>=2 && !fireTrap.isRunning()){
-                        handler.addSprite(new FireTrap((float) 322,(float) 1350, 1321, 600, handler));
-                        fireTrap.start();
-                        //start musica
-                        this.updateCoins(-2);
-                    }
-                    break;
-                case 150:
-                    if(this.coins >=2 && !wallTrap1.isRunning()){
-                        this.grafo.rimuoviCorridoio();
-                        handler.addSprite(new WallTrap((float)2395, (float)1890, 200, 30, handler, true));
-                        wallTrap1.start();
-                        durataWall1.start();
-                        this.updateCoins(-2);
-                    }
-                    break;
-                case 155:
-                    if(this.coins >=2 && !holeTrap1.isRunning()){
-                        handler.addSprite(new HoleTrap((float)2670, (float)2240, 60, 60, handler));
-                        holeTrap1.start();
-                        this.updateCoins(-2);
-                    }
-                    break;
-                case 99:
-                    if(this.coins >=2 && !holeTrap2.isRunning()){
-                        handler.addSprite(new HoleTrap((float)1440, (float)1020, 60, 60, handler));
-                        holeTrap2.start();
-                        this.updateCoins(-2);
-                    }
-                    break;
-                case 189:
-                    if(this.coins >=2 && !wallTrap2.isRunning()){
-                        this.grafo.rimuoviEntrataLabirinto();
-                        handler.addSprite(new WallTrap((float)2525, (float)1217, 200, 30, handler, true));
-                        handler.addSprite(new WallTrap((float)2750, (float)545, 200, 30, handler, true));
-                        handler.addSprite(new WallTrap((float)1980, (float)727, 200, 30, handler, false));
-                        
-                        durataWall2.start();
-                        wallTrap2.start();
-                        this.updateCoins(-2);
-                    }
-                    break;
-            }
+            activeTrap(pixel);
+
         }
 
         //viene premuto left(mouse) quindi sparo
@@ -496,5 +439,87 @@ public class Player extends AnimatedSprite {
         int pixel = mapRGB.getRGB((int)getX()+width/2,(int)getY()+height/2);
         pixel = (pixel >> 8) & 0xff;
         return pixel==130 || pixel == 115 || pixel == 49 || pixel == 255 || pixel == 150 || pixel == 155 || pixel == 99 || pixel == 189;
+    }
+    
+    private void activeTrap(int pixel){
+        
+        switch (pixel) {
+            case 130:
+                if (this.coins >= 2 && !shockTrap1.isRunning()) {
+                    handler.addSprite(new ShockTrap((float) 564, (float) 2253, 155, 24, handler, true));
+                    shockTrap1.start();
+                    shockTrapS.loopSound();
+                    //start musica
+                    this.updateCoins(-2);
+                }
+                break;
+
+            case 115:
+                if (this.coins >= 2 && !shockTrap2.isRunning()) {
+                    handler.addSprite(new ShockTrap((float) 560, (float) 2970, 155, 24, handler, true));
+                    shockTrap2.start();
+                    shockTrapS.loopSound();
+                    //start musica
+                    this.updateCoins(-2);
+                }
+                break;
+
+            case 49:
+                if (this.coins >= 2 && !shockTrap3.isRunning()) {
+                    handler.addSprite(new ShockTrap((float) 221, (float) 630, 155, 24, handler, false));
+                    shockTrap3.start();
+                    //start musica
+                    this.updateCoins(-2);
+                    shockTrapS.loopSound();
+                }
+                break;
+            case 255:
+                if (this.coins >= 2 && !fireTrap.isRunning()) {
+                    handler.addSprite(new FireTrap((float) 322, (float) 1350, 1321, 600, handler));
+                    fireTrap.start();
+                    //start musica
+                    this.updateCoins(-2);
+                    fireTrapS.loopSound();
+                }
+                break;
+            case 150:
+                if (this.coins >= 2 && !wallTrap1.isRunning()) {
+                    this.grafo.rimuoviCorridoio();
+                    handler.addSprite(new WallTrap((float) 2395, (float) 1890, 200, 30, handler, true));
+                    wallTrap1.start();
+                    durataWall1.start();
+                    this.updateCoins(-2);
+                    wallTrapS.loopSound();
+                }
+                break;
+            case 155:
+                if (this.coins >= 2 && !holeTrap1.isRunning()) {
+                    handler.addSprite(new HoleTrap((float) 2670, (float) 2240, 60, 60, handler));
+                    holeTrap1.start();
+                    this.updateCoins(-2);
+                }
+                break;
+            case 99:
+                if (this.coins >= 2 && !holeTrap2.isRunning()) {
+                    handler.addSprite(new HoleTrap((float) 1440, (float) 1020, 60, 60, handler));
+                    holeTrap2.start();
+                    this.updateCoins(-2);
+                }
+                break;
+            case 189:
+                if (this.coins >= 2 && !wallTrap2.isRunning()) {
+                    this.grafo.rimuoviEntrataLabirinto();
+                    handler.addSprite(new WallTrap((float) 2525, (float) 1217, 200, 30, handler, true));
+                    handler.addSprite(new WallTrap((float) 2750, (float) 545, 200, 30, handler, true));
+                    handler.addSprite(new WallTrap((float) 1980, (float) 727, 200, 30, handler, false));
+
+                    durataWall2.start();
+                    wallTrap2.start();
+                    this.updateCoins(-2);
+                    wallTrapS.loopSound();
+                }
+                break;
+        }
+        
     }
 }
