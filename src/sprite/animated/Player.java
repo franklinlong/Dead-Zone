@@ -12,7 +12,8 @@ import utilities.Animation;
 import utilities.Assets;
 import deadzone.Gun;
 import deadzone.Handler;
-import gameMenu.Menu;
+import gameMenu.GameOver;
+import gameMenu.MapFrame;
 import java.awt.Color;
 import java.awt.Font;
 import utilities.Sound;
@@ -49,8 +50,6 @@ public class Player extends AnimatedSprite {
     private final Sound pistolShootSound, pistolReloadSound;
     private final Sound shotgunShootSound, shotgunReloadSound;
     private final Sound rpgShootSound, rpgReloadSound;
-    
-    private final Sound soundEndGame;
 
     //Handler che serve per rimuovere il player quando muore
     private final Handler handler;
@@ -67,6 +66,7 @@ public class Player extends AnimatedSprite {
     private int zombieKilled;
     private final int maximumHealth;
     private int coins;
+    private Graphics2D g2;
         
     private Map<Vertex,Edge> camminiMinimi;
     //Timer trap
@@ -85,6 +85,7 @@ public class Player extends AnimatedSprite {
         this.maximumHealth = health;
         this.coins = 11;
         this.trap = true;
+        //g2.drawString("press Q to activate the trap", getX()-offsetX-250, getY()-offsetY);
         
         this.zona = new Zona(getX(), getY());
         grafo = new Graph();
@@ -118,9 +119,9 @@ public class Player extends AnimatedSprite {
             shotgunReload = new Animation(Assets.femaleshotgunReload, 100);
             shotgunShoot = new Animation(Assets.femaleshotgunShootAnim, 80);
             
-            rpgIdle = new Animation(Assets.rpgIdle, 20);
-            rpgReload = new Animation(Assets.rpgReload, 100);
-            rpgShoot = new Animation(Assets.rpgShootAnim, 80);
+            rpgIdle = new Animation(Assets.femalerpgIdle, 20);
+            rpgReload = new Animation(Assets.femalerpgReload, 100);
+            rpgShoot = new Animation(Assets.femalerpgShootAnim, 80);
         }
 
         pistolShootSound = new Sound(Assets.pistolShoot);
@@ -137,8 +138,6 @@ public class Player extends AnimatedSprite {
         rpgShootSound = new Sound(Assets.rpgShoot);
         rpgReloadSound = new Sound(Assets.rpgReloadSound);
         
-        soundEndGame = new Sound(Assets.endGame);
-        soundEndGame.changeVolume(6);
         pistol = new Gun(Assets.pistolSkin, pistolIdle, pistolReload, pistolShoot, pistolShootSound,
                 pistolReloadSound, this, 400,
                 9, 200, handler, 50);
@@ -151,7 +150,7 @@ public class Player extends AnimatedSprite {
                 5, 200, handler, 45);
 
         rpg = new Gun(Assets.rpgSkin, rpgIdle, rpgReload, rpgShoot, rpgShootSound,
-                rpgReloadSound, this, 1600,
+                rpgReloadSound, this, 1200,
                 1, 9, handler, 1000);
         
         currentGun = pistol;
@@ -442,9 +441,7 @@ public class Player extends AnimatedSprite {
     public void death() {
         this.isDeath = true;
         handler.removeSprite(this);
-        Menu.gameMusic.stopSound();
-        Menu.gameMusic = null;
-        soundEndGame.playSound();
+        MapFrame.gameMusic.stopSound();
     }
 
     public int getPunteggioAttuale() {
