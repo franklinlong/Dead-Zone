@@ -26,6 +26,7 @@ public class Projectile extends AnimatedSprite {
         this.handler = handler;
         rpgEquip=this.handler.getPlayer().getCurrentGun().getSkin() == Assets.rpgSkin;
         //QUI FUNZIONA MA VA RIFATTO MEGLIO, da qui-->
+        if(rpgEquip){
         if (velX == 0) {
                 if (velY > 0) {
                     this.setAngle((float) -Math.PI / 2);
@@ -40,6 +41,7 @@ public class Projectile extends AnimatedSprite {
                     this.setAngle((float) -Math.PI + this.getAngle());
                 }
             }
+        }
         //<--fino a qui
     }
 
