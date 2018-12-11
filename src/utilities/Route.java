@@ -39,20 +39,24 @@ public class Route {
             return seek(target.getX(), target.getY(), target.width, target.height);
         }
         else {
+//            System.out.println("player: "+((Player) target).getZona().getIndex());
             Vertex origin = new Vertex(zombie.getZona().getIndex());
             Edge edge = ((Player) target).getCamminiMinimi().get(origin);
+//            System.out.println("origin: "+origin);
+//            System.out.println("edge: "+edge);
             Vertex destination;
             try{
                 destination = edge.opposite(origin);
                 float c[] = Zona.centro(destination.getElement());
                 float c_x = c[0];
                 float c_y = c[1];
+//                System.out.println("destionation1: "+destination);
                 return seek(c_x, c_y, 0, 0);
             }catch(NullPointerException e){
                 float c[] = Zona.centro(origin.getElement());
                 float c_x = c[0];
                 float c_y = c[1];
-                System.out.println("c_x:"+c_x +" c_y="+c_y);
+//                System.out.println("destionation2: "+origin);
                 return seek(c_x, c_y, 0, 0);
             }
 

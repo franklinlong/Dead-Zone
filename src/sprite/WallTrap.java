@@ -33,8 +33,6 @@ public class WallTrap extends Trap{
 
     @Override
     public void drawImage(Graphics g, float offsetX, float offsetY) {
-//        g.setColor(Color.yellow);
-//        g.fillRect((int) (getX() - offsetX),(int) (getY() - offsetY), width, height);
         if(!this.orizzontale){
             AffineTransform at = AffineTransform.getTranslateInstance((int) (getX() - offsetX), (int) (getY() - offsetY));
             at.rotate(Math.PI/2);
