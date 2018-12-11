@@ -716,7 +716,7 @@ public class Graph {
         
         // 117
         
-       this.insert_edge(zona118, zona118, 0);
+       this.insert_edge(zona118, zona126, 0);
         
         // 119
         
