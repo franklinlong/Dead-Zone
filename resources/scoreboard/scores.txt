@@ -3,4 +3,5 @@ frank_long 1055
 rf 680
 Andrer 10
 francesco 10
+cd 0
 fe 0
