@@ -69,7 +69,7 @@ public class Assets {
     public static BufferedImage spittle_o;
     public static BufferedImage spittle_no;
     public static BufferedImage spawnSpittle;
-    
+    public static BufferedImage rocketbull;
     //sounds		
     public static Clip pistolShoot, rifleShoot, shotgunShoot,rpgShoot, background, zombieHit, pistolReloadSound,
             rifleReloadSound, shotgunReloadSound, rpgReloadSound,rpgExplosionSound, emptyGun, zombieBite;
@@ -245,7 +245,7 @@ public class Assets {
         rpgSkin = Utilities.loadImage("/guns/rpg.png");
         ak47 = Utilities.loadImage("/guns/ak-47.png");
         rifleLoader = Utilities.loadImage("/guns/rifleLoader.png");
-
+        rocketbull= Utilities.loadImage("/guns/rockbull.png");
         //Trap skins
         hole = Utilities.loadImage("/images/buca.png");
         wall = Utilities.loadImage("/images/muro.png");

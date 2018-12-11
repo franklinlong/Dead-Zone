@@ -3,8 +3,12 @@ package sprite.animated;
 import deadzone.Handler;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import sprite.Circle;
 import sprite.Sprite;
+import static sprite.animated.StandardZombie.ZOMBIESIZE;
+import utilities.Animation;
 import utilities.Assets;
 
 public class Projectile extends AnimatedSprite {
@@ -12,7 +16,8 @@ public class Projectile extends AnimatedSprite {
     private final static int BULLETDIAMETER = 6;
     protected Handler handler;
     protected final int damage;
-
+    
+    
     public Projectile(float x, float y, float velX, float velY, int velocita, int health, Handler handler, int damage) {
         super(x, y, BULLETDIAMETER, BULLETDIAMETER, (float)velocita, health);
         this.damage = damage;
@@ -23,8 +28,33 @@ public class Projectile extends AnimatedSprite {
 
     @Override
     public void drawImage(Graphics g, float offsetX, float offsetY) {
-        g.setColor(Color.RED);
-        g.fillOval((int) (getX() - offsetX), (int) (getY() - offsetY), BULLETDIAMETER, BULLETDIAMETER);
+        if (this.handler.getPlayer().getCurrentGun().getSkin() == Assets.rpgSkin) {
+            //QUI FUNZIONA MA VA RIFATTO MEGLIO
+            if (velX == 0) {
+                if (velY > 0) {
+                    this.setAngle((float) -Math.PI / 2);
+                } else if (velY < 0) {
+                    this.setAngle((float) +Math.PI / 2);
+                } else {
+                    System.err.println("Penso sia tutto ok... ma non lo è, nella drow del proeittile dell'rpg");
+                }
+            } else {
+                this.setAngle((float) Math.atan(velY / velX));
+                if (velX < 0) {
+                    this.setAngle((float) -Math.PI + this.getAngle());
+                }
+            }
+            float xx, yy;
+            xx = getX() - offsetX;
+            yy = getY() - offsetY;
+            at = AffineTransform.getTranslateInstance(xx, yy);
+            at.rotate(angle, BULLETDIAMETER / 2, BULLETDIAMETER / 2);
+            Graphics2D g2d = (Graphics2D) g;
+            g2d.drawImage(Assets.rocketbull, at, null);
+        } else {
+            g.setColor(Color.RED);
+            g.fillOval((int) (getX() - offsetX), (int) (getY() - offsetY), BULLETDIAMETER, BULLETDIAMETER);
+        }
     }
 
     @Override
@@ -36,7 +66,7 @@ public class Projectile extends AnimatedSprite {
             this.handler.getProiettili().remove(this);
             if(this.handler.getPlayer().getCurrentGun().getSkin() == Assets.rpgSkin){
                 //ventaglio a 360 di proiettili
-                Circle circle = new Circle(this.getX(),this.getY(),200,200,1000,this.handler);
+                Circle circle = new Circle(this.getX(),this.getY(),200,200,1000,this.handler,new Animation(Assets.bossdeath,20));
                 this.handler.addSprite(circle);
                 }
             }

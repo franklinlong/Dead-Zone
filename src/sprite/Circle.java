@@ -7,10 +7,12 @@ package sprite;
 
 import deadzone.Handler;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import static sprite.Sprite.mapRGB;
 import sprite.animated.Zombie;
+import utilities.Animation;
 import utilities.Assets;
 
 /**
@@ -22,16 +24,22 @@ public class Circle extends Sprite{
     private Handler handler;
     private final int damage;
     private int health=50;
-    //Shape circle = new Ellipse2D.Float(100.0f, 100.0f, 100.0f, 100.0f);
-    public Circle(float x, float y, int width, int height, int damage, Handler handler) {
+    private boolean morto=false;
+    private Animation deathAnimation;
+    
+    public Circle(float x, float y, int width, int height, int damage, Handler handler, Animation deathAnimation) {
         super(x, y, BULLETDIAMETER, BULLETDIAMETER);
         this.damage = damage;
         this.handler = handler;
+        this.deathAnimation=deathAnimation;
     }
 
     @Override
     public void drawImage(Graphics g, float offsetX, float offsetY) {
-        
+        if(morto==true){
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.drawImage(deathAnimation.getCurrentFrame(),(int)(this.getX() - offsetX), (int) (this.getY() - offsetY), null);
+        }
     }
     
 
@@ -48,16 +56,15 @@ public class Circle extends Sprite{
                 }
             }
         }
-        if (dye()) {
-            System.out.println("m");
-            this.handler.removeSprite(this);
-        }
+        if (dye()) this.handler.removeSprite(this);
     }
     
     public boolean dye() {
-        if (health == 0) {
-            return true;
+        if (health == 0 && morto==false) {
+            deathAnimation.setIndex();
+            morto=true;
         }
+        if(deathAnimation.getIndex()==22) return true;
         return false;
     }
     
