@@ -67,6 +67,7 @@ public class Player extends AnimatedSprite {
     private int zombieKilled;
     private final int maximumHealth;
     private int coins;
+    private Graphics2D g2;
         
     private Map<Vertex,Edge> camminiMinimi;
     //Timer trap
@@ -85,6 +86,7 @@ public class Player extends AnimatedSprite {
         this.maximumHealth = health;
         this.coins = 11;
         this.trap = true;
+        //g2.drawString("press Q to activate the trap", getX()-offsetX-250, getY()-offsetY);
         
         this.zona = new Zona(getX(), getY());
         grafo = new Graph();
