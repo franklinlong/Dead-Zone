@@ -18,6 +18,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
 import java.util.Map;
 import javax.swing.Timer;
 import listeners.*;
@@ -51,7 +52,8 @@ public class Player extends AnimatedSprite {
     
     // trap
     
-    private final Sound shockTrapS, wallTrapS, fireTrapS;
+    private final Sound shockTrapS1, shockTrapS2, shockTrapS3, wallTrapS1, 
+            wallTrapS2,fireTrapS;
     
     //Handler che serve per rimuovere il player quando muore
     private final Handler handler;
@@ -71,13 +73,13 @@ public class Player extends AnimatedSprite {
     private Graphics2D g2;
         
     private Map<Vertex,Edge> camminiMinimi;
-    //Timer trap
-    Timer shockTrap1,shockTrap2,shockTrap3;
-    Timer fireTrap,wallTrap1,wallTrap2, holeTrap1,holeTrap2;
-    Timer durataWall1, durataWall2;
     private boolean trap;
     private final Graph grafo;
-
+    
+    private boolean shockTrapActive1=false, shockTrapActive2=false, 
+            shockTrapActive3=false, wallTrapActive1=false, wallTrapActive2=false,
+            fireTrapActive=false, holeTrapActive1=false, holeTrapActive2=false;
+    
     public Player(float x, float y, int vel, int health, Handler handler, String name, boolean male) {
         super(x, y, PLAYERSIZE, PLAYERSIZE, (float)vel, health);
         this.punteggioAttuale = 0;
@@ -85,10 +87,8 @@ public class Player extends AnimatedSprite {
         this.male = male;
         this.name = name;
         this.maximumHealth = health;
-        this.coins = 11;
+        this.coins = 20;
         this.trap = true;
-        //g2.drawString("press Q to activate the trap", getX()-offsetX-250, getY()-offsetY);
-        
         this.zona = new Zona(getX(), getY());
         grafo = new Graph();
         camminiMinimi = Graph.BFS_complete(new Vertex(zona.getIndex()));
@@ -140,9 +140,15 @@ public class Player extends AnimatedSprite {
         rpgShootSound = new Sound(Assets.rpgShoot);
         rpgReloadSound = new Sound(Assets.rpgReloadSound);
         
-        shockTrapS = new Sound(Assets.shockTrap);
+        shockTrapS1 = new Sound(Assets.shockTrap1);
+        shockTrapS2 = new Sound(Assets.shockTrap2);
+        shockTrapS3 = new Sound(Assets.shockTrap3);
+        
         fireTrapS = new Sound(Assets.fireTrap);
-        wallTrapS = new Sound(Assets.wallTrap);
+        
+        wallTrapS1 = new Sound(Assets.wallTrap);
+        wallTrapS2 = new Sound(Assets.wallTrap);
+
         
         pistol = new Gun(Assets.pistolSkin, pistolIdle, pistolReload, pistolShoot, pistolShootSound,
                 pistolReloadSound, this, 400,
@@ -161,59 +167,7 @@ public class Player extends AnimatedSprite {
         
         currentGun = pistol;
         
-        shockTrap1 = new Timer(10000, (ActionEvent ae) -> {
-            shockTrap1.stop();
-            shockTrapS.stopSound();
-        });
         
-        shockTrap2 = new Timer(10000, (ActionEvent ae) -> {
-            //stop musica
-            shockTrap2.stop();
-            shockTrapS.stopSound();
-
-        });
-        
-        shockTrap3 = new Timer(10000, (ActionEvent ae) -> {
-            shockTrap3.stop();    
-            shockTrapS.stopSound();
-
-        });
-
-        fireTrap = new Timer(10000, (ActionEvent ae) -> {
-            fireTrap.stop();    
-            fireTrapS.stopSound();
-
-        });
-        
-        wallTrap1 = new Timer(10000, (ActionEvent ae) -> {
-            wallTrap1.stop();    
-            wallTrapS.stopSound();
-        });
-        
-        wallTrap2 = new Timer(10000, (ActionEvent ae) -> {
-            wallTrap2.stop();    
-            wallTrapS.stopSound();
-        });
-        
-        holeTrap1 = new Timer(10000, (ActionEvent ae) -> {
-            holeTrap1.stop();    
-            //stop musica
-        });
-        
-        holeTrap2 = new Timer(10000, (ActionEvent ae) -> {
-            holeTrap2.stop();    
-            //stop musica
-        });
-        
-        durataWall1 = new Timer(10000, (ActionEvent ae) -> {
-            durataWall1.stop();
-            this.grafo.inserisciCorridoio();
-        });
-        
-        durataWall2 = new Timer(10000, (ActionEvent ae) -> {
-            durataWall2.stop();
-            this.grafo.inserisciEntrataLabirinto();
-        });
     }
 
     @Override
@@ -440,87 +394,113 @@ public class Player extends AnimatedSprite {
         
         switch (pixel) {
             case 130:
-                if (this.coins >= 2 && !shockTrap1.isRunning()) {
-                    handler.addSprite(new ShockTrap((float) 564, (float) 2253, 155, 24, handler, true, shockTrap1));
-                    shockTrap1.start();
-                    shockTrapS.loopSound();
-                    //start musica
+                if (this.coins >= 2 && !this.shockTrapActive1) {
+                    handler.addSprite(new ShockTrap((float) 564, (float) 2253, 155, 24, handler, true, 500, this.shockTrapS1, 1));
                     this.updateCoins(-2);
+                    this.shockTrapActive1=true;
                 }
                 break;
 
             case 115:
-                if (this.coins >= 2 && !shockTrap2.isRunning()) {
-                    handler.addSprite(new ShockTrap((float) 560, (float) 2970, 155, 24, handler, true, shockTrap2));
-                    shockTrap2.start();
-                    shockTrapS.loopSound();
-                    //start musica
+                if (this.coins >= 2 && !this.shockTrapActive2) {
+                    handler.addSprite(new ShockTrap((float) 560, (float) 2970, 155, 24, handler, true, 500, this.shockTrapS2, 2));
                     this.updateCoins(-2);
+                    this.shockTrapActive2=true;
                 }
                 break;
 
             case 49:
-                if (this.coins >= 2 && !shockTrap3.isRunning()) {
-                    handler.addSprite(new ShockTrap((float) 221, (float) 630, 155, 24, handler, false, shockTrap3));
-                    shockTrap3.start();
-                    //start musica
+                if (this.coins >= 2 && !this.shockTrapActive3) {
+                    handler.addSprite(new ShockTrap((float) 221, (float) 630, 155, 24, handler, false, 500, this.shockTrapS3, 3));
                     this.updateCoins(-2);
-                    shockTrapS.loopSound();
+                    this.shockTrapActive3=true;
                 }
                 break;
             case 255:
-                if (this.coins >= 2 && !fireTrap.isRunning()) {
-                    for(int i=0;i<14;i++)
-                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1400, 120, 66, handler, fireTrap, true));
-                    for(int i=0;i<14;i++)
-                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1860, 120, 66, handler, fireTrap, true));    
+                if (this.coins >= 2 && !this.fireTrapActive) {
+                    for(int i=0;i<7;i++)
+                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1400, 120, 66, handler, true, 440, this.fireTrapS));
+                    for(int i=7;i<14;i++)
+                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1400, 120, 66, handler, true, 460, this.fireTrapS));
                     for(int i=0;i<5;i++)
-                        handler.addSprite(new FireTrap((float) 170, (float) 1450 + 66*i, 120, 66, handler, fireTrap, false));
+                        handler.addSprite(new FireTrap((float) 1730, (float) 1450 + 66*i, 120, 66, handler, false, 480, this.fireTrapS));
+                    for(int i=0;i<7;i++)
+                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1860, 120, 66, handler ,true, 520, this.fireTrapS));    
+                    for(int i=7;i<14;i++)
+                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1860, 120, 66, handler ,true, 500, this.fireTrapS));    
                     for(int i=0;i<5;i++)
-                        handler.addSprite(new FireTrap((float) 1730, (float) 1450 + 66*i, 120, 66, handler, fireTrap, false));
-                    fireTrap.start();
+                        handler.addSprite(new FireTrap((float) 170, (float) 1450 + 66*i, 120, 66, handler, false, 540, this.fireTrapS));
                     this.updateCoins(-2);
-                    fireTrapS.loopSound();
+                    this.fireTrapActive=true;
                 }
                 break;
             case 150:
-                if (this.coins >= 2 && !wallTrap1.isRunning()) {
+                if (this.coins >= 2 &&  !this.wallTrapActive1) {
                     this.grafo.rimuoviCorridoio();
-                    handler.addSprite(new WallTrap((float) 2395, (float) 1890, 200, 30, handler, true, durataWall1));
-                    wallTrap1.start();
-                    durataWall1.start();
+                    handler.addSprite(new WallTrap((float) 2395, (float) 1890, 200, 30, handler, true, 500, this.wallTrapS1, 1));
                     this.updateCoins(-2);
-                    wallTrapS.playSound();
+                    this.wallTrapActive1=true;
                 }
                 break;
             case 155:
-                if (this.coins >= 2 && !holeTrap1.isRunning()) {
-                    handler.addSprite(new HoleTrap((float) 2670, (float) 2240, 60, 60, handler, holeTrap1));
-                    holeTrap1.start();
+                if (this.coins >= 2 && !this.holeTrapActive1) {
+                    handler.addSprite(new HoleTrap((float) 2670, (float) 2240, 60, 60, handler, 500, null, 1));
                     this.updateCoins(-2);
+                    this.holeTrapActive1=true;
                 }
                 break;
             case 99:
-                if (this.coins >= 2 && !holeTrap2.isRunning()) {
-                    handler.addSprite(new HoleTrap((float) 1440, (float) 1020, 60, 60, handler, holeTrap2));
-                    holeTrap2.start();
+                if (this.coins >= 2 && !this.holeTrapActive2) {
+                    handler.addSprite(new HoleTrap((float) 1440, (float) 1020, 60, 60, handler, 500, null, 2));
                     this.updateCoins(-2);
+                    this.holeTrapActive2=true;
                 }
                 break;
             case 189:
-                if (this.coins >= 2 && !wallTrap2.isRunning()) {
+                if (this.coins >= 2 && !this.wallTrapActive2) {
                     this.grafo.rimuoviEntrataLabirinto();
-                    handler.addSprite(new WallTrap((float) 2525, (float) 1217, 200, 30, handler, true, durataWall2));
-                    handler.addSprite(new WallTrap((float) 2750, (float) 545, 200, 30, handler, true, durataWall2));
-                    handler.addSprite(new WallTrap((float) 1980, (float) 727, 200, 30, handler, false, durataWall2));
-
-                    durataWall2.start();
-                    wallTrap2.start();
+                    handler.addSprite(new WallTrap((float) 2525, (float) 1217, 200, 30, handler, true, 500, this.wallTrapS2, 2));
+                    handler.addSprite(new WallTrap((float) 2750, (float) 545, 200, 30, handler, true, 500, this.wallTrapS2, 2));
+                    handler.addSprite(new WallTrap((float) 1980, (float) 727, 200, 30, handler, false, 500, this.wallTrapS2, 2));
                     this.updateCoins(-2);
-                    wallTrapS.playSound();
+                    this.wallTrapActive2=true;
                 }
                 break;
         }
         
     }
+
+    public void setShockTrapActive1(boolean shockTrapActive1) {
+        this.shockTrapActive1 = shockTrapActive1;
+    }
+
+    public void setShockTrapActive2(boolean shockTrapActive2) {
+        this.shockTrapActive2 = shockTrapActive2;
+    }
+
+    public void setShockTrapActive3(boolean shockTrapActive3) {
+        this.shockTrapActive3 = shockTrapActive3;
+    }
+
+    public void setWallTrapActive1(boolean wallTrapActive1) {
+        this.wallTrapActive1 = wallTrapActive1;
+    }
+
+    public void setWallTrapActive2(boolean wallTrapActive2) {
+        this.wallTrapActive2 = wallTrapActive2;
+    }
+
+    public void setFireTrapActive(boolean fireTrapActive) {
+        this.fireTrapActive = fireTrapActive;
+    }
+
+    public void setHoleTrapActive1(boolean holeTrapActive1) {
+        this.holeTrapActive1 = holeTrapActive1;
+    }
+
+    public void setHoleTrapActive2(boolean holeTrapActive2) {
+        this.holeTrapActive2 = holeTrapActive2;
+    }
+    
+    
 }

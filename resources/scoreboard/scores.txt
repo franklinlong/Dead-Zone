@@ -6,3 +6,5 @@ Apina 375
 qws 370
 sa 235
 adw 130
+wad 100
+sad 45

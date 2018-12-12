@@ -87,7 +87,7 @@ public class Assets {
     public static Clip endGame, endOfRound;
     public static Clip restoreHealth, nukeExplosion, coinsDrop;
     
-    public static Clip shockTrap, wallTrap, holeTrap, fireTrap;
+    public static Clip shockTrap1, shockTrap2, shockTrap3, wallTrap, holeTrap, fireTrap;
 
     //blood
     public static BufferedImage blood;
@@ -341,7 +341,10 @@ public class Assets {
         
         //Trap
         
-        shockTrap = Utilities.LoadSound("/sound/scossa.wav");
+        shockTrap1 = Utilities.LoadSound("/sound/scossa.wav");
+        shockTrap2 = Utilities.LoadSound("/sound/scossa.wav");
+        shockTrap3 = Utilities.LoadSound("/sound/scossa.wav");
+        
         fireTrap = Utilities.LoadSound("/sound/fuoco.wav");
         wallTrap = Utilities.LoadSound("/sound/muro.wav");
         

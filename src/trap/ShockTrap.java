@@ -10,9 +10,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
-import javax.swing.Timer;
+import sprite.animated.Player;
 import utilities.Animation;
 import utilities.Assets;
+import utilities.Sound;
 
 /**
  *
@@ -21,14 +22,14 @@ import utilities.Assets;
 public class ShockTrap extends Trap{
     private final Animation animazione;
     private final boolean orizzontale;
-    private final Timer durata;
+    private int index;
     
-    public ShockTrap(float x, float y, int width, int height, Handler handler, boolean orizzontale, Timer durata) {
-        super(x, y, width, height, handler);
-        this.durata = durata;
+    public ShockTrap(float x, float y, int width, int height, Handler handler, boolean orizzontale, int durata, Sound sound, int index) {
+        super(x, y, width, height, handler, durata, sound);
         this.animazione = new Animation(Assets.fulmini, 50);
         this.orizzontale = orizzontale;
         this.damage=1;
+        this.index = index;
     }
 
     @Override
@@ -47,10 +48,23 @@ public class ShockTrap extends Trap{
     
     @Override
     public void animationCycle(){
-        if (durata.isRunning()) {
+        if (durata>0) {
             super.animationCycle();
         } else {
             handler.removeSprite(this);
+            this.sound.stopSound();
+            Player p = handler.getPlayer();
+            switch(index){
+                case 1:
+                    p.setShockTrapActive1(false);
+                    break;
+                case 2:
+                    p.setShockTrapActive2(false);
+                    break;
+                case 3:
+                    p.setShockTrapActive3(false);
+                    break;
+            }
         }
 
         animazione.update();
