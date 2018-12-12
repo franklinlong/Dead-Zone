@@ -38,7 +38,7 @@ public class Boss extends Zombie{
         this.deathAnimation=deathAnimation;
         this.damage = damage;
         //l'attacco deve essere diverso..
-        attackDelay = new Timer(1500, new ActionListener() {
+        attackDelay = new Timer(1000, new ActionListener() {
             
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -100,19 +100,19 @@ public class Boss extends Zombie{
                 this.handler.addSprite(new SpittleZombie(this.getX(), this.getY(), (float)1, 700, 50, handler.getPlayer(), this.handler, 0, 60, 60, 5, new Animation(Assets.zombie3, 15), new Animation(Assets.zombie3Attack, 15), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
                 this.handler.getWaves().addEnemy();
                 SpawnSpittle m2 = new SpawnSpittle(this.getX() + this.width/2, this.getY() + this.height/2, 1,
-                        1, (float)3, 15, this.handler);
+                        1, (float)1, 15, this.handler);
                 this.handler.addSprite(m2);
                 this.handler.getWaves().addEnemy();
                 SpawnSpittle m3 = new SpawnSpittle(this.getX() + this.width/2, this.getY() + this.height/2, -1,
-                        1, (float)3, 15, this.handler);
+                        1, (float)1, 15, this.handler);
                 this.handler.addSprite(m3);
                 this.handler.getWaves().addEnemy();
                 SpawnSpittle m4 = new SpawnSpittle(this.getX() + this.width/2, this.getY() + this.height/2, 1,
-                        -1, (float)3, 15, this.handler);
+                        -1, (float)1, 15, this.handler);
                 this.handler.addSprite(m4);
                 this.handler.getWaves().addEnemy();
                 SpawnSpittle m5 = new SpawnSpittle(this.getX() + this.width/2, this.getY() + this.height/2, -1,
-                        -1, (float)3, 15, this.handler);
+                        -1, (float)1, 15, this.handler);
                 this.handler.addSprite(m5);
                 this.handler.getWaves().addEnemy();
             }
@@ -154,7 +154,7 @@ public class Boss extends Zombie{
             //randomicamente si può curare...
             if(this.getHealth() < 2000 && this.getHealth()>0){
                 int n = (int) (Math.random() * 700); 
-                if(n==0) this.setHealth(this.getHealth()+400);
+                if(n==0) this.setHealth(this.getHealth()+200);
                 //dovrebbe esserci un effetto grafico di cura...
             }
             //Se lo zombie è nelle vicinanze del player lo attacca
@@ -178,14 +178,14 @@ public class Boss extends Zombie{
                                 break;
                         }
                         SpawnSpittle ms = new SpawnSpittle(this.getX() + this.width/2, this.getY() + this.height/2, spittledirectionX,
-                        spittledirectionY, (float)3, 100, this.handler);
+                        spittledirectionY, (float)1, 25, this.handler);
                         this.handler.addSprite(ms);
                         this.handler.getWaves().addEnemy();
                         break;
                     default:
                         //proiettile
                         Spittle s = new BossSpittle(this.getX() + this.width/2, this.getY() + this.height/2, spittledirectionX,
-                        spittledirectionY, 3, 300, this.handler, damage);
+                        spittledirectionY, 6, 300, this.handler, damage);
                         this.handler.addSprite(s);
                         break;
                 }
@@ -196,7 +196,7 @@ public class Boss extends Zombie{
             }
 
             if ((distanceToPlayerX > player.width * 5 && distanceToPlayerY > player.height * 5) && !player.isDeath()) {
-                int n = (int) (Math.random() * 220); //randomicamente
+                int n = (int) (Math.random() * 285); //randomicamente
                 switch (n) {
                     case 0:
                         //attacco spawn
@@ -214,7 +214,7 @@ public class Boss extends Zombie{
                                 break;
                         }
                         SpawnSpittle ms = new SpawnSpittle(this.getX() + this.width /2, this.getY() + this.height/2, spittledirectionX,
-                        spittledirectionY, (float)3, 25, this.handler);
+                        spittledirectionY, (float)1, 25, this.handler);
                         this.handler.addSprite(ms);
                         this.handler.getWaves().addEnemy();
                         break;
@@ -260,8 +260,15 @@ public class Boss extends Zombie{
         
         @Override
         public void drawImage(Graphics g, float offsetX, float offsetY) {
-            g.setColor(Color.cyan);
-            g.fillOval((int) (getX() - offsetX), (int) (getY() - offsetY), 60, 60);
+            float xx, yy;
+            xx = getX() - offsetX;
+            yy = getY() - offsetY;
+
+            at = AffineTransform.getTranslateInstance(xx, yy);
+            at.rotate(angle, this.width/2, this.height/2);
+
+            Graphics2D g2d = (Graphics2D) g;
+            g2d.drawImage(Assets.spittle_boss, at, null);
         }
     }
 }

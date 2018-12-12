@@ -168,12 +168,10 @@ public class MapFrame extends javax.swing.JFrame {
     private void jButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlayActionPerformed
         // TODO add your handling code here:
         if (jButtonStandardMap.isBorderPainted()) {
-            new Window(sp.getPlayerName(), sp.isMale()).setVisible(true);
+            LoadingScreen ls = new LoadingScreen();
+            ls.setVisible(true);
+            new LoadingThread(sp,ls).start();
             this.setVisible(false);
-            Menu.gameMusic.stopSound();
-            this.gameClip = Utilities.LoadSound("/sound/ingame.wav");
-            this.gameMusic = new Sound(gameClip);
-            this.gameMusic.loopSound();
 
         } else {
             int w = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconWidth() * 1 / 6;

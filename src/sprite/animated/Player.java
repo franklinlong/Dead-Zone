@@ -22,9 +22,11 @@ import java.util.ArrayList;
 import java.util.Map;
 import javax.swing.Timer;
 import listeners.*;
+import sprite.Sprite;
 import trap.FireTrap;
 import trap.HoleTrap;
 import trap.ShockTrap;
+import trap.Trap;
 import trap.WallTrap;
 import utilities.Zona;
 
@@ -87,7 +89,7 @@ public class Player extends AnimatedSprite {
         this.male = male;
         this.name = name;
         this.maximumHealth = health;
-        this.coins = 20;
+        this.coins = 200;
         this.trap = true;
         this.zona = new Zona(getX(), getY());
         grafo = new Graph();
@@ -163,10 +165,9 @@ public class Player extends AnimatedSprite {
 
         rpg = new Gun(Assets.rpgSkin, rpgIdle, rpgReload, rpgShoot, rpgShootSound,
                 rpgReloadSound, this, 1200,
-                1, 9, handler, 1000);
+                1, 9, handler, 700);
         
         currentGun = pistol;
-        
         
     }
 
@@ -220,6 +221,9 @@ public class Player extends AnimatedSprite {
     public void animationCycle() {
         //Controllo che sia vivo        
         if (getHealth() <= 0) {
+            for(Sprite s : handler.getitemsAndBlood())
+                if(s instanceof Trap)
+                    ((Trap) s).getSound().stopSound();
             death();
         }
 
@@ -399,16 +403,14 @@ public class Player extends AnimatedSprite {
                     this.updateCoins(-2);
                     this.shockTrapActive1=true;
                 }
-                break;
-
+                    break;
             case 115:
                 if (this.coins >= 2 && !this.shockTrapActive2) {
                     handler.addSprite(new ShockTrap((float) 560, (float) 2970, 155, 24, handler, true, 500, this.shockTrapS2, 2));
                     this.updateCoins(-2);
                     this.shockTrapActive2=true;
+                    break;
                 }
-                break;
-
             case 49:
                 if (this.coins >= 2 && !this.shockTrapActive3) {
                     handler.addSprite(new ShockTrap((float) 221, (float) 630, 155, 24, handler, false, 500, this.shockTrapS3, 3));
@@ -447,8 +449,8 @@ public class Player extends AnimatedSprite {
                     handler.addSprite(new HoleTrap((float) 2670, (float) 2240, 60, 60, handler, 500, null, 1));
                     this.updateCoins(-2);
                     this.holeTrapActive1=true;
-                }
                 break;
+                }
             case 99:
                 if (this.coins >= 2 && !this.holeTrapActive2) {
                     handler.addSprite(new HoleTrap((float) 1440, (float) 1020, 60, 60, handler, 500, null, 2));

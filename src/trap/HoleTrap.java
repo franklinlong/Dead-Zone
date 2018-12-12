@@ -5,10 +5,8 @@
  */
 package trap;
 
-import trap.Trap;
 import deadzone.Handler;
 import java.awt.Graphics;
-import javax.swing.Timer;
 import sprite.animated.Player;
 import utilities.Assets;
 import utilities.Sound;
@@ -26,6 +24,7 @@ public class HoleTrap extends Trap{
         this.setY(y);
         this.damage=20;
         this.index = index;
+        this.damage=5000;
     }
 
     @Override

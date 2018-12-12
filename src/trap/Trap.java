@@ -63,7 +63,6 @@ public abstract class Trap extends Sprite{
             durata--;
         }
         else if(PauseMenu.isPause()){
-            System.out.println("ciao");
             this.sound.stopSound();
             state = false;
         }
@@ -71,6 +70,10 @@ public abstract class Trap extends Sprite{
     
     public int getDamage(){
         return damage;
+    }
+    
+    public Sound getSound(){
+        return sound;
     }
     
 }

@@ -71,14 +71,9 @@ public class Assets {
     public static BufferedImage pistolSkin, ak47, rpgSkin,rifleLoader, shotgunSkin;
 
     //spittle
-    public static BufferedImage spittle_n;
-    public static BufferedImage spittle_ne;
+
     public static BufferedImage spittle_e;
-    public static BufferedImage spittle_se;
-    public static BufferedImage spittle_s;
-    public static BufferedImage spittle_so;
-    public static BufferedImage spittle_o;
-    public static BufferedImage spittle_no;
+    public static BufferedImage spittle_boss;
     public static BufferedImage spawnSpittle;
     public static BufferedImage rocketbull;
     //sounds		
@@ -100,8 +95,8 @@ public class Assets {
     public static BufferedImage coinsHud;
 
     public static Image minimap;
-    public static BufferedImage greenIndicator;
-    public static BufferedImage redIndicator;
+    public static Image greenIndicator;
+    public static Image redIndicator;
     
     public static BufferedImage mapRGB;
     public static BufferedImage mapRGB2;
@@ -281,6 +276,7 @@ public class Assets {
         ak47 = Utilities.loadImage("/guns/ak-47.png");
         rifleLoader = Utilities.loadImage("/guns/rifleLoader.png");
         rocketbull= Utilities.loadImage("/guns/rocketbull.png");
+        
         //Trap skins
         hole = Utilities.loadImage("/images/buca.png");
         wall = Utilities.loadImage("/images/muro.png");
@@ -314,6 +310,7 @@ public class Assets {
 
         //spittle
         spittle_e = Utilities.loadImage("/zombie/spittle/est.png");
+        spittle_boss = Utilities.loadImage("/zombie/spittle/sputoBoss.png");
         spawnSpittle= Utilities.loadImage("/zombie/spawnSpittle/1.png");
         //item
         mediKit = Utilities.loadImage("/images/medikitItem.png");
@@ -323,14 +320,16 @@ public class Assets {
         coinsHud = Utilities.loadImage("/images/coinsHud.png");
 
         //minimap
-        //minimap = Utilities.loadImage("/images/grigionero.png");
-        greenIndicator = Utilities.loadImage("/images/green.png");
-        redIndicator = Utilities.loadImage("/images/red.png");
-        
         int mp_h = Toolkit.getDefaultToolkit().getScreenSize().width*18/100;
         int mp_w = Toolkit.getDefaultToolkit().getScreenSize().width*18/100;
         ImageIcon i = new ImageIcon("resources/images/minimappa.png");
-        minimap = i.getImage().getScaledInstance(mp_h, mp_w, Image.SCALE_DEFAULT);
+        minimap = i.getImage().getScaledInstance(mp_h, mp_w, Image.SCALE_FAST);
+        
+        greenIndicator = new ImageIcon("resources/images/green.png").getImage();
+        redIndicator = new ImageIcon("resources/images/red.png").getImage();
+        
+        redIndicator = redIndicator.getScaledInstance((int) mp_w / 20, (int) mp_h / 20, Image.SCALE_FAST);  //gli indicatori hanno come size il 5% di quelle della minimap
+        greenIndicator = greenIndicator.getScaledInstance((int) mp_w / 20, (int) mp_h / 20, Image.SCALE_FAST);
         
         try {
             mapRGB = ImageIO.read(new File("mapRGB.png"));

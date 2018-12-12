@@ -28,8 +28,8 @@ public class ShockTrap extends Trap{
         super(x, y, width, height, handler, durata, sound);
         this.animazione = new Animation(Assets.fulmini, 50);
         this.orizzontale = orizzontale;
-        this.damage=1;
         this.index = index;
+        this.damage=10;
     }
 
     @Override

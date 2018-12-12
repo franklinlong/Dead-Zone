@@ -11,7 +11,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import listeners.KAdapter;
 import listeners.MAdapter;
+import sprite.Sprite;
 import sprite.animated.Player;
+import trap.Trap;
 import utilities.Scoreboard;
 
 public class MapPanel extends JPanel implements Runnable {
@@ -96,12 +98,21 @@ public class MapPanel extends JPanel implements Runnable {
         }
 
     }
-
+    
+    boolean first = true;
     public void animationCycle() {
 
         if (!PauseMenu.isPause()) {
+            first = true;
             kAdapt.update();
             handler.animationCycle();
+        }else{
+            if(first){
+                for(Sprite s : handler.getitemsAndBlood())
+                    if(s instanceof Trap)
+                        s.animationCycle();
+                first = false;
+            }
         }
 
     }
