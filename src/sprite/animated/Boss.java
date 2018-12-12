@@ -154,7 +154,7 @@ public class Boss extends Zombie{
             //randomicamente si può curare...
             if(this.getHealth() < 2000 && this.getHealth()>0){
                 int n = (int) (Math.random() * 700); 
-                if(n==0) this.setHealth(this.getHealth()+400);
+                if(n==0) this.setHealth(this.getHealth()+200);
                 //dovrebbe esserci un effetto grafico di cura...
             }
             //Se lo zombie è nelle vicinanze del player lo attacca

@@ -85,7 +85,7 @@ public class Player extends AnimatedSprite {
         this.male = male;
         this.name = name;
         this.maximumHealth = health;
-        this.coins = 11;
+        this.coins = 5;
         this.trap = true;
         //g2.drawString("press Q to activate the trap", getX()-offsetX-250, getY()-offsetY);
         
@@ -161,19 +161,19 @@ public class Player extends AnimatedSprite {
         
         currentGun = pistol;
         
-        shockTrap1 = new Timer(10000, (ActionEvent ae) -> {
+        shockTrap1 = new Timer(15000, (ActionEvent ae) -> {
             shockTrap1.stop();
             shockTrapS.stopSound();
         });
         
-        shockTrap2 = new Timer(10000, (ActionEvent ae) -> {
+        shockTrap2 = new Timer(15000, (ActionEvent ae) -> {
             //stop musica
             shockTrap2.stop();
             shockTrapS.stopSound();
 
         });
         
-        shockTrap3 = new Timer(10000, (ActionEvent ae) -> {
+        shockTrap3 = new Timer(15000, (ActionEvent ae) -> {
             shockTrap3.stop();    
             shockTrapS.stopSound();
 
@@ -185,12 +185,12 @@ public class Player extends AnimatedSprite {
 
         });
         
-        wallTrap1 = new Timer(10000, (ActionEvent ae) -> {
+        wallTrap1 = new Timer(30000, (ActionEvent ae) -> {
             wallTrap1.stop();    
             wallTrapS.stopSound();
         });
         
-        wallTrap2 = new Timer(10000, (ActionEvent ae) -> {
+        wallTrap2 = new Timer(30000, (ActionEvent ae) -> {
             wallTrap2.stop();    
             wallTrapS.stopSound();
         });
@@ -205,12 +205,12 @@ public class Player extends AnimatedSprite {
             //stop musica
         });
         
-        durataWall1 = new Timer(10000, (ActionEvent ae) -> {
+        durataWall1 = new Timer(30000, (ActionEvent ae) -> {
             durataWall1.stop();
             this.grafo.inserisciCorridoio();
         });
         
-        durataWall2 = new Timer(10000, (ActionEvent ae) -> {
+        durataWall2 = new Timer(30000, (ActionEvent ae) -> {
             durataWall2.stop();
             this.grafo.inserisciEntrataLabirinto();
         });
@@ -445,7 +445,7 @@ public class Player extends AnimatedSprite {
                     shockTrap1.start();
                     shockTrapS.loopSound();
                     //start musica
-                    this.updateCoins(-2);
+                    this.updateCoins(-3);
                 }
                 break;
 
@@ -455,7 +455,7 @@ public class Player extends AnimatedSprite {
                     shockTrap2.start();
                     shockTrapS.loopSound();
                     //start musica
-                    this.updateCoins(-2);
+                    this.updateCoins(-3);
                 }
                 break;
 
@@ -464,7 +464,7 @@ public class Player extends AnimatedSprite {
                     handler.addSprite(new ShockTrap((float) 221, (float) 630, 155, 24, handler, false, shockTrap3));
                     shockTrap3.start();
                     //start musica
-                    this.updateCoins(-2);
+                    this.updateCoins(-3);
                     shockTrapS.loopSound();
                 }
                 break;
@@ -473,7 +473,7 @@ public class Player extends AnimatedSprite {
                     handler.addSprite(new FireTrap((float) 322, (float) 1350, 1321, 600, handler,fireTrap));
                     fireTrap.start();
                     //start musica
-                    this.updateCoins(-2);
+                    this.updateCoins(-6);
                     fireTrapS.loopSound();
                 }
                 break;
@@ -483,7 +483,7 @@ public class Player extends AnimatedSprite {
                     handler.addSprite(new WallTrap((float) 2395, (float) 1890, 200, 30, handler, true, durataWall1));
                     wallTrap1.start();
                     durataWall1.start();
-                    this.updateCoins(-2);
+                    this.updateCoins(-1);
                     wallTrapS.playSound();
                 }
                 break;
@@ -491,14 +491,14 @@ public class Player extends AnimatedSprite {
                 if (this.coins >= 2 && !holeTrap1.isRunning()) {
                     handler.addSprite(new HoleTrap((float) 2670, (float) 2240, 60, 60, handler, holeTrap1));
                     holeTrap1.start();
-                    this.updateCoins(-2);
+                    this.updateCoins(-7);
                 }
                 break;
             case 99:
                 if (this.coins >= 2 && !holeTrap2.isRunning()) {
                     handler.addSprite(new HoleTrap((float) 1440, (float) 1020, 60, 60, handler, holeTrap2));
                     holeTrap2.start();
-                    this.updateCoins(-2);
+                    this.updateCoins(-7);
                 }
                 break;
             case 189:

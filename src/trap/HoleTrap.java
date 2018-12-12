@@ -23,7 +23,7 @@ public class HoleTrap extends Trap{
         this.durata=durata;
         this.setX(x);
         this.setY(y);
-        this.damage=20;
+        this.damage=5000;
     }
 
     @Override

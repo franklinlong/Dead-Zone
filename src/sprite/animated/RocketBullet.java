@@ -57,7 +57,7 @@ public class RocketBullet extends Projectile{
         this.setHealth(this.getHealth() - 1);
         if (dye()) {
             this.handler.getProiettili().remove(this);
-            Circle circle = new Circle(this.getX(),this.getY(),1000,this.handler);
+            Circle circle = new Circle(this.getX(),this.getY(),50,this.handler);
             this.handler.addSprite(circle);
         }
     }

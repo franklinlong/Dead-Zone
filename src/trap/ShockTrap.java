@@ -31,7 +31,7 @@ public class ShockTrap extends Trap{
         this.durata = durata;
         this.animazione = new Animation(Assets.fulmini, 50);
         this.orizzontale = orizzontale;
-        this.damage=1;
+        this.damage=10;
     }
 
     @Override

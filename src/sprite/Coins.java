@@ -23,7 +23,7 @@ public class Coins extends DropItem {
     public Coins(float x, float y, int width, int height, Handler handler) {
         super(x, y, width, height);
         this.handler = handler;
-        this.value = 10;
+        this.value = 2;
         this.coinsDrop = new Sound(Assets.coinsDrop);
     }
     
