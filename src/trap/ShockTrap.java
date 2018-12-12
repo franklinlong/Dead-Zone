@@ -5,15 +5,12 @@
  */
 package trap;
 
-import trap.Trap;
 import deadzone.Handler;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import javax.swing.Timer;
-import sprite.animated.Player;
-import sprite.animated.Zombie;
 import utilities.Animation;
 import utilities.Assets;
 

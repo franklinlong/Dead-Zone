@@ -63,7 +63,7 @@ public class Waves implements Runnable {
     @Override
     public void run() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(7000);
         } catch (InterruptedException ex) {
             Logger.getLogger(Waves.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -537,7 +537,7 @@ public class Waves implements Runnable {
     }
 
     public void createBoss(float x, float y, float mulHealth, float prob) {
-        this.handler.addSprite(new Boss(x, y, (float) 1, 4000, 100, handler.getPlayer(), this.handler, prob, 120, 120, 500, new Animation(Assets.boss, 40), new Animation(Assets.bossAttack, 80), new Animation(Assets.bossdeath, 70), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
+        this.handler.addSprite(new Boss(x, y, (float) 1, 4000, 100, handler.getPlayer(), this.handler, prob, 120, 120, 500, new Animation(Assets.boss, 40), new Animation(Assets.bossAttack, 120), new Animation(Assets.bossdeath, 70), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
     }
 
     public void addEnemy() {
