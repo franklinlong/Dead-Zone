@@ -431,6 +431,7 @@ public class Waves implements Runnable {
             this.handler.getPlayer().updatePunteggio(score);
             if (Settings.soundMusic) {
                 MapFrame.gameMusic.stopSound();
+                System.out.println(MapFrame.gameMusic.getFramePosition());
                 endRound.playSound();
             }
             try {
@@ -439,6 +440,7 @@ public class Waves implements Runnable {
                 Logger.getLogger(Waves.class.getName()).log(Level.SEVERE, null, ex);
             }
             if (Settings.soundMusic) {
+                MapFrame.gameMusic.setFramePosition(780000);
                 MapFrame.gameMusic.loopSound();
             }
             if (this.waveCount % 5 == 0) {

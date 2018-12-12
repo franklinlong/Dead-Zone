@@ -302,7 +302,7 @@ public class Assets {
         zombieBite = Utilities.LoadSound("/sound/zombieBite.wav");
         zombieHit = Utilities.LoadSound("/sound/zombiehit.wav");
 
-        endGame = Utilities.LoadSound("/sound/endGame.wav");
+        endGame = Utilities.LoadSound("/sound/endGame2.wav");
         endOfRound = Utilities.LoadSound("/sound/round.wav");
         
         restoreHealth = Utilities.LoadSound("/sound/restoreHealth.wav");
@@ -313,14 +313,7 @@ public class Assets {
         shotgunShoot = Utilities.LoadSound("/sound/shotgun.wav");
 
         //spittle
-        spittle_n = Utilities.loadImage("/zombie/spittle/nord.png");
-        spittle_ne = Utilities.loadImage("/zombie/spittle/nordest.png");
         spittle_e = Utilities.loadImage("/zombie/spittle/est.png");
-        spittle_se = Utilities.loadImage("/zombie/spittle/sudest.png");
-        spittle_s = Utilities.loadImage("/zombie/spittle/sud.png");
-        spittle_so = Utilities.loadImage("/zombie/spittle/sudovest.png");
-        spittle_o = Utilities.loadImage("/zombie/spittle/ovest.png");
-        spittle_no = Utilities.loadImage("/zombie/spittle/nordovest.png");
         spawnSpittle= Utilities.loadImage("/zombie/spawnSpittle/1.png");
         //item
         mediKit = Utilities.loadImage("/images/medikitItem.png");
