@@ -334,10 +334,6 @@ public class HudPanel extends JPanel implements Runnable {
 
                 if (timer >= 1000000000) {
                     this.averageFPS = ticks;
-//                    fpsLabel.setForeground(Color.WHITE);
-//                    fpsLabel.setHorizontalAlignment(SwingConstants.CENTER);
-//                    fpsLabel.setVerticalAlignment(SwingConstants.CENTER);
-//                    fpsLabel.setText("fps: " + Long.toString(averageFPS));
                     ticks = 0;
                     timer = 0;
                 }
