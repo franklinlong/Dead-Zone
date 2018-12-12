@@ -38,7 +38,7 @@ public class GameOver extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-        this.clipEndGame = Utilities.LoadSound("/sound/endGame.wav");
+        this.clipEndGame = Utilities.LoadSound("/sound/endGame2.wav");
         this.soundEndGame = new Sound(clipEndGame);
         this.soundEndGame.playSound();
     }

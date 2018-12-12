@@ -3,9 +3,8 @@ RFRF 1835
 frank_long 1055
 rf 680
 Apina 375
+qws 370
 sa 235
 adw 130
 sda 50
-daw 20
-Andrer 10
-francesco 10
+adw 45

@@ -171,7 +171,7 @@ public class MapFrame extends javax.swing.JFrame {
             new Window(sp.getPlayerName(), sp.isMale()).setVisible(true);
             this.setVisible(false);
             Menu.gameMusic.stopSound();
-            this.gameClip = Utilities.LoadSound("/sound/gameMusic.wav");
+            this.gameClip = Utilities.LoadSound("/sound/ingame.wav");
             this.gameMusic = new Sound(gameClip);
             this.gameMusic.loopSound();
 
