@@ -218,10 +218,9 @@ public class HudPanel extends JPanel implements Runnable {
         
         this.coinsLabel = new JLabel();
         coinsLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        //coinsLabel.setVerticalAlignment(SwingConstants.RIGHT);
         coinsLabel.setSize(this.getWidth()/2, 80);
         coinsLabel.setIcon(new ImageIcon(Assets.coinsHud));
-        coinsLabel.setLocation(imageLabel.getX(), scoreLabel.getY() + scoreLabel.getHeight() * 3/2);
+        coinsLabel.setLocation(imageLabel.getX(), scoreLabel.getY() + scoreLabel.getHeight() * 5/4);
         this.add(coinsLabel);
         
         this.numCoins = new JLabel();
