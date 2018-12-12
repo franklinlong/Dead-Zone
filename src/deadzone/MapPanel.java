@@ -1,6 +1,6 @@
 package deadzone;
 
-import gameMenu.PauseMenu;
+import deadzone.menu.PauseMenu;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;

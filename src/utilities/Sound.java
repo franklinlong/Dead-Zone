@@ -1,6 +1,6 @@
 package utilities;
 
-import gameMenu.Settings;
+import deadzone.menu.Settings;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
@@ -52,5 +52,9 @@ public class Sound {
 
     public boolean isRunning() {
         return sound.isRunning();
+    }
+    
+    public void setFramePosition(int position){
+         sound.setFramePosition(position);
     }
 }

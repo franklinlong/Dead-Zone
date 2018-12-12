@@ -5,9 +5,9 @@
  */
 package deadzone;
 
-import gameMenu.MapFrame;
-import gameMenu.PauseMenu;
-import gameMenu.Settings;
+import deadzone.menu.MapFrame;
+import deadzone.menu.PauseMenu;
+import deadzone.menu.Settings;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sprite.Coins;
@@ -63,7 +63,7 @@ public class Waves implements Runnable {
     @Override
     public void run() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(7000);
         } catch (InterruptedException ex) {
             Logger.getLogger(Waves.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -431,6 +431,7 @@ public class Waves implements Runnable {
             this.handler.getPlayer().updatePunteggio(score);
             if (Settings.soundMusic) {
                 MapFrame.gameMusic.stopSound();
+                System.out.println(MapFrame.gameMusic.getFramePosition());
                 endRound.playSound();
             }
             try {
@@ -439,6 +440,7 @@ public class Waves implements Runnable {
                 Logger.getLogger(Waves.class.getName()).log(Level.SEVERE, null, ex);
             }
             if (Settings.soundMusic) {
+                MapFrame.gameMusic.setFramePosition(780000);
                 MapFrame.gameMusic.loopSound();
             }
             if (this.waveCount % 5 == 0) {
@@ -453,30 +455,33 @@ public class Waves implements Runnable {
     }
     
     public void spawnCoins(){
-        switch (this.waveCount % 8) {
+        switch (this.waveCount % 9) {
             case 1:
-                this.handler.addSprite(new Coins(2170, 715, 20, 20, handler));
+                this.handler.addSprite(new Coins(2125, 810, 20, 20, handler));
                 break;
             case 2:
-                this.handler.addSprite(new Coins(2478, 840, 20, 20, handler));
+                this.handler.addSprite(new Coins(2477, 809, 20, 20, handler));
                 break;
             case 3:
-                this.handler.addSprite(new Coins(2693, 834, 20, 20, handler));
+                this.handler.addSprite(new Coins(2660, 810, 20, 20, handler));
                 break;
             case 4:
-                this.handler.addSprite(new Coins(2958, 827, 20, 20, handler));
+                this.handler.addSprite(new Coins(2930, 805, 20, 20, handler));
                 break;
             case 5:
-                this.handler.addSprite(new Coins(2741, 1058, 20, 20, handler));
+                this.handler.addSprite(new Coins(2722, 1035, 20, 20, handler));
                 break;
             case 6:
-                this.handler.addSprite(new Coins(2371, 1137, 20, 20, handler));
+                this.handler.addSprite(new Coins(2340, 1130, 20, 20, handler));
                 break;
             case 7:
-                this.handler.addSprite(new Coins(2273, 1151, 20, 20, handler));
+                this.handler.addSprite(new Coins(2250, 1130, 20, 20, handler));
+                break;
+            case 8:
+                this.handler.addSprite(new Coins(2930, 1130, 20, 20, handler));
                 break;
             default:
-                this.handler.addSprite(new Coins(2961, 847, 20, 20, handler));
+                this.handler.addSprite(new Coins(2570, 975, 20, 20, handler));
                 break;
         }
     }

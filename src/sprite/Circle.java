@@ -8,7 +8,6 @@ package sprite;
 import deadzone.Handler;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import sprite.animated.Zombie;
 import utilities.Animation;
 import utilities.Assets;

@@ -60,7 +60,9 @@ public class Assets {
     public static BufferedImage[] bossdeath = new BufferedImage[15];
     
     public static BufferedImage[] fulmini = new BufferedImage[6];
-    public static BufferedImage[] fuochi = new BufferedImage[2];
+    public static BufferedImage[] fuochi = new BufferedImage[12];
+    public static BufferedImage[] fuochiR = new BufferedImage[12];
+    
     public static BufferedImage[] explosion = new BufferedImage[23];
     public static BufferedImage wall;
     public static BufferedImage hole;
@@ -254,15 +256,19 @@ public class Assets {
         for (int i = 0; i < bossdeath.length; i++) {
             bossdeath[i] = Utilities.loadImage("/boss/death/" + i + ".png");
         }
-        //Shock trap
+        
+        //trap
         for (int i = 0; i < fulmini.length; i++) {
             fulmini[i] = Utilities.loadImage("/images/fulmine/fulmine" + (i+1) + ".png");
         }
         
         for (int i = 0; i < fuochi.length; i++) {
-            fuochi[i] = Utilities.loadImage("/images/fuoco/" + i + ".png");
+            fuochi[i] = Utilities.loadImage("/images/fire/" + i + ".png");
         }
         
+        for (int i = 0; i < fuochiR.length; i++) {
+            fuochiR[i] = Utilities.loadImage("/images/fire2/" + i + ".png");
+        }
         //rocket explosion
         for (int i = 0; i < explosion.length; i++) {
             explosion[i] = Utilities.loadImage("/explosion/" + i + ".png");
@@ -296,7 +302,7 @@ public class Assets {
         zombieBite = Utilities.LoadSound("/sound/zombieBite.wav");
         zombieHit = Utilities.LoadSound("/sound/zombiehit.wav");
 
-        endGame = Utilities.LoadSound("/sound/endGame.wav");
+        endGame = Utilities.LoadSound("/sound/endGame2.wav");
         endOfRound = Utilities.LoadSound("/sound/round.wav");
         
         restoreHealth = Utilities.LoadSound("/sound/restoreHealth.wav");
@@ -307,14 +313,7 @@ public class Assets {
         shotgunShoot = Utilities.LoadSound("/sound/shotgun.wav");
 
         //spittle
-        spittle_n = Utilities.loadImage("/zombie/spittle/nord.png");
-        spittle_ne = Utilities.loadImage("/zombie/spittle/nordest.png");
         spittle_e = Utilities.loadImage("/zombie/spittle/est.png");
-        spittle_se = Utilities.loadImage("/zombie/spittle/sudest.png");
-        spittle_s = Utilities.loadImage("/zombie/spittle/sud.png");
-        spittle_so = Utilities.loadImage("/zombie/spittle/sudovest.png");
-        spittle_o = Utilities.loadImage("/zombie/spittle/ovest.png");
-        spittle_no = Utilities.loadImage("/zombie/spittle/nordovest.png");
         spawnSpittle= Utilities.loadImage("/zombie/spawnSpittle/1.png");
         //item
         mediKit = Utilities.loadImage("/images/medikitItem.png");
@@ -326,7 +325,7 @@ public class Assets {
         //minimap
         int mp_h = Toolkit.getDefaultToolkit().getScreenSize().width*18/100;
         int mp_w = Toolkit.getDefaultToolkit().getScreenSize().width*18/100;
-        ImageIcon i = new ImageIcon("resources/images/grigionero.png");
+        ImageIcon i = new ImageIcon("resources/images/minimappa.png");
         minimap = i.getImage().getScaledInstance(mp_h, mp_w, Image.SCALE_FAST);
         
         greenIndicator = new ImageIcon("resources/images/green.png").getImage();
