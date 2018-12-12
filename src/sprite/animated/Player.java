@@ -470,9 +470,15 @@ public class Player extends AnimatedSprite {
                 break;
             case 255:
                 if (this.coins >= 2 && !fireTrap.isRunning()) {
-                    handler.addSprite(new FireTrap((float) 322, (float) 1350, 1321, 600, handler,fireTrap));
+                    for(int i=0;i<14;i++)
+                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1400, 120, 66, handler, fireTrap, true));
+                    for(int i=0;i<14;i++)
+                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1860, 120, 66, handler, fireTrap, true));    
+                    for(int i=0;i<5;i++)
+                        handler.addSprite(new FireTrap((float) 170, (float) 1450 + 66*i, 120, 66, handler, fireTrap, false));
+                    for(int i=0;i<5;i++)
+                        handler.addSprite(new FireTrap((float) 1730, (float) 1450 + 66*i, 120, 66, handler, fireTrap, false));
                     fireTrap.start();
-                    //start musica
                     this.updateCoins(-2);
                     fireTrapS.loopSound();
                 }

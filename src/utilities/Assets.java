@@ -60,7 +60,9 @@ public class Assets {
     public static BufferedImage[] bossdeath = new BufferedImage[15];
     
     public static BufferedImage[] fulmini = new BufferedImage[6];
-    public static BufferedImage[] fuochi = new BufferedImage[2];
+    public static BufferedImage[] fuochi = new BufferedImage[12];
+    public static BufferedImage[] fuochiR = new BufferedImage[12];
+    
     public static BufferedImage[] explosion = new BufferedImage[23];
     public static BufferedImage wall;
     public static BufferedImage hole;
@@ -254,15 +256,19 @@ public class Assets {
         for (int i = 0; i < bossdeath.length; i++) {
             bossdeath[i] = Utilities.loadImage("/boss/death/" + i + ".png");
         }
-        //Shock trap
+        
+        //trap
         for (int i = 0; i < fulmini.length; i++) {
             fulmini[i] = Utilities.loadImage("/images/fulmine/fulmine" + (i+1) + ".png");
         }
         
         for (int i = 0; i < fuochi.length; i++) {
-            fuochi[i] = Utilities.loadImage("/images/fuoco/" + i + ".png");
+            fuochi[i] = Utilities.loadImage("/images/fire/" + i + ".png");
         }
         
+        for (int i = 0; i < fuochiR.length; i++) {
+            fuochiR[i] = Utilities.loadImage("/images/fire2/" + i + ".png");
+        }
         //rocket explosion
         for (int i = 0; i < explosion.length; i++) {
             explosion[i] = Utilities.loadImage("/explosion/" + i + ".png");
