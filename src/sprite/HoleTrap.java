@@ -8,7 +8,6 @@ package sprite;
 import deadzone.Handler;
 import java.awt.Graphics;
 import javax.swing.Timer;
-import utilities.Animation;
 import utilities.Assets;
 
 /**

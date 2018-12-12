@@ -10,7 +10,6 @@ import deadzone.Handler;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import sprite.Sprite;
 import sprite.animated.Player;
 import sprite.animated.Zombie;

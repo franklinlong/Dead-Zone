@@ -6,7 +6,6 @@
 package sprite.animated;
 
 import deadzone.Handler;
-import deadzone.Waves;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;

@@ -6,13 +6,10 @@
 package sprite;
 
 import deadzone.Handler;
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import utilities.Animation;
 import utilities.Assets;
-import java.awt.geom.AffineTransform;
 import javax.swing.Timer;
 import sprite.animated.Zombie;
 
