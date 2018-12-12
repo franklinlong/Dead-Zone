@@ -38,7 +38,7 @@ public class Boss extends Zombie{
         this.deathAnimation=deathAnimation;
         this.damage = damage;
         //l'attacco deve essere diverso..
-        attackDelay = new Timer(1500, new ActionListener() {
+        attackDelay = new Timer(1000, new ActionListener() {
             
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -185,7 +185,7 @@ public class Boss extends Zombie{
                     default:
                         //proiettile
                         Spittle s = new BossSpittle(this.getX() + this.width/2, this.getY() + this.height/2, spittledirectionX,
-                        spittledirectionY, 3, 300, this.handler, damage);
+                        spittledirectionY, 6, 300, this.handler, damage);
                         this.handler.addSprite(s);
                         break;
                 }
@@ -260,8 +260,15 @@ public class Boss extends Zombie{
         
         @Override
         public void drawImage(Graphics g, float offsetX, float offsetY) {
-            g.setColor(Color.cyan);
-            g.fillOval((int) (getX() - offsetX), (int) (getY() - offsetY), 60, 60);
+            float xx, yy;
+            xx = getX() - offsetX;
+            yy = getY() - offsetY;
+
+            at = AffineTransform.getTranslateInstance(xx, yy);
+            at.rotate(angle, this.width/2, this.height/2);
+
+            Graphics2D g2d = (Graphics2D) g;
+            g2d.drawImage(Assets.spittle_boss, at, null);
         }
     }
 }

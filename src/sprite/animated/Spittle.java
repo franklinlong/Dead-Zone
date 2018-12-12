@@ -58,7 +58,7 @@ public class Spittle extends Projectile {
         }
 
         //se ha colpito il player
-        if (handler.getPlayer().getBounds().contains(getX(), getY())) {
+        if (handler.getPlayer().getBounds().intersects(this.getBounds())) {
             Player y = handler.getPlayer();
             y.hit(damage);
             return true;

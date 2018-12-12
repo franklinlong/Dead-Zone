@@ -71,14 +71,9 @@ public class Assets {
     public static BufferedImage pistolSkin, ak47, rpgSkin,rifleLoader, shotgunSkin;
 
     //spittle
-    public static BufferedImage spittle_n;
-    public static BufferedImage spittle_ne;
+
     public static BufferedImage spittle_e;
-    public static BufferedImage spittle_se;
-    public static BufferedImage spittle_s;
-    public static BufferedImage spittle_so;
-    public static BufferedImage spittle_o;
-    public static BufferedImage spittle_no;
+    public static BufferedImage spittle_boss;
     public static BufferedImage spawnSpittle;
     public static BufferedImage rocketbull;
     //sounds		
@@ -281,6 +276,7 @@ public class Assets {
         ak47 = Utilities.loadImage("/guns/ak-47.png");
         rifleLoader = Utilities.loadImage("/guns/rifleLoader.png");
         rocketbull= Utilities.loadImage("/guns/rocketbull.png");
+        
         //Trap skins
         hole = Utilities.loadImage("/images/buca.png");
         wall = Utilities.loadImage("/images/muro.png");
@@ -314,6 +310,7 @@ public class Assets {
 
         //spittle
         spittle_e = Utilities.loadImage("/zombie/spittle/est.png");
+        spittle_boss = Utilities.loadImage("/zombie/spittle/sputoBoss.png");
         spawnSpittle= Utilities.loadImage("/zombie/spawnSpittle/1.png");
         //item
         mediKit = Utilities.loadImage("/images/medikitItem.png");

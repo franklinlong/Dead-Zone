@@ -111,7 +111,7 @@ public class SpittleZombie extends Zombie {
         //Se lo zombie è nelle vicinanze del player lo attacca
         if (distanceToPlayerX < 300 && distanceToPlayerY < 300 && !attackDelay.isRunning() && !player.isDeath()) {
             Spittle s = new Spittle(this.getX() + this.width/2, this.getY() + this.height/2, spittledirectionX,
-                    spittledirectionY, 5, 100, this.handler, damage);
+                    spittledirectionY, 8, 200, this.handler, damage);
             this.handler.addSprite(s);
             attacking = true;
             attackDelay.start();
