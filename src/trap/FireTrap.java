@@ -3,14 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sprite;
+package trap;
 
+import trap.Trap;
 import deadzone.Handler;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import utilities.Animation;
 import utilities.Assets;
 import javax.swing.Timer;
+import sprite.Sprite;
 import sprite.animated.Player;
 import sprite.animated.Zombie;
 

@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sprite;
+package trap;
 
+import trap.Trap;
 import deadzone.Handler;
 import java.awt.Graphics;
 import java.awt.Graphics2D;

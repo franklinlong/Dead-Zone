@@ -1,5 +1,7 @@
 package deadzone;
 
+import deadzone.menu.PauseMenu;
+import deadzone.menu.GameOver;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -12,7 +14,6 @@ import javax.swing.*;
 import sprite.Sprite;
 import sprite.animated.Player;
 import sprite.animated.Zombie;
-import gameMenu.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utilities.Assets;
@@ -346,11 +347,10 @@ public class HudPanel extends JPanel implements Runnable {
 
         } while (!handler.getPlayer().isDeath() && !PauseMenu.end);
         JFrame hudPanel = (JFrame) SwingUtilities.getWindowAncestor(this);
-        GameOver gameOver;
         if (!PauseMenu.end) {
             this.playerHealth.setHealth(0);
             this.playerHealth.repaint();
-            gameOver = new GameOver(hudPanel);
+            new GameOver(hudPanel);
         }
         System.out.println("FINE PARTITA HUD");
     }

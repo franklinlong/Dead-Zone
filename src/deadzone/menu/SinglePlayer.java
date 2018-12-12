@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gameMenu;
+package deadzone.menu;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -357,7 +357,7 @@ public class SinglePlayer extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonBack);
-        jButtonBack.setBounds(60, 490, 59, 25);
+        jButtonBack.setBounds(60, 490, 55, 23);
 
         jButtonPlay.setText("Select Map");
         jButtonPlay.addActionListener(new java.awt.event.ActionListener() {
@@ -366,7 +366,7 @@ public class SinglePlayer extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonPlay);
-        jButtonPlay.setBounds(330, 490, 100, 25);
+        jButtonPlay.setBounds(330, 490, 100, 23);
 
         sfondo.setIcon(new ImageIcon(getClass().getResource("/images/sfondo_senza_spari.png")));
         getContentPane().add(sfondo);
