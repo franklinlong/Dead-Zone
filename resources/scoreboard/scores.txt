@@ -5,11 +5,5 @@ rf 680
 Apina 375
 sa 235
 adw 130
-<<<<<<< HEAD
 sda 50
 fgvgv 0
-=======
-sda 45
-sda 45
-sda 15
->>>>>>> origin/master

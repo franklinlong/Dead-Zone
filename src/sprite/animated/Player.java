@@ -12,11 +12,7 @@ import utilities.Animation;
 import utilities.Assets;
 import deadzone.Gun;
 import deadzone.Handler;
-<<<<<<< HEAD
-import gameMenu.MapFrame;
-=======
 import deadzone.menu.MapFrame;
->>>>>>> origin/master
 import utilities.Sound;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
