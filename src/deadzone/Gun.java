@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.Timer;
 import sprite.animated.Player;
 import sprite.animated.Projectile;
+import sprite.animated.RocketBullet;
 import utilities.*;
 
 public class Gun {
@@ -94,13 +95,24 @@ public class Gun {
             float bulletdirectionX = xbullet / (float) Math.sqrt(xbullet * xbullet + ybullet * ybullet);
             float bulletdirectionY = ybullet / (float) Math.sqrt(ybullet * ybullet + xbullet * xbullet);
 
-            //Proiettile standard in linea retta
-            Projectile p = new Projectile((xx + Player.PLAYERSIZE / 2 + (float) (22 * Math.cos(angoloPistola))),
+            if(this.skin == Assets.rpgSkin){
+                //Proiettile di RPG
+                RocketBullet rb = new RocketBullet((xx + Player.PLAYERSIZE / 2 + (float) (22 * Math.cos(angoloPistola))),
                     (yy + Player.PLAYERSIZE / 2 + (float) (22 * Math.sin(angoloPistola))),
                     bulletdirectionX, bulletdirectionY, 20, vitaProiettile, handler, damage);
-            shootAminDelay.start();
-            currentAnimation = shoot;
-            this.handler.addSprite(p);
+                shootAminDelay.start();
+                currentAnimation = shoot;
+                this.handler.addSprite(rb);
+            }
+            else{
+                //Proiettile standard in linea retta
+                Projectile p = new Projectile((xx + Player.PLAYERSIZE / 2 + (float) (22 * Math.cos(angoloPistola))),
+                        (yy + Player.PLAYERSIZE / 2 + (float) (22 * Math.sin(angoloPistola))),
+                        bulletdirectionX, bulletdirectionY, 20, vitaProiettile, handler, damage);
+                shootAminDelay.start();
+                currentAnimation = shoot;
+                this.handler.addSprite(p);
+            }
 
             //Ventaglio di proiettili
             if (this.skin == Assets.shotgunSkin) {

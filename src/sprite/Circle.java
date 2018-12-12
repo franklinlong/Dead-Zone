@@ -8,12 +8,7 @@ package sprite;
 import deadzone.Handler;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Shape;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.geom.Ellipse2D;
-import javax.swing.Timer;
-import static sprite.Sprite.mapRGB;
+import java.awt.Rectangle;
 import sprite.animated.Zombie;
 import utilities.Animation;
 import utilities.Assets;
@@ -24,19 +19,17 @@ import utilities.Sound;
  * @author genna
  */
 public class Circle extends Sprite{
-    private final static int BULLETDIAMETER = 90;
+    private final static int BULLETDIAMETER = 60;
     private Handler handler;
     private final int damage;
-    private int health=50;
     private boolean next=false;
-    //private Timer hitExplosion;
     private  Sound hitSound=new Sound(Assets.rpgExplosionSound);
-    private Animation deathAnimation=new Animation(Assets.explosion,50);
-    public Circle(float x, float y, int width, int height, int damage, Handler handler) {
-        super(x, y, BULLETDIAMETER, BULLETDIAMETER);
+    private Animation deathAnimation=new Animation(Assets.explosion,30);
+    
+    public Circle(float x, float y, int damage, Handler handler) {
+        super(x-30, y-30, BULLETDIAMETER, BULLETDIAMETER);
         this.damage = damage;
         this.handler = handler;
-        this.deathAnimation=deathAnimation;
         this.deathAnimation.setIndex();
         this.hitSound.playSound();
     }
@@ -44,32 +37,22 @@ public class Circle extends Sprite{
     @Override
     public void drawImage(Graphics g, float offsetX, float offsetY) {
             Graphics2D g2d = (Graphics2D) g;
-            g2d.drawImage(deathAnimation.getCurrentFrame(),(int)(this.getX()-offsetX-60), (int) (this.getY()-offsetY-60 ), null);
-            
+            g2d.drawImage(deathAnimation.getCurrentFrame(),(int)(this.getX()-offsetX -30), (int) (this.getY()-offsetY -30), null);
     }
     
 
     @Override
     public void animationCycle() {
-        health-=1;
-        try{
-            for (Sprite sprite : handler.getZombies()) {
-                next=false;
-                for (float xx = getX(); xx < getX() + BULLETDIAMETER && next==false; xx++) {
-                    for (float yy = getY(); yy < getY() + BULLETDIAMETER && next==false; yy++) {
-                        if (sprite.getBounds().contains(xx, yy)) {
-                            Zombie y = (Zombie) sprite;
-                            y.hit(damage);
-                            next=true;
-                        }
-                    }
-                }
-            }
-        }catch(Exception ex){
-            //vai avanti
-            System.out.println("Errore causa rpg");
+        
+        for (Sprite sprite : handler.getZombies()) {
+            if (sprite.getBounds().intersects(this.getBounds())) {
+                Zombie y = (Zombie) sprite;
+                y.hit(damage);
+            }                                   
         }
-        if (dye()) this.handler.removeSprite(this);
+        
+        if (dye()) 
+            this.handler.removeSprite(this);
     }
     
     public boolean dye() {
