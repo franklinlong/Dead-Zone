@@ -27,7 +27,6 @@ public class PauseMenu extends javax.swing.JDialog {
     public PauseMenu(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-
         setPause(true);
         end = false;
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();

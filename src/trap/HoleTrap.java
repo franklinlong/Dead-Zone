@@ -5,24 +5,25 @@
  */
 package trap;
 
-import trap.Trap;
 import deadzone.Handler;
 import java.awt.Graphics;
-import javax.swing.Timer;
+import sprite.animated.Player;
 import utilities.Assets;
+import utilities.Sound;
 
 /**
  *
  * @author USER
  */
 public class HoleTrap extends Trap{
-    private final Timer durata;
+    private int index;
     
-    public HoleTrap(float x, float y, int width, int height, Handler handler, Timer durata) {
-        super(x, y, width, height, handler);
-        this.durata=durata;
+    public HoleTrap(float x, float y, int width, int height, Handler handler, int durata, Sound sound, int index) {
+        super(x, y, width, height, handler, durata, sound);
         this.setX(x);
         this.setY(y);
+        this.damage=20;
+        this.index = index;
         this.damage=5000;
     }
 
@@ -33,10 +34,21 @@ public class HoleTrap extends Trap{
     
     @Override
     public void animationCycle(){
-        if(durata.isRunning()){
+        if(durata>0){
             super.animationCycle();
-        }else
+        }else{
             handler.removeSprite(this);
+            this.sound.stopSound();
+            Player p = handler.getPlayer();
+            switch(index){
+                case 1:
+                    p.setHoleTrapActive1(false);
+                    break;
+                case 2:
+                    p.setHoleTrapActive2(false);
+                    break;
+            }
+        }
         
     }
 }

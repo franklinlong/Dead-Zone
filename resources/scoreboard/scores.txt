@@ -7,4 +7,5 @@ rf 680
 Apina 375
 qws 370
 sa 235
-awd 155
+adw 130
+wad 100

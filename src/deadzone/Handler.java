@@ -68,12 +68,12 @@ public class Handler {
             Sprite s = spittles.get(i);
             s.animationCycle();
         }
-        
-        for (int i = 0; i <spawnSpittles.size(); i++) {
+
+        for (int i = 0; i < spawnSpittles.size(); i++) {
             Sprite s = spawnSpittles.get(i);
             s.animationCycle();
         }
-        
+
         for (int i = 0; i < itemsAndBloodAndTrap.size(); i++) {
             Sprite s = itemsAndBloodAndTrap.get(i);
             s.animationCycle();
@@ -82,6 +82,7 @@ public class Handler {
             Sprite s = circle.get(i);
             s.animationCycle();
         }
+        
     }
 
     public void drawImage(Graphics g) {

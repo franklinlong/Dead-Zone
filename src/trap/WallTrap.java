@@ -6,26 +6,27 @@
 package trap;
 
 import deadzone.Handler;
+import deadzone.menu.PauseMenu;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
-import javax.swing.Timer;
+import sprite.animated.Player;
 import utilities.Assets;
+import utilities.Sound;
 /**
  *
  * @author USER
  */
 public class WallTrap extends Trap{
-    
     private final boolean orizzontale;
     private final Graphics2D g2dRGB;
-    private final Timer durata;
+    private int index;
     
-    public WallTrap(float x, float y, int width, int height, Handler handler, boolean orizzontale, Timer durata) {
-        super(x, y, width, height, handler);
+    public WallTrap(float x, float y, int width, int height, Handler handler, boolean orizzontale, int durata, Sound sound, int index) {
+        super(x, y, width, height, handler, durata, sound);
         this.orizzontale = orizzontale;
-        this.durata = durata;
+        this.index = index;
         
         g2dRGB = (Graphics2D) mapRGB.getGraphics();
         g2dRGB.setColor(new Color(255,0,0));
@@ -52,9 +53,20 @@ public class WallTrap extends Trap{
     @Override
     public void animationCycle(){
         //Se è finito il timer della trappola
-        if(!this.durata.isRunning()){
+        if(!PauseMenu.isPause())
+            durata--;
+        if(durata==0){
             g2dRGB.drawImage(Assets.mapRGB2,0,0,null); //Sembra funzionare bene
             handler.removeSprite(this);
+            Player p = handler.getPlayer();
+            switch(index){
+                case 1:
+                    p.setWallTrapActive1(false);
+                    break;
+                case 2:
+                    p.setWallTrapActive2(false);
+                    break;
+            }
         }
     }
 }
