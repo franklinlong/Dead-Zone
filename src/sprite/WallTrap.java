@@ -20,7 +20,7 @@ public class WallTrap extends Trap{
     
     private final boolean orizzontale;
     private final Graphics2D g2dRGB;
-    private Timer durata;
+    private final Timer durata;
     
     public WallTrap(float x, float y, int width, int height, Handler handler, boolean orizzontale, Timer durata) {
         super(x, y, width, height, handler);
@@ -56,5 +56,5 @@ public class WallTrap extends Trap{
             g2dRGB.drawImage(Assets.mapRGB2,0,0,null); //Sembra funzionare bene
             handler.removeSprite(this);
         }
-    }   
+    }
 }

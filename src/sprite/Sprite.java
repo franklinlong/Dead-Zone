@@ -8,9 +8,6 @@ package sprite;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import utilities.Assets;
 
 /**
@@ -66,5 +63,14 @@ public abstract class Sprite {
     //Utile per le collisioni
     public Rectangle getBounds() {
         return new Rectangle((int) x, (int) y, width, height);
+    }
+    
+    public Rectangle getBoundsTrap(){
+        Rectangle z = getBounds();
+        z.y = z.y + z.height/3;
+        z.height = z.height/3;
+        z.x = z.x + z.width/3;
+        z.width = z.width/3;
+        return z;
     }
 }

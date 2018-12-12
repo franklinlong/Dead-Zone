@@ -8,8 +8,11 @@ package sprite;
 import deadzone.Handler;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import javax.swing.Timer;
+import sprite.animated.Player;
+import sprite.animated.Zombie;
 import utilities.Animation;
 import utilities.Assets;
 
@@ -19,14 +22,15 @@ import utilities.Assets;
  */
 public class ShockTrap extends Trap{
     private final Animation animazione;
-    private boolean orizzontale;
-    private Timer durata;
+    private final boolean orizzontale;
+    private final Timer durata;
     
     public ShockTrap(float x, float y, int width, int height, Handler handler, boolean orizzontale, Timer durata) {
         super(x, y, width, height, handler);
         this.durata = durata;
         this.animazione = new Animation(Assets.fulmini, 50);
         this.orizzontale = orizzontale;
+        this.damage=1;
     }
 
     @Override
@@ -45,14 +49,23 @@ public class ShockTrap extends Trap{
     
     @Override
     public void animationCycle(){
-        if(durata.isRunning()){
+        if (durata.isRunning()) {
             super.animationCycle();
-        }else
+        } else {
             handler.removeSprite(this);
-        
+        }
+
         animazione.update();
     }
     
-    
+        
+    @Override
+    public Rectangle getBounds(){
+        if(orizzontale)
+            return new Rectangle((int) getX(), (int) getY() + height/3, width, height/3);
+        else{
+            return new Rectangle((int) getX()- height, (int) getY(), height/3, width);
+        }
+    }
     
 }

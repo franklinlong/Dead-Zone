@@ -4,7 +4,7 @@ rf 680
 Apina 375
 sa 235
 sda 50
+dsa 45
+sad 45
 Andrer 10
 francesco 10
-sda 0
-cd 0
