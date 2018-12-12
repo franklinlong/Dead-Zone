@@ -9,6 +9,7 @@ import deadzone.Handler;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import javax.swing.Timer;
 import utilities.Animation;
 import utilities.Assets;
 
@@ -17,13 +18,13 @@ import utilities.Assets;
  * @author giova
  */
 public class ShockTrap extends Trap{
-    private int durata;
     private final Animation animazione;
     private boolean orizzontale;
+    private Timer durata;
     
-    public ShockTrap(float x, float y, int width, int height, Handler handler, boolean orizzontale) {
+    public ShockTrap(float x, float y, int width, int height, Handler handler, boolean orizzontale, Timer durata) {
         super(x, y, width, height, handler);
-        this.durata=300;
+        this.durata = durata;
         this.animazione = new Animation(Assets.fulmini, 50);
         this.orizzontale = orizzontale;
     }
@@ -44,9 +45,8 @@ public class ShockTrap extends Trap{
     
     @Override
     public void animationCycle(){
-        if(durata>0){
+        if(durata.isRunning()){
             super.animationCycle();
-            durata--;
         }else
             handler.removeSprite(this);
         

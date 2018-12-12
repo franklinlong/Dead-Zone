@@ -225,8 +225,6 @@ public class Player extends AnimatedSprite {
 
         //Controllo se mi trovo in vicinanza di una trappola
         if(controlloAction()){
-            g2d.setColor(Color.YELLOW);
-            g2d.setFont(new Font("Comic Sans", Font.PLAIN, 20));
             g2d.drawImage(Assets.actionImg, (int) (getX()-offsetX-115), (int) (getY()-offsetY) - 30, null);
         }
         
@@ -446,7 +444,7 @@ public class Player extends AnimatedSprite {
         switch (pixel) {
             case 130:
                 if (this.coins >= 2 && !shockTrap1.isRunning()) {
-                    handler.addSprite(new ShockTrap((float) 564, (float) 2253, 155, 24, handler, true));
+                    handler.addSprite(new ShockTrap((float) 564, (float) 2253, 155, 24, handler, true, shockTrap1));
                     shockTrap1.start();
                     shockTrapS.loopSound();
                     //start musica
@@ -456,7 +454,7 @@ public class Player extends AnimatedSprite {
 
             case 115:
                 if (this.coins >= 2 && !shockTrap2.isRunning()) {
-                    handler.addSprite(new ShockTrap((float) 560, (float) 2970, 155, 24, handler, true));
+                    handler.addSprite(new ShockTrap((float) 560, (float) 2970, 155, 24, handler, true, shockTrap2));
                     shockTrap2.start();
                     shockTrapS.loopSound();
                     //start musica
@@ -466,7 +464,7 @@ public class Player extends AnimatedSprite {
 
             case 49:
                 if (this.coins >= 2 && !shockTrap3.isRunning()) {
-                    handler.addSprite(new ShockTrap((float) 221, (float) 630, 155, 24, handler, false));
+                    handler.addSprite(new ShockTrap((float) 221, (float) 630, 155, 24, handler, false, shockTrap3));
                     shockTrap3.start();
                     //start musica
                     this.updateCoins(-2);
@@ -475,7 +473,7 @@ public class Player extends AnimatedSprite {
                 break;
             case 255:
                 if (this.coins >= 2 && !fireTrap.isRunning()) {
-                    handler.addSprite(new FireTrap((float) 322, (float) 1350, 1321, 600, handler));
+                    handler.addSprite(new FireTrap((float) 322, (float) 1350, 1321, 600, handler,fireTrap));
                     fireTrap.start();
                     //start musica
                     this.updateCoins(-2);
@@ -485,23 +483,23 @@ public class Player extends AnimatedSprite {
             case 150:
                 if (this.coins >= 2 && !wallTrap1.isRunning()) {
                     this.grafo.rimuoviCorridoio();
-                    handler.addSprite(new WallTrap((float) 2395, (float) 1890, 200, 30, handler, true));
+                    handler.addSprite(new WallTrap((float) 2395, (float) 1890, 200, 30, handler, true, durataWall1));
                     wallTrap1.start();
                     durataWall1.start();
                     this.updateCoins(-2);
-                    wallTrapS.loopSound();
+                    wallTrapS.playSound();
                 }
                 break;
             case 155:
                 if (this.coins >= 2 && !holeTrap1.isRunning()) {
-                    handler.addSprite(new HoleTrap((float) 2670, (float) 2240, 60, 60, handler));
+                    handler.addSprite(new HoleTrap((float) 2670, (float) 2240, 60, 60, handler, holeTrap1));
                     holeTrap1.start();
                     this.updateCoins(-2);
                 }
                 break;
             case 99:
                 if (this.coins >= 2 && !holeTrap2.isRunning()) {
-                    handler.addSprite(new HoleTrap((float) 1440, (float) 1020, 60, 60, handler));
+                    handler.addSprite(new HoleTrap((float) 1440, (float) 1020, 60, 60, handler, holeTrap2));
                     holeTrap2.start();
                     this.updateCoins(-2);
                 }
@@ -509,14 +507,14 @@ public class Player extends AnimatedSprite {
             case 189:
                 if (this.coins >= 2 && !wallTrap2.isRunning()) {
                     this.grafo.rimuoviEntrataLabirinto();
-                    handler.addSprite(new WallTrap((float) 2525, (float) 1217, 200, 30, handler, true));
-                    handler.addSprite(new WallTrap((float) 2750, (float) 545, 200, 30, handler, true));
-                    handler.addSprite(new WallTrap((float) 1980, (float) 727, 200, 30, handler, false));
+                    handler.addSprite(new WallTrap((float) 2525, (float) 1217, 200, 30, handler, true, durataWall2));
+                    handler.addSprite(new WallTrap((float) 2750, (float) 545, 200, 30, handler, true, durataWall2));
+                    handler.addSprite(new WallTrap((float) 1980, (float) 727, 200, 30, handler, false, durataWall2));
 
                     durataWall2.start();
                     wallTrap2.start();
                     this.updateCoins(-2);
-                    wallTrapS.loopSound();
+                    wallTrapS.playSound();
                 }
                 break;
         }

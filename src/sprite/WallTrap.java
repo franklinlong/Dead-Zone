@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import javax.swing.Timer;
 import utilities.Assets;
 /**
  *
@@ -17,18 +18,22 @@ import utilities.Assets;
  */
 public class WallTrap extends Trap{
     
-    private int durata;
     private final boolean orizzontale;
     private final Graphics2D g2dRGB;
+    private Timer durata;
     
-    public WallTrap(float x, float y, int width, int height, Handler handler, boolean orizzontale) {
+    public WallTrap(float x, float y, int width, int height, Handler handler, boolean orizzontale, Timer durata) {
         super(x, y, width, height, handler);
-        this.durata=300;
         this.orizzontale = orizzontale;
-
+        this.durata = durata;
+        
         g2dRGB = (Graphics2D) mapRGB.getGraphics();
         g2dRGB.setColor(new Color(255,0,0));
-        
+        if(!this.orizzontale){
+            g2dRGB.fillRect((int) getX(),(int) getY(), height, width);
+        }else{
+            g2dRGB.fillRect((int) getX(),(int) getY(), width, height);
+        }
     }
 
     @Override
@@ -38,19 +43,16 @@ public class WallTrap extends Trap{
             at.rotate(Math.PI/2);
             Graphics2D g2d = (Graphics2D) g;
             g2d.drawImage(Assets.wall, at, null);
-            g2dRGB.fillRect((int) getX(),(int) getY(), height, width);
         }
         else{   
             g.drawImage(Assets.wall, (int) (getX() - offsetX), (int) (getY() - offsetY), null);
-            g2dRGB.fillRect((int) getX(),(int) getY(), width, height);
         }
     }
     
     @Override
     public void animationCycle(){
-        if(durata>0){
-            durata--;
-        }else{
+        //Se è finito il timer della trappola
+        if(!this.durata.isRunning()){
             g2dRGB.drawImage(Assets.mapRGB2,0,0,null); //Sembra funzionare bene
             handler.removeSprite(this);
         }

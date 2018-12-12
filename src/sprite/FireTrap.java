@@ -13,6 +13,7 @@ import java.awt.Rectangle;
 import utilities.Animation;
 import utilities.Assets;
 import java.awt.geom.AffineTransform;
+import javax.swing.Timer;
 import sprite.animated.Zombie;
 
 /**
@@ -20,17 +21,16 @@ import sprite.animated.Zombie;
  * @author USER
  */
 public class FireTrap extends Trap{
-    private int durata;
     private final Animation animazione;
     private Rectangle r1;    
     private Rectangle r2;
     private Rectangle r3;
     private Rectangle r4;
-
+    private Timer durata;
     
-    public FireTrap(float x, float y, int width, int height, Handler handler) {
+    public FireTrap(float x, float y, int width, int height, Handler handler, Timer durata) {
         super(x, y, width, height, handler);
-        this.durata=600;
+        this.durata = durata;
         this.animazione = new Animation(Assets.fuochi, 200);
         this.r1 = new Rectangle((int)x, (int)y, width, 40);
         this.r2 = new Rectangle((int)x, (int)y+560, width, 40);
@@ -49,7 +49,7 @@ public class FireTrap extends Trap{
     
     @Override
     public void animationCycle(){
-        if(durata>0){
+        if(durata.isRunning()){
             for (Sprite s : handler.getZombies()){
                 if(s instanceof Zombie){
                     Rectangle zombie = s.getBounds();
@@ -57,7 +57,6 @@ public class FireTrap extends Trap{
                         ((Zombie) s).hit(500);
                 }
             }
-            durata--;
         }else
             handler.removeSprite(this);
         
