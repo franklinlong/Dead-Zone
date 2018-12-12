@@ -41,7 +41,6 @@ public class MapFrame extends javax.swing.JFrame {
 
     public MapFrame(SinglePlayer sp) {
         this.sp = sp;
-        int a = 10;
 
         Image iconaFrame;
         iconaFrame = new ImageIcon(getClass().getResource("/images/icona_frame.png")).getImage();
@@ -168,13 +167,11 @@ public class MapFrame extends javax.swing.JFrame {
     private void jButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlayActionPerformed
         // TODO add your handling code here:
         if (jButtonStandardMap.isBorderPainted()) {
-            new Window(sp.getPlayerName(), sp.isMale()).setVisible(true);
             this.setVisible(false);
-            Menu.gameMusic.stopSound();
-            this.gameClip = Utilities.LoadSound("/sound/gameMusic.wav");
-            this.gameMusic = new Sound(gameClip);
-            this.gameMusic.loopSound();
-
+            LoadingScreen ls = new LoadingScreen();
+            ls.setVisible(true);
+            new LoadingThread(sp, ls).start();           
+            
         } else {
             int w = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconWidth() * 1 / 6;
             int h = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconHeight() * 1 / 6;

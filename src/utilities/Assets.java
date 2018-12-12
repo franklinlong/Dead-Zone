@@ -98,8 +98,8 @@ public class Assets {
     public static BufferedImage coinsHud;
 
     public static Image minimap;
-    public static BufferedImage greenIndicator;
-    public static BufferedImage redIndicator;
+    public static Image greenIndicator;
+    public static Image redIndicator;
     
     public static BufferedImage mapRGB;
     public static BufferedImage mapRGB2;
@@ -324,14 +324,16 @@ public class Assets {
         coinsHud = Utilities.loadImage("/images/coinsHud.png");
 
         //minimap
-        //minimap = Utilities.loadImage("/images/grigionero.png");
-        greenIndicator = Utilities.loadImage("/images/green.png");
-        redIndicator = Utilities.loadImage("/images/red.png");
-        
         int mp_h = Toolkit.getDefaultToolkit().getScreenSize().width*18/100;
         int mp_w = Toolkit.getDefaultToolkit().getScreenSize().width*18/100;
         ImageIcon i = new ImageIcon("resources/images/grigionero.png");
-        minimap = i.getImage().getScaledInstance(mp_h, mp_w, Image.SCALE_DEFAULT);
+        minimap = i.getImage().getScaledInstance(mp_h, mp_w, Image.SCALE_FAST);
+        
+        greenIndicator = new ImageIcon("resources/images/green.png").getImage();
+        redIndicator = new ImageIcon("resources/images/red.png").getImage();
+        
+        redIndicator = redIndicator.getScaledInstance((int) mp_w / 20, (int) mp_h / 20, Image.SCALE_FAST);  //gli indicatori hanno come size il 5% di quelle della minimap
+        greenIndicator = greenIndicator.getScaledInstance((int) mp_w / 20, (int) mp_h / 20, Image.SCALE_FAST);
         
         try {
             mapRGB = ImageIO.read(new File("mapRGB.png"));

@@ -63,7 +63,7 @@ public class Waves implements Runnable {
     @Override
     public void run() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(5000);
         } catch (InterruptedException ex) {
             Logger.getLogger(Waves.class.getName()).log(Level.SEVERE, null, ex);
         }

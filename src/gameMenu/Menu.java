@@ -58,9 +58,9 @@ public class Menu extends javax.swing.JFrame {
         logo.setIcon(immagineLogo);
 
         if (gameMusic == null) {
-            this.gameClip = Utilities.LoadSound("/sound/MenuSong.wav");
-            this.gameMusic = new Sound(gameClip);
-            this.gameMusic.loopSound();
+            gameClip = Utilities.LoadSound("/sound/MenuSong.wav");
+            gameMusic = new Sound(gameClip);
+            gameMusic.loopSound();
         }
     }
 
@@ -241,6 +241,7 @@ public class Menu extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 Assets.init();
                 new Menu().setVisible(true);
