@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sprite;
+package trap;
 
 import deadzone.Handler;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import sprite.Sprite;
+import sprite.animated.Player;
 import sprite.animated.Zombie;
 
 /**
@@ -17,6 +19,7 @@ import sprite.animated.Zombie;
 public abstract class Trap extends Sprite{
     protected Handler handler;
     protected Rectangle rectangle;
+    protected int damage;
     
     public Trap(float x, float y, int width, int height, Handler handler){
         super(x, y, width, height);
@@ -29,12 +32,23 @@ public abstract class Trap extends Sprite{
 
     @Override
     public void animationCycle() {
-        for (Sprite s : handler.getZombies()){
-            if(s instanceof Zombie){
-                if(s.getBounds().intersects(rectangle))
-                    ((Zombie) s).hit(500);
+        Player p;
+        for (Sprite s : handler.getZombies()) {
+            if (s instanceof Zombie) {
+                Rectangle z = s.getBoundsTrap();
+                if (z.intersects(getBounds())) {
+                    ((Zombie) s).hit(damage);
+                }
             }
         }
+        p = handler.getPlayer();
+        if (p.getBoundsTrap().intersects(getBounds())) {
+            p.hit(damage);
+        }
+    }
+    
+    public int getDamage(){
+        return damage;
     }
     
 }

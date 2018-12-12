@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gameMenu;
+package deadzone.menu;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -73,7 +73,6 @@ public class PauseMenu extends javax.swing.JDialog {
         Exit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(471, 335));
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N

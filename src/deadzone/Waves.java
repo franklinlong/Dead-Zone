@@ -5,9 +5,9 @@
  */
 package deadzone;
 
-import gameMenu.MapFrame;
-import gameMenu.PauseMenu;
-import gameMenu.Settings;
+import deadzone.menu.MapFrame;
+import deadzone.menu.PauseMenu;
+import deadzone.menu.Settings;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sprite.Coins;

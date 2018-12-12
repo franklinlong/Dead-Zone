@@ -64,4 +64,13 @@ public abstract class Sprite {
     public Rectangle getBounds() {
         return new Rectangle((int) x, (int) y, width, height);
     }
+    
+    public Rectangle getBoundsTrap(){
+        Rectangle z = getBounds();
+        z.y = z.y + z.height/3;
+        z.height = z.height/3;
+        z.x = z.x + z.width/3;
+        z.width = z.width/3;
+        return z;
+    }
 }

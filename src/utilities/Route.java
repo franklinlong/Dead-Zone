@@ -5,7 +5,8 @@
  */
 package utilities;
 
-import Graph.*;
+import deadzone.graph.Edge;
+import deadzone.graph.Vertex;
 import deadzone.Handler;
 import java.awt.Rectangle;
 import java.util.ArrayList;
