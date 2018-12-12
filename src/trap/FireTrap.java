@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sprite;
+package trap;
 
+import trap.Trap;
 import deadzone.Handler;
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import utilities.Animation;
 import utilities.Assets;
-import java.awt.geom.AffineTransform;
 import javax.swing.Timer;
+import sprite.Sprite;
+import sprite.animated.Player;
 import sprite.animated.Zombie;
 
 /**
@@ -22,11 +22,11 @@ import sprite.animated.Zombie;
  */
 public class FireTrap extends Trap{
     private final Animation animazione;
-    private Rectangle r1;    
-    private Rectangle r2;
-    private Rectangle r3;
-    private Rectangle r4;
-    private Timer durata;
+    private final Rectangle r1;    
+    private final Rectangle r2;
+    private final Rectangle r3;
+    private final Rectangle r4;
+    private final Timer durata;
     
     public FireTrap(float x, float y, int width, int height, Handler handler, Timer durata) {
         super(x, y, width, height, handler);
@@ -37,26 +37,28 @@ public class FireTrap extends Trap{
         this.r3 = new Rectangle((int)x, (int) y + 40, 30, 560);
         this.r4 = new Rectangle((int)x + 1290, (int)y + 40, 30,560);
         
+        this.damage = 30;
     }
 
     @Override
     public void drawImage(Graphics g, float offsetX, float offsetY) {
-//        g.setColor(Color.yellow);
-//        g.fillRect((int) (getX() - offsetX),(int) (getY() - offsetY), width, height);
-         
         g.drawImage(animazione.getCurrentFrame(), (int) (getX() - offsetX), (int) (getY() - offsetY), null);        
     }
     
     @Override
     public void animationCycle(){
+        Player p;
         if(durata.isRunning()){
             for (Sprite s : handler.getZombies()){
                 if(s instanceof Zombie){
-                    Rectangle zombie = s.getBounds();
+                    Rectangle zombie = s.getBoundsTrap();
                     if(zombie.intersects(r1) || zombie.intersects(r2) || zombie.intersects(r3) || zombie.intersects(r4))
-                        ((Zombie) s).hit(500);
+                        ((Zombie) s).hit(damage);
                 }
             }
+            p = handler.getPlayer();
+            if(p.getBoundsTrap().intersects(r1) || p.getBoundsTrap().intersects(r2) || p.getBoundsTrap().intersects(r3) || p.getBoundsTrap().intersects(r4))
+                p.hit(damage);
         }else
             handler.removeSprite(this);
         

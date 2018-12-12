@@ -323,7 +323,7 @@ public class Assets {
         
         int mp_h = Toolkit.getDefaultToolkit().getScreenSize().width*18/100;
         int mp_w = Toolkit.getDefaultToolkit().getScreenSize().width*18/100;
-        ImageIcon i = new ImageIcon("resources/images/grigionero.png");
+        ImageIcon i = new ImageIcon("resources/images/minimappa.png");
         minimap = i.getImage().getScaledInstance(mp_h, mp_w, Image.SCALE_DEFAULT);
         
         try {

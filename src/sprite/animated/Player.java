@@ -5,17 +5,14 @@
  */
 package sprite.animated;
 
-import Graph.Edge;
-import Graph.Graph;
-import Graph.Vertex;
+import deadzone.graph.Edge;
+import deadzone.graph.Graph;
+import deadzone.graph.Vertex;
 import utilities.Animation;
 import utilities.Assets;
 import deadzone.Gun;
 import deadzone.Handler;
-import gameMenu.GameOver;
-import gameMenu.MapFrame;
-import java.awt.Color;
-import java.awt.Font;
+import deadzone.menu.MapFrame;
 import utilities.Sound;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -24,10 +21,10 @@ import java.awt.geom.AffineTransform;
 import java.util.Map;
 import javax.swing.Timer;
 import listeners.*;
-import sprite.FireTrap;
-import sprite.HoleTrap;
-import sprite.ShockTrap;
-import sprite.WallTrap;
+import trap.FireTrap;
+import trap.HoleTrap;
+import trap.ShockTrap;
+import trap.WallTrap;
 import utilities.Zona;
 
 /**

@@ -12,11 +12,8 @@ import sprite.Blood;
 import sprite.Circle;
 import sprite.DropItem;
 import sprite.Sprite;
-import sprite.Trap;
+import trap.Trap;
 import sprite.animated.*;
-import utilities.Animation;
-import utilities.Assets;
-import utilities.Sound;
 
 /**
  *

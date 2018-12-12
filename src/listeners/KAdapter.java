@@ -5,10 +5,9 @@
  */
 package listeners;
 
-import gameMenu.Settings;
+import deadzone.menu.Settings;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 
 /**
  *

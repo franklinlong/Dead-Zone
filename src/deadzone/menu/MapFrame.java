@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gameMenu;
+package deadzone.menu;
 
 import deadzone.Window;
 import utilities.Sound;
@@ -115,7 +115,7 @@ public class MapFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonBack);
-        jButtonBack.setBounds(60, 490, 59, 25);
+        jButtonBack.setBounds(60, 490, 55, 23);
 
         jButtonFisciano.setText("jButton1");
         jButtonFisciano.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -149,7 +149,7 @@ public class MapFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonPlay);
-        jButtonPlay.setBounds(350, 490, 65, 25);
+        jButtonPlay.setBounds(350, 490, 61, 23);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sfondo_senza_spari.png")));
         getContentPane().add(jLabel1);

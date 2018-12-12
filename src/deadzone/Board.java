@@ -10,7 +10,6 @@ import java.awt.Toolkit;
 import javax.swing.JSplitPane;
 import listeners.KAdapter;
 import sprite.animated.Player;
-import utilities.Assets;
 
 /**
  *

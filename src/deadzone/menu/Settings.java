@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gameMenu;
+package deadzone.menu;
 
 import java.awt.*;
 import javax.swing.*;
@@ -79,7 +79,6 @@ public class Settings extends javax.swing.JDialog {
         jLabel2.setText("Effects");
 
         effects.setText("ON");
-        effects.setSize(new java.awt.Dimension(75, 29));
         effects.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 effectsActionPerformed(evt);
@@ -99,7 +98,6 @@ public class Settings extends javax.swing.JDialog {
         });
 
         music.setText("ON");
-        music.setSize(new java.awt.Dimension(75, 29));
         music.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 musicActionPerformed(evt);

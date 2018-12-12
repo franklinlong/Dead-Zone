@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sprite;
+package trap;
 
+import trap.Trap;
 import deadzone.Handler;
 import java.awt.Graphics;
 import javax.swing.Timer;
-import utilities.Animation;
 import utilities.Assets;
 
 /**
@@ -16,13 +16,14 @@ import utilities.Assets;
  * @author USER
  */
 public class HoleTrap extends Trap{
-    private Timer durata;
+    private final Timer durata;
     
     public HoleTrap(float x, float y, int width, int height, Handler handler, Timer durata) {
         super(x, y, width, height, handler);
         this.durata=durata;
         this.setX(x);
         this.setY(y);
+        this.damage=20;
     }
 
     @Override
