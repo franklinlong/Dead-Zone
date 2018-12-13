@@ -346,6 +346,7 @@ public class Assets {
         
         fireTrap = Utilities.LoadSound("/sound/fuoco.wav");
         wallTrap = Utilities.LoadSound("/sound/muro.wav");
+        holeTrap = Utilities.LoadSound("/sound/holeTrapSound.wav");
         
     }
 }
