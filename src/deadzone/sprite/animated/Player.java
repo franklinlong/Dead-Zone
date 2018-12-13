@@ -241,7 +241,7 @@ public class Player extends AnimatedSprite {
                     ((Trap) s).getSound().stopSound();
             death();
         }
-
+        
         if(this.zona.aggiorna(getX(),getY())){
             this.camminiMinimi = Graph.BFS_complete(new Vertex(zona.getIndex()));
         }

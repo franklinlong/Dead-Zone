@@ -38,9 +38,9 @@ public class Ammo extends DropItem {
         if (this.isCollected(handler)) {
             sound.playSound();
             Gun[] allGuns = this.handler.getPlayer().getAllGuns();
-            allGuns[0].setTotalBullets(allGuns[0].getTotalBullets() + 30);
-            allGuns[1].setTotalBullets(allGuns[1].getTotalBullets() + 70);
-            allGuns[2].setTotalBullets(allGuns[2].getTotalBullets() + 16);
+            allGuns[0].setTotalBullets(allGuns[0].getTotalBullets() + 45);
+            allGuns[1].setTotalBullets(allGuns[1].getTotalBullets() + 105);
+            allGuns[2].setTotalBullets(allGuns[2].getTotalBullets() + 24);
             allGuns[3].setTotalBullets(allGuns[3].getTotalBullets() + 1);
             handler.removeSprite(this);
         }
