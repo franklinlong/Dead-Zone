@@ -18,12 +18,13 @@ import deadzone.utilities.Sound;
 public class Ammo extends DropItem {
 
     private Handler handler;
+    private Gun gun;
     private Sound sound;
 
     public Ammo(float x, float y, int width, int height, Handler handler) {
         super(x, y, width, height);
         this.handler = handler;
-        this.sound = new Sound(Assets.pistolReloadSound);
+        this.sound = new Sound(Assets.ammoPickUp);
         this.sound.changeVolume(-10);
     }
 
@@ -37,15 +38,13 @@ public class Ammo extends DropItem {
         if (this.isCollected(handler)) {
             sound.playSound();
             Gun[] allGuns = this.handler.getPlayer().getAllGuns();
-            //pistol
             allGuns[0].setTotalBullets(allGuns[0].getTotalBullets() + 30);
-            //rifle
-            allGuns[1].setTotalBullets(allGuns[1].getTotalBullets() + 105);
-            //shotgun
+            allGuns[1].setTotalBullets(allGuns[1].getTotalBullets() + 70);
             allGuns[2].setTotalBullets(allGuns[2].getTotalBullets() + 16);
-            //rpg
             allGuns[3].setTotalBullets(allGuns[3].getTotalBullets() + 1);
             handler.removeSprite(this);
         }
     }
+
+
 }
