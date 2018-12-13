@@ -400,73 +400,73 @@ public class Player extends AnimatedSprite {
         
         switch (pixel) {
             case 130:
-                if (this.coins >= 2 && !this.shockTrapActive1) {
-                    handler.addSprite(new ShockTrap((float) 564, (float) 2253, 155, 24, handler, true, 500, this.shockTrapS1, 1));
-                    this.updateCoins(-2);
+                if (this.coins >= 3 && !this.shockTrapActive1) {
+                    handler.addSprite(new ShockTrap((float) 564, (float) 2253, 155, 24, handler, true, 1000, this.shockTrapS1, 1));
+                    this.updateCoins(-3);
                     this.shockTrapActive1=true;
                 }
                     break;
             case 115:
-                if (this.coins >= 2 && !this.shockTrapActive2) {
-                    handler.addSprite(new ShockTrap((float) 560, (float) 2970, 155, 24, handler, true, 500, this.shockTrapS2, 2));
-                    this.updateCoins(-2);
+                if (this.coins >= 3 && !this.shockTrapActive2) {
+                    handler.addSprite(new ShockTrap((float) 560, (float) 2970, 155, 24, handler, true, 1000, this.shockTrapS2, 2));
+                    this.updateCoins(-3);
                     this.shockTrapActive2=true;
                     break;
                 }
             case 49:
-                if (this.coins >= 2 && !this.shockTrapActive3) {
-                    handler.addSprite(new ShockTrap((float) 221, (float) 630, 155, 24, handler, false, 500, this.shockTrapS3, 3));
-                    this.updateCoins(-2);
+                if (this.coins >= 3 && !this.shockTrapActive3) {
+                    handler.addSprite(new ShockTrap((float) 221, (float) 630, 155, 24, handler, false, 1000, this.shockTrapS3, 3));
+                    this.updateCoins(-3);
                     this.shockTrapActive3=true;
                 }
                 break;
             case 255:
-                if (this.coins >= 2 && !this.fireTrapActive) {
+                if (this.coins >= 4 && !this.fireTrapActive) {
                     for(int i=0;i<7;i++)
-                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1400, 120, 66, handler, true, 440, this.fireTrapS));
+                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1400, 120, 66, handler, true, 940, this.fireTrapS));
                     for(int i=7;i<14;i++)
-                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1400, 120, 66, handler, true, 460, this.fireTrapS));
+                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1400, 120, 66, handler, true, 960, this.fireTrapS));
                     for(int i=0;i<5;i++)
-                        handler.addSprite(new FireTrap((float) 1730, (float) 1450 + 66*i, 120, 66, handler, false, 480, this.fireTrapS));
+                        handler.addSprite(new FireTrap((float) 1730, (float) 1450 + 66*i, 120, 66, handler, false, 980, this.fireTrapS));
                     for(int i=0;i<7;i++)
-                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1860, 120, 66, handler ,true, 520, this.fireTrapS));    
+                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1860, 120, 66, handler ,true, 1020, this.fireTrapS));    
                     for(int i=7;i<14;i++)
-                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1860, 120, 66, handler ,true, 500, this.fireTrapS));    
+                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1860, 120, 66, handler ,true, 1000, this.fireTrapS));    
                     for(int i=0;i<5;i++)
-                        handler.addSprite(new FireTrap((float) 170, (float) 1450 + 66*i, 120, 66, handler, false, 540, this.fireTrapS));
-                    this.updateCoins(-2);
+                        handler.addSprite(new FireTrap((float) 170, (float) 1450 + 66*i, 120, 66, handler, false, 1040, this.fireTrapS));
+                    this.updateCoins(-4);
                     this.fireTrapActive=true;
                 }
                 break;
             case 150:
-                if (this.coins >= 2 &&  !this.wallTrapActive1) {
+                if (this.coins >= 1 &&  !this.wallTrapActive1) {
                     this.grafo.rimuoviCorridoio();
-                    handler.addSprite(new WallTrap((float) 2395, (float) 1890, 200, 30, handler, true, 500, this.wallTrapS1, 1));
-                    this.updateCoins(-2);
+                    handler.addSprite(new WallTrap((float) 2395, (float) 1890, 200, 30, handler, true, 3000, this.wallTrapS1, 1));
+                    this.updateCoins(-1);
                     this.wallTrapActive1=true;
                 }
                 break;
             case 155:
-                if (this.coins >= 2 && !this.holeTrapActive1) {
-                    handler.addSprite(new HoleTrap((float) 2670, (float) 2240, 60, 60, handler, 500, this.holeTrapS, 1));
-                    this.updateCoins(-2);
+                if (this.coins >= 7 && !this.holeTrapActive1) {
+                    handler.addSprite(new HoleTrap((float) 2670, (float) 2240, 60, 60, handler, 700, this.holeTrapS, 1));
+                    this.updateCoins(-7);
                     this.holeTrapActive1=true;
                 break;
                 }
             case 99:
-                if (this.coins >= 2 && !this.holeTrapActive2) {
-                    handler.addSprite(new HoleTrap((float) 1440, (float) 1020, 60, 60, handler, 500, this.holeTrapS, 2));
-                    this.updateCoins(-2);
+                if (this.coins >= 7 && !this.holeTrapActive2) {
+                    handler.addSprite(new HoleTrap((float) 1440, (float) 1020, 60, 60, handler, 700, this.holeTrapS, 2));
+                    this.updateCoins(-7);
                     this.holeTrapActive2=true;
                 }
                 break;
             case 189:
-                if (this.coins >= 2 && !this.wallTrapActive2) {
+                if (this.coins >= 1 && !this.wallTrapActive2) {
                     this.grafo.rimuoviEntrataLabirinto();
-                    handler.addSprite(new WallTrap((float) 2525, (float) 1217, 200, 30, handler, true, 500, this.wallTrapS2, 2));
-                    handler.addSprite(new WallTrap((float) 2750, (float) 545, 200, 30, handler, true, 500, this.wallTrapS2, 2));
-                    handler.addSprite(new WallTrap((float) 1980, (float) 727, 200, 30, handler, false, 500, this.wallTrapS2, 2));
-                    this.updateCoins(-2);
+                    handler.addSprite(new WallTrap((float) 2525, (float) 1217, 200, 30, handler, true, 3000, this.wallTrapS2, 2));
+                    handler.addSprite(new WallTrap((float) 2750, (float) 545, 200, 30, handler, true, 3000, this.wallTrapS2, 2));
+                    handler.addSprite(new WallTrap((float) 1980, (float) 727, 200, 30, handler, false, 3000, this.wallTrapS2, 2));
+                    this.updateCoins(-1);
                     this.wallTrapActive2=true;
                 }
                 break;
