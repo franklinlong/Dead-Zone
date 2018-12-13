@@ -22,7 +22,6 @@ public class HoleTrap extends Trap{
         super(x, y, width, height, handler, durata, sound);
         this.setX(x);
         this.setY(y);
-        this.damage=20;
         this.index = index;
         this.damage=5000;
         this.sound.playSound();
