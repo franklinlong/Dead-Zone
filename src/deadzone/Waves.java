@@ -44,7 +44,7 @@ public class Waves implements Runnable {
     private int score;
     private int numZombieSpawn;
     private int i=3,j=2;
-    private int prob=27;
+    private int prob=20;
     public Waves(Handler handler) {
         this.numZombieRound = 0;
         this.numWeakRound = 0;
@@ -534,7 +534,7 @@ public class Waves implements Runnable {
     }
 
     public void createSpittleZombie(float x, float y, float mulHealth, float prob) {
-        this.handler.addSprite(new SpittleZombie(x, y, (float) 2, (int) (500 * mulHealth), 80, handler.getPlayer(), this.handler, prob, 60, 60, 45, new Animation(Assets.zombie3, 40), new Animation(Assets.zombie3Attack, 50), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
+        this.handler.addSprite(new SpittleZombie(x, y, (float) 2, (int) (400 * mulHealth), 75, handler.getPlayer(), this.handler, prob, 60, 60, 45, new Animation(Assets.zombie3, 40), new Animation(Assets.zombie3Attack, 50), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
     }
 
     public void createBoss(float x, float y, float mulHealth, float prob) {
