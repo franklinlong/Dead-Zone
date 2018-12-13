@@ -26,7 +26,7 @@ public class Window extends JFrame {
     }
 
     private void initUI(String playerName, boolean male) {
-        add(new Board(playerName, male));
+        add(new Board(playerName, male, this));
         Dimension dimensioneSchermo = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize(dimensioneSchermo);
         setResizable(false);
