@@ -11,12 +11,12 @@ import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
 import java.net.URL;
 import javax.swing.*;
-import sprite.Sprite;
-import sprite.animated.Player;
-import sprite.animated.Zombie;
+import deadzone.sprite.Sprite;
+import deadzone.sprite.animated.Player;
+import deadzone.sprite.animated.Zombie;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import utilities.Assets;
+import deadzone.utilities.Assets;
 
 public class HudPanel extends JPanel implements Runnable {
 

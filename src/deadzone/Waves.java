@@ -10,13 +10,13 @@ import deadzone.menu.PauseMenu;
 import deadzone.menu.Settings;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import sprite.Coins;
-import sprite.animated.Boss;
-import sprite.animated.SpittleZombie;
-import sprite.animated.StandardZombie;
-import utilities.Animation;
-import utilities.Assets;
-import utilities.Sound;
+import deadzone.sprite.Coins;
+import deadzone.sprite.animated.Boss;
+import deadzone.sprite.animated.SpittleZombie;
+import deadzone.sprite.animated.StandardZombie;
+import deadzone.utilities.Animation;
+import deadzone.utilities.Assets;
+import deadzone.utilities.Sound;
 
 /**
  *

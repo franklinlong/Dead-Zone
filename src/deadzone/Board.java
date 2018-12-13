@@ -8,8 +8,8 @@ package deadzone;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JSplitPane;
-import listeners.KAdapter;
-import sprite.animated.Player;
+import deadzone.listeners.KAdapter;
+import deadzone.sprite.animated.Player;
 
 /**
  *

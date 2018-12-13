@@ -15,8 +15,8 @@ import java.net.URL;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import utilities.Score;
-import utilities.Scoreboard;
+import deadzone.utilities.Score;
+import deadzone.utilities.Scoreboard;
 
 /**
  *

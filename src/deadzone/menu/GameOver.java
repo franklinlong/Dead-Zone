@@ -11,8 +11,8 @@ import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-import utilities.Sound;
-import utilities.Utilities;
+import deadzone.utilities.Sound;
+import deadzone.utilities.Utilities;
 
 /**
  *
@@ -37,7 +37,7 @@ public class GameOver extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-        GameOver.clipEndGame = Utilities.LoadSound("/sound/endGame2.wav");
+        GameOver.clipEndGame = Utilities.LoadSound("/sound/endGame.wav");
         GameOver.soundEndGame = new Sound(clipEndGame);
         GameOver.soundEndGame.playSound();
     }

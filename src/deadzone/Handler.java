@@ -1,22 +1,23 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package deadzone;
 
+import deadzone.sprite.animated.Player;
+import deadzone.sprite.animated.SpawnSpittle;
+import deadzone.sprite.animated.Projectile;
+import deadzone.sprite.animated.Spittle;
+import deadzone.sprite.animated.Zombie;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
-import sprite.Blood;
-import sprite.Circle;
-import sprite.DropItem;
-import sprite.Sprite;
-import trap.Trap;
-import sprite.animated.*;
-import utilities.Animation;
-import utilities.Assets;
-import utilities.Sound;
+import deadzone.sprite.Blood;
+import deadzone.sprite.Circle;
+import deadzone.sprite.DropItem;
+import deadzone.sprite.Sprite;
+import deadzone.trap.Trap;
 
 /**
  *
@@ -37,7 +38,7 @@ public class Handler {
     private final Waves waves;
 
     public Handler(String playerName, boolean male) {
-        player = new Player(1600, 1600, 3, 10000, this, playerName, male);
+        player = new Player(1600, 1600, 3, 1600, this, playerName, male);
         camera = new Camera(player);
         players.add(player);
         
