@@ -19,16 +19,11 @@ public class Ammo extends DropItem {
 
     private Handler handler;
     private Gun gun;
-    private int incremento; //colpi aggiuntivi nel caricatore se raccolto
-    private int incrementoTot; //colpi aggiuntivi totali se raccolto
     private Sound sound;
 
     public Ammo(float x, float y, int width, int height, Handler handler) {
         super(x, y, width, height);
         this.handler = handler;
-        this.gun = handler.getPlayer().getCurrentGun();
-        this.incremento = 3;
-        this.incrementoTot = 100;
         this.sound = new Sound(Assets.ammoPickUp);
         this.sound.changeVolume(-10);
     }
@@ -42,14 +37,12 @@ public class Ammo extends DropItem {
     public void animationCycle() {
         if (this.isCollected(handler)) {
             sound.playSound();
-            if (!(gun.getSkin() == Assets.rpgSkin)) {
-                gun.setTotalBullets(gun.getTotalBullets() + 20);
-                handler.removeSprite(this);
-            } else {
-                gun.setTotalBullets(gun.getTotalBullets() + 2);
-                handler.removeSprite(this);
-            }
-
+            Gun[] allGuns = this.handler.getPlayer().getAllGuns();
+            allGuns[0].setTotalBullets(allGuns[0].getTotalBullets() + 30);
+            allGuns[1].setTotalBullets(allGuns[1].getTotalBullets() + 70);
+            allGuns[2].setTotalBullets(allGuns[2].getTotalBullets() + 16);
+            allGuns[3].setTotalBullets(allGuns[3].getTotalBullets() + 1);
+            handler.removeSprite(this);
         }
     }
 
