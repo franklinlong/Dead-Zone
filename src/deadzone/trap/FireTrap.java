@@ -28,6 +28,7 @@ public class FireTrap extends Trap{
             this.animazione = new Animation(Assets.fuochiR, 100);
         this.damage = 30;
         p = handler.getPlayer();
+        this.sound.loopSound();
     }
 
     @Override

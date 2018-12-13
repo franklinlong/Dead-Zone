@@ -24,8 +24,8 @@ public abstract class Trap extends Sprite{
     protected int damage;
     protected int durata;
     protected final Sound sound;
-    
     private boolean state;
+    protected boolean loopSound=true;
     
     public Trap(float x, float y, int width, int height, Handler handler, int durata, Sound sound){
         super(x, y, width, height);
@@ -33,7 +33,6 @@ public abstract class Trap extends Sprite{
         this.rectangle = new Rectangle((int) x,(int) y, width, height);
         this.durata = durata;
         this.sound = sound;
-        sound.loopSound();
         state = true;
     }
     
@@ -44,7 +43,8 @@ public abstract class Trap extends Sprite{
     public void animationCycle() {
         if (!PauseMenu.isPause()) {
             if(!state){
-                this.sound.loopSound();
+                if(loopSound)
+                    this.sound.loopSound();
                 state = true;
             }
             Player p;

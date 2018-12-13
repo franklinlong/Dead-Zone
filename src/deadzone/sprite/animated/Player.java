@@ -18,11 +18,8 @@ import deadzone.menu.MapFrame;
 import deadzone.utilities.Sound;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
 import java.awt.geom.AffineTransform;
-import java.util.ArrayList;
 import java.util.Map;
-import javax.swing.Timer;
 import deadzone.sprite.Sprite;
 import deadzone.trap.FireTrap;
 import deadzone.trap.HoleTrap;
@@ -423,17 +420,17 @@ public class Player extends AnimatedSprite {
             case 255:
                 if (this.coins >= 2 && !this.fireTrapActive) {
                     for(int i=0;i<7;i++)
-                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1400, 120, 66, handler, true, 440, this.fireTrapS));
+                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1370, 120, 66, handler, true, 440, this.fireTrapS));
                     for(int i=7;i<14;i++)
-                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1400, 120, 66, handler, true, 460, this.fireTrapS));
-                    for(int i=0;i<5;i++)
-                        handler.addSprite(new FireTrap((float) 1730, (float) 1450 + 66*i, 120, 66, handler, false, 480, this.fireTrapS));
+                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1370, 120, 66, handler, true, 460, this.fireTrapS));
+                    for(int i=0;i<7;i++)
+                        handler.addSprite(new FireTrap((float) 1730, (float) 1384 + 66*i, 120, 66, handler, false, 480, this.fireTrapS));
                     for(int i=0;i<7;i++)
                         handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1860, 120, 66, handler ,true, 520, this.fireTrapS));    
                     for(int i=7;i<14;i++)
                         handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1860, 120, 66, handler ,true, 500, this.fireTrapS));    
-                    for(int i=0;i<5;i++)
-                        handler.addSprite(new FireTrap((float) 170, (float) 1450 + 66*i, 120, 66, handler, false, 540, this.fireTrapS));
+                    for(int i=0;i<7;i++)
+                        handler.addSprite(new FireTrap((float) 170, (float) 1384 + 66*i, 120, 66, handler, false, 540, this.fireTrapS));
                     this.updateCoins(-2);
                     this.fireTrapActive=true;
                 }

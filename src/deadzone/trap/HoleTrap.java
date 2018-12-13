@@ -25,6 +25,8 @@ public class HoleTrap extends Trap{
         this.damage=20;
         this.index = index;
         this.damage=5000;
+        this.sound.playSound();
+        loopSound=false;
     }
 
     @Override
@@ -38,7 +40,7 @@ public class HoleTrap extends Trap{
             super.animationCycle();
         }else{
             handler.removeSprite(this);
-            this.sound.stopSound();
+            this.sound.playSound();
             Player p = handler.getPlayer();
             switch(index){
                 case 1:

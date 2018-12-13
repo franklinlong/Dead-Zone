@@ -30,6 +30,7 @@ public class ShockTrap extends Trap{
         this.orizzontale = orizzontale;
         this.index = index;
         this.damage=10;
+        this.sound.loopSound();
     }
 
     @Override
