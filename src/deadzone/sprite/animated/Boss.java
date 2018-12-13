@@ -16,6 +16,7 @@ import deadzone.utilities.Animation;
 import deadzone.utilities.Assets;
 import deadzone.utilities.Route;
 import deadzone.utilities.Sound;
+import java.awt.Rectangle;
 /**
  *
  * @author genna
@@ -280,5 +281,13 @@ public class Boss extends Zombie{
             Graphics2D g2d = (Graphics2D) g;
             g2d.drawImage(Assets.spittle_boss, at, null);
         }
+    }
+    
+    @Override
+    public Rectangle getBounds(){
+        Rectangle z = super.getBounds();
+        z.x = z.x + 30;
+        z.y = z.y + 30;
+        return z;
     }
 }

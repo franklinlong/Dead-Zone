@@ -17,6 +17,7 @@ import deadzone.sprite.Blood;
 import deadzone.sprite.Circle;
 import deadzone.sprite.DropItem;
 import deadzone.sprite.Sprite;
+import deadzone.sprite.animated.Boss;
 import deadzone.trap.Trap;
 
 /**
@@ -33,12 +34,13 @@ public class Handler {
     private final List<Sprite> itemsAndTrap = new ArrayList<>();
     private final List<Sprite> bloods = new ArrayList<>();
     private final List<Sprite> circle = new ArrayList<>();
+    
     private static Camera camera;
     private final Player player;
     private final Waves waves;
 
     public Handler(String playerName, boolean male) {
-        player = new Player(1600, 1600, 3, 1600, this, playerName, male);
+        player = new Player(1600, 1600, 3, 10000000, this, playerName, male);
         camera = new Camera(player);
         players.add(player);
         
@@ -84,6 +86,7 @@ public class Handler {
             Sprite s = circle.get(i);
             s.animationCycle();
         }
+        
         for (int i = 0; i < bloods.size(); i++) {
             Sprite s = bloods.get(i);
             s.animationCycle();
@@ -133,6 +136,8 @@ public class Handler {
             Sprite s = circle.get(i);
             s.drawImage(g, offsetX, offsetY);
         }
+        
+        
     }
 
     public void addSprite(Sprite s) {
