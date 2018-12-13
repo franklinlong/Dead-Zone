@@ -547,6 +547,7 @@ public class Player extends AnimatedSprite {
             case 150:
                 if (this.coins >= 1 &&  !this.wallTrapActive1) {
                     this.grafo.rimuoviCorridoio();
+                    this.camminiMinimi = Graph.BFS_complete(new Vertex(this.zona.getIndex()));
                     handler.addSprite(new WallTrap((float) 2395, (float) 1890, 200, 30, handler, true, 3000, this.wallTrapS1, 1));
                     this.updateCoins(-1);
                     this.wallTrapActive1=true;
@@ -569,6 +570,7 @@ public class Player extends AnimatedSprite {
             case 189:
                 if (this.coins >= 1 && !this.wallTrapActive2) {
                     this.grafo.rimuoviEntrataLabirinto();
+                    this.camminiMinimi = Graph.BFS_complete(new Vertex(this.zona.getIndex()));
                     handler.addSprite(new WallTrap((float) 2525, (float) 1217, 200, 30, handler, true, 1500, this.wallTrapS2, 2));
                     handler.addSprite(new WallTrap((float) 2750, (float) 545, 200, 30, handler, true, 1500, this.wallTrapS2, 2));
                     handler.addSprite(new WallTrap((float) 1980, (float) 727, 200, 30, handler, false, 1500, this.wallTrapS2, 2));
@@ -593,14 +595,18 @@ public class Player extends AnimatedSprite {
     }
 
     public void setWallTrapActive1(boolean wallTrapActive1) {
-        if(this.wallTrapActive1 && !wallTrapActive1)
+        if(this.wallTrapActive1 && !wallTrapActive1){
             this.grafo.inserisciCorridoio();
+            this.camminiMinimi = Graph.BFS_complete(new Vertex(this.zona.getIndex()));
+        }
         this.wallTrapActive1 = wallTrapActive1;
     }
 
     public void setWallTrapActive2(boolean wallTrapActive2) {
-        if(this.wallTrapActive2 && !wallTrapActive2)
+        if(this.wallTrapActive2 && !wallTrapActive2){
             this.grafo.inserisciEntrataLabirinto();
+            this.camminiMinimi = Graph.BFS_complete(new Vertex(this.zona.getIndex()));
+        }
         this.wallTrapActive2 = wallTrapActive2;
     }
 
