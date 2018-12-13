@@ -33,6 +33,7 @@ public class Handler {
     private final List<Sprite> itemsAndTrap = new ArrayList<>();
     private final List<Sprite> bloods = new ArrayList<>();
     private final List<Sprite> circle = new ArrayList<>();
+    
     private static Camera camera;
     private final Player player;
     private final Waves waves;
@@ -84,6 +85,7 @@ public class Handler {
             Sprite s = circle.get(i);
             s.animationCycle();
         }
+        
         for (int i = 0; i < bloods.size(); i++) {
             Sprite s = bloods.get(i);
             s.animationCycle();
@@ -133,6 +135,8 @@ public class Handler {
             Sprite s = circle.get(i);
             s.drawImage(g, offsetX, offsetY);
         }
+        
+        
     }
 
     public void addSprite(Sprite s) {

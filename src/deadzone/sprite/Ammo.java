@@ -17,9 +17,9 @@ import deadzone.utilities.Sound;
  */
 public class Ammo extends DropItem {
 
-    private Handler handler;
+    private final Handler handler;
     private Gun gun;
-    private Sound sound;
+    private final Sound sound;
 
     public Ammo(float x, float y, int width, int height, Handler handler) {
         super(x, y, width, height);

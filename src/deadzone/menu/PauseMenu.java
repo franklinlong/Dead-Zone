@@ -165,7 +165,7 @@ public class PauseMenu extends javax.swing.JDialog {
     private void SettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsActionPerformed
         // TODO add your handling code here:
         JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(SwingUtilities.getWindowAncestor(this));
-        Settings set = new Settings(topFrame, true);
+        Settings set = new Settings(topFrame, true, true);
         set.setVisible(true);
     }//GEN-LAST:event_SettingsActionPerformed
 
