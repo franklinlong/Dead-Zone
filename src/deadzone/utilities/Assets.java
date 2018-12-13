@@ -298,7 +298,7 @@ public class Assets {
         zombieBite = Utilities.LoadSound("/sound/zombieBite.wav");
         zombieHit = Utilities.LoadSound("/sound/zombiehit.wav");
 
-        endGame = Utilities.LoadSound("/sound/endGame2.wav");
+        endGame = Utilities.LoadSound("/sound/endGame.wav");
         endOfRound = Utilities.LoadSound("/sound/round.wav");
         
         restoreHealth = Utilities.LoadSound("/sound/restoreHealth.wav");
