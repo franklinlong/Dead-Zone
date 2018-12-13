@@ -18,11 +18,8 @@ import deadzone.menu.MapFrame;
 import deadzone.utilities.Sound;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
 import java.awt.geom.AffineTransform;
-import java.util.ArrayList;
 import java.util.Map;
-import javax.swing.Timer;
 import deadzone.sprite.Sprite;
 import deadzone.trap.FireTrap;
 import deadzone.trap.HoleTrap;
@@ -401,40 +398,40 @@ public class Player extends AnimatedSprite {
         switch (pixel) {
             case 130:
                 if (this.coins >= 3 && !this.shockTrapActive1) {
-                    handler.addSprite(new ShockTrap((float) 564, (float) 2253, 155, 24, handler, true, 1000, this.shockTrapS1, 1));
+                    handler.addSprite(new ShockTrap((float) 564, (float) 2253, 155, 24, handler, true, 800, this.shockTrapS1, 1));
                     this.updateCoins(-3);
                     this.shockTrapActive1=true;
                 }
                     break;
             case 115:
                 if (this.coins >= 3 && !this.shockTrapActive2) {
-                    handler.addSprite(new ShockTrap((float) 560, (float) 2970, 155, 24, handler, true, 1000, this.shockTrapS2, 2));
+                    handler.addSprite(new ShockTrap((float) 560, (float) 2970, 155, 24, handler, true, 800, this.shockTrapS2, 2));
                     this.updateCoins(-3);
                     this.shockTrapActive2=true;
                     break;
                 }
             case 49:
                 if (this.coins >= 3 && !this.shockTrapActive3) {
-                    handler.addSprite(new ShockTrap((float) 221, (float) 630, 155, 24, handler, false, 1000, this.shockTrapS3, 3));
+                    handler.addSprite(new ShockTrap((float) 221, (float) 630, 155, 24, handler, false, 800, this.shockTrapS3, 3));
                     this.updateCoins(-3);
                     this.shockTrapActive3=true;
                 }
                 break;
             case 255:
-                if (this.coins >= 4 && !this.fireTrapActive) {
+                if (this.coins >= 5 && !this.fireTrapActive) {
                     for(int i=0;i<7;i++)
-                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1400, 120, 66, handler, true, 940, this.fireTrapS));
+                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1370, 120, 66, handler, true, 740, this.fireTrapS));
                     for(int i=7;i<14;i++)
-                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1400, 120, 66, handler, true, 960, this.fireTrapS));
-                    for(int i=0;i<5;i++)
-                        handler.addSprite(new FireTrap((float) 1730, (float) 1450 + 66*i, 120, 66, handler, false, 980, this.fireTrapS));
+                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1370, 120, 66, handler, true, 760, this.fireTrapS));
                     for(int i=0;i<7;i++)
-                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1860, 120, 66, handler ,true, 1020, this.fireTrapS));    
+                        handler.addSprite(new FireTrap((float) 1730, (float) 1384 + 66*i, 120, 66, handler, false, 780, this.fireTrapS));
+                    for(int i=0;i<7;i++)
+                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1860, 120, 66, handler ,true, 820, this.fireTrapS));    
                     for(int i=7;i<14;i++)
-                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1860, 120, 66, handler ,true, 1000, this.fireTrapS));    
-                    for(int i=0;i<5;i++)
-                        handler.addSprite(new FireTrap((float) 170, (float) 1450 + 66*i, 120, 66, handler, false, 1040, this.fireTrapS));
-                    this.updateCoins(-4);
+                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1860, 120, 66, handler ,true, 800, this.fireTrapS));    
+                    for(int i=0;i<7;i++)
+                        handler.addSprite(new FireTrap((float) 170, (float) 1384 + 66*i, 120, 66, handler, false, 840, this.fireTrapS));
+                    this.updateCoins(-5);
                     this.fireTrapActive=true;
                 }
                 break;
@@ -463,9 +460,9 @@ public class Player extends AnimatedSprite {
             case 189:
                 if (this.coins >= 1 && !this.wallTrapActive2) {
                     this.grafo.rimuoviEntrataLabirinto();
-                    handler.addSprite(new WallTrap((float) 2525, (float) 1217, 200, 30, handler, true, 3000, this.wallTrapS2, 2));
-                    handler.addSprite(new WallTrap((float) 2750, (float) 545, 200, 30, handler, true, 3000, this.wallTrapS2, 2));
-                    handler.addSprite(new WallTrap((float) 1980, (float) 727, 200, 30, handler, false, 3000, this.wallTrapS2, 2));
+                    handler.addSprite(new WallTrap((float) 2525, (float) 1217, 200, 30, handler, true, 2000, this.wallTrapS2, 2));
+                    handler.addSprite(new WallTrap((float) 2750, (float) 545, 200, 30, handler, true, 2000, this.wallTrapS2, 2));
+                    handler.addSprite(new WallTrap((float) 1980, (float) 727, 200, 30, handler, false, 2000, this.wallTrapS2, 2));
                     this.updateCoins(-1);
                     this.wallTrapActive2=true;
                 }

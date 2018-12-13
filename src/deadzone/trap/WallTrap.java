@@ -21,13 +21,12 @@ import deadzone.utilities.Sound;
 public class WallTrap extends Trap{
     private final boolean orizzontale;
     private final Graphics2D g2dRGB;
-    private int index;
+    private final int index;
     
     public WallTrap(float x, float y, int width, int height, Handler handler, boolean orizzontale, int durata, Sound sound, int index) {
         super(x, y, width, height, handler, durata, sound);
         this.orizzontale = orizzontale;
         this.index = index;
-        
         g2dRGB = (Graphics2D) mapRGB.getGraphics();
         g2dRGB.setColor(new Color(255,0,0));
         if(!this.orizzontale){
@@ -35,6 +34,8 @@ public class WallTrap extends Trap{
         }else{
             g2dRGB.fillRect((int) getX(),(int) getY(), width, height);
         }
+        this.sound.playSound();
+        loopSound=false;
     }
 
     @Override
@@ -67,6 +68,7 @@ public class WallTrap extends Trap{
                     p.setWallTrapActive2(false);
                     break;
             }
+            sound.playSound();
         }
     }
 }
