@@ -312,7 +312,9 @@ public class HudPanel extends JPanel implements Runnable {
                     this.actualWeapon = new ImageIcon(handler.getPlayer().getCurrentGun().getSkin());
                     gunLabel.setSize(actualWeapon.getIconWidth(), actualWeapon.getIconHeight()); //dimensiona label secondo grandezza immagine arma
                     gunLabel.setIcon(actualWeapon); //aggiorna immagine arma
-                    numBullets.setText(Integer.toString(handler.getPlayer().getCurrentGun().getRound()) + "/" + Integer.toString(handler.getPlayer().getCurrentGun().getTotalBullets())); //aggiorna numero proiettili
+                    if(this.handler.getPlayer().getCurrentGun().getSkin()==Assets.pistolSkin)
+                        numBullets.setText(Integer.toString(handler.getPlayer().getCurrentGun().getRound()) + "/" + "\u221e");
+                    else numBullets.setText(Integer.toString(handler.getPlayer().getCurrentGun().getRound()) + "/" + Integer.toString(handler.getPlayer().getCurrentGun().getTotalBullets())); //aggiorna numero proiettili
                     numEnemies.setText("" + handler.getZombies().size());
                     playerHealth.setHealth(this.handler.getPlayer().getHealth()); //aggiorna progressBar player
                     numWave.setText(Integer.toString(handler.getWaves().getWaveCount()) + " - \u221e");

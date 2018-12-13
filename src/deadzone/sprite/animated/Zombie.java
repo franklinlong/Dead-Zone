@@ -77,7 +77,7 @@ public abstract class Zombie extends AnimatedSprite {
         //Alla morte dello zombie, con una data probabilita, viene rilasciato un nuovo item
         boolean drop = (Math.random() * 100) <= probabilityDrop;
         if (drop) {
-            float probAmmo = 82;
+            float probAmmo = 30;
             float probNuke = 3;
             float probMK = 15;
             float valoreCasuale = (float) (Math.random() * 100);
@@ -89,7 +89,7 @@ public abstract class Zombie extends AnimatedSprite {
             } else if (valoreCasuale <= probNuke + probMK + probAmmo) {
                 handler.addSprite(new Ammo(this.getX() + this.width / 2, this.getY() + this.height / 2, 20, 20, handler));
             } else {
-                System.out.println("NEL COSTRUTTORE DI DROP ITEM, NON DOVREBBE STAMPARE STO MESSAGGIO");
+                //altrimenti ottieni nulla
             }
         }
 
