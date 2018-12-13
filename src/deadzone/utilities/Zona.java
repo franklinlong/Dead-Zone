@@ -753,7 +753,7 @@ public class Zona {
                 coordinate[1]=920;
                 break;
             case 82:
-                coordinate[0]=2929;
+                coordinate[0]=2878;
                 coordinate[1]=1077;
                 break;
             case 83:

@@ -24,7 +24,7 @@ import java.awt.Rectangle;
 public class Boss extends Zombie{
     
     //la size andrà modificata!!
-    public static final int ZOMBIESIZE = 120;
+    public static final int ZOMBIESIZE = 90;
     private boolean morto=false;
     //Danni inflitti dallo zombie quando attacca
     private int damage;
@@ -74,7 +74,7 @@ public class Boss extends Zombie{
         yy = getY() - offsetY;
 
         at = AffineTransform.getTranslateInstance(xx, yy);
-        at.rotate(angle, this.width / 2, this.height / 2);
+        at.rotate(angle, Boss.ZOMBIESIZE / 2, Boss.ZOMBIESIZE / 2);
 
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(currentAnimation.getCurrentFrame(), at, null);
@@ -187,11 +187,11 @@ public class Boss extends Zombie{
                         float angoloMano1 = angle + (float) Math.PI / 4;
                         float angoloMano2 = angle - (float) Math.PI / 4;
 
-                        Spittle s1 = new BossSpittle(this.getX() + Boss.ZOMBIESIZE/2 +(float) (45 * Math.cos(angoloMano1)),
-                                this.getY() + Boss.ZOMBIESIZE/2 +(float) (45 * Math.sin(angoloMano1)),
+                        Spittle s1 = new BossSpittle(this.getX() + Boss.ZOMBIESIZE/2 +(float) (33 * Math.cos(angoloMano1)),
+                                this.getY() + Boss.ZOMBIESIZE/2 +(float) (33 * Math.sin(angoloMano1)),
                                 spittledirectionX, spittledirectionY, 6, 300, this.handler, damage);
-                        Spittle s2 = new BossSpittle(this.getX() + Boss.ZOMBIESIZE/2 +(float) (45 * Math.cos(angoloMano2)),
-                                this.getY() +Boss.ZOMBIESIZE/2 +(float) (45 * Math.sin(angoloMano2)),
+                        Spittle s2 = new BossSpittle(this.getX() + Boss.ZOMBIESIZE/2 +(float) (33 * Math.cos(angoloMano2)),
+                                this.getY() +Boss.ZOMBIESIZE/2 +(float) (33 * Math.sin(angoloMano2)),
                                 spittledirectionX, spittledirectionY, 6, 300, this.handler, damage);
                         
                         this.handler.addSprite(s1);
@@ -286,8 +286,8 @@ public class Boss extends Zombie{
     @Override
     public Rectangle getBounds(){
         Rectangle z = super.getBounds();
-        z.x = z.x + 30;
-        z.y = z.y + 30;
+        z.x = z.x + 15;
+        z.y = z.y + 15;
         return z;
     }
 }
