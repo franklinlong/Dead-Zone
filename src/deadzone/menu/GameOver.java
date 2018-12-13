@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import deadzone.utilities.Assets;
 
 import deadzone.utilities.Sound;
 import deadzone.utilities.Utilities;
@@ -59,7 +58,9 @@ public class GameOver extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("DEAD ZONE");
-        setPreferredSize(new java.awt.Dimension(768, 575));
+        setMaximumSize(new java.awt.Dimension(491, 336));
+        setMinimumSize(new java.awt.Dimension(491, 336));
+        setPreferredSize(new java.awt.Dimension(491, 336));
         setResizable(false);
         getContentPane().setLayout(null);
 
@@ -71,9 +72,12 @@ public class GameOver extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(260, 470, 250, 50);
+        jButton1.setBounds(250, 260, 250, 50);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/game-over.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sfondo_senza_spari.png"))); // NOI18N
+        jLabel1.setMaximumSize(new java.awt.Dimension(491, 336));
+        jLabel1.setMinimumSize(new java.awt.Dimension(491, 336));
+        jLabel1.setPreferredSize(new java.awt.Dimension(491, 336));
         getContentPane().add(jLabel1);
         jLabel1.setBounds(-10, 0, 780, 580);
 
@@ -82,10 +86,10 @@ public class GameOver extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         parent.dispose();
-        synchronized(Assets.ThreadOttieniScoreboard.TOS){
+        synchronized(connectionThread.TOS){
             try {
-                if(Assets.ThreadOttieniScoreboard.occupato)
-                Assets.ThreadOttieniScoreboard.TOS.wait();
+                if(connectionThread.occupato)
+                connectionThread.TOS.wait();
             } catch (InterruptedException ex) {
                 Logger.getLogger(GameOver.class.getName()).log(Level.SEVERE, null, ex);
             }
