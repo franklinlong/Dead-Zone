@@ -12,10 +12,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import sprite.animated.Player;
-import utilities.Assets;
-import utilities.Database;
-import utilities.Scoreboard;
+import deadzone.sprite.animated.Player;
+import deadzone.utilities.Assets;
+import deadzone.utilities.Database;
 
 /**
  *
@@ -35,7 +34,6 @@ public class PauseMenu extends javax.swing.JDialog {
         super(parent, modal);
         this.player = player;
         initComponents();
-
         setPause(true);
         end = false;
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -81,6 +79,7 @@ public class PauseMenu extends javax.swing.JDialog {
         Exit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
@@ -168,6 +167,7 @@ public class PauseMenu extends javax.swing.JDialog {
 
         synchronized (Assets.ThreadOttieniScoreboard.TOS) {
             if (Assets.ThreadOttieniScoreboard.occupato) {
+                System.out.println("SE ESCE PRIMA DI Disconnesso contattare Ciccio");
                 try {
                     System.out.println("Sono occupato");
                     Assets.ThreadOttieniScoreboard.TOS.wait();

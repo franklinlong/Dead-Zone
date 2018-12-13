@@ -12,10 +12,10 @@ import java.util.logging.Logger;
 import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import utilities.Assets;
+import deadzone.utilities.Assets;
 
-import utilities.Sound;
-import utilities.Utilities;
+import deadzone.utilities.Sound;
+import deadzone.utilities.Utilities;
 
 /**
  *

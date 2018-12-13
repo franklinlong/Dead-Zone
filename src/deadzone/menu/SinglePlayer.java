@@ -16,15 +16,15 @@ import java.sql.Array;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import utilities.Score;
-import utilities.Scoreboard;
+import deadzone.utilities.Score;
+import deadzone.utilities.Scoreboard;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import utilities.Assets;
-import utilities.Database;
+import deadzone.utilities.Assets;
+import deadzone.utilities.Database;
 
 /**
  *

@@ -145,6 +145,8 @@ public class Graph {
     Vertex zona125;
     Vertex zona126;
     Vertex zona127;
+    Vertex zona128;
+    Vertex zona129;
     
     Edge a,b,c;     //Archi entrata labirinto
     Edge d;         //Arco corridoio
@@ -282,6 +284,8 @@ public class Graph {
         zona125 = new Vertex(125);
         zona126 = new Vertex(126);
         zona127 = new Vertex(127);
+        zona128 = new Vertex(128);
+        zona129 = new Vertex(129);
         
         this.insert_vertex(zona1);
         this.insert_vertex(zona2);
@@ -410,6 +414,8 @@ public class Graph {
         this.insert_vertex(zona125);
         this.insert_vertex(zona126);
         this.insert_vertex(zona127);
+        this.insert_vertex(zona128);
+        this.insert_vertex(zona129);
         
         this.insert_edge(zona1, zona2, 0);
         this.insert_edge(zona1, zona15, 0);
@@ -493,13 +499,15 @@ public class Graph {
         
         this.insert_edge(zona30, zona31, 0);
         
-        this.insert_edge(zona31, zona33, 0);
+        this.insert_edge(zona31, zona128, 0);
         
         this.insert_edge(zona32, zona33, 0);
         
         this.insert_edge(zona33, zona69, 0);
+        this.insert_edge(zona33, zona128, 0);
         
-        this.insert_edge(zona34, zona35, 0);
+        this.insert_edge(zona34, zona129, 0);
+        this.insert_edge(zona35, zona129, 0);
         
         this.insert_edge(zona35, zona70, 0);
         
@@ -733,6 +741,12 @@ public class Graph {
         // 125
         
         // 126
+       
+        //127
+
+        //128
+
+        //129
     }
     public int vertex_count(){
         return adjList.size();

@@ -1,14 +1,16 @@
 package deadzone;
 
+import deadzone.utilities.Assets;
+import deadzone.utilities.Sound;
+import deadzone.utilities.Animation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.Timer;
-import sprite.animated.Player;
-import sprite.animated.Projectile;
-import sprite.animated.RocketBullet;
-import utilities.*;
+import deadzone.sprite.animated.Player;
+import deadzone.sprite.animated.Projectile;
+import deadzone.sprite.animated.RocketBullet;
 
 public class Gun {
 

@@ -11,12 +11,12 @@ import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
 import java.net.URL;
 import javax.swing.*;
-import sprite.Sprite;
-import sprite.animated.Player;
-import sprite.animated.Zombie;
+import deadzone.sprite.Sprite;
+import deadzone.sprite.animated.Player;
+import deadzone.sprite.animated.Zombie;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import utilities.Assets;
+import deadzone.utilities.Assets;
 
 public class HudPanel extends JPanel implements Runnable {
 
@@ -60,17 +60,9 @@ public class HudPanel extends JPanel implements Runnable {
             h_minimap = (int) (dim.width * 18 / 100); //in modo da lasciare il 5% a dx e il 5% a sx
             w_minimap = (int) (dim.width * 18 / 100); //in modo da lasciare lo stesso margine sopra e sotto
             resized_minimap = Assets.minimap;
-            loadIndicator();
-            red_indicator = red_indicator.getScaledInstance((int) w_minimap / 20, (int) h_minimap / 20, Image.SCALE_DEFAULT);  //gli indicatori hanno come size il 5% di quelle della minimap
-            green_indicator = green_indicator.getScaledInstance((int) w_minimap / 20, (int) h_minimap / 20, Image.SCALE_DEFAULT);
-        }
-
-        public void loadIndicator() {
-            ImageIcon red = new ImageIcon(Assets.redIndicator);
-            this.red_indicator = red.getImage();
-            ImageIcon green = new ImageIcon(Assets.greenIndicator);
-            this.green_indicator = green.getImage();
-
+            this.red_indicator = Assets.redIndicator;
+            this.green_indicator = Assets.greenIndicator;
+            
         }
 
         public int getH_minimap() {
@@ -287,6 +279,7 @@ public class HudPanel extends JPanel implements Runnable {
         JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
         PauseMenu pm = new PauseMenu(topFrame, true, handler.getPlayer());
         pm.setVisible(true);
+        
     }
 
     @Override

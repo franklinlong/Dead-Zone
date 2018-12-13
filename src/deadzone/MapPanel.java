@@ -9,10 +9,12 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import listeners.KAdapter;
-import listeners.MAdapter;
-import sprite.animated.Player;
-import utilities.Scoreboard;
+import deadzone.listeners.KAdapter;
+import deadzone.listeners.MAdapter;
+import deadzone.sprite.Sprite;
+import deadzone.sprite.animated.Player;
+import deadzone.trap.Trap;
+import deadzone.utilities.Scoreboard;
 
 public class MapPanel extends JPanel implements Runnable {
 
@@ -96,12 +98,21 @@ public class MapPanel extends JPanel implements Runnable {
         }
 
     }
-
+    
+    boolean first = true;
     public void animationCycle() {
 
         if (!PauseMenu.isPause()) {
+            first = true;
             kAdapt.update();
             handler.animationCycle();
+        }else{
+            if(first){
+                for(Sprite s : handler.getitemsAndTrap())
+                    if(s instanceof Trap)
+                        s.animationCycle();
+                first = false;
+            }
         }
 
     }
