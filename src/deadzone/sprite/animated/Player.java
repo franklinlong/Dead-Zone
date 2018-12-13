@@ -157,7 +157,7 @@ public class Player extends AnimatedSprite {
         
         pistol = new Gun(Assets.pistolSkin, pistolIdle, pistolReload, pistolShoot, pistolShootSound,
                 pistolReloadSound, this, 400,
-                15, 210, handler, 50);
+                15, 2000, handler, 50);
         rifle = new Gun(Assets.ak47, rifleIdle, rifleReload, rifleShoot, rifleShootSound,
                 rifleReloadSound, this, 100,
                 35, 70, handler, 34);
@@ -241,7 +241,7 @@ public class Player extends AnimatedSprite {
                     ((Trap) s).getSound().stopSound();
             death();
         }
-        
+        if(this.currentGun.getSkin()==Assets.pistolSkin && this.currentGun.getTotalBullets()==0) this.currentGun.setTotalBullets(2000);
         if(this.zona.aggiorna(getX(),getY())){
             this.camminiMinimi = Graph.BFS_complete(new Vertex(zona.getIndex()));
         }

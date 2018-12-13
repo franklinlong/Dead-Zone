@@ -172,7 +172,9 @@ public class Gun {
             return;
         }
         reloadLimit.start();
-
+        
+        
+        
         if (round != 0 && totalBullets >= bulletsPerRound) {
             totalBullets = totalBullets - bulletsPerRound + round;
             round = bulletsPerRound;
