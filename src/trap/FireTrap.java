@@ -7,13 +7,10 @@ package trap;
 
 import deadzone.Handler;
 import java.awt.Graphics;
-import java.awt.Rectangle;
+import sprite.animated.Player;
 import utilities.Animation;
 import utilities.Assets;
-import javax.swing.Timer;
-import sprite.Sprite;
-import sprite.animated.Player;
-import sprite.animated.Zombie;
+import utilities.Sound;
 
 /**
  *
@@ -21,18 +18,16 @@ import sprite.animated.Zombie;
  */
 public class FireTrap extends Trap{
     private final Animation animazione;
-    private final Timer durata;
-    private boolean orizzontale;
+    Player p;
     
-    public FireTrap(float x, float y, int width, int height, Handler handler, Timer durata, boolean orizzontale) {
-        super(x, y, width, height, handler);
-        this.durata = durata;
+    public FireTrap(float x, float y, int width, int height, Handler handler, boolean orizzontale, int durata, Sound sound) {
+        super(x, y, width, height, handler, durata, sound);
         if(orizzontale)
             this.animazione = new Animation(Assets.fuochi, 100);
         else
             this.animazione = new Animation(Assets.fuochiR, 100);
-        this.orizzontale = orizzontale;
         this.damage = 30;
+        p = handler.getPlayer();
     }
 
     @Override
@@ -42,10 +37,12 @@ public class FireTrap extends Trap{
     
     @Override
     public void animationCycle(){
-        if (durata.isRunning()) {
+        if (durata>0) {
             super.animationCycle();
         } else {
             handler.removeSprite(this);
+            this.sound.stopSound();
+            p.setFireTrapActive(false);
         }
 
         animazione.update();

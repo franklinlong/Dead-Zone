@@ -14,6 +14,9 @@ import sprite.DropItem;
 import sprite.Sprite;
 import trap.Trap;
 import sprite.animated.*;
+import utilities.Animation;
+import utilities.Assets;
+import utilities.Sound;
 
 /**
  *
@@ -33,7 +36,7 @@ public class Handler {
     private final Waves waves;
 
     public Handler(String playerName, boolean male) {
-        player = new Player(1600, 1600, 3, 1000, this, playerName, male);
+        player = new Player(1600, 1600, 3, 1600, this, playerName, male);
         camera = new Camera(player);
         players.add(player);
         
@@ -65,12 +68,12 @@ public class Handler {
             Sprite s = spittles.get(i);
             s.animationCycle();
         }
-        
-        for (int i = 0; i <spawnSpittles.size(); i++) {
+
+        for (int i = 0; i < spawnSpittles.size(); i++) {
             Sprite s = spawnSpittles.get(i);
             s.animationCycle();
         }
-        
+
         for (int i = 0; i < itemsAndBloodAndTrap.size(); i++) {
             Sprite s = itemsAndBloodAndTrap.get(i);
             s.animationCycle();
@@ -79,6 +82,7 @@ public class Handler {
             Sprite s = circle.get(i);
             s.animationCycle();
         }
+        
     }
 
     public void drawImage(Graphics g) {
@@ -105,10 +109,7 @@ public class Handler {
             Sprite s = spawnSpittles.get(i);
             s.drawImage(g, offsetX, offsetY);
         }
-        
-        for (int i = 0; i < itemsAndBloodAndTrap.size(); i++) {
-            Sprite s = itemsAndBloodAndTrap.get(i);
-        }
+
         for (int i = 0; i < zombies.size(); i++) {
             Sprite s = zombies.get(i);
             s.drawImage(g, offsetX, offsetY);

@@ -152,8 +152,23 @@ public class Route {
 //                velX = (velX + a[0]);
 //                velY = (velY + a[1]);
 //            }
+//            //divido per uno scalare
+//            velX = velX/10;
+//            velY = velY/10;
+//            
+//            //Tronco alla max velocità
+//            if(velX > zombie.getInitialVelocity())
+//                    velX = zombie.getInitialVelocity();
+//            if(velY > zombie.getInitialVelocity() )
+//                    velY = zombie.getInitialVelocity();
+//            if(velX < -zombie.getInitialVelocity())
+//                    velX = -zombie.getInitialVelocity();
+//            if(velY < -zombie.getInitialVelocity() )
+//                    velY = -zombie.getInitialVelocity();
+//            
+//            
 //        } 
-//        
+        
         float x = zombie.getX();
         float y = zombie.getY();
 
