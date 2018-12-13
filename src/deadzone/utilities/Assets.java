@@ -357,7 +357,7 @@ public class Assets {
         holeTrap = Utilities.LoadSound("/sound/holeTrapSound.wav");
 
     }
-    
+    // forse non più utilizato
         public static class ThreadOttieniScoreboard extends Thread {
 
         public static final Object TOS = new Object();

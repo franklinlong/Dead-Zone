@@ -10,9 +10,9 @@ import java.util.logging.Logger;
 
 public class Database {
 
-    private static String s1 = "jdbc:postgresql://deadzone.cpt3ir9rzkfp.us-west-2.rds.amazonaws.com/deadzone";
-    private static String user = "enricosammarco";
-    private static String pass = "giovannifenomeno";
+    public static String s1 = "jdbc:postgresql://deadzone.cpt3ir9rzkfp.us-west-2.rds.amazonaws.com/deadzone";
+    public static String user = "enricosammarco";
+    public static String pass = "giovannifenomeno";
 
     public static boolean online = true;
 

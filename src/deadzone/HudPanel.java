@@ -341,7 +341,7 @@ public class HudPanel extends JPanel implements Runnable {
         if (!PauseMenu.end) {
             this.playerHealth.setHealth(0);
             this.playerHealth.repaint();
-            new GameOver(hudPanel);
+            new GameOver(hudPanel,handler.getPlayer().getName(),handler.getPlayer().getPunteggioAttuale());
         }
         System.out.println("FINE PARTITA HUD");
     }

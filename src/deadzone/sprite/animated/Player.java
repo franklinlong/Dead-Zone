@@ -15,6 +15,7 @@ import deadzone.utilities.Assets;
 import deadzone.Gun;
 import deadzone.Handler;
 import deadzone.menu.MapFrame;
+import deadzone.menu.connectionThread;
 import deadzone.utilities.Sound;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -288,7 +289,8 @@ public class Player extends AnimatedSprite {
         
         setX(x);
         setY(y);
-
+        
+        //System.out.println("ciao2: "+velY);
         //scelta direzione dipendente dal tasto premuto
         if (KAdapter.up) {
             velY = -initialVelocity;
@@ -299,6 +301,7 @@ public class Player extends AnimatedSprite {
         if (KAdapter.down) {
             velY = initialVelocity;
         } else if (!KAdapter.up) {
+         //   System.out.println("ciao");
             velY = 0;
         }
         
@@ -502,14 +505,11 @@ public class Player extends AnimatedSprite {
     
     public void aggiornaDB() {
         if (Database.online) {
-            Assets.ThreadOttieniScoreboard.occupato = true;
-            Database.InserisciPunteggio(name, punteggioAttuale);
-            Assets.ThreadOttieniScoreboard.occupato = false;
+            
+            //new connectionThread(this.name,this.punteggioAttuale).start();
             Database.CancellaOnline(onlineID);
         }
-        Database.online = true;
-        Assets.ThreadOttieniScoreboard t = new Assets.ThreadOttieniScoreboard();
-        t.start();
+       
     }
     
     public void inserisciOnline() {
