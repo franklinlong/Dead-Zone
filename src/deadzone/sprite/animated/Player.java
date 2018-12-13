@@ -87,7 +87,7 @@ public class Player extends AnimatedSprite {
         this.male = male;
         this.name = name;
         this.maximumHealth = health;
-        this.coins = 200;
+        this.coins = 5;
         this.trap = true;
         this.zona = new Zona(getX(), getY());
         grafo = new Graph();
@@ -175,8 +175,16 @@ public class Player extends AnimatedSprite {
         Graphics2D g2d = (Graphics2D) g;
 
         //Controllo se mi trovo in vicinanza di una trappola
-        if(controlloAction()){
-            g2d.drawImage(Assets.actionImg, (int) (getX()-offsetX-115), (int) (getY()-offsetY) - 30, null);
+        switch(controlloAction()){
+            case 1:
+                g2d.drawImage(Assets.actionImg, (int) (getX()-offsetX-115), (int) (getY()-offsetY) - 30, null);
+                break;
+            case 2:
+                g2d.drawImage(Assets.alreadyActive, (int) (getX()-offsetX-115), (int) (getY()-offsetY) - 40, null);
+                break;
+            case 3:
+                g2d.drawImage(Assets.noCoins, (int) (getX()-offsetX-25), (int) (getY()-offsetY) - 30, null);
+                break;
         }
         
         xx = this.getX() - offsetX;
@@ -387,38 +395,108 @@ public class Player extends AnimatedSprite {
         this.coins += coins;
     }    
     
-    private boolean controlloAction(){
+    //ritorna 1 se deve può comprare, 3 se mancano i soldi, 2 se è già attiva, -1 se niente
+    private int controlloAction(){
         int pixel = mapRGB.getRGB((int)getX()+width/2,(int)getY()+height/2);
         pixel = (pixel >> 8) & 0xff;
-        return pixel==130 || pixel == 115 || pixel == 49 || pixel == 255 || pixel == 150 || pixel == 155 || pixel == 99 || pixel == 189;
+        switch(pixel){
+            case 130:
+                if (!this.shockTrapActive1 && this.coins >= 3) {
+                    return 1;
+                } else if (this.shockTrapActive1) {
+                    return 2;
+                } else {
+                    return 3;
+                }
+            case 115:
+                if (!this.shockTrapActive2 && this.coins >= 3) {
+                    return 1;
+                } else if (this.shockTrapActive2) {
+                    return 2;
+                } else {
+                    return 3;
+                }
+            case 49:
+                if (!this.shockTrapActive3 && this.coins >= 3) {
+                    return 1;
+                } else if (this.shockTrapActive3) {
+                    return 2;
+                } else {
+                    return 3;
+                }
+            case 255:
+                if (!this.fireTrapActive && this.coins >= 5) {
+                    return 1;
+                } else if (this.fireTrapActive) {
+                    return 2;
+                } else {
+                    return 3;
+                }
+            case 150:
+                if (!this.wallTrapActive1 && this.coins >= 1) {
+                    return 1;
+                } else if (this.wallTrapActive1) {
+                    return 2;
+                } else {
+                    return 3;
+                }
+            case 155:
+                if (!this.holeTrapActive1 && this.coins >= 7) {
+                    return 1;
+                } else if (this.holeTrapActive1) {
+                    return 2;
+                } else {
+                    return 3;
+                }
+                
+            case 99:
+                if (!this.holeTrapActive2 && this.coins >= 7) {
+                    return 1;
+                } else if (this.holeTrapActive2) {
+                    return 2;
+                } else {
+                    return 3;
+                }
+                
+            case 189:
+                if (!this.wallTrapActive2 && this.coins >= 1) {
+                    return 1;
+                } else if (this.wallTrapActive2) {
+                    return 2;
+                } else {
+                    return 3;
+                }
+            default:
+                return -1;
+        }
     }
     
     private void activeTrap(int pixel){
         
         switch (pixel) {
             case 130:
-                if (this.coins >= 2 && !this.shockTrapActive1) {
+                if (this.coins >= 3 && !this.shockTrapActive1) {
                     handler.addSprite(new ShockTrap((float) 564, (float) 2253, 155, 24, handler, true, 500, this.shockTrapS1, 1));
-                    this.updateCoins(-2);
+                    this.updateCoins(-3);
                     this.shockTrapActive1=true;
                 }
                     break;
             case 115:
-                if (this.coins >= 2 && !this.shockTrapActive2) {
+                if (this.coins >= 3 && !this.shockTrapActive2) {
                     handler.addSprite(new ShockTrap((float) 560, (float) 2970, 155, 24, handler, true, 500, this.shockTrapS2, 2));
-                    this.updateCoins(-2);
+                    this.updateCoins(-3);
                     this.shockTrapActive2=true;
                     break;
                 }
             case 49:
-                if (this.coins >= 2 && !this.shockTrapActive3) {
+                if (this.coins >= 3 && !this.shockTrapActive3) {
                     handler.addSprite(new ShockTrap((float) 221, (float) 630, 155, 24, handler, false, 500, this.shockTrapS3, 3));
-                    this.updateCoins(-2);
+                    this.updateCoins(-3);
                     this.shockTrapActive3=true;
                 }
                 break;
             case 255:
-                if (this.coins >= 2 && !this.fireTrapActive) {
+                if (this.coins >= 5 && !this.fireTrapActive) {
                     for(int i=0;i<7;i++)
                         handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1370, 120, 66, handler, true, 440, this.fireTrapS));
                     for(int i=7;i<14;i++)
@@ -431,39 +509,39 @@ public class Player extends AnimatedSprite {
                         handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1860, 120, 66, handler ,true, 500, this.fireTrapS));    
                     for(int i=0;i<7;i++)
                         handler.addSprite(new FireTrap((float) 170, (float) 1384 + 66*i, 120, 66, handler, false, 540, this.fireTrapS));
-                    this.updateCoins(-2);
+                    this.updateCoins(-5);
                     this.fireTrapActive=true;
                 }
                 break;
             case 150:
-                if (this.coins >= 2 &&  !this.wallTrapActive1) {
+                if (this.coins >= 1 &&  !this.wallTrapActive1) {
                     this.grafo.rimuoviCorridoio();
                     handler.addSprite(new WallTrap((float) 2395, (float) 1890, 200, 30, handler, true, 500, this.wallTrapS1, 1));
-                    this.updateCoins(-2);
+                    this.updateCoins(-1);
                     this.wallTrapActive1=true;
                 }
                 break;
             case 155:
-                if (this.coins >= 2 && !this.holeTrapActive1) {
+                if (this.coins >= 7 && !this.holeTrapActive1) {
                     handler.addSprite(new HoleTrap((float) 2670, (float) 2240, 60, 60, handler, 500, this.holeTrapS, 1));
-                    this.updateCoins(-2);
+                    this.updateCoins(-7);
                     this.holeTrapActive1=true;
                 break;
                 }
             case 99:
-                if (this.coins >= 2 && !this.holeTrapActive2) {
+                if (this.coins >= 7 && !this.holeTrapActive2) {
                     handler.addSprite(new HoleTrap((float) 1440, (float) 1020, 60, 60, handler, 500, this.holeTrapS, 2));
-                    this.updateCoins(-2);
+                    this.updateCoins(-7);
                     this.holeTrapActive2=true;
                 }
                 break;
             case 189:
-                if (this.coins >= 2 && !this.wallTrapActive2) {
+                if (this.coins >= 1 && !this.wallTrapActive2) {
                     this.grafo.rimuoviEntrataLabirinto();
                     handler.addSprite(new WallTrap((float) 2525, (float) 1217, 200, 30, handler, true, 500, this.wallTrapS2, 2));
                     handler.addSprite(new WallTrap((float) 2750, (float) 545, 200, 30, handler, true, 500, this.wallTrapS2, 2));
                     handler.addSprite(new WallTrap((float) 1980, (float) 727, 200, 30, handler, false, 500, this.wallTrapS2, 2));
-                    this.updateCoins(-2);
+                    this.updateCoins(-1);
                     this.wallTrapActive2=true;
                 }
                 break;

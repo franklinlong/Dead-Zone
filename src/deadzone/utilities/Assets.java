@@ -101,7 +101,9 @@ public class Assets {
     public static BufferedImage mapRGB;
     public static BufferedImage mapRGB2;
     public static BufferedImage actionImg;
-
+    public static BufferedImage alreadyActive;
+    public static BufferedImage noCoins;
+    
     public static void init() {
 
         // animations
@@ -283,6 +285,8 @@ public class Assets {
         
         //Action String Image
         actionImg = Utilities.loadImage("/images/actionImg.png");
+        noCoins = Utilities.loadImage("/images/noCoins.png");
+        alreadyActive = Utilities.loadImage("/images/alreadyactive.png");
         
         //blood 
         blood = Utilities.loadImage("/images/blood.png");
