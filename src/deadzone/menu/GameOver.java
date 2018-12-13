@@ -42,8 +42,11 @@ public class GameOver extends javax.swing.JFrame {
      * @param parent
      */
     public GameOver(JFrame parent,String nome,int punteggio) {
+        this.setVisible(true);
+        
         this.nome = nome;
         this.punteggio = punteggio;
+        
         Image iconaFrame;
         iconaFrame = new ImageIcon(getClass().getResource("/images/icona_frame.png")).getImage();
         this.setIconImage(iconaFrame);
@@ -51,12 +54,13 @@ public class GameOver extends javax.swing.JFrame {
         this.parent = parent;
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setVisible(true);
-        GameOver.clipEndGame = Utilities.LoadSound("/sound/endGame.wav");
-        GameOver.soundEndGame = new Sound(clipEndGame);
-        GameOver.soundEndGame.playSound();
         this.jButton1.setVisible(false);
         this.jLabel2.setVisible(true);
+        
+        GameOver.clipEndGame = Utilities.LoadSound("/sound/endGame.wav");
+        GameOver.soundEndGame = new Sound(clipEndGame);
+        GameOver.soundEndGame.loopSound();
+        
         this.aggiornaDB();
         this.jLabel2.setVisible(false);
         this.jButton1.setVisible(true);
@@ -73,37 +77,47 @@ public class GameOver extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("DEAD ZONE");
-        setMaximumSize(new java.awt.Dimension(491, 336));
-        setMinimumSize(new java.awt.Dimension(491, 336));
-        setPreferredSize(new java.awt.Dimension(491, 336));
+        setMaximumSize(new java.awt.Dimension(768, 575));
+        setMinimumSize(new java.awt.Dimension(768, 575));
+        setPreferredSize(new java.awt.Dimension(768, 575));
         setResizable(false);
         getContentPane().setLayout(null);
 
-        jButton1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setFont(new java.awt.Font("Century", 1, 24)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/blood.png"))); // NOI18N
         jButton1.setText("Back to home");
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(260, 480, 250, 50);
+        jButton1.setBounds(290, 430, 200, 50);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sfondo_senza_spari.png"))); // NOI18N
-        jLabel1.setMaximumSize(new java.awt.Dimension(491, 336));
-        jLabel1.setMinimumSize(new java.awt.Dimension(491, 336));
-        jLabel1.setPreferredSize(new java.awt.Dimension(491, 336));
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(-10, 0, 780, 580);
-
-        jLabel2.setText("jLabel2");
+        jLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(230, 450, 320, 100);
+        jLabel2.setBounds(220, 430, 320, 100);
+
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel1.setFont(new java.awt.Font("Chiller", 0, 150)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("GAME OVER");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(90, 120, 600, 220);
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sfondo_senza_spari.png"))); // NOI18N
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(0, 0, 780, 590);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -129,6 +143,7 @@ public class GameOver extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 
 
@@ -154,8 +169,6 @@ Connection conn = null;
             query = " SELECT * FROM scoreboard ORDER BY punteggio DESC LIMIT 10";
             Assets.rs = stmt.executeQuery(query);
             Database.online = true;
-            this.setVisible(false);
-            this.dispose();
 
         } catch (org.postgresql.util.PSQLException ex) {
             online = false;
