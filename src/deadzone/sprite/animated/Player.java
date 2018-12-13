@@ -290,7 +290,6 @@ public class Player extends AnimatedSprite {
         setX(x);
         setY(y);
         
-        //System.out.println("ciao2: "+velY);
         //scelta direzione dipendente dal tasto premuto
         if (KAdapter.up) {
             velY = -initialVelocity;
@@ -301,7 +300,6 @@ public class Player extends AnimatedSprite {
         if (KAdapter.down) {
             velY = initialVelocity;
         } else if (!KAdapter.up) {
-         //   System.out.println("ciao");
             velY = 0;
         }
         

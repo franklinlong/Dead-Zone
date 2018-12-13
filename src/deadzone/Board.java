@@ -51,7 +51,6 @@ public class Board extends JSplitPane {
         handler = new Handler(playerName, male, window);
         mapPanel = new MapPanel(handler);
         hudPanel = new HudPanel(handler);
-        KAdapter kad = new KAdapter();
         this.setRightComponent(mapPanel);
         this.setLeftComponent(hudPanel);
 

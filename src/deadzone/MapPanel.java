@@ -15,6 +15,7 @@ import deadzone.sprite.Sprite;
 import deadzone.sprite.animated.Player;
 import deadzone.trap.Trap;
 import deadzone.utilities.Scoreboard;
+import java.awt.event.KeyEvent;
 
 public class MapPanel extends JPanel implements Runnable {
 
@@ -103,6 +104,16 @@ public class MapPanel extends JPanel implements Runnable {
     public void animationCycle() {
 
         if (!PauseMenu.isPause()) {
+            if(!first){
+                KAdapter.keys[KeyEvent.VK_UP] = false;
+                KAdapter.keys[KeyEvent.VK_DOWN] = false;
+                KAdapter.keys[KeyEvent.VK_LEFT] = false;
+                KAdapter.keys[KeyEvent.VK_RIGHT] = false;
+                KAdapter.keys[KeyEvent.VK_W] = false;
+                KAdapter.keys[KeyEvent.VK_S] = false;
+                KAdapter.keys[KeyEvent.VK_A] = false;
+                KAdapter.keys[KeyEvent.VK_D] = false;
+            }
             first = true;
             kAdapt.update();
             handler.animationCycle();
