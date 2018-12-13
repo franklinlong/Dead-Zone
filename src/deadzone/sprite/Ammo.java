@@ -30,6 +30,7 @@ public class Ammo extends DropItem {
         this.incremento = 3;
         this.incrementoTot = 100;
         this.sound = new Sound(Assets.pistolReloadSound);
+        this.sound.changeVolume(-10);
     }
 
     @Override

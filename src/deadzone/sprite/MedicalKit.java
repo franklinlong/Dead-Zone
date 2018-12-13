@@ -23,6 +23,7 @@ public class MedicalKit extends DropItem {
         super(x, y, width, height);
         this.handler = handler;
         this.restore = new Sound(Assets.restoreHealth);
+        this.restore.changeVolume(-10);
     }
 
     @Override
