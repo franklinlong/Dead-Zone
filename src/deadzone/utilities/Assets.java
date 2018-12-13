@@ -80,7 +80,7 @@ public class Assets {
     public static Clip pistolShoot, rifleShoot, shotgunShoot, rpgShoot, background, zombieHit, pistolReloadSound,
             rifleReloadSound, shotgunReloadSound, rpgReloadSound, rpgExplosionSound, emptyGun, zombieBite;
     public static Clip endGame, endOfRound;
-    public static Clip restoreHealth, nukeExplosion, coinsDrop;
+    public static Clip restoreHealth, nukeExplosion, coinsDrop,ammoPickUp;
 
     public static Clip shockTrap1, shockTrap2, shockTrap3, wallTrap, holeTrap, fireTrap;
 
@@ -101,9 +101,6 @@ public class Assets {
     public static BufferedImage mapRGB;
     public static BufferedImage mapRGB2;
     public static BufferedImage actionImg;
-    public static BufferedImage alreadyActive;
-    public static BufferedImage noCoins;
-    
 
     public static ResultSet rs;
 
@@ -291,9 +288,7 @@ public class Assets {
 
         //Action String Image
         actionImg = Utilities.loadImage("/images/actionImg.png");
-        noCoins = Utilities.loadImage("/images/noCoins.png");
-        alreadyActive = Utilities.loadImage("/images/alreadyactive.png");
-        
+
         //blood 
         blood = Utilities.loadImage("/images/blood.png");
         //sounds
@@ -314,7 +309,7 @@ public class Assets {
         restoreHealth = Utilities.LoadSound("/sound/restoreHealth.wav");
         nukeExplosion = Utilities.LoadSound("/sound/soundExplosion.wav");
         coinsDrop = Utilities.LoadSound("/sound/coin.wav");
-
+        ammoPickUp = Utilities.LoadSound("/sound/ammo.wav");
         shotgunReloadSound = Utilities.LoadSound("/sound/shotgunReload.wav");
         shotgunShoot = Utilities.LoadSound("/sound/shotgun.wav");
 
