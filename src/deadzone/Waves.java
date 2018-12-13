@@ -44,6 +44,7 @@ public class Waves implements Runnable {
     private int score;
     private int numZombieSpawn;
     private int i=3,j=2;
+    private int prob=27;
     public Waves(Handler handler) {
         this.numZombieRound = 0;
         this.numWeakRound = 0;
@@ -183,22 +184,22 @@ public class Waves implements Runnable {
                             n = (int) (Math.random() * 4);
                             switch (n) {
                                 case 0:
-                                    this.createBoss(x, y, mult, (float) 25);
+                                    this.createBoss(x, y, mult, (float) 100);
                                     this.numBossToCreate -= 1;
                                     i++;
                                     break;
                                 case 1:
-                                    this.createFastZombie(x, y, mult, (float) 25);
+                                    this.createFastZombie(x, y, mult, prob);
                                     this.numFastToCreate -= 1;
                                     i++;
                                     break;
                                 case 2:
-                                    this.createSpittleZombie(x, y, mult, (float) 25);
+                                    this.createSpittleZombie(x, y, mult, prob);
                                     this.numSpittleToCreate -= 1;
                                     i++;
                                     break;
                                 case 3:
-                                    this.createWeakZombie(x, y, mult, (float) 25);
+                                    this.createWeakZombie(x, y, mult, prob);
                                     this.numWeakToCreate -= 1;
                                     i++;
                                     break;
@@ -210,17 +211,17 @@ public class Waves implements Runnable {
                                 //System.out.println("vel spittle o weak");
                                 switch (n) {
                                     case 0:
-                                        this.createFastZombie(x, y, mult, (float) 25);
+                                        this.createFastZombie(x, y, mult, prob);
                                         this.numFastToCreate -= 1;
                                         i++;
                                         break;
                                     case 1:
-                                        this.createSpittleZombie(x, y, mult, (float) 25);
+                                        this.createSpittleZombie(x, y, mult, prob);
                                         this.numSpittleToCreate -= 1;
                                         i++;
                                         break;
                                     case 2:
-                                        this.createWeakZombie(x, y, mult, (float) 25);
+                                        this.createWeakZombie(x, y, mult, prob);
                                         this.numWeakToCreate -= 1;
                                         i++;
                                         break;
@@ -230,17 +231,17 @@ public class Waves implements Runnable {
                                 //System.out.println("boss spittle o weak");
                                 switch (n) {
                                     case 0:
-                                        this.createBoss(x, y, mult, (float) 25);
+                                        this.createBoss(x, y, mult, (float)100);
                                         this.numBossToCreate -= 1;
                                         i++;
                                         break;
                                     case 1:
-                                        this.createSpittleZombie(x, y, mult, (float) 25);
+                                        this.createSpittleZombie(x, y, mult, prob);
                                         this.numSpittleToCreate -= 1;
                                         i++;
                                         break;
                                     case 2:
-                                        this.createWeakZombie(x, y, mult, (float) 25);
+                                        this.createWeakZombie(x, y, mult,prob);
                                         this.numWeakToCreate -= 1;
                                         i++;
                                         break;
@@ -249,17 +250,17 @@ public class Waves implements Runnable {
                                 //System.out.println("vel boss o weak");
                                 switch (n) {
                                     case 0:
-                                        this.createBoss(x, y, mult, (float) 25);
+                                        this.createBoss(x, y, mult,(float) 100);
                                         this.numBossToCreate -= 1;
                                         i++;
                                         break;
                                     case 1:
-                                        this.createFastZombie(x, y, mult, (float) 25);
+                                        this.createFastZombie(x, y, mult, prob);
                                         this.numFastToCreate -= 1;
                                         i++;
                                         break;
                                     case 2:
-                                        this.createWeakZombie(x, y, mult, (float) 25);
+                                        this.createWeakZombie(x, y, mult, prob);
                                         this.numWeakToCreate -= 1;
                                         i++;
                                         break;
@@ -268,17 +269,17 @@ public class Waves implements Runnable {
                                 //System.out.println("vel spittle o boss");
                                 switch (n) {
                                     case 0:
-                                        this.createBoss(x, y, mult, (float) 25);
+                                        this.createBoss(x, y, mult, (float)100);
                                         this.numBossToCreate -= 1;
                                         i++;
                                         break;
                                     case 1:
-                                        this.createFastZombie(x, y, mult, (float) 25);
+                                        this.createFastZombie(x, y, mult, prob);
                                         this.numFastToCreate -= 1;
                                         i++;
                                         break;
                                     case 2:
-                                        this.createSpittleZombie(x, y, mult, (float) 25);
+                                        this.createSpittleZombie(x, y, mult, prob);
                                         this.numSpittleToCreate -= 1;
                                         i++;
                                         break;
@@ -292,12 +293,12 @@ public class Waves implements Runnable {
                                     //System.out.println("spittle o weak");
                                     switch (n) {
                                         case 0:
-                                            this.createSpittleZombie(x, y, mult, (float) 25);
+                                            this.createSpittleZombie(x, y, mult, prob);
                                             this.numSpittleToCreate -= 1;
                                             i++;
                                             break;
                                         case 1:
-                                            this.createWeakZombie(x, y, mult, (float) 25);
+                                            this.createWeakZombie(x, y, mult, prob);
                                             this.numWeakToCreate -= 1;
                                             i++;
                                             break;
@@ -320,12 +321,12 @@ public class Waves implements Runnable {
                                     //System.out.println("vel o weak");
                                     switch (n) {
                                         case 0:
-                                            this.createWeakZombie(x, y, mult, (float) 25);
+                                            this.createWeakZombie(x, y, mult, prob);
                                             this.numWeakToCreate -= 1;
                                             i++;
                                             break;
                                         case 1:
-                                            this.createFastZombie(x, y, mult, (float) 25);
+                                            this.createFastZombie(x, y, mult, prob);
                                             this.numFastToCreate -= 1;
                                             i++;
                                             break;
@@ -336,12 +337,12 @@ public class Waves implements Runnable {
                                     //System.out.println("spittle o boss");
                                     switch (n) {
                                         case 0:
-                                            this.createSpittleZombie(x, y, mult, (float) 25);
+                                            this.createSpittleZombie(x, y, mult, prob);
                                             this.numSpittleToCreate -= 1;
                                             i++;
                                             break;
                                         case 1:
-                                            this.createBoss(x, y, mult, (float) 25);
+                                            this.createBoss(x, y, mult, (float) 100);
                                             this.numBossToCreate -= 1;
                                             i++;
                                             break;
@@ -350,12 +351,12 @@ public class Waves implements Runnable {
                                     //System.out.println("boss o weak");
                                     switch (n) {
                                         case 0:
-                                            this.createWeakZombie(x, y, mult, (float) 25);
+                                            this.createWeakZombie(x, y, mult, prob);
                                             this.numWeakToCreate -= 1;
                                             i++;
                                             break;
                                         case 1:
-                                            this.createBoss(x, y, mult, (float) 25);
+                                            this.createBoss(x, y, mult, (float) 100);
                                             this.numBossToCreate -= 1;
                                             i++;
                                             break;
@@ -367,12 +368,12 @@ public class Waves implements Runnable {
                                     //System.out.println("boss o vel");
                                     switch (n) {
                                         case 0:
-                                            this.createFastZombie(x, y, mult, (float) 25);
+                                            this.createFastZombie(x, y, mult, prob);
                                             this.numFastToCreate -= 1;
                                             i++;
                                             break;
                                         case 1:
-                                            this.createBoss(x, y, mult, (float) 25);
+                                            this.createBoss(x, y, mult, (float) 100);
                                             this.numBossToCreate -= 1;
                                             i++;
                                             break;
@@ -383,22 +384,22 @@ public class Waves implements Runnable {
                         case 1://se ne devo creare 1...
                             if (this.numBossToCreate > 0) {//...ed è il boss
                                 //System.out.println("boss");
-                                this.createBoss(x, y, mult, (float) 25);
+                                this.createBoss(x, y, mult, (float) 100);
                                 this.numBossToCreate -= 1;
                                 i++;
                             } else if (this.numFastToCreate > 0) {//...ed è il veloce
                                 //System.out.println("vel");
-                                this.createFastZombie(x, y, mult, (float) 25);
+                                this.createFastZombie(x, y, mult, prob);
                                 this.numFastToCreate -= 1;
                                 i++;
                             } else if (this.numSpittleToCreate > 0) {//...ed è lo spittle
                                 //System.out.println("spitt");
-                                this.createSpittleZombie(x, y, mult, (float) 25);
+                                this.createSpittleZombie(x, y, mult, prob);
                                 this.numSpittleToCreate -= 1;
                                 i++;
                             } else if (this.numWeakToCreate > 0) {//... ed è il weak
                                 //System.out.println("weak");
-                                this.createWeakZombie(x, y, mult, (float) 25);
+                                this.createWeakZombie(x, y, mult, prob);
                                 this.numWeakToCreate -= 1;
                                 i++;
                             }

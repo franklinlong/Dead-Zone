@@ -60,7 +60,7 @@ public class Player extends AnimatedSprite {
 
     private Gun currentGun;
     private final Gun pistol, rifle, shotgun,rpg;
-
+    private Gun[] allGuns = new Gun[4];
     private float xx, yy;
     private boolean isDeath;
 
@@ -87,7 +87,7 @@ public class Player extends AnimatedSprite {
         this.male = male;
         this.name = name;
         this.maximumHealth = health;
-        this.coins = 200;
+        this.coins = 2;
         this.trap = true;
         this.zona = new Zona(getX(), getY());
         grafo = new Graph();
@@ -155,21 +155,25 @@ public class Player extends AnimatedSprite {
         
         pistol = new Gun(Assets.pistolSkin, pistolIdle, pistolReload, pistolShoot, pistolShootSound,
                 pistolReloadSound, this, 400,
-                9, 200, handler, 50);
+                15, 210, handler, 50);
         rifle = new Gun(Assets.ak47, rifleIdle, rifleReload, rifleShoot, rifleShootSound,
                 rifleReloadSound, this, 100,
-                30, 200, handler, 34);
+                35, 70, handler, 34);
 
         shotgun = new Gun(Assets.shotgunSkin, shotgunIdle, shotgunReload, shotgunShoot, shotgunShootSound,
                 shotgunReloadSound, this, 800,
-                5, 200, handler, 45);
+                8, 24, handler, 45);
 
         rpg = new Gun(Assets.rpgSkin, rpgIdle, rpgReload, rpgShoot, rpgShootSound,
                 rpgReloadSound, this, 1200,
-                1, 9, handler, 700);
+                1, 0, handler, 700);
         
         currentGun = pistol;
         
+        allGuns[0]=pistol;
+        allGuns[1]=rifle;
+        allGuns[2]=shotgun;
+        allGuns[3]=rpg;
     }
 
     @Override
@@ -323,6 +327,10 @@ public class Player extends AnimatedSprite {
 
     public Gun getCurrentGun() {
         return currentGun;
+    }
+    
+    public Gun[] getAllGuns(){
+        return allGuns;
     }
 
     //metodo chiamato dall'esterno che mi infligge danni
