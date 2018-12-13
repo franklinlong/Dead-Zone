@@ -33,7 +33,7 @@ public class LoadingThread extends Thread{
 
         try {
             Window w = new Window(sp.getPlayerName(), sp.isMale());
-            gameClip = Utilities.LoadSound("/sound/gameMusic.wav");
+            gameClip = Utilities.LoadSound("/sound/ingame.wav");
             gameMusic = new Sound(gameClip);
             
             w.prepareImage(Assets.greenIndicator, null);
