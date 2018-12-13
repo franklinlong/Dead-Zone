@@ -404,7 +404,7 @@ public class SinglePlayer extends javax.swing.JFrame {
         getContentPane().add(jLabel4);
         jLabel4.setBounds(660, 490, 20, 20);
 
-        jLabel5.setFont(new java.awt.Font("Comic Sans MS", 1, 13)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
         jLabel5.setMaximumSize(new java.awt.Dimension(60, 16));
         jLabel5.setMinimumSize(new java.awt.Dimension(60, 16));
         jLabel5.setPreferredSize(new java.awt.Dimension(60, 16));
