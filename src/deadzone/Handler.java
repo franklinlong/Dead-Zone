@@ -39,7 +39,7 @@ public class Handler {
     private final Waves waves;
 
     public Handler(String playerName, boolean male, Window window) {
-        player = new Player(1600, 1600, 3, 1000000, this, playerName, male, window);
+        player = new Player(1600, 1600, 3, 1600, this, playerName, male, window);
         camera = new Camera(player);
         players.add(player);
         
