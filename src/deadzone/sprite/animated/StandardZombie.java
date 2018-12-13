@@ -67,7 +67,7 @@ public class StandardZombie extends Zombie {
         xx = getX() - offsetX;
         yy = getY() - offsetY;
 
-        if(this.damage == 40){ //Zombie fast
+        if(this.damage == 50){ //Zombie fast
             at = AffineTransform.getTranslateInstance(xx - 15, yy - 35);
             at.rotate(angle, 90/2, 130/2);
         }

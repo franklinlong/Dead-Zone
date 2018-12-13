@@ -277,7 +277,7 @@ public class HudPanel extends JPanel implements Runnable {
 
     private void pauseActionPerformed(java.awt.event.ActionEvent evt) {
         JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-        PauseMenu pm = new PauseMenu(topFrame, true);
+        PauseMenu pm = new PauseMenu(topFrame, true, handler.getPlayer());
         pm.setVisible(true);
         
     }

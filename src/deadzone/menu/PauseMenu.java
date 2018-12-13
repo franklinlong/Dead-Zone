@@ -8,8 +8,13 @@ package deadzone.menu;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import deadzone.sprite.animated.Player;
+import deadzone.utilities.Assets;
+import deadzone.utilities.Database;
 
 /**
  *
@@ -23,9 +28,11 @@ public class PauseMenu extends javax.swing.JDialog {
     private static boolean pause;
     public static final Object PAUSELOCK = new Object();
     public static boolean end;
+    private Player player;
 
-    public PauseMenu(java.awt.Frame parent, boolean modal) {
+    public PauseMenu(java.awt.Frame parent, boolean modal, Player player) {
         super(parent, modal);
+        this.player = player;
         initComponents();
         setPause(true);
         end = false;
@@ -150,6 +157,25 @@ public class PauseMenu extends javax.swing.JDialog {
         // TODO add your handling code here:
         end = true;
         setPause(false);
+        if (Database.online) {
+            Assets.ThreadOttieniScoreboard t2 = new Assets.ThreadOttieniScoreboard();
+            t2.start();
+            ThreadCancellaOnline t = new ThreadCancellaOnline();
+            t.start();
+
+        }
+
+        synchronized (Assets.ThreadOttieniScoreboard.TOS) {
+            if (Assets.ThreadOttieniScoreboard.occupato) {
+                System.out.println("SE ESCE PRIMA DI Disconnesso contattare Ciccio");
+                try {
+                    System.out.println("Sono occupato");
+                    Assets.ThreadOttieniScoreboard.TOS.wait();
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(PauseMenu.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
         JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
         topFrame.dispose();
         Menu menu = new Menu();
@@ -166,4 +192,12 @@ public class PauseMenu extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 
+    public class ThreadCancellaOnline extends Thread {
+
+        @Override
+        public void run() {
+            System.out.println("Sto rimuovendo dagli online");
+            Database.CancellaOnline(player.getOnlineID());
+        }
+    }
 }

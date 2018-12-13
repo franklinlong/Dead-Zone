@@ -6,7 +6,6 @@
 package deadzone.sprite.animated;
 
 import deadzone.Handler;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -140,8 +139,8 @@ public class Boss extends Zombie{
                 }
             }
             
-            float toPlayerX = player.getX() - this.getX();
-            float toPlayerY = player.getY() - this.getY();
+            float toPlayerX = player.getX() + player.width - this.getX() - this.width;
+            float toPlayerY = player.getY() + player.width - this.getY()- this.height;
             distanceToPlayerX = (float) (Math.sqrt(toPlayerX * toPlayerX + toPlayerY * toPlayerY));
             distanceToPlayerY = (float) (Math.sqrt(toPlayerX * toPlayerX + toPlayerY * toPlayerY));
 
@@ -184,9 +183,18 @@ public class Boss extends Zombie{
                         break;
                     default:
                         //proiettile
-                        Spittle s = new BossSpittle(this.getX() + this.width/2, this.getY() + this.height/2, spittledirectionX,
-                        spittledirectionY, 6, 300, this.handler, damage);
-                        this.handler.addSprite(s);
+                        float angoloMano1 = angle + (float) Math.PI / 4;
+                        float angoloMano2 = angle - (float) Math.PI / 4;
+
+                        Spittle s1 = new BossSpittle(this.getX() + Boss.ZOMBIESIZE/2 +(float) (45 * Math.cos(angoloMano1)),
+                                this.getY() + Boss.ZOMBIESIZE/2 +(float) (45 * Math.sin(angoloMano1)),
+                                spittledirectionX, spittledirectionY, 6, 300, this.handler, damage);
+                        Spittle s2 = new BossSpittle(this.getX() + Boss.ZOMBIESIZE/2 +(float) (45 * Math.cos(angoloMano2)),
+                                this.getY() +Boss.ZOMBIESIZE/2 +(float) (45 * Math.sin(angoloMano2)),
+                                spittledirectionX, spittledirectionY, 6, 300, this.handler, damage);
+                        
+                        this.handler.addSprite(s1);
+                        this.handler.addSprite(s2);
                         break;
                 }
                 attacking = true;
@@ -255,7 +263,9 @@ public class Boss extends Zombie{
     private class BossSpittle extends Spittle{
 
         public BossSpittle(float x, float y, float velX, float velY, int velocita, int health, Handler handler, int damage) {
-            super(x, y, velX, velY, velocita, health, handler, damage);
+            super(x-30, y-15, velX, velY, velocita, health, handler, damage);
+            this.width = 60;
+            this.height = 30;
         }
         
         @Override

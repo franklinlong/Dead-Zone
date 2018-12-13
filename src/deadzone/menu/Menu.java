@@ -25,6 +25,8 @@ public class Menu extends javax.swing.JFrame {
     Dimension dim;
     public static Sound gameMusic;
     public static Clip gameClip;
+    private boolean back = false;
+    private SinglePlayer sp;
 
     private ImageIcon ridimensionaImageIcon(URL url, int nuovaW, int nuovaH) {
         ImageIcon image = new ImageIcon(url);
@@ -65,7 +67,7 @@ public class Menu extends javax.swing.JFrame {
             this.gameMusic.loopSound();
         }
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -194,8 +196,15 @@ public class Menu extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        new SinglePlayer().setVisible(true);
-        this.dispose();
+        if(!isBack()){
+            sp = new SinglePlayer(this);
+            sp.setVisible(true);
+            this.setVisible(false);
+        }else{
+            sp.setVisible(true);
+            this.setVisible(false);
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -261,4 +270,14 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel logo;
     private javax.swing.JLabel sfondo;
     // End of variables declaration//GEN-END:variables
+
+    public boolean isBack() {
+        return back;
+    }
+
+    public void setBack(boolean back) {
+        this.back = back;
+    }
+
+
 }

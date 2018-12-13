@@ -6,10 +6,13 @@
 package deadzone.menu;
 
 import java.awt.Image;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import deadzone.utilities.Assets;
 
 import deadzone.utilities.Sound;
 import deadzone.utilities.Utilities;
@@ -79,6 +82,14 @@ public class GameOver extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         parent.dispose();
+        synchronized(Assets.ThreadOttieniScoreboard.TOS){
+            try {
+                if(Assets.ThreadOttieniScoreboard.occupato)
+                Assets.ThreadOttieniScoreboard.TOS.wait();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(GameOver.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         Menu menu = new Menu();
         menu.setVisible(true);
         GameOver.soundEndGame.stopSound();

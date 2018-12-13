@@ -26,6 +26,7 @@ import deadzone.trap.HoleTrap;
 import deadzone.trap.ShockTrap;
 import deadzone.trap.Trap;
 import deadzone.trap.WallTrap;
+import deadzone.utilities.Database;
 import deadzone.utilities.Zona;
 
 /**
@@ -65,6 +66,7 @@ public class Player extends AnimatedSprite {
     private boolean isDeath;
 
     private int punteggioAttuale;
+    private int onlineID;
     private final String name;
     private final boolean male;
     private int zombieKilled;
@@ -181,8 +183,16 @@ public class Player extends AnimatedSprite {
         Graphics2D g2d = (Graphics2D) g;
 
         //Controllo se mi trovo in vicinanza di una trappola
-        if(controlloAction()){
-            g2d.drawImage(Assets.actionImg, (int) (getX()-offsetX-115), (int) (getY()-offsetY) - 30, null);
+        switch(controlloAction()){
+            case 1:
+                g2d.drawImage(Assets.actionImg, (int) (getX()-offsetX-115), (int) (getY()-offsetY) - 30, null);
+                break;
+            case 2:
+                g2d.drawImage(Assets.alreadyActive, (int) (getX()-offsetX-115), (int) (getY()-offsetY) - 40, null);
+                break;
+            case 3:
+                g2d.drawImage(Assets.noCoins, (int) (getX()-offsetX-25), (int) (getY()-offsetY) - 30, null);
+                break;
         }
         
         xx = this.getX() - offsetX;
@@ -226,7 +236,7 @@ public class Player extends AnimatedSprite {
     public void animationCycle() {
         //Controllo che sia vivo        
         if (getHealth() <= 0) {
-            for(Sprite s : handler.getitemsAndBlood())
+            for(Sprite s : handler.getBloods())
                 if(s instanceof Trap)
                     ((Trap) s).getSound().stopSound();
             death();
@@ -345,6 +355,7 @@ public class Player extends AnimatedSprite {
     @Override
     public void death() {
         this.isDeath = true;
+                this.aggiornaDB();
         handler.removeSprite(this);
         MapFrame.gameMusic.stopSound();
     }
@@ -397,11 +408,99 @@ public class Player extends AnimatedSprite {
         this.coins += coins;
     }    
     
-    private boolean controlloAction(){
+    //ritorna 1 se deve può comprare, 3 se mancano i soldi, 2 se è già attiva, -1 se niente
+    private int controlloAction(){
         int pixel = mapRGB.getRGB((int)getX()+width/2,(int)getY()+height/2);
         pixel = (pixel >> 8) & 0xff;
-        return pixel==130 || pixel == 115 || pixel == 49 || pixel == 255 || pixel == 150 || pixel == 155 || pixel == 99 || pixel == 189;
+        switch(pixel){
+            case 130:
+                if (!this.shockTrapActive1 && this.coins >= 3) {
+                    return 1;
+                } else if (this.shockTrapActive1) {
+                    return 2;
+                } else {
+                    return 3;
+                }
+            case 115:
+                if (!this.shockTrapActive2 && this.coins >= 3) {
+                    return 1;
+                } else if (this.shockTrapActive2) {
+                    return 2;
+                } else {
+                    return 3;
+                }
+            case 49:
+                if (!this.shockTrapActive3 && this.coins >= 3) {
+                    return 1;
+                } else if (this.shockTrapActive3) {
+                    return 2;
+                } else {
+                    return 3;
+                }
+            case 255:
+                if (!this.fireTrapActive && this.coins >= 5) {
+                    return 1;
+                } else if (this.fireTrapActive) {
+                    return 2;
+                } else {
+                    return 3;
+                }
+            case 150:
+                if (!this.wallTrapActive1 && this.coins >= 1) {
+                    return 1;
+                } else if (this.wallTrapActive1) {
+                    return 2;
+                } else {
+                    return 3;
+                }
+            case 155:
+                if (!this.holeTrapActive1 && this.coins >= 7) {
+                    return 1;
+                } else if (this.holeTrapActive1) {
+                    return 2;
+                } else {
+                    return 3;
+                }
+                
+            case 99:
+                if (!this.holeTrapActive2 && this.coins >= 7) {
+                    return 1;
+                } else if (this.holeTrapActive2) {
+                    return 2;
+                } else {
+                    return 3;
+                }
+                
+            case 189:
+                if (!this.wallTrapActive2 && this.coins >= 1) {
+                    return 1;
+                } else if (this.wallTrapActive2) {
+                    return 2;
+                } else {
+                    return 3;
+                }
+            default:
+                return -1;
+        }
     }
+    
+        public void aggiornaDB() {
+        if (Database.online) {
+            Assets.ThreadOttieniScoreboard.occupato = true;
+            Database.InserisciPunteggio(name, punteggioAttuale);
+            Assets.ThreadOttieniScoreboard.occupato = false;
+            Database.CancellaOnline(onlineID);
+        }
+        Database.online = true;
+        Assets.ThreadOttieniScoreboard t = new Assets.ThreadOttieniScoreboard();
+        t.start();
+    }
+
+    public int getOnlineID() {
+        return onlineID;
+    }
+        
+        
     
     private void activeTrap(int pixel){
         
@@ -470,9 +569,9 @@ public class Player extends AnimatedSprite {
             case 189:
                 if (this.coins >= 1 && !this.wallTrapActive2) {
                     this.grafo.rimuoviEntrataLabirinto();
-                    handler.addSprite(new WallTrap((float) 2525, (float) 1217, 200, 30, handler, true, 2000, this.wallTrapS2, 2));
-                    handler.addSprite(new WallTrap((float) 2750, (float) 545, 200, 30, handler, true, 2000, this.wallTrapS2, 2));
-                    handler.addSprite(new WallTrap((float) 1980, (float) 727, 200, 30, handler, false, 2000, this.wallTrapS2, 2));
+                    handler.addSprite(new WallTrap((float) 2525, (float) 1217, 200, 30, handler, true, 1500, this.wallTrapS2, 2));
+                    handler.addSprite(new WallTrap((float) 2750, (float) 545, 200, 30, handler, true, 1500, this.wallTrapS2, 2));
+                    handler.addSprite(new WallTrap((float) 1980, (float) 727, 200, 30, handler, false, 1500, this.wallTrapS2, 2));
                     this.updateCoins(-1);
                     this.wallTrapActive2=true;
                 }
@@ -494,10 +593,14 @@ public class Player extends AnimatedSprite {
     }
 
     public void setWallTrapActive1(boolean wallTrapActive1) {
+        if(this.wallTrapActive1 && !wallTrapActive1)
+            this.grafo.inserisciCorridoio();
         this.wallTrapActive1 = wallTrapActive1;
     }
 
     public void setWallTrapActive2(boolean wallTrapActive2) {
+        if(this.wallTrapActive2 && !wallTrapActive2)
+            this.grafo.inserisciEntrataLabirinto();
         this.wallTrapActive2 = wallTrapActive2;
     }
 
