@@ -125,6 +125,7 @@ public class Database {
     }
 
     public static void CancellaOnline(int id) {
+        System.out.println("Mi sto cancellando dagli online");
         if (online && id!=-1){
         String sql = "DELETE FROM online WHERE id='" + id + "'";
         Database.dbAction(sql);

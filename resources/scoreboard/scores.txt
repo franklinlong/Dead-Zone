@@ -1,14 +1,10 @@
-oscar 36260
-Cucchia 34560
+Cucchia 1000000
+Oscar 36260
 oscar 5220
 oscar 4275
 RFRF 1835
 frank_long 1055
 rf 680
-<<<<<<< HEAD
-
-=======
-Apina 375
 qws 370
 sa 235
->>>>>>> origin/master
+dcsxa 25
