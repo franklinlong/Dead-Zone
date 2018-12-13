@@ -5,6 +5,10 @@
  */
 package deadzone.menu;
 
+
+import deadzone.utilities.Assets;
+import deadzone.utilities.Database;
+import static deadzone.utilities.Database.online;
 import java.awt.Image;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,6 +19,11 @@ import javax.swing.JFrame;
 
 import deadzone.utilities.Sound;
 import deadzone.utilities.Utilities;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -25,12 +34,16 @@ public class GameOver extends javax.swing.JFrame {
     JFrame parent;
     public static Sound soundEndGame;
     public static Clip clipEndGame;
+    private String nome;
+    private int punteggio;
     /**
      * Creates new form GameOver
      *
      * @param parent
      */
-    public GameOver(JFrame parent) {
+    public GameOver(JFrame parent,String nome,int punteggio) {
+        this.nome = nome;
+        this.punteggio = punteggio;
         Image iconaFrame;
         iconaFrame = new ImageIcon(getClass().getResource("/images/icona_frame.png")).getImage();
         this.setIconImage(iconaFrame);
@@ -42,6 +55,12 @@ public class GameOver extends javax.swing.JFrame {
         GameOver.clipEndGame = Utilities.LoadSound("/sound/endGame.wav");
         GameOver.soundEndGame = new Sound(clipEndGame);
         GameOver.soundEndGame.playSound();
+        this.jButton1.setVisible(false);
+        this.jLabel2.setVisible(true);
+        this.aggiornaDB();
+        this.jLabel2.setVisible(false);
+        this.jButton1.setVisible(true);
+        
     }
 
     /**
@@ -55,6 +74,7 @@ public class GameOver extends javax.swing.JFrame {
 
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("DEAD ZONE");
@@ -72,7 +92,7 @@ public class GameOver extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(250, 260, 250, 50);
+        jButton1.setBounds(260, 480, 250, 50);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sfondo_senza_spari.png"))); // NOI18N
         jLabel1.setMaximumSize(new java.awt.Dimension(491, 336));
@@ -81,19 +101,23 @@ public class GameOver extends javax.swing.JFrame {
         getContentPane().add(jLabel1);
         jLabel1.setBounds(-10, 0, 780, 580);
 
+        jLabel2.setText("jLabel2");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(230, 450, 320, 100);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         parent.dispose();
-        synchronized(connectionThread.TOS){
-            try {
-                if(connectionThread.occupato)
-                connectionThread.TOS.wait();
-            } catch (InterruptedException ex) {
-                Logger.getLogger(GameOver.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+//        synchronized(connectionThread.TOS){
+//            try {
+//                if(connectionThread.occupato)
+//                connectionThread.TOS.wait();
+//            } catch (InterruptedException ex) {
+//                Logger.getLogger(GameOver.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
         Menu menu = new Menu();
         menu.setVisible(true);
         GameOver.soundEndGame.stopSound();
@@ -104,5 +128,60 @@ public class GameOver extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
+
+
+public void aggiornaDB(){
+Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        
+        try {
+            this.jLabel2.setText("Connection...");
+            conn = DriverManager.getConnection(Database.s1, Database.user, Database.pass);
+            this.jLabel2.setText("Connection estabilished...");
+            stmt = conn.createStatement();
+            this.jLabel2.setText("Sending your score to the database");
+            String query = "SELECT MAX(id) FROM scoreboard";
+            rs = stmt.executeQuery(query);
+            rs.next();
+            int id = (int) rs.getInt(1) + 1;
+            String sql = "INSERT INTO scoreboard VALUES ('" + id + "','" + nome + "','" + punteggio + "')";
+            stmt.executeUpdate(sql);
+            this.jLabel2.setText("Done! Downloading scoreboard...");
+            query = " SELECT * FROM scoreboard ORDER BY punteggio DESC LIMIT 10";
+            Assets.rs = stmt.executeQuery(query);
+            Database.online = true;
+            this.setVisible(false);
+            this.dispose();
+
+        } catch (org.postgresql.util.PSQLException ex) {
+            online = false;
+            System.out.println("Non connesso");
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) {
+                    conn.close();
+                }
+            } catch (SQLException se) {
+            }
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        System.out.println(" aggiungi score + scarcia scoreboard fatto");
+        
+            
+
+}
 }

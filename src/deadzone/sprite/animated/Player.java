@@ -506,7 +506,7 @@ public class Player extends AnimatedSprite {
     public void aggiornaDB() {
         if (Database.online) {
             
-            new connectionThread(this.name,this.punteggioAttuale).start();
+            //new connectionThread(this.name,this.punteggioAttuale).start();
             Database.CancellaOnline(onlineID);
         }
        
