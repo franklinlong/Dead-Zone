@@ -262,7 +262,7 @@ public class Boss extends Zombie{
     private class BossSpittle extends Spittle{
 
         public BossSpittle(float x, float y, float velX, float velY, int velocita, int health, Handler handler, int damage) {
-            super(x-30, y-15, velX, velY, velocita, health, handler, damage);
+            super(x-27, y-12, velX, velY, velocita, health, handler, damage);
             this.width = 60;
             this.height = 30;
         }

@@ -29,7 +29,8 @@ public class Handler {
     private final List<Sprite> proiettili = new ArrayList<>();
     private final List<Sprite> spittles = new ArrayList<>();
     private final List<Sprite> spawnSpittles = new ArrayList<>();
-    private final List<Sprite> itemsAndBloodAndTrap = new ArrayList<>();
+    private final List<Sprite> itemsAndTrap = new ArrayList<>();
+    private final List<Sprite> bloods = new ArrayList<>();
     private final List<Sprite> circle = new ArrayList<>();
     private static Camera camera;
     private final Player player;
@@ -74,15 +75,18 @@ public class Handler {
             s.animationCycle();
         }
 
-        for (int i = 0; i < itemsAndBloodAndTrap.size(); i++) {
-            Sprite s = itemsAndBloodAndTrap.get(i);
+        for (int i = 0; i < itemsAndTrap.size(); i++) {
+            Sprite s = itemsAndTrap.get(i);
             s.animationCycle();
         }
         for (int i = 0; i < circle.size(); i++) {
             Sprite s = circle.get(i);
             s.animationCycle();
         }
-        
+        for (int i = 0; i < bloods.size(); i++) {
+            Sprite s = bloods.get(i);
+            s.animationCycle();
+        }
     }
 
     public void drawImage(Graphics g) {
@@ -90,8 +94,12 @@ public class Handler {
         float offsetY = camera.getOffset_y();
 
         //Faccio partire il draw image di tutti gli sprite della mappa
-        for (int i = 0; i < itemsAndBloodAndTrap.size(); i++) {
-            Sprite s = itemsAndBloodAndTrap.get(i);
+        for (int i = 0; i < bloods.size(); i++) {
+            Sprite s = bloods.get(i);
+            s.drawImage(g, offsetX, offsetY);
+        }
+        for (int i = 0; i < itemsAndTrap.size(); i++) {
+            Sprite s = itemsAndTrap.get(i);
             s.drawImage(g, offsetX, offsetY);
         }
 
@@ -134,14 +142,16 @@ public class Handler {
             this.players.add(s);
         } else if (s instanceof Projectile) {
             this.proiettili.add(s);
-        } else if (s instanceof DropItem || s instanceof Blood || s instanceof Trap) {
-            this.itemsAndBloodAndTrap.add(s);
+        } else if (s instanceof DropItem || s instanceof Trap) {
+            this.itemsAndTrap.add(s);
         } else if (s instanceof Spittle) {
             this.spittles.add(s);
         }else if (s instanceof SpawnSpittle) {
             this.spawnSpittles.add(s);
         }else if (s instanceof Circle) {
             this.circle.add(s);
+        }else if (s instanceof Blood) {
+            this.bloods.add(s);
         }else {
             System.err.println("ERROREEEE, in handler add sprite");
         }
@@ -156,14 +166,16 @@ public class Handler {
             this.players.remove(s);
         } else if (s instanceof Projectile) {
             this.proiettili.remove(s);
-        } else if (s instanceof DropItem || s instanceof Blood || s instanceof Trap) {
-            this.itemsAndBloodAndTrap.remove(s);
+        } else if (s instanceof DropItem || s instanceof Trap) {
+            this.itemsAndTrap.remove(s);
         } else if (s instanceof Spittle) {
             this.spittles.remove(s);
         } else if (s instanceof SpawnSpittle) {
             this.spawnSpittles.remove(s);
         } else if (s instanceof Circle) {
             this.circle.remove(s);
+        } else if (s instanceof Blood) {
+            this.bloods.remove(s);
         }else {
             System.err.println("ERROREEEE, in handler remove sprite");
         }
@@ -189,8 +201,8 @@ public class Handler {
         return spawnSpittles;
     }
     
-    public List<Sprite> getitemsAndBlood() {
-        return itemsAndBloodAndTrap;
+    public List<Sprite> getitemsAndTrap() {
+        return itemsAndTrap;
     }
     
     public List<Sprite> getiCircle() {
@@ -207,6 +219,10 @@ public class Handler {
 
     public Waves getWaves() {
         return waves;
+    }
+
+    public List<Sprite> getBloods() {
+        return bloods;
     }
 
 }

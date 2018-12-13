@@ -51,7 +51,7 @@ public class Spittle extends Projectile {
         }
 
         //se è andato contro un muro
-        int pixel = mapRGB.getRGB((int) getX() + width, (int) getY() + height);
+        int pixel = mapRGB.getRGB((int) getX() + width/2, (int) getY() + height/2);
         int red = (pixel >> 16) & 0xff;
         if (red == 255) {
             return true;

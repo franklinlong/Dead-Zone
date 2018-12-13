@@ -108,7 +108,7 @@ public class MapPanel extends JPanel implements Runnable {
             handler.animationCycle();
         }else{
             if(first){
-                for(Sprite s : handler.getitemsAndBlood())
+                for(Sprite s : handler.getitemsAndTrap())
                     if(s instanceof Trap)
                         s.animationCycle();
                 first = false;

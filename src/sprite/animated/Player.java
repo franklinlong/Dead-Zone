@@ -218,7 +218,7 @@ public class Player extends AnimatedSprite {
     public void animationCycle() {
         //Controllo che sia vivo        
         if (getHealth() <= 0) {
-            for(Sprite s : handler.getitemsAndBlood())
+            for(Sprite s : handler.getitemsAndTrap())
                 if(s instanceof Trap)
                     ((Trap) s).getSound().stopSound();
             death();
@@ -482,10 +482,14 @@ public class Player extends AnimatedSprite {
     }
 
     public void setWallTrapActive1(boolean wallTrapActive1) {
+        if(this.wallTrapActive1 && !wallTrapActive1)
+            this.grafo.inserisciCorridoio();
         this.wallTrapActive1 = wallTrapActive1;
     }
 
     public void setWallTrapActive2(boolean wallTrapActive2) {
+        if(this.wallTrapActive2 && !wallTrapActive2)
+            this.grafo.inserisciEntrataLabirinto();
         this.wallTrapActive2 = wallTrapActive2;
     }
 
