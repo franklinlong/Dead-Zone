@@ -129,17 +129,19 @@ public class Player extends AnimatedSprite {
         pistolShootSound = new Sound(Assets.pistolShoot);
         pistolShootSound.changeVolume(-10);
         pistolReloadSound = new Sound(Assets.pistolReloadSound);
-
+        pistolReloadSound.changeVolume(-10);
         rifleShootSound = new Sound(Assets.rifleShoot);
-        rifleShootSound.changeVolume(-5);
+        rifleShootSound.changeVolume(-10);
         rifleReloadSound = new Sound(Assets.rifleReloadSound);
-
+        rifleReloadSound.changeVolume(-10);
         shotgunShootSound = new Sound(Assets.shotgunShoot);
+        shotgunShootSound.changeVolume(-10);
         shotgunReloadSound = new Sound(Assets.shotgunReloadSound);
-
+        shotgunReloadSound.changeVolume(-10);
         rpgShootSound = new Sound(Assets.rpgShoot);
+        rpgShootSound.changeVolume(-10);
         rpgReloadSound = new Sound(Assets.rpgReloadSound);
-        
+        rpgReloadSound.changeVolume(-10);
         shockTrapS1 = new Sound(Assets.shockTrap1);
         shockTrapS2 = new Sound(Assets.shockTrap2);
         shockTrapS3 = new Sound(Assets.shockTrap3);

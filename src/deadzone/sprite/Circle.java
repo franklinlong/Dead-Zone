@@ -30,6 +30,7 @@ public class Circle extends Sprite{
         this.damage = damage;
         this.handler = handler;
         this.deathAnimation.setIndex();
+        this.hitSound.changeVolume(-10);
         this.hitSound.playSound();
     }
     

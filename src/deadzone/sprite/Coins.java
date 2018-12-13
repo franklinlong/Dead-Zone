@@ -25,6 +25,7 @@ public class Coins extends DropItem {
         this.handler = handler;
         this.value = 2;
         this.coinsDrop = new Sound(Assets.coinsDrop);
+        this.coinsDrop.changeVolume(-10);
     }
     
     
