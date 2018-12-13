@@ -1,5 +1,5 @@
-oscar 36260
-Cucchia 34560
+Cucchia 1000000
+Oscar 36260
 oscar 5220
 Gendio 4475
 oscar 4275

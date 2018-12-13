@@ -32,7 +32,7 @@ public class Board extends JSplitPane {
     private HudPanel hudPanel;
     private final int location = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() * 1 / 5;
 
-    public Board(String playerName, boolean male) {
+    public Board(String playerName, boolean male, Window window) {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize(dim);
         this.setOpaque(false);
@@ -42,13 +42,13 @@ public class Board extends JSplitPane {
         this.setDividerSize(0);
         this.setDividerLocation((int) dim.getWidth() * 1 / 5);
 
-        initBoard(playerName, male);
+        initBoard(playerName, male, window);
     }
 
-    private void initBoard(String playerName, boolean male) {
+    private void initBoard(String playerName, boolean male, Window window) {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
-        handler = new Handler(playerName, male);
+        handler = new Handler(playerName, male, window);
         mapPanel = new MapPanel(handler);
         hudPanel = new HudPanel(handler);
         KAdapter kad = new KAdapter();

@@ -77,6 +77,7 @@ public class PauseMenu extends javax.swing.JDialog {
         Resume = new javax.swing.JButton();
         Settings = new javax.swing.JButton();
         Exit = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -96,6 +97,9 @@ public class PauseMenu extends javax.swing.JDialog {
 
         Settings.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         Settings.setText("Settings");
+        Settings.setMaximumSize(new java.awt.Dimension(89, 27));
+        Settings.setMinimumSize(new java.awt.Dimension(89, 27));
+        Settings.setPreferredSize(new java.awt.Dimension(89, 27));
         Settings.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SettingsActionPerformed(evt);
@@ -104,9 +108,23 @@ public class PauseMenu extends javax.swing.JDialog {
 
         Exit.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         Exit.setText("Exit");
+        Exit.setMaximumSize(new java.awt.Dimension(89, 27));
+        Exit.setMinimumSize(new java.awt.Dimension(89, 27));
+        Exit.setPreferredSize(new java.awt.Dimension(89, 27));
         Exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ExitActionPerformed(evt);
+            }
+        });
+
+        jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jButton1.setText("View online");
+        jButton1.setMaximumSize(new java.awt.Dimension(89, 27));
+        jButton1.setMinimumSize(new java.awt.Dimension(89, 27));
+        jButton1.setPreferredSize(new java.awt.Dimension(89, 27));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -115,12 +133,18 @@ public class PauseMenu extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(187, 187, 187)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Exit, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Settings, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Resume, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(175, 175, 175)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Resume, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Settings, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Exit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(194, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -128,13 +152,15 @@ public class PauseMenu extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(44, 44, 44)
+                .addGap(18, 18, 18)
                 .addComponent(Resume)
-                .addGap(50, 50, 50)
-                .addComponent(Settings)
-                .addGap(54, 54, 54)
-                .addComponent(Exit)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addGap(37, 37, 37)
+                .addComponent(Settings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(Exit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         pack();
@@ -160,9 +186,7 @@ public class PauseMenu extends javax.swing.JDialog {
         if (Database.online) {
             Assets.ThreadOttieniScoreboard t2 = new Assets.ThreadOttieniScoreboard();
             t2.start();
-            ThreadCancellaOnline t = new ThreadCancellaOnline();
-            t.start();
-
+            Database.CancellaOnline(player.getOnlineID());
         }
 
         synchronized (Assets.ThreadOttieniScoreboard.TOS) {
@@ -184,20 +208,20 @@ public class PauseMenu extends javax.swing.JDialog {
         menu.setVisible(true);
     }//GEN-LAST:event_ExitActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        new OnlinePause(this).setVisible(true);
+        this.setVisible(false);
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Exit;
     private javax.swing.JButton Resume;
     private javax.swing.JButton Settings;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 
-    public class ThreadCancellaOnline extends Thread {
-
-        @Override
-        public void run() {
-            System.out.println("Sto rimuovendo dagli online");
-            Database.CancellaOnline(player.getOnlineID());
-        }
-    }
 }

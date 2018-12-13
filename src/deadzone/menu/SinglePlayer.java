@@ -12,15 +12,12 @@ import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.net.URL;
-import java.sql.Array;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import deadzone.utilities.Score;
 import deadzone.utilities.Scoreboard;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import deadzone.utilities.Assets;
@@ -43,6 +40,7 @@ public class SinglePlayer extends javax.swing.JFrame {
 
     /**
      * Creates new form SinglePlayer
+     * @param menu
      */
     public SinglePlayer(Menu menu) {
         this.menu = menu;
@@ -97,10 +95,7 @@ public class SinglePlayer extends javax.swing.JFrame {
         jButtonDonna.setIcon(i2);
 
         if (Database.online) {
-            int j = 0;
-            LinkedList<String> nomi = new LinkedList();
-            LinkedList<Integer> punteggi = new LinkedList(); 
-            
+            int j = 0;           
             try {
                 while (Assets.rs.next() && j < 10) {
                     p.get(j).setText((j+1) + ")" + Assets.rs.getString("nome"));
@@ -385,7 +380,7 @@ public class SinglePlayer extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonBack);
-        jButtonBack.setBounds(60, 490, 55, 23);
+        jButtonBack.setBounds(60, 490, 59, 25);
 
         jButtonPlay.setText("Select Map");
         jButtonPlay.addActionListener(new java.awt.event.ActionListener() {
@@ -394,7 +389,7 @@ public class SinglePlayer extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonPlay);
-        jButtonPlay.setBounds(330, 490, 100, 23);
+        jButtonPlay.setBounds(330, 490, 100, 25);
 
         sfondo.setIcon(new ImageIcon(getClass().getResource("/images/sfondo_senza_spari.png")));
         getContentPane().add(sfondo);
