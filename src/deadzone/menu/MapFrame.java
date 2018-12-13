@@ -6,8 +6,8 @@
 package deadzone.menu;
 
 import deadzone.Window;
-import utilities.Sound;
-import utilities.Utilities;
+import deadzone.utilities.Sound;
+import deadzone.utilities.Utilities;
 
 import java.awt.Color;
 import java.awt.Dimension;

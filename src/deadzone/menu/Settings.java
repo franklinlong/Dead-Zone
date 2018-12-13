@@ -7,7 +7,7 @@ package deadzone.menu;
 
 import java.awt.*;
 import javax.swing.*;
-import sprite.animated.Player;
+import deadzone.sprite.animated.Player;
 
 /**
  *

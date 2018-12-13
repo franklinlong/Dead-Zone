@@ -10,9 +10,9 @@ import static deadzone.menu.MapFrame.gameClip;
 import static deadzone.menu.MapFrame.gameMusic;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import utilities.Assets;
-import utilities.Sound;
-import utilities.Utilities;
+import deadzone.utilities.Assets;
+import deadzone.utilities.Sound;
+import deadzone.utilities.Utilities;
 
 /**
  *

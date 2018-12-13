@@ -9,12 +9,12 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import listeners.KAdapter;
-import listeners.MAdapter;
-import sprite.Sprite;
-import sprite.animated.Player;
-import trap.Trap;
-import utilities.Scoreboard;
+import deadzone.listeners.KAdapter;
+import deadzone.listeners.MAdapter;
+import deadzone.sprite.Sprite;
+import deadzone.sprite.animated.Player;
+import deadzone.trap.Trap;
+import deadzone.utilities.Scoreboard;
 
 public class MapPanel extends JPanel implements Runnable {
 
