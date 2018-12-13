@@ -24,6 +24,7 @@ public class Nuke extends DropItem {
         super(x, y, width, height);
         this.handler = handler;
         this.explosion = new Sound(Assets.nukeExplosion);
+        this.explosion.changeVolume(-10);
     }
 
     @Override

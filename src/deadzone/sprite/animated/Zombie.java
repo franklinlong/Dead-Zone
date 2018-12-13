@@ -51,7 +51,9 @@ public abstract class Zombie extends AnimatedSprite {
         this.walkAnimation = walkAnimation;
         this.attackAnimation = attackAnimation;
         this.biteSound = biteSound;
+        this.biteSound.changeVolume(-10);
         this.hitSound = hitSound;
+        this.hitSound.changeVolume(-10);
         currentAnimation = walkAnimation;
 
         this.zona = new Zona(getX(), getY());

@@ -33,6 +33,7 @@ public abstract class Trap extends Sprite{
         this.rectangle = new Rectangle((int) x,(int) y, width, height);
         this.durata = durata;
         this.sound = sound;
+        this.sound.changeVolume(-10);
         state = true;
     }
     

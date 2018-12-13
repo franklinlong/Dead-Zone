@@ -26,6 +26,7 @@ import deadzone.trap.HoleTrap;
 import deadzone.trap.ShockTrap;
 import deadzone.trap.Trap;
 import deadzone.trap.WallTrap;
+import deadzone.utilities.Database;
 import deadzone.utilities.Zona;
 
 /**
@@ -65,6 +66,7 @@ public class Player extends AnimatedSprite {
     private boolean isDeath;
 
     private int punteggioAttuale;
+    private int onlineID;
     private final String name;
     private final boolean male;
     private int zombieKilled;
@@ -129,17 +131,19 @@ public class Player extends AnimatedSprite {
         pistolShootSound = new Sound(Assets.pistolShoot);
         pistolShootSound.changeVolume(-10);
         pistolReloadSound = new Sound(Assets.pistolReloadSound);
-
+        pistolReloadSound.changeVolume(-10);
         rifleShootSound = new Sound(Assets.rifleShoot);
-        rifleShootSound.changeVolume(-5);
+        rifleShootSound.changeVolume(-10);
         rifleReloadSound = new Sound(Assets.rifleReloadSound);
-
+        rifleReloadSound.changeVolume(-10);
         shotgunShootSound = new Sound(Assets.shotgunShoot);
+        shotgunShootSound.changeVolume(-10);
         shotgunReloadSound = new Sound(Assets.shotgunReloadSound);
-
+        shotgunReloadSound.changeVolume(-10);
         rpgShootSound = new Sound(Assets.rpgShoot);
+        rpgShootSound.changeVolume(-10);
         rpgReloadSound = new Sound(Assets.rpgReloadSound);
-        
+        rpgReloadSound.changeVolume(-10);
         shockTrapS1 = new Sound(Assets.shockTrap1);
         shockTrapS2 = new Sound(Assets.shockTrap2);
         shockTrapS3 = new Sound(Assets.shockTrap3);
@@ -228,7 +232,7 @@ public class Player extends AnimatedSprite {
     public void animationCycle() {
         //Controllo che sia vivo        
         if (getHealth() <= 0) {
-            for(Sprite s : handler.getitemsAndBlood())
+            for(Sprite s : handler.getBloods())
                 if(s instanceof Trap)
                     ((Trap) s).getSound().stopSound();
             death();
@@ -343,6 +347,7 @@ public class Player extends AnimatedSprite {
     @Override
     public void death() {
         this.isDeath = true;
+                this.aggiornaDB();
         handler.removeSprite(this);
         MapFrame.gameMusic.stopSound();
     }
@@ -471,6 +476,24 @@ public class Player extends AnimatedSprite {
         }
     }
     
+        public void aggiornaDB() {
+        if (Database.online) {
+            Assets.ThreadOttieniScoreboard.occupato = true;
+            Database.InserisciPunteggio(name, punteggioAttuale);
+            Assets.ThreadOttieniScoreboard.occupato = false;
+            Database.CancellaOnline(onlineID);
+        }
+        Database.online = true;
+        Assets.ThreadOttieniScoreboard t = new Assets.ThreadOttieniScoreboard();
+        t.start();
+    }
+
+    public int getOnlineID() {
+        return onlineID;
+    }
+        
+        
+    
     private void activeTrap(int pixel){
         
         switch (pixel) {
@@ -498,15 +521,15 @@ public class Player extends AnimatedSprite {
             case 255:
                 if (this.coins >= 5 && !this.fireTrapActive) {
                     for(int i=0;i<7;i++)
-                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1370, 120, 66, handler, true, 440, this.fireTrapS));
+                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1370, 120, 66, handler, true, 740, this.fireTrapS));
                     for(int i=7;i<14;i++)
-                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1370, 120, 66, handler, true, 460, this.fireTrapS));
+                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1370, 120, 66, handler, true, 760, this.fireTrapS));
                     for(int i=0;i<7;i++)
-                        handler.addSprite(new FireTrap((float) 1730, (float) 1384 + 66*i, 120, 66, handler, false, 480, this.fireTrapS));
+                        handler.addSprite(new FireTrap((float) 1730, (float) 1384 + 66*i, 120, 66, handler, false, 780, this.fireTrapS));
                     for(int i=0;i<7;i++)
-                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1860, 120, 66, handler ,true, 520, this.fireTrapS));    
+                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1860, 120, 66, handler ,true, 820, this.fireTrapS));    
                     for(int i=7;i<14;i++)
-                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1860, 120, 66, handler ,true, 500, this.fireTrapS));    
+                        handler.addSprite(new FireTrap((float) 170 + 110*i, (float) 1860, 120, 66, handler ,true, 800, this.fireTrapS));    
                     for(int i=0;i<7;i++)
                         handler.addSprite(new FireTrap((float) 170, (float) 1384 + 66*i, 120, 66, handler, false, 540, this.fireTrapS));
                     this.updateCoins(-5);
@@ -562,10 +585,14 @@ public class Player extends AnimatedSprite {
     }
 
     public void setWallTrapActive1(boolean wallTrapActive1) {
+        if(this.wallTrapActive1 && !wallTrapActive1)
+            this.grafo.inserisciCorridoio();
         this.wallTrapActive1 = wallTrapActive1;
     }
 
     public void setWallTrapActive2(boolean wallTrapActive2) {
+        if(this.wallTrapActive2 && !wallTrapActive2)
+            this.grafo.inserisciEntrataLabirinto();
         this.wallTrapActive2 = wallTrapActive2;
     }
 

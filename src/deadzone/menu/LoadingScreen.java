@@ -71,22 +71,22 @@ public class LoadingScreen extends javax.swing.JFrame{
         getContentPane().add(jLabel4);
         jLabel4.setBounds(195, 10, 180, 170);
 
-        jLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 20)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 22)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(260, 250, 140, 70);
+        jLabel2.setBounds(260, 270, 140, 70);
 
-        jLabel3.setFont(new java.awt.Font("Comic Sans MS", 0, 22)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Comic Sans MS", 0, 25)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Loading...");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(240, 220, 120, 50);
+        jLabel3.setBounds(240, 240, 120, 50);
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(200, 200, 180, 210);
+        jLabel5.setBounds(200, 220, 180, 210);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sfondo_senza_spari.png")));
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(-10, -10, 680, 390);
+        jLabel1.setBounds(-10, -10, 680, 450);
 
         pack();
         setLocationRelativeTo(null);
