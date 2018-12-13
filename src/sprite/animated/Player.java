@@ -25,6 +25,7 @@ import trap.FireTrap;
 import trap.HoleTrap;
 import trap.ShockTrap;
 import trap.WallTrap;
+import utilities.Database;
 import utilities.Zona;
 
 /**
@@ -41,45 +42,44 @@ public class Player extends AnimatedSprite {
     private final Animation pistolIdle, pistolReload, pistolShoot;
     private final Animation rifleIdle, rifleReload, rifleShoot;
     private final Animation rpgIdle, rpgReload, rpgShoot;
-    
+
     // sounds
     private final Sound rifleShootSound, rifleReloadSound;
     private final Sound pistolShootSound, pistolReloadSound;
     private final Sound shotgunShootSound, shotgunReloadSound;
     private final Sound rpgShootSound, rpgReloadSound;
 
-    
     // trap
-    
     private final Sound shockTrapS, wallTrapS, fireTrapS;
-    
+
     //Handler che serve per rimuovere il player quando muore
     private final Handler handler;
 
     private Gun currentGun;
-    private final Gun pistol, rifle, shotgun,rpg;
+    private final Gun pistol, rifle, shotgun, rpg;
 
     private float xx, yy;
     private boolean isDeath;
 
     private int punteggioAttuale;
     private final String name;
+    private int onlineID;
     private final boolean male;
     private int zombieKilled;
     private final int maximumHealth;
     private int coins;
     private Graphics2D g2;
-        
-    private Map<Vertex,Edge> camminiMinimi;
+
+    private Map<Vertex, Edge> camminiMinimi;
     //Timer trap
-    Timer shockTrap1,shockTrap2,shockTrap3;
-    Timer fireTrap,wallTrap1,wallTrap2, holeTrap1,holeTrap2;
+    Timer shockTrap1, shockTrap2, shockTrap3;
+    Timer fireTrap, wallTrap1, wallTrap2, holeTrap1, holeTrap2;
     Timer durataWall1, durataWall2;
     private boolean trap;
     private final Graph grafo;
 
     public Player(float x, float y, int vel, int health, Handler handler, String name, boolean male) {
-        super(x, y, PLAYERSIZE, PLAYERSIZE, (float)vel, health);
+        super(x, y, PLAYERSIZE, PLAYERSIZE, (float) vel, health);
         this.punteggioAttuale = 0;
         this.handler = handler;
         this.male = male;
@@ -88,7 +88,7 @@ public class Player extends AnimatedSprite {
         this.coins = 11;
         this.trap = true;
         //g2.drawString("press Q to activate the trap", getX()-offsetX-250, getY()-offsetY);
-        
+
         this.zona = new Zona(getX(), getY());
         grafo = new Graph();
         camminiMinimi = Graph.BFS_complete(new Vertex(zona.getIndex()));
@@ -104,7 +104,7 @@ public class Player extends AnimatedSprite {
             shotgunIdle = new Animation(Assets.shotgunIdle, 20);
             shotgunReload = new Animation(Assets.shotgunReload, 100);
             shotgunShoot = new Animation(Assets.shotgunShootAnim, 80);
-            
+
             rpgIdle = new Animation(Assets.rpgIdle, 20);
             rpgReload = new Animation(Assets.rpgReload, 100);
             rpgShoot = new Animation(Assets.rpgShootAnim, 80);
@@ -120,7 +120,7 @@ public class Player extends AnimatedSprite {
             shotgunIdle = new Animation(Assets.femaleshotgunIdle, 20);
             shotgunReload = new Animation(Assets.femaleshotgunReload, 100);
             shotgunShoot = new Animation(Assets.femaleshotgunShootAnim, 80);
-            
+
             rpgIdle = new Animation(Assets.femalerpgIdle, 20);
             rpgReload = new Animation(Assets.femalerpgReload, 100);
             rpgShoot = new Animation(Assets.femalerpgShootAnim, 80);
@@ -139,11 +139,11 @@ public class Player extends AnimatedSprite {
 
         rpgShootSound = new Sound(Assets.rpgShoot);
         rpgReloadSound = new Sound(Assets.rpgReloadSound);
-        
+
         shockTrapS = new Sound(Assets.shockTrap);
         fireTrapS = new Sound(Assets.fireTrap);
         wallTrapS = new Sound(Assets.wallTrap);
-        
+
         pistol = new Gun(Assets.pistolSkin, pistolIdle, pistolReload, pistolShoot, pistolShootSound,
                 pistolReloadSound, this, 400,
                 9, 200, handler, 50);
@@ -158,62 +158,67 @@ public class Player extends AnimatedSprite {
         rpg = new Gun(Assets.rpgSkin, rpgIdle, rpgReload, rpgShoot, rpgShootSound,
                 rpgReloadSound, this, 1200,
                 1, 9, handler, 1000);
-        
+
         currentGun = pistol;
-        
+
         shockTrap1 = new Timer(10000, (ActionEvent ae) -> {
             shockTrap1.stop();
             shockTrapS.stopSound();
         });
-        
+
         shockTrap2 = new Timer(10000, (ActionEvent ae) -> {
             //stop musica
             shockTrap2.stop();
             shockTrapS.stopSound();
 
         });
-        
+
         shockTrap3 = new Timer(10000, (ActionEvent ae) -> {
-            shockTrap3.stop();    
+            shockTrap3.stop();
             shockTrapS.stopSound();
 
         });
 
         fireTrap = new Timer(10000, (ActionEvent ae) -> {
-            fireTrap.stop();    
+            fireTrap.stop();
             fireTrapS.stopSound();
 
         });
-        
+
         wallTrap1 = new Timer(10000, (ActionEvent ae) -> {
-            wallTrap1.stop();    
+            wallTrap1.stop();
             wallTrapS.stopSound();
         });
-        
+
         wallTrap2 = new Timer(10000, (ActionEvent ae) -> {
-            wallTrap2.stop();    
+            wallTrap2.stop();
             wallTrapS.stopSound();
         });
-        
+
         holeTrap1 = new Timer(10000, (ActionEvent ae) -> {
-            holeTrap1.stop();    
+            holeTrap1.stop();
             //stop musica
         });
-        
+
         holeTrap2 = new Timer(10000, (ActionEvent ae) -> {
-            holeTrap2.stop();    
+            holeTrap2.stop();
             //stop musica
         });
-        
+
         durataWall1 = new Timer(10000, (ActionEvent ae) -> {
             durataWall1.stop();
             this.grafo.inserisciCorridoio();
         });
-        
+
         durataWall2 = new Timer(10000, (ActionEvent ae) -> {
             durataWall2.stop();
             this.grafo.inserisciEntrataLabirinto();
         });
+
+        if (Database.online) {
+            ThreadInserisciOnline t = new ThreadInserisciOnline();
+            t.start();
+        }
     }
 
     @Override
@@ -221,10 +226,10 @@ public class Player extends AnimatedSprite {
         Graphics2D g2d = (Graphics2D) g;
 
         //Controllo se mi trovo in vicinanza di una trappola
-        if(controlloAction()){
-            g2d.drawImage(Assets.actionImg, (int) (getX()-offsetX-115), (int) (getY()-offsetY) - 30, null);
+        if (controlloAction()) {
+            g2d.drawImage(Assets.actionImg, (int) (getX() - offsetX - 115), (int) (getY() - offsetY) - 30, null);
         }
-        
+
         xx = this.getX() - offsetX;
         yy = this.getY() - offsetY;
 
@@ -250,8 +255,7 @@ public class Player extends AnimatedSprite {
         at.rotate(angle, width / 2, height / 2);
         g2d = (Graphics2D) g;
         g2d.drawImage(currentGun.getCurrentAnimation().getCurrentFrame(), at, null);
-        
-        
+
     }
 
     public float getXX() {
@@ -269,7 +273,7 @@ public class Player extends AnimatedSprite {
             death();
         }
 
-        if(this.zona.aggiorna(getX(),getY())){
+        if (this.zona.aggiorna(getX(), getY())) {
             this.camminiMinimi = Graph.BFS_complete(new Vertex(zona.getIndex()));
         }
 
@@ -338,9 +342,9 @@ public class Player extends AnimatedSprite {
         if (KAdapter.four) {
             currentGun = rpg;
         }
-        
-        if(KAdapter.action){
-            int pixel = mapRGB.getRGB((int)getX()+width/2,(int)getY()+height/2);
+
+        if (KAdapter.action) {
+            int pixel = mapRGB.getRGB((int) getX() + width / 2, (int) getY() + height / 2);
             pixel = (pixel >> 8) & 0xff;
             activeTrap(pixel);
 
@@ -353,11 +357,11 @@ public class Player extends AnimatedSprite {
         }
 
         //viene premuto tasto destro del mouse quindi reload
-        if(MAdapter.right && currentGun.getRound() != currentGun.getBulletsPerRound()
-                && currentGun.getTotalBullets() > 0){
+        if (MAdapter.right && currentGun.getRound() != currentGun.getBulletsPerRound()
+                && currentGun.getTotalBullets() > 0) {
             currentGun.reload();
         }
-        
+
         //aggiorno animazione del personaggio
         currentGun.update();
     }
@@ -378,6 +382,7 @@ public class Player extends AnimatedSprite {
     @Override
     public void death() {
         this.isDeath = true;
+        this.aggiornaDB();
         handler.removeSprite(this);
         MapFrame.gameMusic.stopSound();
     }
@@ -418,26 +423,44 @@ public class Player extends AnimatedSprite {
         return camminiMinimi;
     }
 
-    public boolean isMale(){
+    public boolean isMale() {
         return this.male;
     }
 
     public int getCoins() {
         return coins;
     }
-    
-    public void updateCoins(int coins){
+
+    public void updateCoins(int coins) {
         this.coins += coins;
-    }    
-    
-    private boolean controlloAction(){
-        int pixel = mapRGB.getRGB((int)getX()+width/2,(int)getY()+height/2);
+    }
+
+    private boolean controlloAction() {
+        int pixel = mapRGB.getRGB((int) getX() + width / 2, (int) getY() + height / 2);
         pixel = (pixel >> 8) & 0xff;
-        return pixel==130 || pixel == 115 || pixel == 49 || pixel == 255 || pixel == 150 || pixel == 155 || pixel == 99 || pixel == 189;
+        return pixel == 130 || pixel == 115 || pixel == 49 || pixel == 255 || pixel == 150 || pixel == 155 || pixel == 99 || pixel == 189;
+    }
+
+    public void aggiornaDB() {
+        if (Database.online) {
+            Assets.ThreadOttieniScoreboard.occupato = true;
+            Database.InserisciPunteggio(name, punteggioAttuale);
+            Assets.ThreadOttieniScoreboard.occupato = false;
+            Database.CancellaOnline(onlineID);
+        }
+        Database.online = true;
+        Assets.ThreadOttieniScoreboard t = new Assets.ThreadOttieniScoreboard();
+        t.start();
+    }
+
+    public int getOnlineID() {
+        return onlineID;
     }
     
-    private void activeTrap(int pixel){
-        
+    
+
+    private void activeTrap(int pixel) {
+
         switch (pixel) {
             case 130:
                 if (this.coins >= 2 && !shockTrap1.isRunning()) {
@@ -470,7 +493,7 @@ public class Player extends AnimatedSprite {
                 break;
             case 255:
                 if (this.coins >= 2 && !fireTrap.isRunning()) {
-                    handler.addSprite(new FireTrap((float) 322, (float) 1350, 1321, 600, handler,fireTrap));
+                    handler.addSprite(new FireTrap((float) 322, (float) 1350, 1321, 600, handler, fireTrap));
                     fireTrap.start();
                     //start musica
                     this.updateCoins(-2);
@@ -515,6 +538,16 @@ public class Player extends AnimatedSprite {
                 }
                 break;
         }
-        
+
+    }
+
+    public class ThreadInserisciOnline extends Thread {
+
+        @Override
+        public void run() {
+            System.out.println("Mi inserisco agli online");
+            onlineID = Database.InserisciOnline(name);
+        }
+
     }
 }

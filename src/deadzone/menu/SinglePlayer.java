@@ -12,11 +12,19 @@ import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.net.URL;
+import java.sql.Array;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import utilities.Score;
 import utilities.Scoreboard;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import utilities.Assets;
+import utilities.Database;
 
 /**
  *
@@ -25,6 +33,7 @@ import utilities.Scoreboard;
 public class SinglePlayer extends javax.swing.JFrame {
 
     private boolean male;
+    Menu menu;
 
     private ImageIcon ridimensionaImageIcon(URL url, int nuovaW, int nuovaH) {
         ImageIcon image = new ImageIcon(url);
@@ -35,7 +44,8 @@ public class SinglePlayer extends javax.swing.JFrame {
     /**
      * Creates new form SinglePlayer
      */
-    public SinglePlayer() {
+    public SinglePlayer(Menu menu) {
+        this.menu = menu;
         Image iconaFrame;
         iconaFrame = new ImageIcon(getClass().getResource("/images/icona_frame.png")).getImage();
         this.setIconImage(iconaFrame);
@@ -45,6 +55,12 @@ public class SinglePlayer extends javax.swing.JFrame {
         this.setPreferredSize(dim.getSize());
 
         initComponents();
+        if (!Database.online) {
+            int w = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconWidth() * 1 / 6;
+            int h = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconHeight() * 1 / 6;
+            ImageIcon i = ridimensionaImageIcon(getClass().getResource("/images/LogoBiancoENero.png"), w, h);
+            JOptionPane.showConfirmDialog(rootPane, "Not connected... local scoreboard loaded", "Warning", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_OPTION, i);
+        }
         List<javax.swing.JLabel> p = new java.util.ArrayList();
         p.add(jScore1);
         p.add(jScore2);
@@ -56,7 +72,7 @@ public class SinglePlayer extends javax.swing.JFrame {
         p.add(jScore8);
         p.add(jScore9);
         p.add(jScore10);
-        
+
         List<javax.swing.JLabel> s = new java.util.ArrayList();
         s.add(jPunt1);
         s.add(jPunt2);
@@ -80,18 +96,30 @@ public class SinglePlayer extends javax.swing.JFrame {
         ImageIcon i2 = ridimensionaImageIcon(getClass().getResource("/images/soldato_donna.png"), jButtonDonna.getWidth(), jButtonDonna.getHeight());
         jButtonDonna.setIcon(i2);
 
-        Scoreboard scoreboard = new Scoreboard();
-        List<Score> scoreList = scoreboard.getScoreboard();
-        
-        for(int j = 0; j<scoreList.size(); j++){
-           p.get(j).setText((j+1) + ") " + scoreList.get(j).getPlayer());
-        }
-        
-        for(int j = 0; j<scoreList.size(); j++){
-            s.get(j).setText(Integer.toString(scoreList.get(j).getScore()));
-        }
+        if (Database.online) {
+            int j = 0;
+            LinkedList<String> nomi = new LinkedList();
+            LinkedList<Integer> punteggi = new LinkedList(); 
+            
+            try {
+                while (Assets.rs.next() && j < 10) {
+                    p.get(j).setText((j+1) + ")" + Assets.rs.getString("nome"));
+                    s.get(j).setText(Integer.toString(Assets.rs.getInt("punteggio")));
+                    j++;
+                }
 
+            } catch (SQLException ex) {
+                Logger.getLogger(SinglePlayer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            Scoreboard scoreboard = new Scoreboard();
+            List<Score> scoreList = scoreboard.getScoreboard();
 
+            for (int j = 0; j < scoreList.size(); j++) {
+                p.get(j).setText((j + 1) + ")" + scoreList.get(j).getPlayer());
+                s.get(j).setText(Integer.toString(scoreList.get(j).getScore()));
+            }
+        }
         jTextField1.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -396,8 +424,9 @@ public class SinglePlayer extends javax.swing.JFrame {
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
         // TODO add your handling code here:
-        new Menu().setVisible(true);
-        this.dispose();
+        this.menu.setBack(true);
+        menu.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButtonBackActionPerformed
 
     private void jButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlayActionPerformed
