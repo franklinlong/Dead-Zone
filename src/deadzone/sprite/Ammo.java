@@ -17,9 +17,9 @@ import deadzone.utilities.Sound;
  */
 public class Ammo extends DropItem {
 
-    private Handler handler;
-    private Gun gun;
-    private int incremento; //colpi aggiuntivi nel caricatore se raccolto
+    private final Handler handler;
+    private final Gun gun;
+    private final int incremento; //colpi aggiuntivi nel caricatore se raccolto
     private int incrementoTot; //colpi aggiuntivi totali se raccolto
     private Sound sound;
 

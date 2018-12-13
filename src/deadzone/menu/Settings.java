@@ -19,17 +19,21 @@ public class Settings extends javax.swing.JDialog {
     public static boolean soundMusic = true;
     public static boolean padArrows = false;
 
+    public boolean inGame;
     /**
      * Creates new form Settings
+     * @param parent
+     * @param modal
      */
-    public Settings(java.awt.Frame parent, boolean modal) {
+    public Settings(java.awt.Frame parent, boolean modal, boolean inGame) {
         super(parent, modal);
+        this.inGame = inGame;
         initComponents();
         ButtonGroup bg = new ButtonGroup();
         bg.add(this.awsd);
         bg.add(this.arrows);
 
-        if (!Menu.gameMusic.isRunning()) {
+        if (!Menu.gameMusic.isRunning() && !MapFrame.gameMusic.isRunning()) {
             this.music.setText("OFF");
         }
 
@@ -168,11 +172,17 @@ public class Settings extends javax.swing.JDialog {
         // TODO add your handling code here:
         String text = this.music.getText();
         if (text.compareTo("ON") == 0) {
-            Menu.gameMusic.stopSound();
+            if(!inGame)
+                Menu.gameMusic.stopSound();
+            else
+                MapFrame.gameMusic.stopSound();
             soundMusic = false;
             this.music.setText("OFF");
         } else {
-            Menu.gameMusic.loopSound();
+            if(!inGame)
+                Menu.gameMusic.loopSound();
+            else
+                MapFrame.gameMusic.loopSound();
             soundMusic = true;
             this.music.setText("ON");
         }
