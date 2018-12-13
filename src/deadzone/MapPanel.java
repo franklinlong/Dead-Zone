@@ -108,6 +108,12 @@ public class MapPanel extends JPanel implements Runnable {
             handler.animationCycle();
         }else{
             if(first){
+                KAdapter.up=false;
+                KAdapter.down=false;
+                KAdapter.left=false;
+                KAdapter.right=false;
+                System.out.println(KAdapter.up);
+
                 for(Sprite s : handler.getitemsAndTrap())
                     if(s instanceof Trap)
                         s.animationCycle();

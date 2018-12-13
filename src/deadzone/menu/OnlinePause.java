@@ -5,22 +5,23 @@
  */
 package deadzone.menu;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author franc
  */
-public class OnlinePause extends javax.swing.JFrame {
+public class OnlinePause extends JFrame {
     
-    PauseMenu pm;
+    private PauseMenu pm;
 
     /**
      * Creates new form OnlinePause
+     * @param pm
      */
     public OnlinePause(PauseMenu pm) {
         this.pm = pm;
         initComponents();
-        
-
         
     }
 
@@ -35,26 +36,73 @@ public class OnlinePause extends javax.swing.JFrame {
 
         jScorebardPane = new javax.swing.JScrollPane();
         jOnlinePane = new javax.swing.JScrollPane();
+        back = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setAlwaysOnTop(true);
         setMaximumSize(new java.awt.Dimension(768, 575));
         setMinimumSize(new java.awt.Dimension(768, 575));
+        setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(768, 575));
         setResizable(false);
         setSize(new java.awt.Dimension(768, 575));
         getContentPane().setLayout(null);
         getContentPane().add(jScorebardPane);
-        jScorebardPane.setBounds(0, 0, 219, 480);
+        jScorebardPane.setBounds(490, 90, 240, 460);
         getContentPane().add(jOnlinePane);
-        jOnlinePane.setBounds(226, 102, 100, 100);
+        jOnlinePane.setBounds(30, 90, 380, 280);
+
+        back.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        back.setText("BACK");
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
+        getContentPane().add(back);
+        back.setBounds(30, 520, 100, 35);
+
+        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Scoreboard");
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(30, 20, 370, 50);
+
+        jLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Online Players");
+        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(490, 16, 240, 50);
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sfondo_senza_spari.png"))); // NOI18N
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(-10, 0, 800, 590);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+        // TODO add your handling code here:
+        System.out.println("Back to pause menù");
+        this.setVisible(false);
+        this.pm.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_backActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton back;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jOnlinePane;
     private javax.swing.JScrollPane jScorebardPane;
     // End of variables declaration//GEN-END:variables
