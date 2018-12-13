@@ -8,7 +8,6 @@ package sprite;
 import deadzone.Handler;
 import java.awt.Graphics;
 import utilities.Assets;
-import utilities.Sound;
 
 /**
  *
@@ -17,12 +16,10 @@ import utilities.Sound;
 public class MedicalKit extends DropItem {
 
     private Handler handler;
-    private Sound restore;
 
     public MedicalKit(float x, float y, int width, int height, Handler handler) {
         super(x, y, width, height);
         this.handler = handler;
-        this.restore = new Sound(Assets.restoreHealth);
     }
 
     @Override
@@ -33,7 +30,7 @@ public class MedicalKit extends DropItem {
     @Override
     public void animationCycle() {
         if (this.isCollected(handler)) {
-            restore.playSound();
+            //Bisogna caricare Suono
             handler.getPlayer().setHealth(handler.getPlayer().getMaximumHealth());
             handler.removeSprite(this);
         }

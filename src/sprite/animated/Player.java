@@ -52,7 +52,7 @@ public class Player extends AnimatedSprite {
     // trap
     
     private final Sound shockTrapS1, shockTrapS2, shockTrapS3, wallTrapS1, 
-            wallTrapS2,fireTrapS;
+            wallTrapS2,fireTrapS,holeTrapS1,holeTrapS2;
     
     //Handler che serve per rimuovere il player quando muore
     private final Handler handler;
@@ -147,7 +147,9 @@ public class Player extends AnimatedSprite {
         
         wallTrapS1 = new Sound(Assets.wallTrap);
         wallTrapS2 = new Sound(Assets.wallTrap);
-
+        
+        holeTrapS1 = new Sound(Assets.holeTrap);
+        holeTrapS2 = new Sound(Assets.holeTrap);
         
         pistol = new Gun(Assets.pistolSkin, pistolIdle, pistolReload, pistolShoot, pistolShootSound,
                 pistolReloadSound, this, 400,
@@ -443,14 +445,14 @@ public class Player extends AnimatedSprite {
                 break;
             case 155:
                 if (this.coins >= 2 && !this.holeTrapActive1) {
-                    handler.addSprite(new HoleTrap((float) 2670, (float) 2240, 60, 60, handler, 500, null, 1));
+                    handler.addSprite(new HoleTrap((float) 2670, (float) 2240, 60, 60, handler, 500, this.holeTrapS1, 1));
                     this.updateCoins(-2);
                     this.holeTrapActive1=true;
                 break;
                 }
             case 99:
                 if (this.coins >= 2 && !this.holeTrapActive2) {
-                    handler.addSprite(new HoleTrap((float) 1440, (float) 1020, 60, 60, handler, 500, null, 2));
+                    handler.addSprite(new HoleTrap((float) 1440, (float) 1020, 60, 60, handler, 500, this.holeTrapS2, 2));
                     this.updateCoins(-2);
                     this.holeTrapActive2=true;
                 }

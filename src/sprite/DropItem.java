@@ -18,7 +18,7 @@ public abstract class DropItem extends Sprite {
     }
 
     public boolean isCollected(Handler handler) {
-        return handler.getPlayer().getBounds().intersects(this.getBounds());
+        return handler.getPlayer().getBounds().contains(getX() + this.width, getY() + this.height);
     }
 
 }

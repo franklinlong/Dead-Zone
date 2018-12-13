@@ -61,262 +61,262 @@ public abstract class AnimatedSprite extends Sprite {
         int y = yf.intValue() - avanzamentoY;
         
         try{
-            if (avanzamentoX > 0) {
-                if (avanzamentoY == 0) {
-                    //destra
-                    for (xx = x + width; xx < x + width + avanzamentoX; xx++) {
-                        for (yy = y; yy < y + height; yy++) {
-                            pixel = mapRGB.getRGB((int) xx, (int) yy);
-                            red = (pixel >> 16) & 0xff;
-                            if (red == 255) {
-                                return 1;
-                            }
+        if (avanzamentoX > 0) {
+            if (avanzamentoY == 0) {
+                //destra
+                for (xx = x + width; xx < x + width + avanzamentoX; xx++) {
+                    for (yy = y; yy < y + height; yy++) {
+                        pixel = mapRGB.getRGB((int) xx, (int) yy);
+                        red = (pixel >> 16) & 0xff;
+                        if (red == 255) {
+                            return 1;
                         }
                     }
-                } else if (avanzamentoY > 0) {
-                    //destra-sotto
-                    //controllo destra
-                    for (xx = x + width; xx < x + width + avanzamentoX; xx++) {
-                        for (yy = y; yy < y + height; yy++) {
-                            pixel = mapRGB.getRGB((int) xx, (int) yy);
-                            red = (pixel >> 16) & 0xff;
-                            if (red == 255) {
-                                collisione1 = true;
-                                break;
-                            }
+                }
+            } else if (avanzamentoY > 0) {
+                //destra-sotto
+                //controllo destra
+                for (xx = x + width; xx < x + width + avanzamentoX; xx++) {
+                    for (yy = y; yy < y + height; yy++) {
+                        pixel = mapRGB.getRGB((int) xx, (int) yy);
+                        red = (pixel >> 16) & 0xff;
+                        if (red == 255) {
+                            collisione1 = true;
+                            break;
                         }
                     }
-                    //controllo sotto
-                    for (xx = x; xx < x + width; xx++) {
-                        for (yy = y + height; yy < y + height + avanzamentoY; yy++) {
-                            pixel = mapRGB.getRGB((int) xx, (int) yy);
-                            red = (pixel >> 16) & 0xff;
-                            if (red == 255) {
-                                collisione2 = true;
-                                break;
-                            }
+                }
+                //controllo sotto
+                for (xx = x; xx < x + width; xx++) {
+                    for (yy = y + height; yy < y + height + avanzamentoY; yy++) {
+                        pixel = mapRGB.getRGB((int) xx, (int) yy);
+                        red = (pixel >> 16) & 0xff;
+                        if (red == 255) {
+                            collisione2 = true;
+                            break;
                         }
                     }
-                    //controllo la diagonale
-                    for (xx = x + width; xx < x + width + avanzamentoX; xx++) {
-                        for (yy = y + height; yy < y + height + avanzamentoY; yy++) {
-                            pixel = mapRGB.getRGB((int) xx, (int) yy);
-                            red = (pixel >> 16) & 0xff;
-                            if (red == 255) {
-                                collisione3 = true;
-                                break;
-                            }
+                }
+                //controllo la diagonale
+                for (xx = x + width; xx < x + width + avanzamentoX; xx++) {
+                    for (yy = y + height; yy < y + height + avanzamentoY; yy++) {
+                        pixel = mapRGB.getRGB((int) xx, (int) yy);
+                        red = (pixel >> 16) & 0xff;
+                        if (red == 255) {
+                            collisione3 = true;
+                            break;
                         }
                     }
-
-                    if (collisione3 == true && collisione1 == false && collisione2 == false) {
-                        return 3;
-                    } else if (collisione3 == true && collisione1 == true && collisione2 == false) {
-                        return 1;
-                    } else if (collisione3 == true && collisione2 == true && collisione1 == false) {
-                        return 2;
-                    } else if (collisione1 == true && collisione2 == true & collisione3 == true) {
-                        return 3;
-                    } else if (collisione1 == true && collisione2 == true) {
-                        return 3;
-                    } else if (collisione1 == true) {
-                        return 1;
-                    } else if (collisione2 == true) {
-                        return 2;
-                    }
-                } else {
-                    //destra-sopra
-                    //controllo destra
-                    for (xx = x + width; xx < x + width + avanzamentoX; xx++) {
-                        for (yy = y; yy < y + height; yy++) {
-                            pixel = mapRGB.getRGB((int) xx, (int) yy);
-                            red = (pixel >> 16) & 0xff;
-                            if (red == 255) {
-                                collisione1 = true;
-                                break;
-                            }
-                        }
-                    }
-                    //controllo sopra
-                    for (xx = x; xx < x + width; xx++) {
-                        for (yy = y + avanzamentoY; yy < y; yy++) {
-                            pixel = mapRGB.getRGB((int) xx, (int) yy);
-                            red = (pixel >> 16) & 0xff;
-                            if (red == 255) {
-                                collisione2 = true;
-                                break;
-                            }
-                        }
-                    }
-                    //controllo la diagonale
-                    for (xx = x + width; xx < x + width + avanzamentoX; xx++) {
-                        for (yy = y + avanzamentoY; yy < y; yy++) {
-                            pixel = mapRGB.getRGB((int) xx, (int) yy);
-                            red = (pixel >> 16) & 0xff;
-                            if (red == 255) {
-                                collisione3 = true;
-                                break;
-                            }
-                        }
-                    }
-                    if (collisione3 == true && collisione1 == false && collisione2 == false) {
-                        return 3;
-                    } else if (collisione3 == true && collisione1 == true && collisione2 == false) {
-                        return 1;
-                    } else if (collisione3 == true && collisione2 == true && collisione1 == false) {
-                        return 2;
-                    } else if (collisione1 == true && collisione2 == true && collisione3 == true) {
-                        return 3;
-                    } else if (collisione1 == true && collisione2 == true) {
-                        return 3;
-                    } else if (collisione2 == true) {
-                        return 2;
-                    } else if (collisione1 == true) {
-                        return 1;
-                    }
-
                 }
 
-            } else if (avanzamentoX < 0) {
-                if (avanzamentoY == 0) {
-                    //sinistra 
-                    for (xx = x + avanzamentoX; xx < x; xx++) {
-                        for (yy = y; yy < y + height; yy++) {
-                            pixel = mapRGB.getRGB((int) xx, (int) yy);
-                            red = (pixel >> 16) & 0xff;
-                            if (red == 255) {
-                                return 1;
-                            }
+                if (collisione3 == true && collisione1 == false && collisione2 == false) {
+                    return 3;
+                } else if (collisione3 == true && collisione1 == true && collisione2 == false) {
+                    return 1;
+                } else if (collisione3 == true && collisione2 == true && collisione1 == false) {
+                    return 2;
+                } else if (collisione1 == true && collisione2 == true & collisione3 == true) {
+                    return 3;
+                } else if (collisione1 == true && collisione2 == true) {
+                    return 3;
+                } else if (collisione1 == true) {
+                    return 1;
+                } else if (collisione2 == true) {
+                    return 2;
+                }
+            } else {
+                //destra-sopra
+                //controllo destra
+                for (xx = x + width; xx < x + width + avanzamentoX; xx++) {
+                    for (yy = y; yy < y + height; yy++) {
+                        pixel = mapRGB.getRGB((int) xx, (int) yy);
+                        red = (pixel >> 16) & 0xff;
+                        if (red == 255) {
+                            collisione1 = true;
+                            break;
                         }
                     }
-                } else if (avanzamentoY > 0) {
-                    //sinistra sotto
-                    //sinistra 
-                    for (xx = x + avanzamentoX; xx < x; xx++) {
-                        for (yy = y; yy < y + height; yy++) {
-                            pixel = mapRGB.getRGB((int) xx, (int) yy);
-                            red = (pixel >> 16) & 0xff;
-                            if (red == 255) {
-                                collisione1 = true;
-                                break;
-                            }
+                }
+                //controllo sopra
+                for (xx = x; xx < x + width; xx++) {
+                    for (yy = y + avanzamentoY; yy < y; yy++) {
+                        pixel = mapRGB.getRGB((int) xx, (int) yy);
+                        red = (pixel >> 16) & 0xff;
+                        if (red == 255) {
+                            collisione2 = true;
+                            break;
                         }
                     }
-                    //sotto
-                    for (xx = x; xx < x + width; xx++) {
-                        for (yy = y + height; yy < y + height + avanzamentoY; yy++) {
-                            pixel = mapRGB.getRGB((int) xx, (int) yy);
-                            red = (pixel >> 16) & 0xff;
-                            if (red == 255) {
-                                collisione2 = true;
-                                break;
-                            }
+                }
+                //controllo la diagonale
+                for (xx = x + width; xx < x + width + avanzamentoX; xx++) {
+                    for (yy = y + avanzamentoY; yy < y; yy++) {
+                        pixel = mapRGB.getRGB((int) xx, (int) yy);
+                        red = (pixel >> 16) & 0xff;
+                        if (red == 255) {
+                            collisione3 = true;
+                            break;
                         }
                     }
-                    //controllo la diagonale
-                    for (xx = x + avanzamentoX; xx < x; xx++) {
-                        for (yy = y + height; yy < y + height + avanzamentoY; yy++) {
-                            pixel = mapRGB.getRGB((int) xx, (int) yy);
-                            red = (pixel >> 16) & 0xff;
-                            if (red == 255) {
-                                collisione3 = true;
-                                break;
-                            }
+                }
+                if (collisione3 == true && collisione1 == false && collisione2 == false) {
+                    return 3;
+                } else if (collisione3 == true && collisione1 == true && collisione2 == false) {
+                    return 1;
+                } else if (collisione3 == true && collisione2 == true && collisione1 == false) {
+                    return 2;
+                } else if (collisione1 == true && collisione2 == true && collisione3 == true) {
+                    return 3;
+                } else if (collisione1 == true && collisione2 == true) {
+                    return 3;
+                } else if (collisione2 == true) {
+                    return 2;
+                } else if (collisione1 == true) {
+                    return 1;
+                }
+
+            }
+
+        } else if (avanzamentoX < 0) {
+            if (avanzamentoY == 0) {
+                //sinistra 
+                for (xx = x + avanzamentoX; xx < x; xx++) {
+                    for (yy = y; yy < y + height; yy++) {
+                        pixel = mapRGB.getRGB((int) xx, (int) yy);
+                        red = (pixel >> 16) & 0xff;
+                        if (red == 255) {
+                            return 1;
                         }
                     }
-                    if (collisione3 == true && collisione1 == false && collisione2 == false) {
-                        return 3;
-                    } else if (collisione3 == true && collisione1 == true && collisione2 == false) {
-                        return 1;
-                    } else if (collisione3 == true && collisione2 == true && collisione1 == false) {
-                        return 2;
-                    } else if (collisione1 == true && collisione2 == true & collisione3 == true) {
-                        return 3;
-                    } else if (collisione1 == true && collisione2 == true) {
-                        return 3;
-                    } else if (collisione1 == true) {
-                        return 1;
-                    } else if (collisione2 == true) {
-                        return 2;
-                    }
-                } else {
-                    //sinistra sopra
-                    //sinistra 
-                    for (xx = x + avanzamentoX; xx < x; xx++) {
-                        for (yy = y; yy < y + height; yy++) {
-                            pixel = mapRGB.getRGB((int) xx, (int) yy);
-                            red = (pixel >> 16) & 0xff;
-                            if (red == 255) {
-                                collisione1 = true;
-                                break;
-                            }
+                }
+            } else if (avanzamentoY > 0) {
+                //sinistra sotto
+                //sinistra 
+                for (xx = x + avanzamentoX; xx < x; xx++) {
+                    for (yy = y; yy < y + height; yy++) {
+                        pixel = mapRGB.getRGB((int) xx, (int) yy);
+                        red = (pixel >> 16) & 0xff;
+                        if (red == 255) {
+                            collisione1 = true;
+                            break;
                         }
                     }
-                    //controllo sopra
-                    for (xx = x; xx < x + width; xx++) {
-                        for (yy = y + avanzamentoY; yy < y; yy++) {
-                            pixel = mapRGB.getRGB((int) xx, (int) yy);
-                            red = (pixel >> 16) & 0xff;
-                            if (red == 255) {
-                                collisione2 = true;
-                                break;
-                            }
+                }
+                //sotto
+                for (xx = x; xx < x + width; xx++) {
+                    for (yy = y + height; yy < y + height + avanzamentoY; yy++) {
+                        pixel = mapRGB.getRGB((int) xx, (int) yy);
+                        red = (pixel >> 16) & 0xff;
+                        if (red == 255) {
+                            collisione2 = true;
+                            break;
                         }
                     }
-                    //controllo la diagonale
-                    for (xx = x + avanzamentoX; xx < x; xx++) {
-                        for (yy = y + avanzamentoY; yy < y; yy++) {
-                            pixel = mapRGB.getRGB((int) xx, (int) yy);
-                            red = (pixel >> 16) & 0xff;
-                            if (red == 255) {
-                                collisione3 = true;
-                                break;
-                            }
+                }
+                //controllo la diagonale
+                for (xx = x + avanzamentoX; xx < x; xx++) {
+                    for (yy = y + height; yy < y + height + avanzamentoY; yy++) {
+                        pixel = mapRGB.getRGB((int) xx, (int) yy);
+                        red = (pixel >> 16) & 0xff;
+                        if (red == 255) {
+                            collisione3 = true;
+                            break;
                         }
                     }
-                    if (collisione3 == true && collisione1 == false && collisione2 == false) {
-                        return 3;
-                    } else if (collisione3 == true && collisione1 == true && collisione2 == false) {
-                        return 1;
-                    } else if (collisione3 == true && collisione2 == true && collisione1 == false) {
-                        return 2;
-                    } else if (collisione1 == true && collisione2 == true & collisione3 == true) {
-                        return 3;
-                    } else if (collisione1 == true && collisione2 == true) {
-                        return 3;
-                    } else if (collisione1 == true) {
-                        return 1;
-                    } else if (collisione2 == true) {
-                        return 2;
+                }
+                if (collisione3 == true && collisione1 == false && collisione2 == false) {
+                    return 3;
+                } else if (collisione3 == true && collisione1 == true && collisione2 == false) {
+                    return 1;
+                } else if (collisione3 == true && collisione2 == true && collisione1 == false) {
+                    return 2;
+                } else if (collisione1 == true && collisione2 == true & collisione3 == true) {
+                    return 3;
+                } else if (collisione1 == true && collisione2 == true) {
+                    return 3;
+                } else if (collisione1 == true) {
+                    return 1;
+                } else if (collisione2 == true) {
+                    return 2;
+                }
+            } else {
+                //sinistra sopra
+                //sinistra 
+                for (xx = x + avanzamentoX; xx < x; xx++) {
+                    for (yy = y; yy < y + height; yy++) {
+                        pixel = mapRGB.getRGB((int) xx, (int) yy);
+                        red = (pixel >> 16) & 0xff;
+                        if (red == 255) {
+                            collisione1 = true;
+                            break;
+                        }
+                    }
+                }
+                //controllo sopra
+                for (xx = x; xx < x + width; xx++) {
+                    for (yy = y + avanzamentoY; yy < y; yy++) {
+                        pixel = mapRGB.getRGB((int) xx, (int) yy);
+                        red = (pixel >> 16) & 0xff;
+                        if (red == 255) {
+                            collisione2 = true;
+                            break;
+                        }
+                    }
+                }
+                //controllo la diagonale
+                for (xx = x + avanzamentoX; xx < x; xx++) {
+                    for (yy = y + avanzamentoY; yy < y; yy++) {
+                        pixel = mapRGB.getRGB((int) xx, (int) yy);
+                        red = (pixel >> 16) & 0xff;
+                        if (red == 255) {
+                            collisione3 = true;
+                            break;
+                        }
+                    }
+                }
+                if (collisione3 == true && collisione1 == false && collisione2 == false) {
+                    return 3;
+                } else if (collisione3 == true && collisione1 == true && collisione2 == false) {
+                    return 1;
+                } else if (collisione3 == true && collisione2 == true && collisione1 == false) {
+                    return 2;
+                } else if (collisione1 == true && collisione2 == true & collisione3 == true) {
+                    return 3;
+                } else if (collisione1 == true && collisione2 == true) {
+                    return 3;
+                } else if (collisione1 == true) {
+                    return 1;
+                } else if (collisione2 == true) {
+                    return 2;
+                }
+            }
+        } else {
+            if (avanzamentoY == 0) {
+                return 0;
+            } else if (avanzamentoY > 0) {
+                //sotto
+                for (xx = x; xx < x + width; xx++) {
+                    for (yy = y + height; yy < y + height + avanzamentoY; yy++) {
+                        pixel = mapRGB.getRGB((int) xx, (int) yy);
+                        red = (pixel >> 16) & 0xff;
+                        if (red == 255) {
+                            return 2;
+                        }
                     }
                 }
             } else {
-                if (avanzamentoY == 0) {
-                    return 0;
-                } else if (avanzamentoY > 0) {
-                    //sotto
-                    for (xx = x; xx < x + width; xx++) {
-                        for (yy = y + height; yy < y + height + avanzamentoY; yy++) {
-                            pixel = mapRGB.getRGB((int) xx, (int) yy);
-                            red = (pixel >> 16) & 0xff;
-                            if (red == 255) {
-                                return 2;
-                            }
-                        }
-                    }
-                } else {
-                    //sopra
-                    for (xx = x; xx < x + width; xx++) {
-                        for (yy = y + avanzamentoY; yy < y; yy++) {
-                            pixel = mapRGB.getRGB((int) xx, (int) yy);
-                            red = (pixel >> 16) & 0xff;
-                            if (red == 255) {
-                                return 2;
-                            }
+                //sopra
+                for (xx = x; xx < x + width; xx++) {
+                    for (yy = y + avanzamentoY; yy < y; yy++) {
+                        pixel = mapRGB.getRGB((int) xx, (int) yy);
+                        red = (pixel >> 16) & 0xff;
+                        if (red == 255) {
+                            return 2;
                         }
                     }
                 }
             }
+        }
         }catch (ArrayIndexOutOfBoundsException e){
             System.err.println("Eccezione in collisioni con queste coordinate: ");
             System.err.println("X: " + x +" --- Y: " + y);
