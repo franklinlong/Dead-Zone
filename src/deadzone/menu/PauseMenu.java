@@ -202,7 +202,7 @@ public class PauseMenu extends javax.swing.JDialog {
     private void onlineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onlineButtonActionPerformed
         // TODO add your handling code here:
         if (Database.online) {
-            new OnlinePause(this).setVisible(true);
+            new OnlinePause(this, player).setVisible(true);
             this.setVisible(false);
         }else{
             int w = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconWidth() * 1 / 6;
