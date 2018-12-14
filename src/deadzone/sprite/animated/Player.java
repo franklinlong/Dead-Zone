@@ -15,7 +15,6 @@ import deadzone.utilities.Assets;
 import deadzone.Gun;
 import deadzone.Handler;
 import deadzone.menu.MapFrame;
-import deadzone.menu.connectionThread;
 import deadzone.utilities.Sound;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -30,8 +29,11 @@ import deadzone.trap.WallTrap;
 import deadzone.utilities.Database;
 import deadzone.utilities.Zona;
 import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.Timer;
 
 /**
  *
@@ -82,8 +84,10 @@ public class Player extends AnimatedSprite {
     
     private boolean shockTrapActive1 = false, shockTrapActive2 = false,
             shockTrapActive3 = false, wallTrapActive1 = false, wallTrapActive2 = false,
-            fireTrapActive = false, holeTrapActive1 = false, holeTrapActive2 = false;
-
+            fireTrapActive = false, holeTrapActive1 = false, holeTrapActive2 = false,
+            flagShop = false;
+    private Timer shopTimer;
+    
     //private Window window;
     public Player(float x, float y, int vel, int health, Handler handler, String name, boolean male, Window window) {
         super(x, y, PLAYERSIZE, PLAYERSIZE, (float) vel, health);
@@ -93,7 +97,7 @@ public class Player extends AnimatedSprite {
         this.male = male;
         this.name = name;
         this.maximumHealth = health;
-        this.coins = 2;
+        this.coins = 5;
         this.trap = true;
         this.zona = new Zona(getX(), getY());
         grafo = new Graph();
@@ -159,6 +163,16 @@ public class Player extends AnimatedSprite {
         
         holeTrapS = new Sound(Assets.holeTrap);
         
+        this.shopTimer = new Timer(1000, new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                flagShop = false;
+                shopTimer.stop();
+            }
+
+        });
+        
         pistol = new Gun(Assets.pistolSkin, pistolIdle, pistolReload, pistolShoot, pistolShootSound,
                 pistolReloadSound, this, 400,
                 15, 2000, handler, 50);
@@ -208,6 +222,9 @@ public class Player extends AnimatedSprite {
                 break;
             case 3:
                 g2d.drawImage(Assets.noCoins, (int) (getX() - offsetX - 25), (int) (getY() - offsetY) - 30, null);
+                break;
+            case 5: //Negozio
+                g2d.drawImage(Assets.actionImg, (int) (getX() - offsetX - 25), (int) (getY() - offsetY) - 30, null);
                 break;
         }
         
@@ -498,6 +515,13 @@ public class Player extends AnimatedSprite {
                 } else {
                     return 3;
                 }
+            case 64:
+                if(this.coins >= 1){
+                    return 5;
+                }
+                else{
+                    return 3;
+                }
             default:
                 return -1;
         }
@@ -605,6 +629,20 @@ public class Player extends AnimatedSprite {
                     handler.addSprite(new WallTrap((float) 1980, (float) 727, 200, 30, handler, false, 1500, this.wallTrapS2, 2));
                     this.updateCoins(-1);
                     this.wallTrapActive2 = true;
+                }
+                break;
+            case 64: //SHOP
+                if(this.coins >= 1 && !flagShop){
+                    this.flagShop = true;
+                    this.shopTimer.start();
+                    this.updateCoins(-1);
+                    if(currentGun.getSkin() == Assets.ak47)
+                        this.currentGun.setTotalBullets(currentGun.getTotalBullets() + 100);
+                    else if(currentGun.getSkin() == Assets.rpgSkin)
+                        this.currentGun.setTotalBullets(currentGun.getTotalBullets() + 5);
+                    else if(currentGun.getSkin() == Assets.shotgunSkin)
+                        this.currentGun.setTotalBullets(currentGun.getTotalBullets() + 30);
+                    
                 }
                 break;
         }
