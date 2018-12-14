@@ -16,6 +16,7 @@ import deadzone.sprite.animated.Player;
 import deadzone.utilities.Assets;
 import deadzone.utilities.Database;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -51,7 +52,7 @@ public class PauseMenu extends javax.swing.JDialog {
                 setPause(false);
             }
         });
-        
+
     }
 
     public static boolean isPause() {
@@ -200,8 +201,17 @@ public class PauseMenu extends javax.swing.JDialog {
 
     private void onlineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onlineButtonActionPerformed
         // TODO add your handling code here:
-        new OnlinePause(this).setVisible(true);
-        this.setVisible(false);
+        if (Database.online) {
+            new OnlinePause(this).setVisible(true);
+            this.setVisible(false);
+        }else{
+            int w = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconWidth() * 1 / 6;
+            int h = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconHeight() * 1 / 6;
+            Image i2 = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getImage().getScaledInstance(w, h, Image.SCALE_DEFAULT);
+            ImageIcon i = new ImageIcon(i2);
+            JOptionPane.showConfirmDialog(rootPane, "Not connected...", "I can't do it!", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_OPTION, i);
+        }
+
     }//GEN-LAST:event_onlineButtonActionPerformed
 
 

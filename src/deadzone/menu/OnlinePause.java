@@ -5,24 +5,79 @@
  */
 package deadzone.menu;
 
+import deadzone.utilities.Database;
+import java.awt.Color;
+import java.awt.Point;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 /**
  *
  * @author franc
  */
 public class OnlinePause extends JFrame {
-    
+
     private PauseMenu pm;
+    ResultSet scoreboard;
+    ResultSet online;
 
     /**
      * Creates new form OnlinePause
+     *
      * @param pm
      */
     public OnlinePause(PauseMenu pm) {
         this.pm = pm;
         initComponents();
-        
+
+        java.awt.Font font = new java.awt.Font("Comic Sans MS", 1, 24);
+        LinkedList<JLabel> sc = new LinkedList();
+        LinkedList<JLabel> punt = new LinkedList();
+        LinkedList<JLabel> on = new LinkedList();
+        this.scoreboard = Database.OttieniScoreboard();
+        this.online = Database.OttieniOnline();
+        int j = 0;
+        try {
+            while (scoreboard.next()) {
+                sc.add(new JLabel());
+                sc.get(j).setFont(font);
+                sc.get(j).setHorizontalAlignment(SwingConstants.LEFT);
+                sc.get(j).setSize(200,40);
+                sc.get(j).setForeground(Color.RED);
+                sc.get(j).setText((j+1) + ") " + scoreboard.getString("nome"));
+                jScorePanel.add(sc.get(j));
+                punt.add(new JLabel());
+                punt.get(j).setFont(font);
+                punt.get(j).setHorizontalAlignment(SwingConstants.RIGHT);
+                punt.get(j).setSize(110, 40);
+                punt.get(j).setForeground(Color.RED);
+                punt.get(j).setText(Integer.toString(scoreboard.getInt("punteggio")));
+                jScorePanel.add(punt.get(j));
+                j++;
+            }
+            int i = 0;
+            while(online.next()){
+                on.add(new JLabel());
+                on.get(i).setFont(font);
+                on.get(i).setHorizontalAlignment(SwingConstants.LEFT);
+                on.get(i).setSize(240,40);
+                on.get(i).setLocation(0, i*40);
+                on.get(i).setForeground(Color.RED);
+                on.get(i).setText(online.getString("nome"));
+                jOnlinePanel.add(on.get(i));
+                i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OnlinePause.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     /**
@@ -34,25 +89,33 @@ public class OnlinePause extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScorebardPane = new javax.swing.JScrollPane();
         jOnlinePane = new javax.swing.JScrollPane();
+        jOnlinePanel = new javax.swing.JPanel();
+        jScoreboardPane = new javax.swing.JScrollPane();
+        jScorePanel = new javax.swing.JPanel();
         back = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
         setAlwaysOnTop(true);
-        setMaximumSize(new java.awt.Dimension(768, 575));
         setMinimumSize(new java.awt.Dimension(768, 575));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(768, 575));
         setResizable(false);
         setSize(new java.awt.Dimension(768, 575));
         getContentPane().setLayout(null);
-        getContentPane().add(jScorebardPane);
-        jScorebardPane.setBounds(490, 90, 240, 460);
+
+        jOnlinePanel.setLayout(null);
+        jOnlinePane.setViewportView(jOnlinePanel);
+
         getContentPane().add(jOnlinePane);
-        jOnlinePane.setBounds(30, 90, 380, 280);
+        jOnlinePane.setBounds(490, 90, 240, 460);
+
+        jScorePanel.setLayout(new java.awt.GridLayout(0, 2));
+        jScoreboardPane.setViewportView(jScorePanel);
+
+        getContentPane().add(jScoreboardPane);
+        jScoreboardPane.setBounds(30, 90, 380, 280);
 
         back.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         back.setText("BACK");
@@ -97,13 +160,14 @@ public class OnlinePause extends JFrame {
     }//GEN-LAST:event_backActionPerformed
 
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jOnlinePane;
-    private javax.swing.JScrollPane jScorebardPane;
+    private javax.swing.JPanel jOnlinePanel;
+    private javax.swing.JPanel jScorePanel;
+    private javax.swing.JScrollPane jScoreboardPane;
     // End of variables declaration//GEN-END:variables
 }
