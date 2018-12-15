@@ -7,10 +7,10 @@ package deadzone;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import listeners.KAdapter;
-import sprite.animated.PlayerFemale;
-import sprite.animated.PlayerMale;
-import utilities.Assets;
+import deadzone.listeners.KAdapter;
+import deadzone.sprite.animated.PlayerFemale;
+import deadzone.sprite.animated.PlayerMale;
+import deadzone.utilities.Assets;
 
 /**
  *
@@ -29,14 +29,14 @@ public class BoardGame extends Board{
         
         Waves w = new Waves();
         if (male){
-            PlayerMale p = new PlayerMale(2000,60,2,300,playerName);
-            super.handler = new Handler(p,w);
-            p.setHandler(super.handler);
+            player = new PlayerMale(2000,60,2,300,playerName);
         }else{
-            PlayerFemale p = new PlayerFemale(2000,60,2,300,playerName);
-            super.handler = new Handler(p,w);
-            p.setHandler(super.handler);
+            player = new PlayerFemale(2000,60,2,300,playerName);
+            
         }
+        
+        super.handler = new Handler(player,w);
+        player.setHandler(super.handler);
         
         w.setHandler(super.handler);
         Thread t = new Thread(w);

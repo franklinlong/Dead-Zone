@@ -5,6 +5,8 @@
  */
 package deadzone;
 
+import deadzone.utilities.Assets;
+
 /**
  *
  * @author casang
@@ -13,6 +15,10 @@ public class ModalityGame implements Modality{
     
     @Override
     public void initGame(String playerName, boolean male){
-        new Window(new BoardGame(playerName,male)).setVisible(true);
+        Window w = new Window(new BoardGame(playerName,male));
+        w.prepareImage(Assets.greenIndicator, null);
+        w.prepareImage(Assets.redIndicator, null);
+        w.prepareImage(Assets.minimap, null);
+        w.setVisible(true);
     }
 }

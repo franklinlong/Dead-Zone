@@ -7,8 +7,8 @@ package deadzone;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import sprite.animated.PlayerDemo;
-import utilities.Assets;
+import deadzone.sprite.animated.PlayerDemo;
+import deadzone.utilities.Assets;
 
 /**
  *
@@ -26,11 +26,10 @@ public class BoardDemo extends Board{
     	Assets.init();
         
         Waves w = new WavesDemo();
-        PlayerDemo p = new PlayerDemo(2000,450,2,300,playerName);
-        super.handler = new Handler(p, w);
-        p.setHandler(super.handler);
+        player = new PlayerDemo(2000,450,2,300,playerName,w);
+        super.handler = new Handler(player, w);
+        player.setHandler(super.handler);
         w.setHandler(super.handler);
-        p.setWave(w);
         
         mapPanel = new MapPanel(handler);
         hudPanel = new HudPanel(handler);

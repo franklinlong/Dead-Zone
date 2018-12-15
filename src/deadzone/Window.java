@@ -15,17 +15,18 @@ import javax.swing.JFrame;
  *
  * @author giova
  */
-public class Window extends JFrame{
+public class Window extends JFrame {
 
     public Window(Board b) {
         Image iconaFrame;
         iconaFrame = new ImageIcon(getClass().getResource("/images/icona_frame.png")).getImage();
-        this.setIconImage(iconaFrame);  
+        this.setIconImage(iconaFrame);
         //IF single player:
         initUI(b);
     }
 
     private void initUI(Board b) {
+        b.setWindow(this);
         add(b);
         Dimension dimensioneSchermo = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize(dimensioneSchermo);
@@ -34,5 +35,5 @@ public class Window extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
     }
-    
+
 }

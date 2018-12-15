@@ -5,16 +5,18 @@
  */
 package deadzone;
 
-import gameMenu.Menu;
-import gameMenu.PauseMenu;
-import gameMenu.Settings;
+import deadzone.menu.MapFrame;
+import deadzone.menu.PauseMenu;
+import deadzone.menu.Settings;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import sprite.animated.SpittleZombie;
-import sprite.animated.StandardZombie;
-import utilities.Animation;
-import utilities.Assets;
-import utilities.Sound;
+import deadzone.sprite.Coins;
+import deadzone.sprite.animated.Boss;
+import deadzone.sprite.animated.SpittleZombie;
+import deadzone.sprite.animated.StandardZombie;
+import deadzone.utilities.Animation;
+import deadzone.utilities.Assets;
+import deadzone.utilities.Sound;
 
 /**
  *
@@ -26,141 +28,381 @@ public class Waves implements Runnable {
     protected int numZombieRound;
     private int numWeakRound;
     private int numFastRound;
+    private int numSpittleRound;
+    private int numBossRound;
     private int numWeakToCreate;
     private int numFastToCreate;
+    private int numSpittleToCreate;
+    private int numBossToCreate;
     private int diffToCreate;
     protected int numZombieKilledRound;
     protected boolean allKilled;
     protected static final Object KL = new Object(); //lock per l'allKilled
     private float mult;
-    private Sound endRound;
+    private final Sound endRound;
     protected Handler handler;
+    private int score;
+    private int numZombieSpawn;
+    private int i = 3, j = 2;
+    private int prob = 20;
 
     public Waves() {
         this.numZombieRound = 0;
         this.numWeakRound = 0;
         this.numFastRound = 0;
+        this.numBossRound = 0;
+        this.numSpittleRound = 0;
         this.waveCount = 0;
         this.diffToCreate = 0;
         this.mult = 1; //moltiplicatore per la salute dello zombie. Viene incrementato di 0.13 ogni 5 ondate
         this.numZombieKilledRound = 0; //zombie uccisi per round
+        this.score = 0; //variabile di punteggio dell'ondata. Inizialmente è 0, verrà incrementata di 500 ogni round
         this.endRound = new Sound(Assets.endOfRound);
+
     }
 
     @Override
     public void run() {
+        try {
+            Thread.sleep(7000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Waves.class.getName()).log(Level.SEVERE, null, ex);
+        }
         float x = 0;
         float y = 0;
         while (!handler.getPlayer().isDeath()) {
-            this.waveCount += 1; //incremento di 1 il numero di ondata
-            this.allKilled = false;
-            this.numWeakRound += 8; //aumentano di 8 ogni ondata 1,2,3,4 considerando le ondate da 1 a 5 come "uguali" ma più difficili per la vita degli zombie
-            this.numFastRound += 5; //aumentano di 5 ogni ondata 3,4,5. Valore viene azzerato quando ondata è 1 o 2
-            if (!(this.numWeakRound <= 40)) {
-                this.numWeakRound = 48;
-            }
+            this.waveCount += 1; //incrementa di 1 il contatore delle ondate ogni volta
+            this.spawnCoins();
+            this.allKilled = false; //boolean che indica se sono tutti uccisi
+            this.numWeakRound += 8; //aumentano di 8 ogni round
+            this.numFastRound += i; //aumentano di 3 ogni round
+            this.numSpittleRound += j; //aumentano di 2 ogni round
+            this.numBossRound = 0; //è settato sempre a 0
             if (this.waveCount % 5 == 0) {
-                this.numWeakRound -= 8;
+                this.numWeakRound -= 8; //numero di scarsi decrementato alle quinte ondate
+                this.numBossRound = this.waveCount / 5; //se è il boss round si setta il numero di boss
             }
-            if (!(this.numFastRound <= 15)) {
-                this.numFastRound = 18;
+            if (!(this.numBossRound <= 3)) {
+                this.numBossRound = 4; //cosicché non siano più di 4
             }
             if (this.waveCount % 5 == 2 || this.waveCount % 5 == 1) {
-                this.numFastRound = 0;
+                this.numFastRound = 0; //spawnano alle tre ondate finali in un set di 5 ondate
             }
+            if (this.waveCount % 5 == 1) {
+                this.numSpittleRound = 0; //spawnano alle quattro ondate finali in un set di 5 ondate
+            }
+            if (!(this.numWeakRound <= 40)) {
+                this.numWeakRound = 48; //cosicché non siano più di 48
+            }
+            if (!(this.numFastRound <= 9)) {
+                this.numFastRound = 12; //cosicché non siano più di 12
+            }
+            if (!(this.numSpittleRound <= 12)) {
+                this.numSpittleRound = 15; //cosicché non siano più di 15
+            }
+            this.numZombieRound = this.numFastRound + this.numWeakRound + this.numBossRound + this.numSpittleRound;
+            this.numFastToCreate = this.numFastRound;
+            this.numWeakToCreate = this.numWeakRound;
+            this.numBossToCreate = this.numBossRound;
+            this.numSpittleToCreate = this.numSpittleRound;
+            this.numZombieSpawn = this.numZombieRound;
 
-            this.numZombieRound = this.numFastRound + this.numWeakRound; //numeri totali di zombie sono la somma di tutti i tipi di zombie
-            this.numFastToCreate = this.numFastRound; //numero di fast da creare
-            this.numWeakToCreate = this.numWeakRound; //numero di weak da creare
-
-            //inizio ciclo di spawn
+            //inizio spawn
             int i = 0;
-            while (!handler.getPlayer().isDeath() && i < this.numZombieRound) {
-                boolean p = PauseMenu.pause; //non cancellare, senza non funziona... da vedere
-                if (!p) {
-                    int n = (int) (Math.random() * 10);
+            while (!handler.getPlayer().isDeath() && i < this.numZombieSpawn) {
+
+                if (PauseMenu.isPause()) {
+                    System.out.println("PAUSA WAVES");
+                    synchronized (PauseMenu.PAUSELOCK) { //acquisisco il lock di Pausa
+                        try {
+                            PauseMenu.PAUSELOCK.wait(); //attendo che pause cambi
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(Waves.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                } else {
+
+                    int n = (int) (Math.random() * 10); //randomicamente, cerco tutti i punti di spawn
                     switch (n) {
-                        case 0:                 //fossa
+                        case 0:             //fossa
                             x = 2072;
                             y = 2514;
                             break;
-                        case 1:                 //tomba 11
+                        case 1:             //tomba 11
                             x = 2224;
                             y = 238;
                             break;
-                        case 2:                 //tomba 21
+                        case 2:             //tomba 12
                             x = 2716;
                             y = 238;
                             break;
-                        case 3:                 //tomba 12
+                        case 3:             //tomba 21
                             x = 2418;
                             y = 466;
                             break;
-                        case 4:                 //tomba 22
+                        case 4:             //tomba 22
                             x = 2804;
                             y = 466;
                             break;
-                        case 5:
-                            x = 608;            //teatro
+                        case 5:             //teatro
+                            x = 608;
                             y = 3118;
                             break;
-                        case 6:                 //fognatura 2
-                            x = 624;
-                            y = 2080;
-                            break;
-                        case 7:                 //parco
+                        case 6:             //parco
                             x = 10;
                             y = 1640;
                             break;
-                        case 8:                 //incrocio sopra parco
-                            x = 132;
+                        case 7:             //incrocio
+                            x = 136;
                             y = 1282;
                             break;
-                        case 9:                 //fognatura 1
+                        case 8:             //fognatura 2
+                            x = 624;
+                            y = 2080;
+                            break;
+                        case 9:             //fognatura 1 
                             x = 674;
                             y = 300;
                             break;
                     }
-                    this.numDiffToCreate(); //setta il numero di differenti zombie da creare
-                    if (this.numWeakToCreate == 0 && !(this.numFastToCreate == 0)) {
-                        this.createFastZombie(x, y, mult, (float) 1);
-                        this.numFastToCreate -= 1;
-                    } else if (!(this.numWeakToCreate == 0) && this.numFastToCreate == 0) {
-                        this.createWeakZommbie(x, y, mult, (float) 1);
-                        this.numWeakToCreate -= 1;
-                    } else {
-                        n = (int) (Math.random() * this.diffToCreate);
-                        switch (n) {
-                            case 0:
-                                this.createWeakZommbie(x, y, mult, (float) 1);
-                                this.numWeakToCreate -= 1;
-                                break;
-                            case 1:
-                                this.createFastZombie(x, y, mult, (float) 1);
+
+                    this.numDiffToCreate();
+                    switch (this.diffToCreate) {//switch del numero di differenti da creare
+                        case 4: //se devo crearli tutti, ne creo randomicamente uno
+                            n = (int) (Math.random() * 4);
+                            switch (n) {
+                                case 0:
+                                    this.createBoss(x, y, mult, (float) 100);
+                                    this.numBossToCreate -= 1;
+                                    i++;
+                                    break;
+                                case 1:
+                                    this.createFastZombie(x, y, mult, prob);
+                                    this.numFastToCreate -= 1;
+                                    i++;
+                                    break;
+                                case 2:
+                                    this.createSpittleZombie(x, y, mult, prob);
+                                    this.numSpittleToCreate -= 1;
+                                    i++;
+                                    break;
+                                case 3:
+                                    this.createWeakZombie(x, y, mult, prob);
+                                    this.numWeakToCreate -= 1;
+                                    i++;
+                                    break;
+                            }
+                            break;
+                        case 3: //se sono 3 da creare...
+                            n = (int) (Math.random() * 3);
+                            if (this.numBossToCreate == 0) {//...e tra questi 3 non c'è il boss
+                                //System.out.println("vel spittle o weak");
+                                switch (n) {
+                                    case 0:
+                                        this.createFastZombie(x, y, mult, prob);
+                                        this.numFastToCreate -= 1;
+                                        i++;
+                                        break;
+                                    case 1:
+                                        this.createSpittleZombie(x, y, mult, prob);
+                                        this.numSpittleToCreate -= 1;
+                                        i++;
+                                        break;
+                                    case 2:
+                                        this.createWeakZombie(x, y, mult, prob);
+                                        this.numWeakToCreate -= 1;
+                                        i++;
+                                        break;
+                                }
+
+                            } else if (this.numFastToCreate == 0) {//...e tra questi 3 non c'è il veloce
+                                switch (n) {
+                                    case 0:
+                                        this.createBoss(x, y, mult, (float) 100);
+                                        this.numBossToCreate -= 1;
+                                        i++;
+                                        break;
+                                    case 1:
+                                        this.createSpittleZombie(x, y, mult, prob);
+                                        this.numSpittleToCreate -= 1;
+                                        i++;
+                                        break;
+                                    case 2:
+                                        this.createWeakZombie(x, y, mult, prob);
+                                        this.numWeakToCreate -= 1;
+                                        i++;
+                                        break;
+                                }
+                            } else if (this.numSpittleToCreate == 0) {//...e tra questi 3 non c'è spittle
+                                switch (n) {
+                                    case 0:
+                                        this.createBoss(x, y, mult, (float) 100);
+                                        this.numBossToCreate -= 1;
+                                        i++;
+                                        break;
+                                    case 1:
+                                        this.createFastZombie(x, y, mult, prob);
+                                        this.numFastToCreate -= 1;
+                                        i++;
+                                        break;
+                                    case 2:
+                                        this.createWeakZombie(x, y, mult, prob);
+                                        this.numWeakToCreate -= 1;
+                                        i++;
+                                        break;
+                                }
+                            } else if (this.numWeakToCreate == 0) {//...e tra questi 3 non c'è weak
+                                switch (n) {
+                                    case 0:
+                                        this.createBoss(x, y, mult, (float) 100);
+                                        this.numBossToCreate -= 1;
+                                        i++;
+                                        break;
+                                    case 1:
+                                        this.createFastZombie(x, y, mult, prob);
+                                        this.numFastToCreate -= 1;
+                                        i++;
+                                        break;
+                                    case 2:
+                                        this.createSpittleZombie(x, y, mult, prob);
+                                        this.numSpittleToCreate -= 1;
+                                        i++;
+                                        break;
+                                }
+                            }
+                            break;
+                        case 2://se ne devo creare 2...
+                            n = (int) (Math.random() * 2);
+                            if (this.numBossToCreate == 0) {//...e tra questi 2 non c'è il boss...
+                                if (this.numFastToCreate == 0) {//...e il veloce
+                                    switch (n) {
+                                        case 0:
+                                            this.createSpittleZombie(x, y, mult, prob);
+                                            this.numSpittleToCreate -= 1;
+                                            i++;
+                                            break;
+                                        case 1:
+                                            this.createWeakZombie(x, y, mult, prob);
+                                            this.numWeakToCreate -= 1;
+                                            i++;
+                                            break;
+                                    }
+                                } else if (this.numWeakToCreate == 0) {//...e il weak
+                                    switch (n) {
+                                        case 0:
+                                            this.createSpittleZombie(x, y, mult, (float) 25);
+                                            this.numSpittleToCreate -= 1;
+                                            i++;
+                                            break;
+                                        case 1:
+                                            this.createFastZombie(x, y, mult, (float) 25);
+                                            this.numFastToCreate -= 1;
+                                            i++;
+                                            break;
+                                    }
+                                } else if (this.numSpittleToCreate == 0) {//...e split
+                                    switch (n) {
+                                        case 0:
+                                            this.createWeakZombie(x, y, mult, prob);
+                                            this.numWeakToCreate -= 1;
+                                            i++;
+                                            break;
+                                        case 1:
+                                            this.createFastZombie(x, y, mult, prob);
+                                            this.numFastToCreate -= 1;
+                                            i++;
+                                            break;
+                                    }
+                                }
+                            } else if (this.numFastToCreate == 0) {//...e tra questi 2 non c'è il veloce...
+                                if (this.numWeakToCreate == 0) {//...e il weak
+                                    switch (n) {
+                                        case 0:
+                                            this.createSpittleZombie(x, y, mult, prob);
+                                            this.numSpittleToCreate -= 1;
+                                            i++;
+                                            break;
+                                        case 1:
+                                            this.createBoss(x, y, mult, (float) 100);
+                                            this.numBossToCreate -= 1;
+                                            i++;
+                                            break;
+                                    }
+                                } else if (this.numSpittleToCreate == 0) {//...e lo spittle
+                                    switch (n) {
+                                        case 0:
+                                            this.createWeakZombie(x, y, mult, prob);
+                                            this.numWeakToCreate -= 1;
+                                            i++;
+                                            break;
+                                        case 1:
+                                            this.createBoss(x, y, mult, (float) 100);
+                                            this.numBossToCreate -= 1;
+                                            i++;
+                                            break;
+                                    }
+
+                                }
+                            } else if (this.numWeakToCreate == 0) {//...e tra questi 2 non c'è weak...
+                                if (this.numSpittleToCreate == 0) {//...e spittle
+                                    switch (n) {
+                                        case 0:
+                                            this.createFastZombie(x, y, mult, prob);
+                                            this.numFastToCreate -= 1;
+                                            i++;
+                                            break;
+                                        case 1:
+                                            this.createBoss(x, y, mult, (float) 100);
+                                            this.numBossToCreate -= 1;
+                                            i++;
+                                            break;
+                                    }
+                                }
+                            }
+                            break;
+                        case 1://se ne devo creare 1...
+                            if (this.numBossToCreate > 0) {//...ed è il boss
+                                this.createBoss(x, y, mult, (float) 100);
+                                this.numBossToCreate -= 1;
+                                i++;
+                            } else if (this.numFastToCreate > 0) {//...ed è il veloce
+                                this.createFastZombie(x, y, mult, prob);
                                 this.numFastToCreate -= 1;
-                                break;
-                        }
-                    }
-                    i++;
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(Waves.class.getName()).log(Level.SEVERE, null, ex);
+                                i++;
+                            } else if (this.numSpittleToCreate > 0) {//...ed è lo spittle
+                                this.createSpittleZombie(x, y, mult, prob);
+                                this.numSpittleToCreate -= 1;
+                                i++;
+                            } else if (this.numWeakToCreate > 0) {//... ed è il weak
+                                this.createWeakZombie(x, y, mult, prob);
+                                this.numWeakToCreate -= 1;
+                                i++;
+                            }
+                            break;
+                        default:
+                            break;
                     }
                 }
-
+                try {
+                    Thread.sleep(1000);//ne creo uno ogni secondo
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Waves.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-            synchronized (KL) {
+            synchronized (KL) { //acquisisco il lock di allKilled
                 while (!this.allKilled) {
                     try {
-                        KL.wait(); //si aspetta che venga modificato allKilled
+                        KL.wait(); //aspetto che modifichi il valore di allKilled
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Waves.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
+            this.score += 500;  //score bonus che ottieni a fine round;
+            this.handler.getPlayer().updatePunteggio(score);
             if (Settings.soundMusic) {
-                Menu.gameMusic.stopSound();
+                MapFrame.gameMusic.stopSound();
+                System.out.println(MapFrame.gameMusic.getFramePosition());
                 endRound.playSound();
             }
             try {
@@ -169,12 +411,53 @@ public class Waves implements Runnable {
                 Logger.getLogger(Waves.class.getName()).log(Level.SEVERE, null, ex);
             }
             if (Settings.soundMusic) {
-                Menu.gameMusic.playSound();
+                MapFrame.gameMusic.setFramePosition(1430000);
+                MapFrame.gameMusic.loopSound();
             }
             if (this.waveCount % 5 == 0) {
-                this.numWeakRound = 8;
+                this.numWeakRound = 8 * this.numWeakRound / 5;
+                this.numFastRound = 0;
+                this.numSpittleRound = 0;
                 this.mult += 0.13;
+                if (i == 3) {
+                    i *= 2;
+                }
+                if (j == 2) {
+                    j *= 4;
+                }
             }
+        }
+    }
+
+    public void spawnCoins() {
+        switch (this.waveCount % 9) {
+            case 1:
+                this.handler.addSprite(new Coins(2125, 810, 20, 20, handler));
+                break;
+            case 2:
+                this.handler.addSprite(new Coins(2477, 809, 20, 20, handler));
+                break;
+            case 3:
+                this.handler.addSprite(new Coins(2660, 810, 20, 20, handler));
+                break;
+            case 4:
+                this.handler.addSprite(new Coins(2930, 805, 20, 20, handler));
+                break;
+            case 5:
+                this.handler.addSprite(new Coins(2722, 1035, 20, 20, handler));
+                break;
+            case 6:
+                this.handler.addSprite(new Coins(2340, 1130, 20, 20, handler));
+                break;
+            case 7:
+                this.handler.addSprite(new Coins(2250, 1130, 20, 20, handler));
+                break;
+            case 8:
+                this.handler.addSprite(new Coins(2930, 1130, 20, 20, handler));
+                break;
+            default:
+                this.handler.addSprite(new Coins(2570, 975, 20, 20, handler));
+                break;
         }
     }
 
@@ -202,25 +485,41 @@ public class Waves implements Runnable {
     }
 
     public void numDiffToCreate() {
-        if (this.numWeakToCreate > 0 && this.numFastToCreate > 0) {
+        if (this.numWeakToCreate > 0 && this.numFastToCreate > 0 && this.numBossToCreate > 0 && this.numSpittleToCreate > 0) {
+            this.diffToCreate = 4;
+        } else if ((this.numBossToCreate > 0 && this.numWeakToCreate > 0 && this.numFastToCreate > 0) || (this.numBossToCreate > 0 && this.numWeakToCreate > 0 && this.numSpittleToCreate > 0) || (this.numBossToCreate > 0 && this.numFastToCreate > 0 && this.numSpittleToCreate > 0) || (this.numFastToCreate > 0 && this.numSpittleToCreate > 0 && this.numWeakToCreate > 0)) {
+            this.diffToCreate = 3;
+        } else if ((this.numBossToCreate > 0 && this.numFastToCreate > 0) || (this.numBossToCreate > 0 && this.numWeakToCreate > 0) || (this.numBossToCreate > 0 && this.numSpittleToCreate > 0) || (this.numWeakToCreate > 0 && this.numFastToCreate > 0) || (this.numWeakToCreate > 0 && this.numSpittleToCreate > 0) || (this.numFastToCreate > 0 && this.numSpittleToCreate > 0)) {
             this.diffToCreate = 2;
-        } else if ((this.numFastToCreate > 0 && !(this.numWeakToCreate > 0)) || (!(this.numFastToCreate > 0) && this.numWeakToCreate > 0)) {
+        } else if ((this.numBossToCreate > 0 && !(this.numFastToCreate > 0) && !(this.numWeakToCreate > 0) && !(this.numSpittleToCreate > 0)) || (!(this.numBossToCreate > 0) && (this.numFastToCreate > 0) && !(this.numWeakToCreate > 0) && !(this.numSpittleToCreate > 0)) || (!(this.numBossToCreate > 0) && !(this.numFastToCreate > 0) && (this.numWeakToCreate > 0) && !(this.numSpittleToCreate > 0)) || (!(this.numBossToCreate > 0) && !(this.numFastToCreate > 0) && !(this.numWeakToCreate > 0) && (this.numSpittleToCreate > 0))) {
             this.diffToCreate = 1;
         } else {
             this.diffToCreate = 0;
         }
     }
 
-    public void createWeakZommbie(float x, float y, float mulHealth, float prob) {
-        this.handler.addSprite(new StandardZombie(x, y, 1, (int) (100 * mulHealth), 25, handler.getPlayer(), this.handler, prob, 60, 60, 5, new Animation(Assets.zombie, 20), new Animation(Assets.zombieAttack, 35), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
+    public void createWeakZombie(float x, float y, float mulHealth, float prob) {
+        this.handler.addSprite(new StandardZombie(x, y, (float) 2, (int) (100 * mulHealth), 25, handler.getPlayer(), this.handler, prob, 60, 60, 5, new Animation(Assets.zombie, 20), new Animation(Assets.zombieAttack, 35), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
     }
 
     public void createFastZombie(float x, float y, float mulHealth, float prob) {
-        this.handler.addSprite(new StandardZombie(x, y, 1, (int) (35 * mulHealth), 40, handler.getPlayer(), this.handler, prob, 60, 60, 5, new Animation(Assets.zombie2, 15), new Animation(Assets.zombie2Attack, 15), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
+        this.handler.addSprite(new StandardZombie(x, y, (float) 4, (int) (35 * mulHealth), 50, handler.getPlayer(), this.handler, prob, 60, 60, 20, new Animation(Assets.zombie2, 15), new Animation(Assets.zombie2Attack, 50), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
     }
 
     public void createSpittleZombie(float x, float y, float mulHealth, float prob) {
-        this.handler.addSprite(new SpittleZombie(x, y, 1, (int) (100 * mulHealth), 50, handler.getPlayer(), this.handler, prob, 60, 60, 5, new Animation(Assets.zombie2, 15), new Animation(Assets.zombie2Attack, 15), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
+        this.handler.addSprite(new SpittleZombie(x, y, (float) 2, (int) (400 * mulHealth), 75, handler.getPlayer(), this.handler, prob, 60, 60, 45, new Animation(Assets.zombie3, 40), new Animation(Assets.zombie3Attack, 50), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
+    }
+
+    public void createBoss(float x, float y, float mulHealth, float prob) {
+        this.handler.addSprite(new Boss(x, y, (float) 1, 4000, 100, handler.getPlayer(), this.handler, prob, 60, 60, 500, new Animation(Assets.boss, 40), new Animation(Assets.bossAttack, 120), new Animation(Assets.bossdeath, 70), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
+    }
+
+    public void addEnemy() {
+        this.numZombieRound += 1;
+    }
+
+    public void removeEnemy() {
+        this.numZombieRound -= 1;
     }
     
     public void setHandler(Handler h){

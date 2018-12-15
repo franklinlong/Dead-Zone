@@ -23,12 +23,12 @@ public class WavesDemo extends Waves{
     public void run() {
         this.numZombieRound += 1;
         this.allKilled = false;
-        this.createWeakZommbie(2200, 180, 1, (float) 1);
-        this.createFastZombie(2716, 238, 1, (float) 1);
+        this.createFastZombie(2250, 180, 1, (float) 1);
+        this.createWeakZombie(2516, 238, 1, (float) 1);
         this.numZombieRound += 1;
-        this.createWeakZommbie(600, 3118, 1, (float) 1);
+        this.createSpittleZombie(3100, 2080, 1, (float) 1);
         this.numZombieRound += 1;
-        this.createFastZombie(624, 2080, 1, (float) 1);
+        this.createWeakZombie(100, 10, 1, (float) 1);
         this.numZombieRound += 1;
         synchronized(this.handler.getZombies()){
             this.handler.getZombies().notify();
@@ -44,7 +44,7 @@ public class WavesDemo extends Waves{
                 }
         }
         
-        this.createFastZombie(1900, 466, 1, (float) 1);
+        this.createBoss(1900, 670, 1, (float) 1);
         
         
     }

@@ -8,19 +8,20 @@ package deadzone;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JSplitPane;
-import sprite.animated.Player;
+import deadzone.sprite.animated.Player;
 
 /**
  *
  * @author giova
  */
-public abstract class Board extends JSplitPane{
-    private boolean inGame=false;
+public abstract class Board extends JSplitPane {
+
+    private boolean inGame = false;
     public static Thread tHud;
     public static Thread tMap;
     private long averageFPS = 0;
     protected Handler handler; 
-    private Player player;
+    protected Player player;
     private final int w_frame = Camera.w_frame;
     private final int h_frame = Camera.h_frame;
     private int w_map;
@@ -50,23 +51,26 @@ public abstract class Board extends JSplitPane{
     protected synchronized void initGame(){
         if(inGame)
             return;
-        
-        inGame=true;
+
+        inGame = true;
         tMap = new Thread(mapPanel);
         tHud = new Thread(hudPanel);
         tMap.start();
         tHud.start();
         
     }
-    
+
     @Override
-    public int getDividerLocation(){
+    public int getDividerLocation() {
         return location;
     }
-    
+
     @Override
-    public int getLastDividerLocation(){
+    public int getLastDividerLocation() {
         return location;
     }
-   
+
+    public void setWindow(Window window){
+        player.setWindow(window);
+    }
 }
