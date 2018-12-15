@@ -36,6 +36,8 @@ public class OnlinePause extends JFrame {
      * Creates new form OnlinePause
      *
      * @param pm
+     * @param rso
+     * @param rss
      * @param player
      */
     public OnlinePause(PauseMenu pm, Player player) {
@@ -165,6 +167,7 @@ public class OnlinePause extends JFrame {
         this.on.clear();
         this.punt.clear();
         this.jOnlinePanel.removeAll();
+        jOnlinePanel.add(jPlayer);
         this.jScorePanel.removeAll();
         this.aggiornaLabel();
     }//GEN-LAST:event_refreshActionPerformed

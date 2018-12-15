@@ -224,7 +224,7 @@ public class Player extends AnimatedSprite {
                 g2d.drawImage(Assets.noCoins, (int) (getX() - offsetX - 25), (int) (getY() - offsetY) - 30, null);
                 break;
             case 5: //Negozio
-                g2d.drawImage(Assets.actionImg, (int) (getX() - offsetX - 25), (int) (getY() - offsetY) - 30, null);
+                g2d.drawImage(Assets.buyAmmo, (int) (getX() - offsetX - 25), (int) (getY() - offsetY) - 30, null);
                 break;
         }
         
