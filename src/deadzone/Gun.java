@@ -31,15 +31,14 @@ public class Gun {
     private boolean shooting = false, reloading = false;
     
     // handler
-    private final Handler handler;
+    private Handler handler;
     
     private final int damage;
     
     public Gun(BufferedImage skin, Animation idle, Animation reloadAnimation, Animation shoot,
                     Sound shootSound, Sound reloadSound, Player player, int firingDelay,
-                    int bulletsPerRound, int totalBullets, Handler handler, int damage){
+                    int bulletsPerRound, int totalBullets, int damage){
             this.damage = damage;
-            this.handler = handler;
             this.skin = skin;
             this.idle = idle;
             this.reloadAnimation = reloadAnimation;
@@ -254,5 +253,8 @@ public class Gun {
         return skin;
     }
     
+    public void setHandler(Handler h){
+        handler = h;
+    }
     
 }

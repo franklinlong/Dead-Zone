@@ -12,9 +12,6 @@ import sprite.Blood;
 import sprite.DropItem;
 import sprite.Sprite;
 import sprite.animated.*;
-import utilities.Animation;
-import utilities.Assets;
-import utilities.Sound;
 
 
 /**
@@ -34,15 +31,12 @@ public class Handler {
     
 
     
-    public Handler(String playerName, boolean male){
-        player = new Player(2000,60,2,300,this, playerName, male);        
+    public Handler(Player p, Waves w){
+        player = p;       
         camera = new Camera(player);
         players.add(player);
         
-        this.waves = new Waves(this);
-        Thread t = new Thread(waves);
-        t.start();
-        
+        this.waves = w;
     }
     
     public void animationCycle(){

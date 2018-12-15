@@ -5,6 +5,8 @@
  */
 package gameMenu;
 
+import deadzone.Context;
+import deadzone.ModalityGame;
 import deadzone.Window;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -162,7 +164,8 @@ public class MapFrame extends javax.swing.JFrame {
     private void jButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlayActionPerformed
         // TODO add your handling code here:
         if(jButtonStandardMap.isBorderPainted()){
-            new Window(sp.getPlayerName(), sp.isMale()).setVisible(true);
+            Context game = new Context(new ModalityGame());
+            game.init(sp.getPlayerName(), sp.isMale());
             this.setVisible(false);
             
             

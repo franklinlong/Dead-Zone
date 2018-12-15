@@ -23,24 +23,23 @@ import utilities.Sound;
 public class Waves implements Runnable {
 
     private int waveCount;
-    private int numZombieRound;
+    protected int numZombieRound;
     private int numWeakRound;
     private int numFastRound;
     private int numWeakToCreate;
     private int numFastToCreate;
     private int diffToCreate;
-    private int numZombieKilledRound;
-    private boolean allKilled;
-    private static final Object KL = new Object(); //lock per l'allKilled
+    protected int numZombieKilledRound;
+    protected boolean allKilled;
+    protected static final Object KL = new Object(); //lock per l'allKilled
     private float mult;
     private Sound endRound;
-    private Handler handler;
+    protected Handler handler;
 
-    public Waves(Handler handler) {
+    public Waves() {
         this.numZombieRound = 0;
         this.numWeakRound = 0;
         this.numFastRound = 0;
-        this.handler = handler;
         this.waveCount = 0;
         this.diffToCreate = 0;
         this.mult = 1; //moltiplicatore per la salute dello zombie. Viene incrementato di 0.13 ogni 5 ondate
@@ -222,5 +221,9 @@ public class Waves implements Runnable {
 
     public void createSpittleZombie(float x, float y, float mulHealth, float prob) {
         this.handler.addSprite(new SpittleZombie(x, y, 1, (int) (100 * mulHealth), 50, handler.getPlayer(), this.handler, prob, 60, 60, 5, new Animation(Assets.zombie2, 15), new Animation(Assets.zombie2Attack, 15), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
+    }
+    
+    public void setHandler(Handler h){
+        this.handler = h;
     }
 }

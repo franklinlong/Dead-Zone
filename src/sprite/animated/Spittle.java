@@ -37,13 +37,11 @@ public class Spittle extends AnimatedSprite {
         float playerx = p.getX();
         float playery = p.getY();
         
-        if (playery < this.getY()) {
+        if (playery == this.getY()) {
             if (playerx < this.getX()) 
-                angle = "nordovest";
-            else if (playerx > this.getX()) 
-                angle = "nordest";
-            else
-                angle = "nord";
+                angle = "ovest";
+            else 
+                angle = "est";
         }else if (playery > this.getY()) {
             if (playerx < this.getX()) 
                 angle = "sudovest";
@@ -53,9 +51,11 @@ public class Spittle extends AnimatedSprite {
                 angle = "sud";
         }else {
             if (playerx < this.getX()) 
-                angle = "ovest";
-            else 
-                angle = "est";
+                angle = "nordovest";
+            else if (playerx > this.getX()) 
+                angle = "nordest";
+            else
+                angle = "nord";
         }
         
     }

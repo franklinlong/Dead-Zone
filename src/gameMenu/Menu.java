@@ -5,6 +5,8 @@
  */
 package gameMenu;
 
+import deadzone.Context;
+import deadzone.ModalityDemo;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -203,11 +205,9 @@ public class Menu extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        int w = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconWidth()*1/6;
-        int h = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconHeight()*1/6;
-        ImageIcon i = ridimensionaImageIcon(getClass().getResource("/images/LogoBiancoENero.png"),w,h);
-        
-        JOptionPane.showConfirmDialog(rootPane, "   Coming soon...", "Tutorial DeadZone", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_OPTION, i);
+        Context game = new Context(new ModalityDemo());
+        game.init("Demo", true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

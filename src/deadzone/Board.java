@@ -8,28 +8,26 @@ package deadzone;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JSplitPane;
-import listeners.KAdapter;
 import sprite.animated.Player;
-import utilities.Assets;
 
 /**
  *
  * @author giova
  */
-public class Board extends JSplitPane{
+public abstract class Board extends JSplitPane{
     private boolean inGame=false;
     public static Thread tHud;
     public static Thread tMap;
     private long averageFPS = 0;
-    private Handler handler; 
+    protected Handler handler; 
     private Player player;
     private final int w_frame = Camera.w_frame;
     private final int h_frame = Camera.h_frame;
     private int w_map;
     private int h_map;
     private Camera camera;
-    private MapPanel mapPanel;
-    private HudPanel hudPanel;
+    protected MapPanel mapPanel;
+    protected HudPanel hudPanel;
     private final int location = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()*1/5;
     
     public Board(String playerName, boolean male){
@@ -42,27 +40,14 @@ public class Board extends JSplitPane{
         this.setDividerSize(0);
         this.setDividerLocation((int) dim.getWidth()*1/5);
         
-        
         initBoard(playerName, male);
     }
     
-    private void initBoard(String playerName, boolean male){
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-    	Assets.init();
-        
-        handler = new Handler(playerName, male);
-        mapPanel = new MapPanel(handler);
-        hudPanel = new HudPanel(handler);
-        KAdapter kad = new KAdapter();
-        this.setRightComponent(mapPanel);
-        this.setLeftComponent(hudPanel);
-        
-        initGame();
-    }
+    protected abstract void initBoard(String playerName, boolean male);
 
     
     
-    private synchronized void initGame(){
+    protected synchronized void initGame(){
         if(inGame)
             return;
         
@@ -71,6 +56,7 @@ public class Board extends JSplitPane{
         tHud = new Thread(hudPanel);
         tMap.start();
         tHud.start();
+        
     }
     
     @Override

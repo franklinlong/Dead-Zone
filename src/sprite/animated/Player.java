@@ -22,70 +22,42 @@ import utilities.Zona;
  *
  * @author giova
  */
-public class Player extends AnimatedSprite {
+public abstract class Player extends AnimatedSprite {
 
     public static final int PLAYERSIZE = 60;
     protected Zona zona;
 
     //animations
-    private final Animation shotgunIdle, shotgunReload, shotgunShoot;
-    private final Animation pistolIdle, pistolReload, pistolShoot;
-    private final Animation rifleIdle, rifleReload, rifleShoot;
+    protected Animation shotgunIdle, shotgunReload, shotgunShoot;
+    protected Animation pistolIdle, pistolReload, pistolShoot;
+    protected Animation rifleIdle, rifleReload, rifleShoot;
 
     // sounds
-    private final Sound rifleShootSound, rifleReloadSound;
-    private final Sound pistolShootSound, pistolReloadSound;
-    private final Sound shotgunShootSound, shotgunReloadSound;
+    protected Sound rifleShootSound, rifleReloadSound;
+    protected Sound pistolShootSound, pistolReloadSound;
+    protected Sound shotgunShootSound, shotgunReloadSound;
 
     private final Sound soundEndGame;
 
     //Handler che serve per rimuovere il player quando muore
-    private final Handler handler;
+    protected Handler handler;
 
-    private Gun currentGun;
-    private final Gun pistol, rifle, shotgun;
+    protected Gun currentGun;
+    protected Gun pistol, rifle, shotgun;
 
-    private float xx, yy;
-    private boolean isDeath;
+    protected float xx, yy;
+    protected boolean isDeath;
 
     private int punteggioAttuale;
     private final String name;
-    private final boolean male;
     private int zombieKilled;
 
-    public Player(float x, float y, int vel, int health, Handler handler, String name, boolean male) {
+    public Player(float x, float y, int vel, int health, String name) {
         super(x, y, PLAYERSIZE, PLAYERSIZE, vel, health);
         this.punteggioAttuale = 0;
-        this.handler = handler;
-        this.male = male;
         this.name = name;
 
         this.zona = new Zona(getX(), getY());
-        if (this.male) {
-            pistolIdle = new Animation(Assets.pistolIdle, 20);
-            pistolReload = new Animation(Assets.pistolReload, 100);
-            pistolShoot = new Animation(Assets.pistolShootAnim, 80);
-
-            rifleIdle = new Animation(Assets.rifleIdle, 20);
-            rifleReload = new Animation(Assets.rifleReload, 100);
-            rifleShoot = new Animation(Assets.rifleShootAnim, 80);
-
-            shotgunIdle = new Animation(Assets.shotgunIdle, 20);
-            shotgunReload = new Animation(Assets.shotgunReload, 100);
-            shotgunShoot = new Animation(Assets.shotgunShootAnim, 80);
-        } else {
-            pistolIdle = new Animation(Assets.femalepistolIdle, 20);
-            pistolReload = new Animation(Assets.femalepistolReload, 100);
-            pistolShoot = new Animation(Assets.femalepistolShootAnim, 80);
-
-            rifleIdle = new Animation(Assets.femalerifleIdle, 20);
-            rifleReload = new Animation(Assets.femalerifleReload, 100);
-            rifleShoot = new Animation(Assets.femalerifleShootAnim, 80);
-
-            shotgunIdle = new Animation(Assets.femaleshotgunIdle, 20);
-            shotgunReload = new Animation(Assets.femaleshotgunReload, 100);
-            shotgunShoot = new Animation(Assets.femaleshotgunShootAnim, 80);
-        }
 
         pistolShootSound = new Sound(Assets.pistolShoot);
         pistolShootSound.changeVolume(-10);
@@ -100,18 +72,7 @@ public class Player extends AnimatedSprite {
 
         soundEndGame = new Sound(Assets.endGame);
         soundEndGame.changeVolume(6);
-        pistol = new Gun(Assets.pistolSkin, pistolIdle, pistolReload, pistolShoot, pistolShootSound,
-                pistolReloadSound, this, 400,
-                9, 200, handler, 50);
-        rifle = new Gun(Assets.ak47, rifleIdle, rifleReload, rifleShoot, rifleShootSound,
-                rifleReloadSound, this, 100,
-                30, 200, handler, 34);
-
-        shotgun = new Gun(Assets.shotgunSkin, shotgunIdle, shotgunReload, shotgunShoot, shotgunShootSound,
-                shotgunReloadSound, this, 800,
-                5, 200, handler, 45);
-
-        currentGun = pistol;
+        
     }
 
     @Override
@@ -119,24 +80,7 @@ public class Player extends AnimatedSprite {
         xx = this.getX() - offsetX;
         yy = this.getY() - offsetY;
 
-        //Segmento tra hotSpot del mouse e centro del giocatore...
-        float wR = MAdapter.x - xx - width / 2;
-        float hR = MAdapter.y - yy - height / 2;
-
-        angle = (float) Math.atan(hR / wR);
-        if (wR < 0) {
-            angle = (float) -Math.PI + angle;
-        }
-
-        //Aggiorno l'angolo in modo che il giocatore si giri verso il mirino con la pistola e non col proprio centro
-        float angoloPistola = (float) (angle + Math.PI / 4);
-        wR = MAdapter.x - (xx + width / 2 + (float) (22 * Math.cos(angoloPistola)));
-        hR = MAdapter.y - (yy + height / 2 + (float) (22 * Math.sin(angoloPistola)));
-        angle = (float) Math.atan(hR / wR);
-        if (wR < 0) {
-            angle = (float) -Math.PI + angle;
-        }
-
+        angleRotation(MAdapter.x,MAdapter.y,xx,yy);
         at = AffineTransform.getTranslateInstance(xx, yy);
         at.rotate(angle, width / 2, height / 2);
         Graphics2D g2d = (Graphics2D) g;
@@ -297,4 +241,30 @@ public class Player extends AnimatedSprite {
         return name;
     }
 
+    public void setHandler(Handler h){
+        handler = h;
+        pistol.setHandler(h);
+        rifle.setHandler(h);
+        shotgun.setHandler(h);
+    }
+    
+    public void angleRotation(float x, float y, float xx, float yy){
+        //Segmento tra hotSpot del mouse e centro del giocatore...
+        float wR = x - xx - width / 2;
+        float hR = y - yy - height / 2;
+
+        angle = (float) Math.atan(hR / wR);
+        if (wR < 0) {
+            angle = (float) -Math.PI + angle;
+        }
+
+        //Aggiorno l'angolo in modo che il giocatore si giri verso il mirino con la pistola e non col proprio centro
+        float angoloPistola = (float) (angle + Math.PI / 4);
+        wR = x - (xx + width / 2 + (float) (22 * Math.cos(angoloPistola)));
+        hR = y - (yy + height / 2 + (float) (22 * Math.sin(angoloPistola)));
+        angle = (float) Math.atan(hR / wR);
+        if (wR < 0) {
+            angle = (float) - Math.PI + angle;
+        }
+    }
 }
