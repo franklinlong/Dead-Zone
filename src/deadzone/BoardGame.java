@@ -25,7 +25,6 @@ public class BoardGame extends Board{
     @Override
     protected void initBoard(String playerName, boolean male){
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-    	Assets.init();
         
         Waves w = new Waves();
         if (male){

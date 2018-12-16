@@ -23,7 +23,6 @@ public class BoardDemo extends Board{
     @Override
     protected void initBoard(String playerName, boolean male){
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-    	Assets.init();
         
         Waves w = new WavesDemo();
         player = new PlayerDemo(2000,450,2,300,playerName,w);
