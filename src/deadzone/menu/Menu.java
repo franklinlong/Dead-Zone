@@ -5,6 +5,8 @@
  */
 package deadzone.menu;
 
+import deadzone.Context;
+import deadzone.ModalityDemo;
 import deadzone.utilities.Utilities;
 import deadzone.utilities.Assets;
 import deadzone.utilities.Sound;
@@ -222,11 +224,10 @@ public class Menu extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        int w = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconWidth() * 1 / 6;
-        int h = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconHeight() * 1 / 6;
-        ImageIcon i = ridimensionaImageIcon(getClass().getResource("/images/LogoBiancoENero.png"), w, h);
-
-        JOptionPane.showConfirmDialog(rootPane, "   Coming soon...", "Tutorial DeadZone", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_OPTION, i);
+        LoadingScreen ls = new LoadingScreen();
+        ls.setVisible(true);
+        new LoadingThread(sp,ls).start();
+        this.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

@@ -8,31 +8,30 @@ package deadzone;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JSplitPane;
-import deadzone.listeners.KAdapter;
 import deadzone.sprite.animated.Player;
 
 /**
  *
  * @author giova
  */
-public class Board extends JSplitPane {
+public abstract class Board extends JSplitPane {
 
     private boolean inGame = false;
     public static Thread tHud;
     public static Thread tMap;
     private long averageFPS = 0;
-    private Handler handler;
-    private Player player;
+    protected Handler handler; 
+    protected Player player;
     private final int w_frame = Camera.w_frame;
     private final int h_frame = Camera.h_frame;
     private int w_map;
     private int h_map;
     private Camera camera;
-    private MapPanel mapPanel;
-    private HudPanel hudPanel;
-    private final int location = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() * 1 / 5;
-
-    public Board(String playerName, boolean male, Window window) {
+    protected MapPanel mapPanel;
+    protected HudPanel hudPanel;
+    private final int location = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()*1/5;
+    
+    public Board(String playerName, boolean male){
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize(dim);
         this.setOpaque(false);
@@ -40,34 +39,25 @@ public class Board extends JSplitPane {
         this.requestFocus(true);
         this.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
         this.setDividerSize(0);
-        this.setDividerLocation((int) dim.getWidth() * 1 / 5);
-
-        initBoard(playerName, male, window);
+        this.setDividerLocation((int) dim.getWidth()*1/5);
+        
+        initBoard(playerName, male);
     }
+    
+    protected abstract void initBoard(String playerName, boolean male);
 
-    private void initBoard(String playerName, boolean male, Window window) {
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-
-        handler = new Handler(playerName, male, window);
-        mapPanel = new MapPanel(handler);
-        hudPanel = new HudPanel(handler);
-        KAdapter kad = new KAdapter();
-        this.setRightComponent(mapPanel);
-        this.setLeftComponent(hudPanel);
-
-        initGame();
-    }
-
-    private synchronized void initGame() {
-        if (inGame) {
+    
+    
+    protected synchronized void initGame(){
+        if(inGame)
             return;
-        }
 
         inGame = true;
         tMap = new Thread(mapPanel);
         tHud = new Thread(hudPanel);
         tMap.start();
         tHud.start();
+        
     }
 
     @Override
@@ -80,4 +70,7 @@ public class Board extends JSplitPane {
         return location;
     }
 
+    public void setWindow(Window window){
+        player.setWindow(window);
+    }
 }

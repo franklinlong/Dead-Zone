@@ -5,12 +5,13 @@
  */
 package deadzone.menu;
 
-import deadzone.Window;
+import deadzone.Context;
+import deadzone.ModalityDemo;
+import deadzone.ModalityGame;
 import static deadzone.menu.MapFrame.gameClip;
 import static deadzone.menu.MapFrame.gameMusic;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import deadzone.utilities.Assets;
 import deadzone.utilities.Sound;
 import deadzone.utilities.Utilities;
 
@@ -22,6 +23,7 @@ public class LoadingThread extends Thread{
     
     private SinglePlayer sp;
     private LoadingScreen ls;
+    private Context game;
     
     public LoadingThread(SinglePlayer sp, LoadingScreen ls){
         this.sp = sp;
@@ -32,13 +34,9 @@ public class LoadingThread extends Thread{
     public void run(){
 
         try {
-            Window w = new Window(sp.getPlayerName(), sp.isMale());
             gameClip = Utilities.LoadSound("/sound/ingame.wav");
             gameMusic = new Sound(gameClip);
             
-            w.prepareImage(Assets.greenIndicator, null);
-            w.prepareImage(Assets.redIndicator, null);
-            w.prepareImage(Assets.minimap, null);
                 
             for(int i=0; i<100 ;i++){
                 ls.jLabel2.setText( i+ "%");
@@ -47,7 +45,16 @@ public class LoadingThread extends Thread{
                  
             ls.setVisible(false);
             ls.dispose();
-            w.setVisible(true);
+            
+            if (sp == null){
+                game = new Context(new ModalityDemo());
+                game.init("Demo", true);
+            }
+            else{
+                game = new Context(new ModalityGame());
+                game.init(sp.getPlayerName(), sp.isMale());
+            }
+            
             Menu.gameMusic.stopSound();
             gameMusic.loopSound();
         } catch (InterruptedException ex) {

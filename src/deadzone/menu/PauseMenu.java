@@ -112,7 +112,7 @@ public class PauseMenu extends javax.swing.JDialog {
             }
         });
         getContentPane().add(Resume);
-        Resume.setBounds(170, 110, 122, 27);
+        Resume.setBounds(170, 110, 122, 29);
 
         Settings.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         Settings.setText("Settings");

@@ -38,16 +38,13 @@ public class Handler {
     private final Player player;
     private final Waves waves;
 
-    public Handler(String playerName, boolean male, Window window) {
-        player = new Player(1600, 1600, 3, 1600, this, playerName, male, window);
+    
+    public Handler(Player p, Waves w){
+        player = p;       
         camera = new Camera(player);
         players.add(player);
         
-        this.waves = new Waves(this);
-               
-        Thread t = new Thread(waves);
-        t.start();
-
+        this.waves = w;
     }
 
     public void animationCycle() {

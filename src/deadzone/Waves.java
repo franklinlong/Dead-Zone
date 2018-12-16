@@ -25,7 +25,7 @@ import deadzone.utilities.Sound;
 public class Waves implements Runnable {
 
     private int waveCount;
-    private int numZombieRound;
+    protected int numZombieRound;
     private int numWeakRound;
     private int numFastRound;
     private int numSpittleRound;
@@ -35,24 +35,23 @@ public class Waves implements Runnable {
     private int numSpittleToCreate;
     private int numBossToCreate;
     private int diffToCreate;
-    private int numZombieKilledRound;
-    private boolean allKilled;
-    private static final Object KL = new Object(); //lock per l'allKilled
+    protected int numZombieKilledRound;
+    protected boolean allKilled;
+    protected static final Object KL = new Object(); //lock per l'allKilled
     private float mult;
     private final Sound endRound;
-    private final Handler handler;
+    protected Handler handler;
     private int score;
     private int numZombieSpawn;
     private int i = 3, j = 2;
     private int prob = 20;
 
-    public Waves(Handler handler) {
+    public Waves() {
         this.numZombieRound = 0;
         this.numWeakRound = 0;
         this.numFastRound = 0;
         this.numBossRound = 0;
         this.numSpittleRound = 0;
-        this.handler = handler;
         this.waveCount = 0;
         this.diffToCreate = 0;
         this.mult = 1; //moltiplicatore per la salute dello zombie. Viene incrementato di 0.13 ogni 5 ondate
@@ -521,5 +520,9 @@ public class Waves implements Runnable {
 
     public void removeEnemy() {
         this.numZombieRound -= 1;
+    }
+    
+    public void setHandler(Handler h){
+        this.handler = h;
     }
 }
