@@ -17,6 +17,7 @@ import deadzone.sprite.Blood;
 import deadzone.sprite.Circle;
 import deadzone.sprite.DropItem;
 import deadzone.sprite.Sprite;
+import deadzone.sprite.SpriteInterface;
 import deadzone.trap.Trap;
 
 /**
@@ -25,14 +26,14 @@ import deadzone.trap.Trap;
  */
 public class Handler {
 
-    private final List<Sprite> players = new ArrayList<>();
-    private final List<Sprite> zombies = new ArrayList<>();
-    private final List<Sprite> proiettili = new ArrayList<>();
-    private final List<Sprite> spittles = new ArrayList<>();
-    private final List<Sprite> spawnSpittles = new ArrayList<>();
-    private final List<Sprite> itemsAndTrap = new ArrayList<>();
-    private final List<Sprite> bloods = new ArrayList<>();
-    private final List<Sprite> circle = new ArrayList<>();
+    private final List<SpriteInterface> players = new ArrayList<>();
+    private final List<SpriteInterface> zombies = new ArrayList<>();
+    private final List<SpriteInterface> proiettili = new ArrayList<>();
+    private final List<SpriteInterface> spittles = new ArrayList<>();
+    private final List<SpriteInterface> spawnSpittles = new ArrayList<>();
+    private final List<SpriteInterface> itemsAndTrap = new ArrayList<>();
+    private final List<SpriteInterface> bloods = new ArrayList<>();
+    private final List<SpriteInterface> circle = new ArrayList<>();
     
     private static Camera camera;
     private final PlayerFactory player;
@@ -50,41 +51,41 @@ public class Handler {
     public void animationCycle() {
         //Faccio partire l'animation cycle di tutti gli sprite della mappa
         for (int i = 0; i < players.size(); i++) {
-            Sprite s = players.get(i);
+            SpriteInterface s = players.get(i);
             s.animationCycle();
         }
 
         for (int i = 0; i < zombies.size(); i++) {
-            Sprite s = zombies.get(i);
+            SpriteInterface s = zombies.get(i);
             s.animationCycle();
         }
 
         for (int i = 0; i < proiettili.size(); i++) {
-            Sprite s = proiettili.get(i);
+            SpriteInterface s = proiettili.get(i);
             s.animationCycle();
         }
 
         for (int i = 0; i < spittles.size(); i++) {
-            Sprite s = spittles.get(i);
+            SpriteInterface s = spittles.get(i);
             s.animationCycle();
         }
 
         for (int i = 0; i < spawnSpittles.size(); i++) {
-            Sprite s = spawnSpittles.get(i);
+            SpriteInterface s = spawnSpittles.get(i);
             s.animationCycle();
         }
 
         for (int i = 0; i < itemsAndTrap.size(); i++) {
-            Sprite s = itemsAndTrap.get(i);
+            SpriteInterface s = itemsAndTrap.get(i);
             s.animationCycle();
         }
         for (int i = 0; i < circle.size(); i++) {
-            Sprite s = circle.get(i);
+            SpriteInterface s = circle.get(i);
             s.animationCycle();
         }
         
         for (int i = 0; i < bloods.size(); i++) {
-            Sprite s = bloods.get(i);
+            SpriteInterface s = bloods.get(i);
             s.animationCycle();
         }
     }
@@ -95,41 +96,41 @@ public class Handler {
 
         //Faccio partire il draw image di tutti gli sprite della mappa
         for (int i = 0; i < bloods.size(); i++) {
-            Sprite s = bloods.get(i);
+            SpriteInterface s = bloods.get(i);
             s.drawImage(g, offsetX, offsetY);
         }
         for (int i = 0; i < itemsAndTrap.size(); i++) {
-            Sprite s = itemsAndTrap.get(i);
+            SpriteInterface s = itemsAndTrap.get(i);
             s.drawImage(g, offsetX, offsetY);
         }
 
         for (int i = 0; i < proiettili.size(); i++) {
-            Sprite s = proiettili.get(i);
+            SpriteInterface s = proiettili.get(i);
             s.drawImage(g, offsetX, offsetY);
         }
 
         for (int i = 0; i < spittles.size(); i++) {
-            Sprite s = spittles.get(i);
+            SpriteInterface s = spittles.get(i);
             s.drawImage(g, offsetX, offsetY);
         }
         
         for (int i = 0; i < spawnSpittles.size(); i++) {
-            Sprite s = spawnSpittles.get(i);
+            SpriteInterface s = spawnSpittles.get(i);
             s.drawImage(g, offsetX, offsetY);
         }
 
         for (int i = 0; i < zombies.size(); i++) {
-            Sprite s = zombies.get(i);
+            SpriteInterface s = zombies.get(i);
             s.drawImage(g, offsetX, offsetY);
         }
 
         for (int i = 0; i < players.size(); i++) {
-            Sprite s = players.get(i);
+            SpriteInterface s = players.get(i);
             s.drawImage(g, offsetX, offsetY);
         }
         
         for (int i = 0; i < circle.size(); i++) {
-            Sprite s = circle.get(i);
+            SpriteInterface s = circle.get(i);
             s.drawImage(g, offsetX, offsetY);
         }
         
@@ -183,31 +184,31 @@ public class Handler {
         }
     }
 
-    public List<Sprite> getPlayers() {
+    public List<SpriteInterface> getPlayers() {
         return players;
     }
 
-    public List<Sprite> getZombies() {
+    public List<SpriteInterface> getZombies() {
         return zombies;
     }
 
-    public List<Sprite> getProiettili() {
+    public List<SpriteInterface> getProiettili() {
         return proiettili;
     }
 
-    public List<Sprite> getSpittles() {
+    public List<SpriteInterface> getSpittles() {
         return spittles;
     }
 
-    public List<Sprite> getspawnSpittles() {
+    public List<SpriteInterface> getspawnSpittles() {
         return spawnSpittles;
     }
     
-    public List<Sprite> getitemsAndTrap() {
+    public List<SpriteInterface> getitemsAndTrap() {
         return itemsAndTrap;
     }
     
-    public List<Sprite> getiCircle() {
+    public List<SpriteInterface> getiCircle() {
         return circle;
     }
 
@@ -223,7 +224,7 @@ public class Handler {
         return waves;
     }
 
-    public List<Sprite> getBloods() {
+    public List<SpriteInterface> getBloods() {
         return bloods;
     }
 

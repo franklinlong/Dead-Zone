@@ -21,6 +21,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.util.Map;
 import deadzone.sprite.Sprite;
+import deadzone.sprite.SpriteInterface;
 import deadzone.trap.FireTrap;
 import deadzone.trap.HoleTrap;
 import deadzone.trap.ShockTrap;
@@ -33,6 +34,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Iterator;
 import javax.swing.Timer;
 
 /**
@@ -185,7 +187,8 @@ public abstract class PlayerFactory extends AnimatedSprite {
     public void animationCycle() {
         //Controllo che sia vivo        
         if (getHealth() <= 0) {
-            for (Sprite s : handler.getBloods()) {
+            for (Iterator<SpriteInterface> it = handler.getBloods().iterator(); it.hasNext();) {
+                Sprite s =(Sprite) it.next();
                 if (s instanceof Trap) {
                     ((Trap) s).getSound().stopSound();
                 }

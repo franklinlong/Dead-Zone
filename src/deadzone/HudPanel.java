@@ -84,12 +84,12 @@ public class HudPanel extends JPanel implements Runnable {
             drawMiniMap(g);
 
             for (int j = 0; j < handler.getZombies().size(); j++) {
-                Sprite i = handler.getZombies().get(j);
+                Sprite i =(Sprite) handler.getZombies().get(j);
                 drawIndicator(g, i.getX() - (i.getWidth() / 2), i.getY() - (i.getHeight() / 2), ((Zombie) i).getAngle(), red_indicator);
             }
 
             for (int j = 0; j < handler.getPlayers().size(); j++) {
-                Sprite i = handler.getPlayers().get(j);
+                Sprite i =(Sprite) handler.getPlayers().get(j);
                 drawIndicator(g, i.getX() - (i.getWidth() / 2), i.getY() - (i.getHeight() / 2), ((PlayerFactory) i).getAngle(), green_indicator);
             }
 

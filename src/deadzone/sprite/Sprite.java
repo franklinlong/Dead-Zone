@@ -14,7 +14,7 @@ import deadzone.utilities.Assets;
  *
  * @author giova
  */
-public abstract class Sprite {
+public abstract class Sprite implements SpriteInterface{
 
     private float x, y;
     public int width, height;
