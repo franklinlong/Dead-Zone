@@ -17,16 +17,17 @@ import javax.swing.JFrame;
  */
 public class Window extends JFrame {
 
-    public Window(String playerName, boolean male) {
+    public Window(Board b) {
         Image iconaFrame;
         iconaFrame = new ImageIcon(getClass().getResource("/images/icona_frame.png")).getImage();
         this.setIconImage(iconaFrame);
         //IF single player:
-        initUI(playerName, male);
+        initUI(b);
     }
 
-    private void initUI(String playerName, boolean male) {
-        add(new Board(playerName, male, this));
+    private void initUI(Board b) {
+        b.setWindow(this);
+        add(b);
         Dimension dimensioneSchermo = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize(dimensioneSchermo);
         setResizable(false);

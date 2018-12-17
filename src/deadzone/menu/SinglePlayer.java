@@ -58,6 +58,11 @@ public class SinglePlayer extends javax.swing.JFrame {
             int h = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconHeight() * 1 / 6;
             ImageIcon i = ridimensionaImageIcon(getClass().getResource("/images/LogoBiancoENero.png"), w, h);
             JOptionPane.showConfirmDialog(rootPane, "Not connected... local scoreboard loaded", "Warning", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_OPTION, i);
+            this.jLabel4.setIcon(new ImageIcon(getClass().getResource("/images/onlinerosso.png")));
+            this.jLabel5.setText("offline");
+        }else{
+            this.jLabel4.setIcon(new ImageIcon(getClass().getResource("/images/onlineverde.png")));
+            this.jLabel5.setText("online");
         }
         List<javax.swing.JLabel> p = new java.util.ArrayList();
         p.add(jScore1);
@@ -172,6 +177,8 @@ public class SinglePlayer extends javax.swing.JFrame {
         jButtonUomo = new javax.swing.JButton();
         jButtonBack = new javax.swing.JButton();
         jButtonPlay = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         sfondo = new javax.swing.JLabel();
 
         jLabel2.setText("jLabel2");
@@ -391,6 +398,19 @@ public class SinglePlayer extends javax.swing.JFrame {
         getContentPane().add(jButtonPlay);
         jButtonPlay.setBounds(330, 490, 100, 25);
 
+        jLabel4.setMaximumSize(new java.awt.Dimension(20, 20));
+        jLabel4.setMinimumSize(new java.awt.Dimension(20, 20));
+        jLabel4.setPreferredSize(new java.awt.Dimension(20, 20));
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(660, 490, 20, 20);
+
+        jLabel5.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
+        jLabel5.setMaximumSize(new java.awt.Dimension(60, 16));
+        jLabel5.setMinimumSize(new java.awt.Dimension(60, 16));
+        jLabel5.setPreferredSize(new java.awt.Dimension(60, 16));
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(690, 490, 60, 16);
+
         sfondo.setIcon(new ImageIcon(getClass().getResource("/images/sfondo_senza_spari.png")));
         getContentPane().add(sfondo);
         sfondo.setBounds(-10, -10, 930, 640);
@@ -451,6 +471,8 @@ public class SinglePlayer extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jPunt1;
     private javax.swing.JLabel jPunt10;
     private javax.swing.JLabel jPunt2;

@@ -15,6 +15,8 @@ import javax.swing.SwingUtilities;
 import deadzone.sprite.animated.Player;
 import deadzone.utilities.Assets;
 import deadzone.utilities.Database;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -28,7 +30,7 @@ public class PauseMenu extends javax.swing.JDialog {
     private static boolean pause;
     public static final Object PAUSELOCK = new Object();
     public static boolean end;
-    private Player player;
+    private final Player player;
 
     public PauseMenu(java.awt.Frame parent, boolean modal, Player player) {
         super(parent, modal);
@@ -50,6 +52,7 @@ public class PauseMenu extends javax.swing.JDialog {
                 setPause(false);
             }
         });
+
     }
 
     public static boolean isPause() {
@@ -77,15 +80,26 @@ public class PauseMenu extends javax.swing.JDialog {
         Resume = new javax.swing.JButton();
         Settings = new javax.swing.JButton();
         Exit = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        onlineButton = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 0, 0));
+        setIconImage(new ImageIcon(getClass().getResource("/images/icona_frame.png")).getImage());
+        setMaximumSize(new java.awt.Dimension(469, 346));
+        setMinimumSize(new java.awt.Dimension(469, 346));
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(469, 346));
         setResizable(false);
+        setSize(new java.awt.Dimension(469, 346));
+        getContentPane().setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("PAUSE");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(170, 20, 120, 34);
 
         Resume.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         Resume.setText("Resume");
@@ -94,6 +108,8 @@ public class PauseMenu extends javax.swing.JDialog {
                 ResumeActionPerformed(evt);
             }
         });
+        getContentPane().add(Resume);
+        Resume.setBounds(170, 110, 122, 29);
 
         Settings.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         Settings.setText("Settings");
@@ -105,6 +121,8 @@ public class PauseMenu extends javax.swing.JDialog {
                 SettingsActionPerformed(evt);
             }
         });
+        getContentPane().add(Settings);
+        Settings.setBounds(170, 160, 122, 27);
 
         Exit.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         Exit.setText("Exit");
@@ -116,52 +134,25 @@ public class PauseMenu extends javax.swing.JDialog {
                 ExitActionPerformed(evt);
             }
         });
+        getContentPane().add(Exit);
+        Exit.setBounds(200, 300, 60, 27);
 
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton1.setText("View online");
-        jButton1.setMaximumSize(new java.awt.Dimension(89, 27));
-        jButton1.setMinimumSize(new java.awt.Dimension(89, 27));
-        jButton1.setPreferredSize(new java.awt.Dimension(89, 27));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        onlineButton.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        onlineButton.setText("Online info");
+        onlineButton.setMaximumSize(new java.awt.Dimension(89, 27));
+        onlineButton.setMinimumSize(new java.awt.Dimension(89, 27));
+        onlineButton.setPreferredSize(new java.awt.Dimension(89, 27));
+        onlineButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                onlineButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(onlineButton);
+        onlineButton.setBounds(170, 210, 122, 27);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(175, 175, 175)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Resume, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Settings, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Exit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(194, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(Resume)
-                .addGap(37, 37, 37)
-                .addComponent(Settings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(Exit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(62, Short.MAX_VALUE))
-        );
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sfondo_senza_spari.png"))); // NOI18N
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(-10, 0, 550, 380);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -208,20 +199,29 @@ public class PauseMenu extends javax.swing.JDialog {
         menu.setVisible(true);
     }//GEN-LAST:event_ExitActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void onlineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onlineButtonActionPerformed
         // TODO add your handling code here:
-        new OnlinePause(this).setVisible(true);
-        this.setVisible(false);
+        if (Database.online) {
+            new OnlinePause(this, player).setVisible(true);
+            this.setVisible(false);
+        }else{
+            int w = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconWidth() * 1 / 6;
+            int h = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconHeight() * 1 / 6;
+            Image i2 = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getImage().getScaledInstance(w, h, Image.SCALE_DEFAULT);
+            ImageIcon i = new ImageIcon(i2);
+            JOptionPane.showConfirmDialog(rootPane, "Not connected...", "I can't do it!", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_OPTION, i);
+        }
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_onlineButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Exit;
     private javax.swing.JButton Resume;
     private javax.swing.JButton Settings;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton onlineButton;
     // End of variables declaration//GEN-END:variables
 
 }

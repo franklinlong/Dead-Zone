@@ -15,7 +15,6 @@ import deadzone.utilities.Assets;
 import deadzone.Gun;
 import deadzone.Handler;
 import deadzone.menu.MapFrame;
-import deadzone.menu.connectionThread;
 import deadzone.utilities.Sound;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -30,107 +29,78 @@ import deadzone.trap.WallTrap;
 import deadzone.utilities.Database;
 import deadzone.utilities.Zona;
 import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.Timer;
 
 /**
  *
  * @author giova
  */
-public class Player extends AnimatedSprite {
+public abstract class Player extends AnimatedSprite {
     
     public static final int PLAYERSIZE = 60;
     protected Zona zona;
 
     //animations
-    private final Animation shotgunIdle, shotgunReload, shotgunShoot;
-    private final Animation pistolIdle, pistolReload, pistolShoot;
-    private final Animation rifleIdle, rifleReload, rifleShoot;
-    private final Animation rpgIdle, rpgReload, rpgShoot;
+    protected Animation shotgunIdle, shotgunReload, shotgunShoot;
+    protected Animation pistolIdle, pistolReload, pistolShoot;
+    protected Animation rifleIdle, rifleReload, rifleShoot;
+    protected Animation rpgIdle, rpgReload, rpgShoot;
 
     // sounds
-    private final Sound rifleShootSound, rifleReloadSound;
-    private final Sound pistolShootSound, pistolReloadSound;
-    private final Sound shotgunShootSound, shotgunReloadSound;
-    private final Sound rpgShootSound, rpgReloadSound;
+    protected Sound rifleShootSound, rifleReloadSound;
+    protected Sound pistolShootSound, pistolReloadSound;
+    protected Sound shotgunShootSound, shotgunReloadSound;
+    protected Sound rpgShootSound, rpgReloadSound;
 
     // trap
     private final Sound shockTrapS1, shockTrapS2, shockTrapS3, wallTrapS1,
             wallTrapS2, fireTrapS, holeTrapS;
 
     //Handler che serve per rimuovere il player quando muore
-    private final Handler handler;
+    protected Handler handler;
     
-    private Gun currentGun;
-    private final Gun pistol, rifle, shotgun, rpg;
-    private Gun[] allGuns = new Gun[4];
-    private float xx, yy;
+    protected Gun currentGun;
+    protected Gun pistol, rifle, shotgun, rpg;
+    protected Gun[] allGuns = new Gun[4];
+    protected float xx, yy;
     private boolean isDeath;
+    protected boolean male;
     
     private int punteggioAttuale;
     private int onlineID;
     private final String name;
-    private final boolean male;
     private int zombieKilled;
     private final int maximumHealth;
-    private int coins;
+    protected int coins;
     private Graphics2D g2;
     
-    private Map<Vertex, Edge> camminiMinimi;
+    protected Map<Vertex, Edge> camminiMinimi;
     private boolean trap;
     private final Graph grafo;
     
     private boolean shockTrapActive1 = false, shockTrapActive2 = false,
             shockTrapActive3 = false, wallTrapActive1 = false, wallTrapActive2 = false,
-            fireTrapActive = false, holeTrapActive1 = false, holeTrapActive2 = false;
-
+            fireTrapActive = false, holeTrapActive1 = false, holeTrapActive2 = false,
+            flagShop = false;
+    private Timer shopTimer;
+    
     //private Window window;
-    public Player(float x, float y, int vel, int health, Handler handler, String name, boolean male, Window window) {
+    public Player(float x, float y, int vel, int health, String name) {
         super(x, y, PLAYERSIZE, PLAYERSIZE, (float) vel, health);
         
         this.punteggioAttuale = 0;
-        this.handler = handler;
-        this.male = male;
         this.name = name;
         this.maximumHealth = health;
-        this.coins = 2;
+        this.coins = 5;
         this.trap = true;
         this.zona = new Zona(getX(), getY());
         grafo = new Graph();
         camminiMinimi = Graph.BFS_complete(new Vertex(zona.getIndex()));
-        if (this.male) {
-            pistolIdle = new Animation(Assets.pistolIdle, 20);
-            pistolReload = new Animation(Assets.pistolReload, 100);
-            pistolShoot = new Animation(Assets.pistolShootAnim, 80);
-            
-            rifleIdle = new Animation(Assets.rifleIdle, 20);
-            rifleReload = new Animation(Assets.rifleReload, 100);
-            rifleShoot = new Animation(Assets.rifleShootAnim, 80);
-            
-            shotgunIdle = new Animation(Assets.shotgunIdle, 20);
-            shotgunReload = new Animation(Assets.shotgunReload, 100);
-            shotgunShoot = new Animation(Assets.shotgunShootAnim, 80);
-            
-            rpgIdle = new Animation(Assets.rpgIdle, 20);
-            rpgReload = new Animation(Assets.rpgReload, 100);
-            rpgShoot = new Animation(Assets.rpgShootAnim, 80);
-        } else {
-            pistolIdle = new Animation(Assets.femalepistolIdle, 20);
-            pistolReload = new Animation(Assets.femalepistolReload, 100);
-            pistolShoot = new Animation(Assets.femalepistolShootAnim, 80);
-            
-            rifleIdle = new Animation(Assets.femalerifleIdle, 20);
-            rifleReload = new Animation(Assets.femalerifleReload, 100);
-            rifleShoot = new Animation(Assets.femalerifleShootAnim, 80);
-            
-            shotgunIdle = new Animation(Assets.femaleshotgunIdle, 20);
-            shotgunReload = new Animation(Assets.femaleshotgunReload, 100);
-            shotgunShoot = new Animation(Assets.femaleshotgunShootAnim, 80);
-            
-            rpgIdle = new Animation(Assets.femalerpgIdle, 20);
-            rpgReload = new Animation(Assets.femalerpgReload, 100);
-            rpgShoot = new Animation(Assets.femalerpgShootAnim, 80);
-        }
+        
         
         pistolShootSound = new Sound(Assets.pistolShoot);
         pistolShootSound.changeVolume(-10);
@@ -159,39 +129,19 @@ public class Player extends AnimatedSprite {
         
         holeTrapS = new Sound(Assets.holeTrap);
         
-        pistol = new Gun(Assets.pistolSkin, pistolIdle, pistolReload, pistolShoot, pistolShootSound,
-                pistolReloadSound, this, 400,
-                15, 2000, handler, 50);
-        rifle = new Gun(Assets.ak47, rifleIdle, rifleReload, rifleShoot, rifleShootSound,
-                rifleReloadSound, this, 100,
-                35, 70, handler, 34);
-        
-        shotgun = new Gun(Assets.shotgunSkin, shotgunIdle, shotgunReload, shotgunShoot, shotgunShootSound,
-                shotgunReloadSound, this, 800,
-                8, 24, handler, 45);
-        
-        rpg = new Gun(Assets.rpgSkin, rpgIdle, rpgReload, rpgShoot, rpgShootSound,
-                rpgReloadSound, this, 1200,
-                1, 0, handler, 700);
-        
-        currentGun = pistol;
-        
-        allGuns[0] = pistol;
-        allGuns[1] = rifle;
-        allGuns[2] = shotgun;
-        allGuns[3] = rpg;
+        this.shopTimer = new Timer(1000, new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                flagShop = false;
+                shopTimer.stop();
+            }
+
+        });
         
         if (Database.online) {
             this.inserisciOnline();
         }
-        
-        window.addWindowListener((new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                if (Database.online) {
-                    Database.CancellaOnline(onlineID);
-                }
-            }
-        }));
     }
     
     @Override
@@ -209,29 +159,15 @@ public class Player extends AnimatedSprite {
             case 3:
                 g2d.drawImage(Assets.noCoins, (int) (getX() - offsetX - 25), (int) (getY() - offsetY) - 30, null);
                 break;
+            case 5: //Negozio
+                g2d.drawImage(Assets.actionImg, (int) (getX() - offsetX - 25), (int) (getY() - offsetY) - 30, null);
+                break;
         }
         
         xx = this.getX() - offsetX;
         yy = this.getY() - offsetY;
 
-        //Segmento tra hotSpot del mouse e centro del giocatore...
-        float wR = MAdapter.x - xx - width / 2;
-        float hR = MAdapter.y - yy - height / 2;
-        
-        angle = (float) Math.atan(hR / wR);
-        if (wR < 0) {
-            angle = (float) -Math.PI + angle;
-        }
-
-        //Aggiorno l'angolo in modo che il giocatore si giri verso il mirino con la pistola e non col proprio centro
-        float angoloPistola = (float) (angle + Math.PI / 4);
-        wR = MAdapter.x - (xx + width / 2 + (float) (22 * Math.cos(angoloPistola)));
-        hR = MAdapter.y - (yy + height / 2 + (float) (22 * Math.sin(angoloPistola)));
-        angle = (float) Math.atan(hR / wR);
-        if (wR < 0) {
-            angle = (float) -Math.PI + angle;
-        }
-        
+        angleRotation(MAdapter.x,MAdapter.y,xx,yy);
         at = AffineTransform.getTranslateInstance(xx, yy);
         at.rotate(angle, width / 2, height / 2);
         g2d = (Graphics2D) g;
@@ -413,10 +349,6 @@ public class Player extends AnimatedSprite {
         return camminiMinimi;
     }
     
-    public boolean isMale() {
-        return this.male;
-    }
-    
     public int getCoins() {
         return coins;
     }
@@ -496,6 +428,13 @@ public class Player extends AnimatedSprite {
                 } else {
                     return 3;
                 }
+            case 64:
+                if(this.coins >= 1){
+                    return 5;
+                }
+                else{
+                    return 3;
+                }
             default:
                 return -1;
         }
@@ -504,7 +443,7 @@ public class Player extends AnimatedSprite {
     public void aggiornaDB() {
         if (Database.online) {
             
-            new connectionThread(this.name,this.punteggioAttuale).start();
+            //new connectionThread(this.name,this.punteggioAttuale).start();
             Database.CancellaOnline(onlineID);
         }
        
@@ -523,7 +462,7 @@ public class Player extends AnimatedSprite {
         this.onlineID = onlineID;
     }
     
-    private void activeTrap(int pixel) {
+    protected void activeTrap(int pixel) {
         
         switch (pixel) {
             case 130:
@@ -605,6 +544,20 @@ public class Player extends AnimatedSprite {
                     this.wallTrapActive2 = true;
                 }
                 break;
+            case 64: //SHOP
+                if(this.coins >= 1 && !flagShop){
+                    this.flagShop = true;
+                    this.shopTimer.start();
+                    this.updateCoins(-1);
+                    if(currentGun.getSkin() == Assets.ak47)
+                        this.currentGun.setTotalBullets(currentGun.getTotalBullets() + 100);
+                    else if(currentGun.getSkin() == Assets.rpgSkin)
+                        this.currentGun.setTotalBullets(currentGun.getTotalBullets() + 5);
+                    else if(currentGun.getSkin() == Assets.shotgunSkin)
+                        this.currentGun.setTotalBullets(currentGun.getTotalBullets() + 30);
+                    
+                }
+                break;
         }
         
     }
@@ -656,6 +609,49 @@ public class Player extends AnimatedSprite {
             System.out.println("Mi sto inserendo online");
             onlineID = Database.InserisciOnline(name);
         }
+    }
+    
+    public void setHandler(Handler h){
+        handler = h;
+        pistol.setHandler(h);
+        rifle.setHandler(h);
+        shotgun.setHandler(h);
+        rpg.setHandler(h);
+    }
+    
+    public void angleRotation(float x, float y, float xx, float yy){
+        //Segmento tra hotSpot del mouse e centro del giocatore...
+        float wR = x - xx - width / 2;
+        float hR = y - yy - height / 2;
+
+        angle = (float) Math.atan(hR / wR);
+        if (wR < 0) {
+            angle = (float) -Math.PI + angle;
+        }
+
+        //Aggiorno l'angolo in modo che il giocatore si giri verso il mirino con la pistola e non col proprio centro
+        float angoloPistola = (float) (angle + Math.PI / 4);
+        wR = x - (xx + width / 2 + (float) (22 * Math.cos(angoloPistola)));
+        hR = y - (yy + height / 2 + (float) (22 * Math.sin(angoloPistola)));
+        angle = (float) Math.atan(hR / wR);
+        if (wR < 0) {
+            angle = (float) - Math.PI + angle;
+        }
+    }
+    
+    public void setWindow(Window window){
+        window.addWindowListener((new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                if (Database.online) {
+                    Database.CancellaOnline(onlineID);
+                }
+            }
+        }));
+    }
+    
+    public boolean isMale(){
+        return this.male;
     }
     
 }

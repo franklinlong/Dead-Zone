@@ -28,7 +28,7 @@ public class connectionThread extends Thread{
    public static boolean occupato = false;
    
    public connectionThread(String nome, int punteggio){
-       ls = new LoadingScreen();
+       ls = LoadingScreen.getLoadingScreen();
        ls.setVisible(true);
        this.nome = nome;
        this.punteggio = punteggio;

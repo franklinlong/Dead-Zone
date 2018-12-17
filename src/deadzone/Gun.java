@@ -34,37 +34,36 @@ public class Gun {
     private boolean shooting = false, reloading = false;
 
     // handler
-    private final Handler handler;
-
+    private Handler handler;
+    
     private final int damage;
 
     public Gun(BufferedImage skin, Animation idle, Animation reloadAnimation, Animation shoot,
-            Sound shootSound, Sound reloadSound, Player player, int firingDelay,
-            int bulletsPerRound, int totalBullets, Handler handler, int damage) {
-        this.damage = damage;
-        this.handler = handler;
-        this.skin = skin;
-        this.idle = idle;
-        this.reloadAnimation = reloadAnimation;
-        this.shoot = shoot;
-        this.shootSound = shootSound;
-        this.reloadSound = reloadSound;
-        this.emptyGun = new Sound(Assets.emptyGun);
-        this.firingDelay = new Timer(firingDelay, new TimeHandler());
-        this.firingDelay.setActionCommand("1");
-        this.shootAminDelay = new Timer(100, new TimeHandler());
-        this.shootAminDelay.setActionCommand("2");
-        this.reloadDelay = new Timer(1700, new TimeHandler());
-        this.reloadDelay.setActionCommand("3");
-        this.emptyGunDelay = new Timer(700, new TimeHandler());
-        this.emptyGunDelay.setActionCommand("4");
-        this.reloadLimit = new Timer(3000, new TimeHandler());
-        this.reloadLimit.setActionCommand("5");
-        this.bulletsPerRound = bulletsPerRound;
-        this.round = bulletsPerRound;
-        this.totalBullets = totalBullets;
-        width = skin.getWidth();
-        currentAnimation = idle;
+                    Sound shootSound, Sound reloadSound, Player player, int firingDelay,
+                    int bulletsPerRound, int totalBullets, int damage){
+            this.damage = damage;
+            this.skin = skin;
+            this.idle = idle;
+            this.reloadAnimation = reloadAnimation;
+            this.shoot = shoot;
+            this.shootSound = shootSound;
+            this.reloadSound = reloadSound;
+            this.emptyGun = new Sound(Assets.emptyGun);
+            this.firingDelay = new Timer(firingDelay, new TimeHandler());
+            this.firingDelay.setActionCommand("1");
+            this.shootAminDelay = new Timer(100, new TimeHandler());
+            this.shootAminDelay.setActionCommand("2");
+            this.reloadDelay = new Timer(1700, new TimeHandler());
+            this.reloadDelay.setActionCommand("3");
+            this.emptyGunDelay = new Timer(700, new TimeHandler());
+            this.emptyGunDelay.setActionCommand("4");
+            this.reloadLimit = new Timer(3000, new TimeHandler());
+            this.reloadLimit.setActionCommand("5");
+            this.bulletsPerRound = bulletsPerRound;
+            this.round = bulletsPerRound;
+            this.totalBullets = totalBullets;
+            width = skin.getWidth();
+            currentAnimation = idle;
     }
 
     //sparo
@@ -264,5 +263,9 @@ public class Gun {
     public BufferedImage getSkin() {
         return skin;
     }
-
+    
+    public void setHandler(Handler h){
+        handler = h;
+    }
+    
 }

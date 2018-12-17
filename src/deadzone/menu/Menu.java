@@ -12,6 +12,8 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -197,6 +199,17 @@ public class Menu extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         if(!isBack()){
+            synchronized(Assets.ThreadOttieniScoreboard.TOS){
+                System.out.println("Sto nel synch");
+                if(Assets.ThreadOttieniScoreboard.occupato){
+                    System.out.println("Sono occupato e quindi aspetto");
+                    try {
+                        Assets.ThreadOttieniScoreboard.TOS.wait();
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
             sp = new SinglePlayer(this);
             sp.setVisible(true);
             this.setVisible(false);
@@ -209,11 +222,10 @@ public class Menu extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        int w = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconWidth() * 1 / 6;
-        int h = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconHeight() * 1 / 6;
-        ImageIcon i = ridimensionaImageIcon(getClass().getResource("/images/LogoBiancoENero.png"), w, h);
-
-        JOptionPane.showConfirmDialog(rootPane, "   Coming soon...", "Tutorial DeadZone", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_OPTION, i);
+        LoadingScreen ls = LoadingScreen.getLoadingScreen();
+        ls.setVisible(true);
+        new LoadingThread(sp,ls).start();
+        this.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
