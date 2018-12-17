@@ -654,10 +654,10 @@ public abstract class PlayerFactory extends AnimatedSprite {
      
     public static PlayerFactory getPlayer(boolean male, boolean demo){
         if(demo)
-            return new PlayerDemo(2000,450,2,300);
+            return new PlayerDemo(2000,450,3,1600);
         if(male)
-            return new PlayerMale(2000,60,2,300);
+            return new PlayerMale(1600,1600,3,1600);
         else
-            return new PlayerFemale(2000,60,2,300);
+            return new PlayerFemale(1600,1600,3,1600);
     }
 }
