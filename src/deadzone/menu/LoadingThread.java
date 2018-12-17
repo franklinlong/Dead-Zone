@@ -20,19 +20,19 @@ import deadzone.utilities.Utilities;
  *
  * @author USER
  */
-public class LoadingThread extends Thread{
-    
+public class LoadingThread extends Thread {
+
     private SinglePlayer sp;
     private LoadingScreen ls;
     private Context game;
     
-    public LoadingThread(SinglePlayer sp, LoadingScreen ls){
+    public LoadingThread(SinglePlayer sp, LoadingScreen ls) {
         this.sp = sp;
         this.ls = ls;
     }
-    
+
     @Override
-    public void run(){
+    public void run() {
 
         try {
             gameClip = Utilities.LoadSound("/sound/ingame.wav");
@@ -66,5 +66,5 @@ public class LoadingThread extends Thread{
             Logger.getLogger(LoadingScreen.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }

@@ -168,7 +168,8 @@ public class MapFrame extends javax.swing.JFrame {
     private void jButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlayActionPerformed
         // TODO add your handling code here:
         if (jButtonStandardMap.isBorderPainted()) {
-            LoadingScreen ls = new LoadingScreen();
+            LoadingScreen ls = LoadingScreen.getLoadingScreen();
+            ls.setVisible(true);
             new LoadingThread(sp,ls).start();
             this.setVisible(false);
 
