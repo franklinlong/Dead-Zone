@@ -13,9 +13,12 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import deadzone.sprite.animated.Player;
+import deadzone.sprite.animated.PlayerDemo;
 import deadzone.utilities.Assets;
 import deadzone.utilities.Database;
+import java.sql.ResultSet;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -32,7 +35,7 @@ public class PauseMenu extends javax.swing.JDialog {
     public static boolean end;
     private final Player player;
 
-    public PauseMenu(java.awt.Frame parent, boolean modal, Player player) {
+    public PauseMenu(java.awt.Frame parent, boolean modal,Player player) {
         super(parent, modal);
         this.player = player;
         initComponents();
@@ -81,6 +84,7 @@ public class PauseMenu extends javax.swing.JDialog {
         Settings = new javax.swing.JButton();
         Exit = new javax.swing.JButton();
         onlineButton = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -150,6 +154,10 @@ public class PauseMenu extends javax.swing.JDialog {
         getContentPane().add(onlineButton);
         onlineButton.setBounds(170, 210, 122, 27);
 
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(310, 210, 110, 25);
+
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sfondo_senza_spari.png"))); // NOI18N
         getContentPane().add(jLabel2);
         jLabel2.setBounds(-10, 0, 550, 380);
@@ -177,6 +185,7 @@ public class PauseMenu extends javax.swing.JDialog {
         if (Database.online) {
             Assets.ThreadOttieniScoreboard t2 = new Assets.ThreadOttieniScoreboard();
             t2.start();
+            System.out.println(player.getOnlineID());
             Database.CancellaOnline(player.getOnlineID());
         }
 
@@ -211,7 +220,6 @@ public class PauseMenu extends javax.swing.JDialog {
             ImageIcon i = new ImageIcon(i2);
             JOptionPane.showConfirmDialog(rootPane, "Not connected...", "I can't do it!", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_OPTION, i);
         }
-
     }//GEN-LAST:event_onlineButtonActionPerformed
 
 
@@ -221,6 +229,7 @@ public class PauseMenu extends javax.swing.JDialog {
     private javax.swing.JButton Settings;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JButton onlineButton;
     // End of variables declaration//GEN-END:variables
 

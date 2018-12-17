@@ -13,7 +13,10 @@ import deadzone.listeners.KAdapter;
 import deadzone.listeners.MAdapter;
 import deadzone.sprite.Sprite;
 import deadzone.sprite.animated.Player;
+import deadzone.sprite.animated.PlayerFemale;
+import deadzone.sprite.animated.PlayerMale;
 import deadzone.trap.Trap;
+import deadzone.utilities.Database;
 import deadzone.utilities.Scoreboard;
 import java.awt.event.KeyEvent;
 
@@ -95,20 +98,25 @@ public class MapPanel extends JPanel implements Runnable {
 
         if (handler.getPlayer().isDeath()) {
             Player p = this.handler.getPlayer();
-            new Scoreboard().addScore(p.getName(), p.getPunteggioAttuale());
+            if (p instanceof PlayerMale || p instanceof PlayerFemale) {
+                new Scoreboard().addScore(p.getName(), p.getPunteggioAttuale());
+                p.aggiornaDB();
+            }
+
         }
 
     }
-    
+
     boolean first = true;
+
     public void animationCycle() {
 
         if (!PauseMenu.isPause()) {
             first = true;
             kAdapt.update();
             handler.animationCycle();
-        }else{
-            if(first){
+        } else {
+            if (first) {
                 KAdapter.keys[KeyEvent.VK_UP] = false;
                 KAdapter.keys[KeyEvent.VK_DOWN] = false;
                 KAdapter.keys[KeyEvent.VK_LEFT] = false;
@@ -118,9 +126,11 @@ public class MapPanel extends JPanel implements Runnable {
                 KAdapter.keys[KeyEvent.VK_A] = false;
                 KAdapter.keys[KeyEvent.VK_D] = false;
 
-                for(Sprite s : handler.getitemsAndTrap())
-                    if(s instanceof Trap)
+                for (Sprite s : handler.getitemsAndTrap()) {
+                    if (s instanceof Trap) {
                         s.animationCycle();
+                    }
+                }
                 first = false;
             }
         }

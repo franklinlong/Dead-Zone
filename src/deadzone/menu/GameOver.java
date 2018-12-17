@@ -5,7 +5,8 @@
  */
 package deadzone.menu;
 
-
+import deadzone.sprite.animated.Player;
+import deadzone.sprite.animated.PlayerDemo;
 import deadzone.utilities.Assets;
 import deadzone.utilities.Database;
 import static deadzone.utilities.Database.online;
@@ -34,19 +35,17 @@ public class GameOver extends javax.swing.JFrame {
     JFrame parent;
     public static Sound soundEndGame;
     public static Clip clipEndGame;
-    private String nome;
-    private int punteggio;
+    private Player player;
+
     /**
      * Creates new form GameOver
      *
      * @param parent
      */
-    public GameOver(JFrame parent,String nome,int punteggio) {
-        this.setVisible(true);
-        
-        this.nome = nome;
-        this.punteggio = punteggio;
-        
+    public GameOver(JFrame parent, Player player) {
+
+        this.player = player;
+
         Image iconaFrame;
         iconaFrame = new ImageIcon(getClass().getResource("/images/icona_frame.png")).getImage();
         this.setIconImage(iconaFrame);
@@ -54,17 +53,26 @@ public class GameOver extends javax.swing.JFrame {
         this.parent = parent;
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setVisible(true);
         this.jButton1.setVisible(false);
         this.jLabel2.setVisible(true);
-        
+
         GameOver.clipEndGame = Utilities.LoadSound("/sound/endGame.wav");
         GameOver.soundEndGame = new Sound(clipEndGame);
         GameOver.soundEndGame.loopSound();
-        
-        this.aggiornaDB();
-        this.jLabel2.setVisible(false);
+
+        if (Database.online) {
+            this.aggiornaDB();
+            //this.jLabel2.setVisible(false);
+        } else {
+            jLabel2.setText("OFFLINE! Impossible to send your score to Database");
+            Assets.ThreadOttieniScoreboard t = new Assets.ThreadOttieniScoreboard();
+            t.start();
+        }
+
         this.jButton1.setVisible(true);
-        
+        Database.online = true;
+
     }
 
     /**
@@ -146,27 +154,29 @@ public class GameOver extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 
-
-public void aggiornaDB(){
-Connection conn = null;
+    public void aggiornaDB() {
+        Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
-        
-        
+
         try {
             this.jLabel2.setText("Connection...");
             conn = DriverManager.getConnection(Database.s1, Database.user, Database.pass);
             this.jLabel2.setText("Connection estabilished...");
             stmt = conn.createStatement();
-            this.jLabel2.setText("Sending your score to the database");
-            String query = "SELECT MAX(id) FROM scoreboard";
-            rs = stmt.executeQuery(query);
-            rs.next();
-            int id = (int) rs.getInt(1) + 1;
-            String sql = "INSERT INTO scoreboard VALUES ('" + id + "','" + nome + "','" + punteggio + "')";
-            stmt.executeUpdate(sql);
+            if (!(player instanceof PlayerDemo)) {
+                System.out.println("Database connection");
+                this.jLabel2.setText("Sending your score to the database");
+                String query = "SELECT MAX(id) FROM scoreboard";
+                rs = stmt.executeQuery(query);
+                rs.next();
+                int id = (int) rs.getInt(1) + 1;
+                String sql = "INSERT INTO scoreboard VALUES ('" + id + "','" + player.getName() + "','" + player.getPunteggioAttuale() + "')";
+                stmt.executeUpdate(sql);
+            }
+
             this.jLabel2.setText("Done! Downloading scoreboard...");
-            query = " SELECT * FROM scoreboard ORDER BY punteggio DESC LIMIT 10";
+            String query = " SELECT * FROM scoreboard ORDER BY punteggio DESC LIMIT 10";
             Assets.rs = stmt.executeQuery(query);
             Database.online = true;
 
@@ -192,9 +202,7 @@ Connection conn = null;
                 se.printStackTrace();
             }
         }
-        System.out.println(" aggiungi score + scarcia scoreboard fatto");
-        
-            
+        System.out.println(" aggiungi score + scarica scoreboard fatto");
 
-}
+    }
 }

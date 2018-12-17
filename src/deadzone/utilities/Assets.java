@@ -103,6 +103,7 @@ public class Assets {
     public static BufferedImage actionImg;
     public static BufferedImage noCoins;
     public static BufferedImage alreadyActive;
+    public static BufferedImage buyAmmo;
     
     public static ResultSet rs;
 
@@ -292,6 +293,7 @@ public class Assets {
         actionImg = Utilities.loadImage("/images/actionImg.png");
         noCoins = Utilities.loadImage("/images/nocoins.png");
         alreadyActive = Utilities.loadImage("/images/alreadyactive.png");
+        buyAmmo = Utilities.loadImage("/images/buyammo.png");
 
         //blood 
         blood = Utilities.loadImage("/images/blood.png");

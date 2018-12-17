@@ -8,40 +8,42 @@ package deadzone;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import deadzone.listeners.KAdapter;
+import deadzone.sprite.animated.PlayerDemo;
 import deadzone.sprite.animated.PlayerFemale;
 import deadzone.sprite.animated.PlayerMale;
 import deadzone.utilities.Assets;
 import deadzone.utilities.Database;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  *
  * @author casang
  */
-public class BoardGame extends Board{
-    
-    public BoardGame(String playerName, boolean male){
-        super(playerName,male);
-    }   
-    
+public class BoardGame extends Board {
+
+    public BoardGame(String playerName, boolean male) {
+        super(playerName, male);
+    }
+
     @Override
-    protected void initBoard(String playerName, boolean male){
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-    	Assets.init();
-        
+    protected void initBoard(String playerName, boolean male) {
+
         Waves w = new Waves();
-        if (male){
-            player = new PlayerMale(2000,60,2,300,playerName);
-        }else{
-            player = new PlayerFemale(2000,60,2,300,playerName);
-            
+        if (male) {
+            player = new PlayerMale(1600, 1600, 3, 1600, playerName);
+        } else {
+            player = new PlayerFemale(1600, 1600, 3, 1600, playerName);
+
         }
-        
-        super.handler = new Handler(player,w);
+
+        super.handler = new Handler(player, w);
         player.setHandler(super.handler);
-        
-        if(Database.online)
+
+        if (Database.online) {
             player.inserisciOnline();
-        
+        }
+
         w.setHandler(super.handler);
         Thread t = new Thread(w);
         t.start();
@@ -50,8 +52,24 @@ public class BoardGame extends Board{
         KAdapter kad = new KAdapter();
         this.setRightComponent(mapPanel);
         this.setLeftComponent(hudPanel);
-        
+
         initGame();
         
+        
+
     }
+    
+    
+
+//    public void setWindow(java.awt.Window window) {
+//        window.addWindowListener((new WindowAdapter() {
+//            @Override
+//            public void windowClosing(WindowEvent e) {
+//                if (Database.online) {
+//                    System.out.println(player.getOnlineID());
+//                    Database.CancellaOnline(player.getOnlineID());
+//                }
+//            }
+//        }));
+//    }
 }

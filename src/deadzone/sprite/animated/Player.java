@@ -160,7 +160,7 @@ public abstract class Player extends AnimatedSprite {
                 g2d.drawImage(Assets.noCoins, (int) (getX() - offsetX - 25), (int) (getY() - offsetY) - 30, null);
                 break;
             case 5: //Negozio
-                g2d.drawImage(Assets.actionImg, (int) (getX() - offsetX - 25), (int) (getY() - offsetY) - 30, null);
+                g2d.drawImage(Assets.buyAmmo, (int) (getX() - offsetX - 25), (int) (getY() - offsetY) - 30, null);
                 break;
         }
         
@@ -645,7 +645,7 @@ public abstract class Player extends AnimatedSprite {
         window.addWindowListener((new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                if (Database.online) {
+                if (Database.online){
                     System.out.println(onlineID);
                     Database.CancellaOnline(onlineID);
                 }
