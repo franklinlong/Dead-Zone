@@ -41,7 +41,7 @@ public class LoadingThread extends Thread {
             ls.setVisible(true);
             ls.jLabel2.setText("0%");
             Window w;
-            if (sp == null){
+            if (Menu.demo){
                 game = new Context(new ModalityDemo());
                 w = game.init("Demo", true);
             }

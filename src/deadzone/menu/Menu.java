@@ -29,6 +29,7 @@ public class Menu extends javax.swing.JFrame {
     public static Clip gameClip;
     private boolean back = false;
     private SinglePlayer sp;
+    public static boolean demo = false;
 
     private ImageIcon ridimensionaImageIcon(URL url, int nuovaW, int nuovaH) {
         ImageIcon image = new ImageIcon(url);
@@ -198,6 +199,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        demo = false;
         if(!isBack()){
             synchronized(Assets.ThreadOttieniScoreboard.TOS){
                 System.out.println("Sto nel synch");
@@ -222,6 +224,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        demo = true;
         LoadingScreen ls = LoadingScreen.getLoadingScreen();
         ls.setVisible(true);
         new LoadingThread(sp,ls).start();

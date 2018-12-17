@@ -59,7 +59,7 @@ public class GameOver extends javax.swing.JFrame {
 
         GameOver.clipEndGame = Utilities.LoadSound("/sound/endGame.wav");
         GameOver.soundEndGame = new Sound(clipEndGame);
-        GameOver.soundEndGame.loopSound();
+        GameOver.soundEndGame.playSound();
 
         if (Database.online) {
             this.aggiornaDB();
