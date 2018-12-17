@@ -65,7 +65,10 @@ public class GameOver extends javax.swing.JFrame {
             this.aggiornaDB();
             //this.jLabel2.setVisible(false);
         } else {
-            jLabel2.setText("OFFLINE! Impossible to send your score to Database");
+            if (!(player instanceof PlayerDemo)) {
+                jLabel2.setText("OFFLINE! Impossible to send your score to Database");
+            }
+
             Database.online = true;
             Assets.ThreadOttieniScoreboard t = new Assets.ThreadOttieniScoreboard();
             t.start();
@@ -112,8 +115,9 @@ public class GameOver extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(220, 430, 320, 100);
+        jLabel2.setBounds(85, 460, 600, 100);
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Chiller", 0, 150)); // NOI18N
@@ -178,6 +182,7 @@ public class GameOver extends javax.swing.JFrame {
             String query = " SELECT * FROM scoreboard ORDER BY punteggio DESC LIMIT 10";
             Assets.rs = stmt.executeQuery(query);
             Database.online = true;
+            this.jLabel2.setVisible(false);
 
         } catch (org.postgresql.util.PSQLException ex) {
             online = false;

@@ -90,7 +90,7 @@ public abstract class PlayerFactory extends AnimatedSprite {
             flagShop = false;
     private Timer shopTimer;
     
-    //private Window window;
+
     public PlayerFactory(float x, float y, int vel, int health) {
         super(x, y, PLAYERSIZE, PLAYERSIZE, (float) vel, health);
         
@@ -160,7 +160,7 @@ public abstract class PlayerFactory extends AnimatedSprite {
                 g2d.drawImage(Assets.noCoins, (int) (getX() - offsetX - 25), (int) (getY() - offsetY) - 30, null);
                 break;
             case 5: //Negozio
-                g2d.drawImage(Assets.actionImg, (int) (getX() - offsetX - 25), (int) (getY() - offsetY) - 30, null);
+                g2d.drawImage(Assets.buyAmmo, (int) (getX() - offsetX - 25), (int) (getY() - offsetY) - 30, null);
                 break;
         }
         
@@ -275,7 +275,7 @@ public abstract class PlayerFactory extends AnimatedSprite {
 
         //viene premuto left(mouse) quindi sparo
         if (MAdapter.left) {
-            //Abbiamo aggiunto un parametro random tra -5 e 5 gradi per inserire una inprecisione dell'arma.
+            //Abbiamo aggiunto un parametro random tra -5 e 5 gradi per inserire una imprecisione dell'arma.
             currentGun.shoot((float) (angle + (Math.random() - 0.5) * (Math.PI) / 36), x, y);
         }
 
@@ -309,7 +309,6 @@ public abstract class PlayerFactory extends AnimatedSprite {
     @Override
     public void death() {
         this.isDeath = true;
-        this.aggiornaDB();
         handler.removeSprite(this);
         MapFrame.gameMusic.stopSound();
     }
@@ -443,8 +442,6 @@ public abstract class PlayerFactory extends AnimatedSprite {
     
     public void aggiornaDB() {
         if (Database.online) {
-            
-            //new connectionThread(this.name,this.punteggioAttuale).start();
             Database.CancellaOnline(onlineID);
         }
        
