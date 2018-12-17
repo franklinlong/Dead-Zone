@@ -197,7 +197,6 @@ public class OnlinePause extends JFrame {
                 sc.get(j).setSize(200, 40);
                 sc.get(j).setForeground(Color.white);
                 sc.get(j).setText((j + 1) + ") " + scoreboard.getString("nome"));
-                System.out.println(scoreboard.getString("nome"));
                 jScorePanel.add(sc.get(j));
                 punt.add(new JLabel());
                 punt.get(j).setFont(font);
@@ -206,8 +205,6 @@ public class OnlinePause extends JFrame {
                 punt.get(j).setSize(110, 40);
                 punt.get(j).setForeground(Color.white);
                 punt.get(j).setText(Integer.toString(scoreboard.getInt("punteggio")));
-
-                System.out.println(scoreboard.getString("punteggio"));
                 jScorePanel.add(punt.get(j));
                 j++;
             }

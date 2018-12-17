@@ -20,6 +20,11 @@ public class BoardDemo extends Board{
     
     @Override
     protected void initBoard(String playerName, boolean male){
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException ex) {
+            System.err.println("Eccezione in board demo");
+        }
         Waves w = new WavesDemo();
         player = PlayerFactory.getPlayer(male,true);
         player.setName(playerName);

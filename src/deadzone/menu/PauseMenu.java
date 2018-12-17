@@ -184,6 +184,7 @@ public class PauseMenu extends javax.swing.JDialog {
         if (Database.online) {
             Assets.ThreadOttieniScoreboard t2 = new Assets.ThreadOttieniScoreboard();
             t2.start();
+            System.out.println(player.getOnlineID());
             Database.CancellaOnline(player.getOnlineID());
         }
 

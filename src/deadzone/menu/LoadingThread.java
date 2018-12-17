@@ -8,6 +8,7 @@ package deadzone.menu;
 import deadzone.Context;
 import deadzone.ModalityDemo;
 import deadzone.ModalityGame;
+import deadzone.Window;
 import static deadzone.menu.MapFrame.gameClip;
 import static deadzone.menu.MapFrame.gameMusic;
 import java.util.logging.Level;
@@ -36,22 +37,28 @@ public class LoadingThread extends Thread {
         try {
             gameClip = Utilities.LoadSound("/sound/ingame.wav");
             gameMusic = new Sound(gameClip);
-
-            if (sp == null) {
+            
+            ls.setVisible(true);
+            ls.jLabel2.setText("0%");
+            Window w;
+            if (sp == null){
                 game = new Context(new ModalityDemo());
-                game.init("Demo", true);
-            } else {
-                game = new Context(new ModalityGame());
-                game.init(sp.getPlayerName(), sp.isMale());
+                w = game.init("Demo", true);
             }
-
-            for (int i = 0; i < 100; i++) {
-                ls.jLabel2.setText(i + "%");
+            else{
+                game = new Context(new ModalityGame());
+                w = game.init(sp.getPlayerName(), sp.isMale());
+            }
+                
+            for(int i=0; i<100 ;i++){
+                ls.jLabel2.setText( i+ "%");
                 Thread.sleep(43);
             }
-
+                 
             ls.setVisible(false);
             ls.dispose();
+            
+            w.setVisible(true);
 
             Menu.gameMusic.stopSound();
             gameMusic.loopSound();

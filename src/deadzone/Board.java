@@ -64,8 +64,9 @@ public abstract class Board extends JSplitPane {
     public int getLastDividerLocation() {
         return location;
     }
-
+    
     public void setWindow(Window window){
         player.setWindow(window);
     }
+
 }

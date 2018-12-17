@@ -138,9 +138,6 @@ public abstract class PlayerFactory extends AnimatedSprite {
 
         });
         
-        if (Database.online) {
-            this.inserisciOnline();
-        }
     }
     
     public abstract void initPlayer();

@@ -14,6 +14,7 @@ import deadzone.listeners.MAdapter;
 import deadzone.sprite.Sprite;
 import deadzone.sprite.animated.PlayerFactory;
 import deadzone.trap.Trap;
+import deadzone.utilities.Database;
 import deadzone.utilities.Scoreboard;
 import java.awt.event.KeyEvent;
 
@@ -99,8 +100,9 @@ public class MapPanel extends JPanel implements Runnable {
         }
 
     }
-    
+
     boolean first = true;
+
     public void animationCycle() {
 
         if (!PauseMenu.isPause()) {
@@ -117,8 +119,8 @@ public class MapPanel extends JPanel implements Runnable {
             first = true;
             kAdapt.update();
             handler.animationCycle();
-        }else{
-            if(first){
+        } else {
+            if (first) {
                 KAdapter.keys[KeyEvent.VK_UP] = false;
                 KAdapter.keys[KeyEvent.VK_DOWN] = false;
                 KAdapter.keys[KeyEvent.VK_LEFT] = false;
@@ -128,9 +130,11 @@ public class MapPanel extends JPanel implements Runnable {
                 KAdapter.keys[KeyEvent.VK_A] = false;
                 KAdapter.keys[KeyEvent.VK_D] = false;
 
-                for(Sprite s : handler.getitemsAndTrap())
-                    if(s instanceof Trap)
+                for (Sprite s : handler.getitemsAndTrap()) {
+                    if (s instanceof Trap) {
                         s.animationCycle();
+                    }
+                }
                 first = false;
             }
         }

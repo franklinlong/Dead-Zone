@@ -26,7 +26,10 @@ public class Window extends JFrame {
     }
 
     private void initUI(Board b) {
-        b.setWindow(this);
+        if (b instanceof BoardGame) {
+            b.setWindow(this);
+        }
+
         add(b);
         Dimension dimensioneSchermo = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize(dimensioneSchermo);
