@@ -12,8 +12,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 import deadzone.sprite.Sprite;
-import deadzone.sprite.animated.Boss;
-import deadzone.sprite.animated.Player;
+import deadzone.sprite.animated.PlayerFactory;
 import deadzone.sprite.animated.Zombie;
 
 /**
@@ -36,12 +35,12 @@ public class Route {
     public float[] raggiungiZona() {
 
         //Se si trovano nella stessa zona
-        if (zombie.getZona().equals(((Player) target).getZona())) {
+        if (zombie.getZona().equals(((PlayerFactory) target).getZona())) {
             return seek(target.getX(), target.getY(), target.width, target.height);
         } else {
             //System.out.println("player: "+((Player) target).getZona().getIndex());
             Vertex origin = new Vertex(zombie.getZona().getIndex());
-            Edge edge = ((Player) target).getCamminiMinimi().get(origin);
+            Edge edge = ((PlayerFactory) target).getCamminiMinimi().get(origin);
 //            System.out.println("origin: "+origin);
 //            System.out.println("edge: "+edge);
             Vertex destination;
@@ -144,27 +143,27 @@ public class Route {
             vy = +1*(int)zombie.getInitialVelocity();
         }
 
-        //Codice per ricalcolare la direzione in base alla presenza di zombie vicini
-        ArrayList<Zombie> vicino = this.evitaZombies(vx, vy, handler.getZombies());
-        if (!vicino.isEmpty()) {
-            for (int i = 0; i < vicino.size(); i++) {
-                Route r2 = new Route(this.zombie, vicino.get(i), handler);
-                float[] a = r2.seek(this.zombie.getX(),this.zombie.getY(),this.zombie.width,this.zombie.height);
-                velX = (velX + a[0]);
-                velY = (velY + a[1]);
-            }
-            velX = velX /10;
-            velY = velY /10;
-            
-            if(velX > zombie.getInitialVelocity())
-                velX = zombie.getInitialVelocity();
-            if(velX < -zombie.getInitialVelocity())
-                velX = -zombie.getInitialVelocity();
-            if(velY > zombie.getInitialVelocity())
-                velY = zombie.getInitialVelocity();
-            if(velY < -zombie.getInitialVelocity())
-                velY = -zombie.getInitialVelocity();
-        } 
+//        //Codice per ricalcolare la direzione in base alla presenza di zombie vicini
+//        ArrayList<Zombie> vicino = this.evitaZombies(vx, vy, handler.getZombies());
+//        if (!vicino.isEmpty()) {
+//            for (int i = 0; i < vicino.size(); i++) {
+//                Route r2 = new Route(this.zombie, vicino.get(i), handler);
+//                float[] a = r2.seek(this.zombie.getX(),this.zombie.getY(),this.zombie.width,this.zombie.height);
+//                velX = (velX + a[0]);
+//                velY = (velY + a[1]);
+//            }
+//            velX = velX /10;
+//            velY = velY /10;
+//            
+//            if(velX > zombie.getInitialVelocity())
+//                velX = zombie.getInitialVelocity();
+//            if(velX < -zombie.getInitialVelocity())
+//                velX = -zombie.getInitialVelocity();
+//            if(velY > zombie.getInitialVelocity())
+//                velY = zombie.getInitialVelocity();
+//            if(velY < -zombie.getInitialVelocity())
+//                velY = -zombie.getInitialVelocity();
+//        } 
         
         float x = zombie.getX();
         float y = zombie.getY();

@@ -41,7 +41,7 @@ import javax.swing.Timer;
  *
  * @author giova
  */
-public abstract class Player extends AnimatedSprite {
+public abstract class PlayerFactory extends AnimatedSprite {
     
     public static final int PLAYERSIZE = 60;
     protected Zona zona;
@@ -74,7 +74,7 @@ public abstract class Player extends AnimatedSprite {
     
     private int punteggioAttuale;
     private int onlineID;
-    private final String name;
+    protected String name;
     private int zombieKilled;
     private final int maximumHealth;
     protected int coins;
@@ -91,11 +91,10 @@ public abstract class Player extends AnimatedSprite {
     private Timer shopTimer;
     
     //private Window window;
-    public Player(float x, float y, int vel, int health, String name) {
+    public PlayerFactory(float x, float y, int vel, int health) {
         super(x, y, PLAYERSIZE, PLAYERSIZE, (float) vel, health);
         
         this.punteggioAttuale = 0;
-        this.name = name;
         this.maximumHealth = health;
         this.coins = 5;
         this.trap = true;
@@ -141,10 +140,9 @@ public abstract class Player extends AnimatedSprite {
 
         });
         
-//        if (Database.online) {
-//            this.inserisciOnline();
-//        }
     }
+    
+    public abstract void initPlayer();
     
     @Override
     public void drawImage(Graphics g, float offsetX, float offsetY) {
@@ -162,7 +160,7 @@ public abstract class Player extends AnimatedSprite {
                 g2d.drawImage(Assets.noCoins, (int) (getX() - offsetX - 25), (int) (getY() - offsetY) - 30, null);
                 break;
             case 5: //Negozio
-                g2d.drawImage(Assets.buyAmmo, (int) (getX() - offsetX - 25), (int) (getY() - offsetY) - 30, null);
+                g2d.drawImage(Assets.actionImg, (int) (getX() - offsetX - 25), (int) (getY() - offsetY) - 30, null);
                 break;
         }
         
@@ -229,7 +227,6 @@ public abstract class Player extends AnimatedSprite {
         setX(x);
         setY(y);
         
-        //System.out.println("ciao2: "+velY);
         //scelta direzione dipendente dal tasto premuto
         if (KAdapter.up) {
             velY = -initialVelocity;
@@ -240,7 +237,6 @@ public abstract class Player extends AnimatedSprite {
         if (KAdapter.down) {
             velY = initialVelocity;
         } else if (!KAdapter.up) {
-         //   System.out.println("ciao");
             velY = 0;
         }
         
@@ -313,6 +309,7 @@ public abstract class Player extends AnimatedSprite {
     @Override
     public void death() {
         this.isDeath = true;
+        this.aggiornaDB();
         handler.removeSprite(this);
         MapFrame.gameMusic.stopSound();
     }
@@ -647,16 +644,23 @@ public abstract class Player extends AnimatedSprite {
         window.addWindowListener((new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                if (Database.online){
-                    System.out.println(onlineID);
+                if (Database.online) {
                     Database.CancellaOnline(onlineID);
                 }
             }
         }));
     }
     
-    public boolean isMale(){
-        return this.male;
-    }
+    public abstract boolean isMale();
     
+    public abstract void setName(String name);
+     
+    public static PlayerFactory getPlayer(boolean male, boolean demo){
+        if(demo)
+            return new PlayerDemo(2000,450,3,1600);
+        if(male)
+            return new PlayerMale(1600,1600,3,1600);
+        else
+            return new PlayerFemale(1600,1600,3,1600);
+    }
 }

@@ -26,8 +26,9 @@ public class LoadingScreen extends javax.swing.JFrame{
         return new ImageIcon(immagineScalata);
     }
     
+    
     public static synchronized LoadingScreen getLoadingScreen(){
-        if(instanza==null)
+        if (instanza == null)
             instanza = new LoadingScreen();
         return instanza;
     }

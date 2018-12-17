@@ -30,7 +30,7 @@ public class SpittleZombie extends Zombie {
     //Timer
     Timer attackDelay, hitZombie;
 
-    public SpittleZombie(float x, float y, float vel, int health, int damage, Player player, Handler handler,
+    public SpittleZombie(float x, float y, float vel, int health, int damage, PlayerFactory player, Handler handler,
             float probabilityDrop, int width, int height, int score, Animation walkAnimation, Animation attackAnimation, Sound biteSound, Sound hitSound) {
         super(x, y, vel, health, player, handler, probabilityDrop, width, height, score, walkAnimation, attackAnimation, biteSound, hitSound);
 

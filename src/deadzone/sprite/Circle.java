@@ -12,6 +12,7 @@ import deadzone.sprite.animated.Zombie;
 import deadzone.utilities.Animation;
 import deadzone.utilities.Assets;
 import deadzone.utilities.Sound;
+import java.util.Iterator;
 
 /**
  *
@@ -44,7 +45,8 @@ public class Circle extends Sprite{
     @Override
     public void animationCycle() {
         
-        for (Sprite sprite : handler.getZombies()) {
+        for (Iterator<SpriteInterface> it = handler.getZombies().iterator(); it.hasNext();) {
+            Sprite sprite =(Sprite) it.next();
             if (sprite.getBounds().intersects(this.getBounds())) {
                 Zombie y = (Zombie) sprite;
                 y.hit(damage);

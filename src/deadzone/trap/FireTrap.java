@@ -7,7 +7,7 @@ package deadzone.trap;
 
 import deadzone.Handler;
 import java.awt.Graphics;
-import deadzone.sprite.animated.Player;
+import deadzone.sprite.animated.PlayerFactory;
 import deadzone.utilities.Animation;
 import deadzone.utilities.Assets;
 import deadzone.utilities.Sound;
@@ -18,7 +18,7 @@ import deadzone.utilities.Sound;
  */
 public class FireTrap extends Trap{
     private final Animation animazione;
-    Player p;
+    PlayerFactory p;
     
     public FireTrap(float x, float y, int width, int height, Handler handler, boolean orizzontale, int durata, Sound sound) {
         super(x, y, width, height, handler, durata, sound);

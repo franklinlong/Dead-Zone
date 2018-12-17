@@ -8,7 +8,7 @@ package deadzone;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JSplitPane;
-import deadzone.sprite.animated.Player;
+import deadzone.sprite.animated.PlayerFactory;
 
 /**
  *
@@ -21,12 +21,7 @@ public abstract class Board extends JSplitPane {
     public static Thread tMap;
     private long averageFPS = 0;
     protected Handler handler; 
-    protected Player player;
-    private final int w_frame = Camera.w_frame;
-    private final int h_frame = Camera.h_frame;
-    private int w_map;
-    private int h_map;
-    private Camera camera;
+    protected PlayerFactory player;
     protected MapPanel mapPanel;
     protected HudPanel hudPanel;
     private final int location = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()*1/5;

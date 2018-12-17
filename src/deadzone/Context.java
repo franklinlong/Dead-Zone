@@ -10,7 +10,7 @@ package deadzone;
  * @author casang
  */
 public class Context {
-    private Modality modality;
+    private final Modality modality;
     
     public Context(Modality m){
         this.modality = m;

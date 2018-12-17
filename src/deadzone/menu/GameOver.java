@@ -5,7 +5,7 @@
  */
 package deadzone.menu;
 
-import deadzone.sprite.animated.Player;
+import deadzone.sprite.animated.PlayerFactory;
 import deadzone.sprite.animated.PlayerDemo;
 import deadzone.utilities.Assets;
 import deadzone.utilities.Database;
@@ -35,14 +35,14 @@ public class GameOver extends javax.swing.JFrame {
     JFrame parent;
     public static Sound soundEndGame;
     public static Clip clipEndGame;
-    private Player player;
+    private PlayerFactory player;
 
     /**
      * Creates new form GameOver
      *
      * @param parent
      */
-    public GameOver(JFrame parent, Player player) {
+    public GameOver(JFrame parent, PlayerFactory player) {
 
         this.player = player;
 

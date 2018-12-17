@@ -4,7 +4,7 @@ import deadzone.Handler;
 import java.awt.Color;
 import java.awt.Graphics;
 import deadzone.sprite.Sprite;
-import java.util.LinkedList;
+import deadzone.sprite.SpriteInterface;
 import java.util.List;
 
 
@@ -56,9 +56,9 @@ public class Projectile extends AnimatedSprite {
         }
         
         //se ha colpito uno zombie
-        List<Sprite> list = handler.getZombies();
+        List<SpriteInterface> list = handler.getZombies();
         for(int i=0; i < list.size(); i++){
-            Sprite x = list.get(i);
+            Sprite x =(Sprite) list.get(i);
             if (x.getBounds().contains(getX(), getY())) {
                 Zombie y = (Zombie) x;
                 y.hit(damage);

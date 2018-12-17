@@ -5,12 +5,8 @@
  */
 package deadzone;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import deadzone.sprite.animated.PlayerDemo;
-import deadzone.utilities.Assets;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import deadzone.sprite.animated.PlayerFactory;
 
 /**
  *
@@ -24,14 +20,16 @@ public class BoardDemo extends Board{
     
     @Override
     protected void initBoard(String playerName, boolean male){
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         try {
             Thread.sleep(2000);
         } catch (InterruptedException ex) {
-            Logger.getLogger(BoardDemo.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Eccezione in board demo");
         }
         Waves w = new WavesDemo();
-        player = new PlayerDemo(2000,450,2,300,playerName,w);
+        player = PlayerFactory.getPlayer(male,true);
+        player.setName(playerName);
+        ((PlayerDemo) player).setWave(w);
+        
         super.handler = new Handler(player, w);
         player.setHandler(super.handler);
         w.setHandler(super.handler);

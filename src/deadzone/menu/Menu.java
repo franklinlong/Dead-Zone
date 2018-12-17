@@ -5,8 +5,6 @@
  */
 package deadzone.menu;
 
-import deadzone.Context;
-import deadzone.ModalityDemo;
 import deadzone.utilities.Utilities;
 import deadzone.utilities.Assets;
 import deadzone.utilities.Sound;
