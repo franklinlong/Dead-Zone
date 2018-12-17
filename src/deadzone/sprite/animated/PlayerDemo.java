@@ -14,9 +14,11 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.util.List;
 import deadzone.sprite.Sprite;
+import deadzone.sprite.SpriteInterface;
 import deadzone.trap.Trap;
 import deadzone.utilities.Animation;
 import deadzone.utilities.Assets;
+import java.util.Iterator;
 
 /**
  *
@@ -27,7 +29,7 @@ public class PlayerDemo extends PlayerFactory{
     public static boolean visible;
     private String move;
     private Waves wave;
-    private List<Sprite> zombies; 
+    private List<SpriteInterface> zombies; 
     
     public PlayerDemo(float x, float y, int vel, int health){
         super(x, y, vel, health);
@@ -40,7 +42,7 @@ public class PlayerDemo extends PlayerFactory{
         yy = this.getY() - offsetY;
         if (visible){
             if (!this.handler.getZombies().isEmpty())
-                angleRotation(zombies.get(0).getX(),zombies.get(0).getY(),this.getX(),this.getY());
+                angleRotation(((Sprite) zombies.get(0)).getX(), ((Sprite) zombies.get(0)).getY(),this.getX(),this.getY());
             
             at = AffineTransform.getTranslateInstance(xx, yy);
             at.rotate(angle, width / 2, height / 2);
@@ -53,7 +55,8 @@ public class PlayerDemo extends PlayerFactory{
     public void animationCycle() {
         //Controllo che sia vivo        
         if (getHealth() <= 0) {
-            for (Sprite s : handler.getBloods()) {
+            for (Iterator<SpriteInterface> it = handler.getBloods().iterator(); it.hasNext();) {
+                Sprite s =(Sprite) it.next();
                 if (s instanceof Trap) {
                     ((Trap) s).getSound().stopSound();
                 }

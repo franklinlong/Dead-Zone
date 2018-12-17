@@ -37,7 +37,7 @@ public class Nuke extends DropItem {
         if (this.isCollected(handler)) {
             explosion.playSound();
             for (int i = 0; i < handler.getZombies().size(); i++) {
-                Sprite s = handler.getZombies().get(i);
+                Sprite s = (Sprite) handler.getZombies().get(i);
                 if (!(s instanceof Boss)) {
                     s.death();
                 }

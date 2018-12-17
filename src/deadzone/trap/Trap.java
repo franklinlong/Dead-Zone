@@ -10,9 +10,11 @@ import deadzone.menu.PauseMenu;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import deadzone.sprite.Sprite;
+import deadzone.sprite.SpriteInterface;
 import deadzone.sprite.animated.PlayerFactory;
 import deadzone.sprite.animated.Zombie;
 import deadzone.utilities.Sound;
+import java.util.Iterator;
 
 /**
  *
@@ -50,7 +52,8 @@ public abstract class Trap extends Sprite{
                 state = true;
             }
             PlayerFactory p;
-            for (Sprite s : handler.getZombies()) {
+            for (Iterator<SpriteInterface> it = handler.getZombies().iterator(); it.hasNext();) {
+                Sprite s =(Sprite) it.next();
                 if (s instanceof Zombie) {
                     Rectangle z = s.getBoundsTrap();
                     if (z.intersects(getBounds())) {

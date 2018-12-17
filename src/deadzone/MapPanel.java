@@ -12,11 +12,12 @@ import javax.swing.JPanel;
 import deadzone.listeners.KAdapter;
 import deadzone.listeners.MAdapter;
 import deadzone.sprite.Sprite;
+import deadzone.sprite.SpriteInterface;
 import deadzone.sprite.animated.PlayerFactory;
 import deadzone.trap.Trap;
-import deadzone.utilities.Database;
 import deadzone.utilities.Scoreboard;
 import java.awt.event.KeyEvent;
+import java.util.Iterator;
 
 public class MapPanel extends JPanel implements Runnable {
 
@@ -130,7 +131,8 @@ public class MapPanel extends JPanel implements Runnable {
                 KAdapter.keys[KeyEvent.VK_A] = false;
                 KAdapter.keys[KeyEvent.VK_D] = false;
 
-                for (Sprite s : handler.getitemsAndTrap()) {
+                for (Iterator<SpriteInterface> it = handler.getitemsAndTrap().iterator(); it.hasNext();) {
+                    Sprite s =(Sprite) it.next();
                     if (s instanceof Trap) {
                         s.animationCycle();
                     }
