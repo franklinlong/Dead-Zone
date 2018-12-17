@@ -67,7 +67,7 @@ public class Assets {
     public static BufferedImage[] explosion = new BufferedImage[23];
     public static BufferedImage wall;
     public static BufferedImage hole;
-
+    public static BufferedImage welcome;
     // guns skin
     public static BufferedImage pistolSkin, ak47, rpgSkin, rifleLoader, shotgunSkin;
 
@@ -277,6 +277,8 @@ public class Assets {
             explosion[i] = Utilities.loadImage("/explosion/" + i + ".png");
         }
 
+        
+        welcome = Utilities.loadImage("/demo/Welcome2.png");
         //gun skins
         shotgunSkin = Utilities.loadImage("/guns/shotgun.png");
         pistolSkin = Utilities.loadImage("/guns/pistol.png");

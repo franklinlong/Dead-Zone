@@ -19,47 +19,45 @@ import deadzone.utilities.Utilities;
  *
  * @author USER
  */
-public class LoadingThread extends Thread{
-    
+public class LoadingThread extends Thread {
+
     private SinglePlayer sp;
     private LoadingScreen ls;
     private Context game;
     
-    public LoadingThread(SinglePlayer sp, LoadingScreen ls){
+    public LoadingThread(SinglePlayer sp, LoadingScreen ls) {
         this.sp = sp;
         this.ls = ls;
     }
-    
+
     @Override
-    public void run(){
+    public void run() {
 
         try {
             gameClip = Utilities.LoadSound("/sound/ingame.wav");
             gameMusic = new Sound(gameClip);
-            
-                
-            for(int i=0; i<100 ;i++){
-                ls.jLabel2.setText( i+ "%");
-                Thread.sleep(43);
-            }
-                 
-            ls.setVisible(false);
-            ls.dispose();
-            
-            if (sp == null){
+
+            if (sp == null) {
                 game = new Context(new ModalityDemo());
                 game.init("Demo", true);
-            }
-            else{
+            } else {
                 game = new Context(new ModalityGame());
                 game.init(sp.getPlayerName(), sp.isMale());
             }
-            
+
+            for (int i = 0; i < 100; i++) {
+                ls.jLabel2.setText(i + "%");
+                Thread.sleep(43);
+            }
+
+            ls.setVisible(false);
+            ls.dispose();
+
             Menu.gameMusic.stopSound();
             gameMusic.loopSound();
         } catch (InterruptedException ex) {
             Logger.getLogger(LoadingScreen.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }
