@@ -14,11 +14,12 @@ import deadzone.utilities.Assets;
 public class ModalityDemo implements Modality{
     
     @Override
-    public void initGame(String playerName, boolean male){
+    public Window initGame(String playerName, boolean male){
         Window w = new Window(new BoardDemo(playerName,male));
         w.prepareImage(Assets.greenIndicator, null);
         w.prepareImage(Assets.redIndicator, null);
         w.prepareImage(Assets.minimap, null);
-        w.setVisible(true);
+        //w.setVisible(true);
+        return w;
     }
 }

@@ -74,7 +74,7 @@ public class LoadingScreen extends javax.swing.JFrame{
         jLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 22)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(260, 270, 140, 70);
+        jLabel2.setBounds(270, 270, 140, 70);
 
         jLabel3.setFont(new java.awt.Font("Comic Sans MS", 0, 25)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));

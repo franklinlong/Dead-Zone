@@ -16,7 +16,7 @@ public class Context {
         this.modality = m;
     }
     
-    public void init(String playerName, boolean male){
-        this.modality.initGame(playerName, male);
+    public Window init(String playerName, boolean male){
+        return this.modality.initGame(playerName, male);
     }
 }

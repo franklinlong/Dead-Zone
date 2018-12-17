@@ -11,6 +11,7 @@ import deadzone.listeners.KAdapter;
 import deadzone.sprite.animated.PlayerFemale;
 import deadzone.sprite.animated.PlayerMale;
 import deadzone.utilities.Assets;
+import deadzone.utilities.Database;
 
 /**
  *
@@ -37,6 +38,9 @@ public class BoardGame extends Board{
         
         super.handler = new Handler(player,w);
         player.setHandler(super.handler);
+        
+        if(Database.online)
+            player.inserisciOnline();
         
         w.setHandler(super.handler);
         Thread t = new Thread(w);

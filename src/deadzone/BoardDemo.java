@@ -9,6 +9,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import deadzone.sprite.animated.PlayerDemo;
 import deadzone.utilities.Assets;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,7 +26,11 @@ public class BoardDemo extends Board{
     protected void initBoard(String playerName, boolean male){
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
     	Assets.init();
-        
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(BoardDemo.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Waves w = new WavesDemo();
         player = new PlayerDemo(2000,450,2,300,playerName,w);
         super.handler = new Handler(player, w);

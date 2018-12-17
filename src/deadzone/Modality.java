@@ -10,5 +10,5 @@ package deadzone;
  * @author casang
  */
 public interface Modality {
-    public void initGame(String playerName, boolean male);
+    public Window initGame(String playerName, boolean male);
 }

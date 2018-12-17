@@ -139,9 +139,9 @@ public abstract class Player extends AnimatedSprite {
 
         });
         
-        if (Database.online) {
-            this.inserisciOnline();
-        }
+//        if (Database.online) {
+//            this.inserisciOnline();
+//        }
     }
     
     @Override
@@ -646,6 +646,7 @@ public abstract class Player extends AnimatedSprite {
             @Override
             public void windowClosing(WindowEvent e) {
                 if (Database.online) {
+                    System.out.println(onlineID);
                     Database.CancellaOnline(onlineID);
                 }
             }
