@@ -12,8 +12,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 import deadzone.sprite.Sprite;
-import deadzone.sprite.animated.Boss;
-import deadzone.sprite.animated.Player;
+import deadzone.sprite.animated.PlayerFactory;
 import deadzone.sprite.animated.Zombie;
 
 /**
@@ -36,12 +35,12 @@ public class Route {
     public float[] raggiungiZona() {
 
         //Se si trovano nella stessa zona
-        if (zombie.getZona().equals(((Player) target).getZona())) {
+        if (zombie.getZona().equals(((PlayerFactory) target).getZona())) {
             return seek(target.getX(), target.getY(), target.width, target.height);
         } else {
             //System.out.println("player: "+((Player) target).getZona().getIndex());
             Vertex origin = new Vertex(zombie.getZona().getIndex());
-            Edge edge = ((Player) target).getCamminiMinimi().get(origin);
+            Edge edge = ((PlayerFactory) target).getCamminiMinimi().get(origin);
 //            System.out.println("origin: "+origin);
 //            System.out.println("edge: "+edge);
             Vertex destination;

@@ -5,7 +5,7 @@
  */
 package deadzone.menu;
 
-import deadzone.sprite.animated.Player;
+import deadzone.sprite.animated.PlayerFactory;
 import deadzone.utilities.Database;
 import java.awt.Color;
 import java.sql.ResultSet;
@@ -26,7 +26,7 @@ public class OnlinePause extends JFrame {
     private PauseMenu pm;
     ResultSet scoreboard;
     ResultSet online;
-    Player player;
+    PlayerFactory player;
     LinkedList<JLabel> sc = new LinkedList();
     LinkedList<JLabel> punt = new LinkedList();
     LinkedList<JLabel> on = new LinkedList();
@@ -38,7 +38,7 @@ public class OnlinePause extends JFrame {
      * @param pm
      * @param player
      */
-    public OnlinePause(PauseMenu pm, Player player) {
+    public OnlinePause(PauseMenu pm, PlayerFactory player) {
         this.pm = pm;
         this.player = player;
         initComponents();

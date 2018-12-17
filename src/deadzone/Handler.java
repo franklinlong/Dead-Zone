@@ -5,7 +5,7 @@
  */
 package deadzone;
 
-import deadzone.sprite.animated.Player;
+import deadzone.sprite.animated.PlayerFactory;
 import deadzone.sprite.animated.SpawnSpittle;
 import deadzone.sprite.animated.Projectile;
 import deadzone.sprite.animated.Spittle;
@@ -35,11 +35,11 @@ public class Handler {
     private final List<Sprite> circle = new ArrayList<>();
     
     private static Camera camera;
-    private final Player player;
+    private final PlayerFactory player;
     private final Waves waves;
 
     
-    public Handler(Player p, Waves w){
+    public Handler(PlayerFactory p, Waves w){
         player = p;       
         camera = new Camera(player);
         players.add(player);
@@ -140,7 +140,7 @@ public class Handler {
         //Prima di aggiungere lo sprite devo individuare in che lista aggiungerlo
         if (s instanceof Zombie) {
             this.zombies.add(s);
-        } else if (s instanceof Player) {
+        } else if (s instanceof PlayerFactory) {
             this.players.add(s);
         } else if (s instanceof Projectile) {
             this.proiettili.add(s);
@@ -164,7 +164,7 @@ public class Handler {
         //Prima di rimuovere lo sprite devo individuare in che lista rimuoverlo
         if (s instanceof Zombie) {
             this.zombies.remove(s);
-        } else if (s instanceof Player) {
+        } else if (s instanceof PlayerFactory) {
             this.players.remove(s);
         } else if (s instanceof Projectile) {
             this.proiettili.remove(s);
@@ -215,7 +215,7 @@ public class Handler {
         return camera;
     }
 
-    public Player getPlayer() {
+    public PlayerFactory getPlayer() {
         return player;
     }
 

@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import deadzone.listeners.KAdapter;
 import deadzone.listeners.MAdapter;
 import deadzone.sprite.Sprite;
-import deadzone.sprite.animated.Player;
+import deadzone.sprite.animated.PlayerFactory;
 import deadzone.trap.Trap;
 import deadzone.utilities.Scoreboard;
 import java.awt.event.KeyEvent;
@@ -94,7 +94,7 @@ public class MapPanel extends JPanel implements Runnable {
         System.out.println("FINE PARTITA MAP PANEL");
 
         if (handler.getPlayer().isDeath()) {
-            Player p = this.handler.getPlayer();
+            PlayerFactory p = this.handler.getPlayer();
             new Scoreboard().addScore(p.getName(), p.getPunteggioAttuale());
         }
 

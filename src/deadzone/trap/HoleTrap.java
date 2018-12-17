@@ -7,7 +7,7 @@ package deadzone.trap;
 
 import deadzone.Handler;
 import java.awt.Graphics;
-import deadzone.sprite.animated.Player;
+import deadzone.sprite.animated.PlayerFactory;
 import deadzone.utilities.Assets;
 import deadzone.utilities.Sound;
 
@@ -40,7 +40,7 @@ public class HoleTrap extends Trap{
         }else{
             handler.removeSprite(this);
             this.sound.playSound();
-            Player p = handler.getPlayer();
+            PlayerFactory p = handler.getPlayer();
             switch(index){
                 case 1:
                     p.setHoleTrapActive1(false);

@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.Timer;
-import deadzone.sprite.animated.Player;
+import deadzone.sprite.animated.PlayerFactory;
 import deadzone.sprite.animated.Projectile;
 import deadzone.sprite.animated.RocketBullet;
 
@@ -39,7 +39,7 @@ public class Gun {
     private final int damage;
 
     public Gun(BufferedImage skin, Animation idle, Animation reloadAnimation, Animation shoot,
-                    Sound shootSound, Sound reloadSound, Player player, int firingDelay,
+                    Sound shootSound, Sound reloadSound, PlayerFactory player, int firingDelay,
                     int bulletsPerRound, int totalBullets, int damage){
             this.damage = damage;
             this.skin = skin;
@@ -98,8 +98,8 @@ public class Gun {
 
             if(this.skin == Assets.rpgSkin){
                 //Proiettile di RPG
-                RocketBullet rb = new RocketBullet((xx + Player.PLAYERSIZE / 2 + (float) (22 * Math.cos(angoloPistola))),
-                    (yy + Player.PLAYERSIZE / 2 + (float) (22 * Math.sin(angoloPistola))),
+                RocketBullet rb = new RocketBullet((xx + PlayerFactory.PLAYERSIZE / 2 + (float) (22 * Math.cos(angoloPistola))),
+                    (yy + PlayerFactory.PLAYERSIZE / 2 + (float) (22 * Math.sin(angoloPistola))),
                     bulletdirectionX, bulletdirectionY, 20, vitaProiettile, handler, damage);
                 shootAminDelay.start();
                 currentAnimation = shoot;
@@ -107,8 +107,8 @@ public class Gun {
             }
             else{
                 //Proiettile standard in linea retta
-                Projectile p = new Projectile((xx + Player.PLAYERSIZE / 2 + (float) (22 * Math.cos(angoloPistola))),
-                        (yy + Player.PLAYERSIZE / 2 + (float) (22 * Math.sin(angoloPistola))),
+                Projectile p = new Projectile((xx + PlayerFactory.PLAYERSIZE / 2 + (float) (22 * Math.cos(angoloPistola))),
+                        (yy + PlayerFactory.PLAYERSIZE / 2 + (float) (22 * Math.sin(angoloPistola))),
                         bulletdirectionX, bulletdirectionY, 20, vitaProiettile, handler, damage);
                 shootAminDelay.start();
                 currentAnimation = shoot;
@@ -123,8 +123,8 @@ public class Gun {
                 bulletdirectionX = xbullet / (float) Math.sqrt(xbullet * xbullet + ybullet * ybullet);
                 bulletdirectionY = ybullet / (float) Math.sqrt(ybullet * ybullet + xbullet * xbullet);
 
-                Projectile p2 = new Projectile((xx + Player.PLAYERSIZE / 2 + (float) (22 * Math.cos(angoloPistola))),
-                        (yy + Player.PLAYERSIZE / 2 + (float) (22 * Math.sin(angoloPistola))),
+                Projectile p2 = new Projectile((xx + PlayerFactory.PLAYERSIZE / 2 + (float) (22 * Math.cos(angoloPistola))),
+                        (yy + PlayerFactory.PLAYERSIZE / 2 + (float) (22 * Math.sin(angoloPistola))),
                         bulletdirectionX, bulletdirectionY, 20, vitaProiettile, handler, damage);
 
                 angle += Math.PI / 20;
@@ -133,8 +133,8 @@ public class Gun {
                 bulletdirectionX = xbullet / (float) Math.sqrt(xbullet * xbullet + ybullet * ybullet);
                 bulletdirectionY = ybullet / (float) Math.sqrt(ybullet * ybullet + xbullet * xbullet);
 
-                Projectile p3 = new Projectile((xx + Player.PLAYERSIZE / 2 + (float) (22 * Math.cos(angoloPistola))),
-                        (yy + Player.PLAYERSIZE / 2 + (float) (22 * Math.sin(angoloPistola))),
+                Projectile p3 = new Projectile((xx + PlayerFactory.PLAYERSIZE / 2 + (float) (22 * Math.cos(angoloPistola))),
+                        (yy + PlayerFactory.PLAYERSIZE / 2 + (float) (22 * Math.sin(angoloPistola))),
                         bulletdirectionX, bulletdirectionY, 20, vitaProiettile, handler, damage);
 
                 angle -= Math.PI * 3 / 20;
@@ -143,8 +143,8 @@ public class Gun {
                 bulletdirectionX = xbullet / (float) Math.sqrt(xbullet * xbullet + ybullet * ybullet);
                 bulletdirectionY = ybullet / (float) Math.sqrt(ybullet * ybullet + xbullet * xbullet);
 
-                Projectile p4 = new Projectile((xx + Player.PLAYERSIZE / 2 + (float) (22 * Math.cos(angoloPistola))),
-                        (yy + Player.PLAYERSIZE / 2 + (float) (22 * Math.sin(angoloPistola))),
+                Projectile p4 = new Projectile((xx + PlayerFactory.PLAYERSIZE / 2 + (float) (22 * Math.cos(angoloPistola))),
+                        (yy + PlayerFactory.PLAYERSIZE / 2 + (float) (22 * Math.sin(angoloPistola))),
                         bulletdirectionX, bulletdirectionY, 20, vitaProiettile, handler, damage);
 
                 angle -= Math.PI / 20;
@@ -153,8 +153,8 @@ public class Gun {
                 bulletdirectionX = xbullet / (float) Math.sqrt(xbullet * xbullet + ybullet * ybullet);
                 bulletdirectionY = ybullet / (float) Math.sqrt(ybullet * ybullet + xbullet * xbullet);
 
-                Projectile p5 = new Projectile((xx + Player.PLAYERSIZE / 2 + (float) (22 * Math.cos(angoloPistola))),
-                        (yy + Player.PLAYERSIZE / 2 + (float) (22 * Math.sin(angoloPistola))),
+                Projectile p5 = new Projectile((xx + PlayerFactory.PLAYERSIZE / 2 + (float) (22 * Math.cos(angoloPistola))),
+                        (yy + PlayerFactory.PLAYERSIZE / 2 + (float) (22 * Math.sin(angoloPistola))),
                         bulletdirectionX, bulletdirectionY, 20, vitaProiettile, handler, damage);
 
                 this.handler.addSprite(p2);

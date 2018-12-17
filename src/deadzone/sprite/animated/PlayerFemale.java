@@ -13,11 +13,15 @@ import deadzone.utilities.Assets;
  *
  * @author casang
  */
-public class PlayerFemale extends Player{
+public class PlayerFemale extends PlayerFactory{
     
-    public PlayerFemale(float x, float y, int vel, int health, String name){
-        super(x, y, vel, health, name);
-        
+    public PlayerFemale(float x, float y, int vel, int health){
+        super(x, y, vel, health);
+    }
+    
+    @Override
+    public void initPlayer(){
+                
         this.male = false;
         
         pistolIdle = new Animation(Assets.femalepistolIdle, 20);
@@ -58,5 +62,15 @@ public class PlayerFemale extends Player{
         allGuns[1] = rifle;
         allGuns[2] = shotgun;
         allGuns[3] = rpg;
+    }
+    
+    @Override
+    public boolean isMale(){
+        return false;
+    }
+    
+    @Override
+    public void setName(String name){
+        this.name=name + " F";
     }
 }

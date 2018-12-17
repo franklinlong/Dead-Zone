@@ -31,7 +31,7 @@ public class Boss extends Zombie{
     Timer attackDelay, hitZombie, deathDelay;
     private Animation deathAnimation;
     
-    public Boss(float x, float y, float vel, int health, int damage, Player player, Handler handler,
+    public Boss(float x, float y, float vel, int health, int damage, PlayerFactory player, Handler handler,
             float probabilityDrop, int width, int height, int score, Animation walkAnimation, Animation attackAnimation, Animation deathAnimation, Sound biteSound, Sound hitSound){
         
         super(x, y, vel, health, player, handler, probabilityDrop, width, height, score, walkAnimation, attackAnimation, biteSound, hitSound);

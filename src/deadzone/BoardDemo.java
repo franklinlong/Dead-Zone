@@ -6,6 +6,7 @@
 package deadzone;
 
 import deadzone.sprite.animated.PlayerDemo;
+import deadzone.sprite.animated.PlayerFactory;
 
 /**
  *
@@ -20,7 +21,10 @@ public class BoardDemo extends Board{
     @Override
     protected void initBoard(String playerName, boolean male){
         Waves w = new WavesDemo();
-        player = new PlayerDemo(2000,450,2,300,playerName,w);
+        player = PlayerFactory.getPlayer(male,true);
+        player.setName(playerName);
+        ((PlayerDemo) player).setWave(w);
+        
         super.handler = new Handler(player, w);
         player.setHandler(super.handler);
         w.setHandler(super.handler);

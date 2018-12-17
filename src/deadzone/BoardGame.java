@@ -8,6 +8,7 @@ package deadzone;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import deadzone.listeners.KAdapter;
+import deadzone.sprite.animated.PlayerFactory;
 import deadzone.sprite.animated.PlayerFemale;
 import deadzone.sprite.animated.PlayerMale;
 import deadzone.utilities.Assets;
@@ -24,26 +25,19 @@ public class BoardGame extends Board{
     
     @Override
     protected void initBoard(String playerName, boolean male){
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
     	Assets.init();
         
         Waves w = new Waves();
-        if (male){
-            player = new PlayerMale(2000,60,2,300,playerName);
-        }else{
-            player = new PlayerFemale(2000,60,2,300,playerName);
-            
-        }
+        player = PlayerFactory.getPlayer(male,false);
+        player.setName(playerName);
+        this.handler = new Handler(player,w);
+        player.setHandler(this.handler);
         
-        super.handler = new Handler(player,w);
-        player.setHandler(super.handler);
-        
-        w.setHandler(super.handler);
+        w.setHandler(this.handler);
         Thread t = new Thread(w);
         t.start();
         mapPanel = new MapPanel(handler);
         hudPanel = new HudPanel(handler);
-        KAdapter kad = new KAdapter();
         this.setRightComponent(mapPanel);
         this.setLeftComponent(hudPanel);
         

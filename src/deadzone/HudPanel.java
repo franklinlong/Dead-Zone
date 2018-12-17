@@ -12,7 +12,7 @@ import java.awt.geom.AffineTransform;
 import java.net.URL;
 import javax.swing.*;
 import deadzone.sprite.Sprite;
-import deadzone.sprite.animated.Player;
+import deadzone.sprite.animated.PlayerFactory;
 import deadzone.sprite.animated.Zombie;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -90,7 +90,7 @@ public class HudPanel extends JPanel implements Runnable {
 
             for (int j = 0; j < handler.getPlayers().size(); j++) {
                 Sprite i = handler.getPlayers().get(j);
-                drawIndicator(g, i.getX() - (i.getWidth() / 2), i.getY() - (i.getHeight() / 2), ((Player) i).getAngle(), green_indicator);
+                drawIndicator(g, i.getX() - (i.getWidth() / 2), i.getY() - (i.getHeight() / 2), ((PlayerFactory) i).getAngle(), green_indicator);
             }
 
             Toolkit.getDefaultToolkit().sync();

@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import deadzone.sprite.animated.Player;
+import deadzone.sprite.animated.PlayerFactory;
 import deadzone.utilities.Assets;
 import deadzone.utilities.Database;
 import javax.swing.ImageIcon;
@@ -30,9 +30,9 @@ public class PauseMenu extends javax.swing.JDialog {
     private static boolean pause;
     public static final Object PAUSELOCK = new Object();
     public static boolean end;
-    private final Player player;
+    private final PlayerFactory player;
 
-    public PauseMenu(java.awt.Frame parent, boolean modal, Player player) {
+    public PauseMenu(java.awt.Frame parent, boolean modal, PlayerFactory player) {
         super(parent, modal);
         this.player = player;
         initComponents();
@@ -109,7 +109,7 @@ public class PauseMenu extends javax.swing.JDialog {
             }
         });
         getContentPane().add(Resume);
-        Resume.setBounds(170, 110, 122, 29);
+        Resume.setBounds(170, 110, 122, 27);
 
         Settings.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         Settings.setText("Settings");

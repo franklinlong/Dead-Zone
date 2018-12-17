@@ -39,7 +39,7 @@ import javax.swing.Timer;
  *
  * @author giova
  */
-public abstract class Player extends AnimatedSprite {
+public abstract class PlayerFactory extends AnimatedSprite {
     
     public static final int PLAYERSIZE = 60;
     protected Zona zona;
@@ -72,7 +72,7 @@ public abstract class Player extends AnimatedSprite {
     
     private int punteggioAttuale;
     private int onlineID;
-    private final String name;
+    protected String name;
     private int zombieKilled;
     private final int maximumHealth;
     protected int coins;
@@ -89,11 +89,10 @@ public abstract class Player extends AnimatedSprite {
     private Timer shopTimer;
     
     //private Window window;
-    public Player(float x, float y, int vel, int health, String name) {
+    public PlayerFactory(float x, float y, int vel, int health) {
         super(x, y, PLAYERSIZE, PLAYERSIZE, (float) vel, health);
         
         this.punteggioAttuale = 0;
-        this.name = name;
         this.maximumHealth = health;
         this.coins = 5;
         this.trap = true;
@@ -143,6 +142,8 @@ public abstract class Player extends AnimatedSprite {
             this.inserisciOnline();
         }
     }
+    
+    public abstract void initPlayer();
     
     @Override
     public void drawImage(Graphics g, float offsetX, float offsetY) {
@@ -650,8 +651,16 @@ public abstract class Player extends AnimatedSprite {
         }));
     }
     
-    public boolean isMale(){
-        return this.male;
-    }
+    public abstract boolean isMale();
     
+    public abstract void setName(String name);
+     
+    public static PlayerFactory getPlayer(boolean male, boolean demo){
+        if(demo)
+            return new PlayerDemo(2000,450,2,300);
+        if(male)
+            return new PlayerMale(2000,60,2,300);
+        else
+            return new PlayerFemale(2000,60,2,300);
+    }
 }

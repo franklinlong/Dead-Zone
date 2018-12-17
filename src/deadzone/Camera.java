@@ -6,7 +6,7 @@
 package deadzone;
 
 import java.awt.Toolkit;
-import deadzone.sprite.animated.Player;
+import deadzone.sprite.animated.PlayerFactory;
 
 /**
  *
@@ -14,7 +14,7 @@ import deadzone.sprite.animated.Player;
  */
 public class Camera {
 
-    private final Player p;
+    private final PlayerFactory p;
 
     //posizione giocatore riferito alla camera/frame
     private float offset_x;
@@ -28,7 +28,7 @@ public class Camera {
     private final int w_map = 3200;
     private final int h_map = 3200;
 
-    public Camera(Player p) {
+    public Camera(PlayerFactory p) {
         this.p = p;
     }
 

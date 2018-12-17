@@ -30,7 +30,7 @@ public class StandardZombie extends Zombie {
     //Timer
     Timer attackDelay, hitZombie;
 
-    public StandardZombie(float x, float y, float vel, int health, int damage, Player player, Handler handler,
+    public StandardZombie(float x, float y, float vel, int health, int damage, PlayerFactory player, Handler handler,
             float probabilityDrop, int width, int height, int score, Animation walkAnimation, Animation attackAnimation, Sound biteSound, Sound hitSound) {
         super(x, y, vel, health, player, handler, probabilityDrop, width, height, score, walkAnimation, attackAnimation, biteSound, hitSound);
 
@@ -39,7 +39,7 @@ public class StandardZombie extends Zombie {
         attackDelay = new Timer(350, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (distanceToPlayerX < Player.PLAYERSIZE && distanceToPlayerY < Player.PLAYERSIZE && player.isDeath() == false) {
+                if (distanceToPlayerX < PlayerFactory.PLAYERSIZE && distanceToPlayerY < PlayerFactory.PLAYERSIZE && player.isDeath() == false) {
                     biteSound.playSound();
                     player.hit(damage);
                 }

@@ -11,7 +11,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
-import deadzone.sprite.animated.Player;
+import deadzone.sprite.animated.PlayerFactory;
 import deadzone.utilities.Assets;
 import deadzone.utilities.Sound;
 /**
@@ -59,7 +59,7 @@ public class WallTrap extends Trap{
         if(durata==0){
             g2dRGB.drawImage(Assets.mapRGB2,0,0,null); //Sembra funzionare bene
             handler.removeSprite(this);
-            Player p = handler.getPlayer();
+            PlayerFactory p = handler.getPlayer();
             switch(index){
                 case 1:
                     p.setWallTrapActive1(false);

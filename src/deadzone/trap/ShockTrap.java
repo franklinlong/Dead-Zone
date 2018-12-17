@@ -10,7 +10,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
-import deadzone.sprite.animated.Player;
+import deadzone.sprite.animated.PlayerFactory;
 import deadzone.utilities.Animation;
 import deadzone.utilities.Assets;
 import deadzone.utilities.Sound;
@@ -54,7 +54,7 @@ public class ShockTrap extends Trap{
         } else {
             handler.removeSprite(this);
             this.sound.stopSound();
-            Player p = handler.getPlayer();
+            PlayerFactory p = handler.getPlayer();
             switch(index){
                 case 1:
                     p.setShockTrapActive1(false);
