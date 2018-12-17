@@ -95,7 +95,6 @@ public class Boss extends Zombie{
             currentAnimation.update();
             System.out.println(currentAnimation.getIndex());
             if(currentAnimation.getIndex() == 6){
-                System.out.println("wow");
                 death();
                 this.handler.addSprite(new SpittleZombie(this.getX(), this.getY(), (float)1, 700, 50, handler.getPlayer(), this.handler, 0, 60, 60, 5, new Animation(Assets.zombie3, 15), new Animation(Assets.zombie3Attack, 15), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
                 this.handler.getWaves().addEnemy();

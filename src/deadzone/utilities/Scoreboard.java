@@ -38,9 +38,6 @@ public class Scoreboard {
     }
 
     public void addScore(String player, int score) {
-        System.out.println("CIAO");
-        System.out.println("Score:" + score + "Ultimo: " + this.scoreboard.getLast().getScore());
-        System.out.println(this.scoreboard.size());
         if(this.scoreboard.size() == this.SIZE){
             if(score <= this.scoreboard.getLast().getScore()){
                 return;

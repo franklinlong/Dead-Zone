@@ -58,18 +58,4 @@ public class BoardGame extends Board {
         
 
     }
-    
-    
-
-//    public void setWindow(java.awt.Window window) {
-//        window.addWindowListener((new WindowAdapter() {
-//            @Override
-//            public void windowClosing(WindowEvent e) {
-//                if (Database.online) {
-//                    System.out.println(player.getOnlineID());
-//                    Database.CancellaOnline(player.getOnlineID());
-//                }
-//            }
-//        }));
-//    }
 }

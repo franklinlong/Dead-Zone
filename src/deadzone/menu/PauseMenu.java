@@ -35,7 +35,7 @@ public class PauseMenu extends javax.swing.JDialog {
     public static boolean end;
     private final Player player;
 
-    public PauseMenu(java.awt.Frame parent, boolean modal,Player player) {
+    public PauseMenu(java.awt.Frame parent, boolean modal, Player player) {
         super(parent, modal);
         this.player = player;
         initComponents();
@@ -182,12 +182,14 @@ public class PauseMenu extends javax.swing.JDialog {
         // TODO add your handling code here:
         end = true;
         setPause(false);
-        if (Database.online) {
-            Assets.ThreadOttieniScoreboard t2 = new Assets.ThreadOttieniScoreboard();
-            t2.start();
-            System.out.println(player.getOnlineID());
-            Database.CancellaOnline(player.getOnlineID());
+        if(Database.online){
+            if(!(player instanceof PlayerDemo)){
+                Database.CancellaOnline(player.getOnlineID());
+            }
         }
+        Database.online = true;
+        Assets.ThreadOttieniScoreboard t2 = new Assets.ThreadOttieniScoreboard();
+        t2.start();
 
         synchronized (Assets.ThreadOttieniScoreboard.TOS) {
             if (Assets.ThreadOttieniScoreboard.occupato) {
@@ -213,7 +215,7 @@ public class PauseMenu extends javax.swing.JDialog {
         if (Database.online) {
             new OnlinePause(this, player).setVisible(true);
             this.setVisible(false);
-        }else{
+        } else {
             int w = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconWidth() * 1 / 6;
             int h = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getIconHeight() * 1 / 6;
             Image i2 = new ImageIcon(getClass().getResource("/images/LogoBiancoENero.png")).getImage().getScaledInstance(w, h, Image.SCALE_DEFAULT);

@@ -13,6 +13,7 @@ import deadzone.listeners.KAdapter;
 import deadzone.listeners.MAdapter;
 import deadzone.sprite.Sprite;
 import deadzone.sprite.animated.Player;
+import deadzone.sprite.animated.PlayerDemo;
 import deadzone.sprite.animated.PlayerFemale;
 import deadzone.sprite.animated.PlayerMale;
 import deadzone.trap.Trap;
@@ -98,7 +99,8 @@ public class MapPanel extends JPanel implements Runnable {
 
         if (handler.getPlayer().isDeath()) {
             Player p = this.handler.getPlayer();
-            if (p instanceof PlayerMale || p instanceof PlayerFemale) {
+            if (!(p instanceof PlayerDemo)) {
+                System.out.println("Non sono Player Demo... QUindi sono qui");
                 new Scoreboard().addScore(p.getName(), p.getPunteggioAttuale());
                 p.aggiornaDB();
             }

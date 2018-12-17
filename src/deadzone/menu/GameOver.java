@@ -66,12 +66,12 @@ public class GameOver extends javax.swing.JFrame {
             //this.jLabel2.setVisible(false);
         } else {
             jLabel2.setText("OFFLINE! Impossible to send your score to Database");
+            Database.online = true;
             Assets.ThreadOttieniScoreboard t = new Assets.ThreadOttieniScoreboard();
             t.start();
         }
 
         this.jButton1.setVisible(true);
-        Database.online = true;
 
     }
 
@@ -165,7 +165,6 @@ public class GameOver extends javax.swing.JFrame {
             this.jLabel2.setText("Connection estabilished...");
             stmt = conn.createStatement();
             if (!(player instanceof PlayerDemo)) {
-                System.out.println("Database connection");
                 this.jLabel2.setText("Sending your score to the database");
                 String query = "SELECT MAX(id) FROM scoreboard";
                 rs = stmt.executeQuery(query);

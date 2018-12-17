@@ -310,7 +310,6 @@ public abstract class Player extends AnimatedSprite {
     @Override
     public void death() {
         this.isDeath = true;
-        this.aggiornaDB();
         handler.removeSprite(this);
         MapFrame.gameMusic.stopSound();
     }

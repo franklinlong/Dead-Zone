@@ -135,6 +135,7 @@ public class Database {
 
     public static ResultSet OttieniScoreboard() {
         String query = " SELECT * FROM scoreboard ORDER BY punteggio DESC LIMIT 10";
+        System.out.println(Database.online);
         return Database.dbQuery(query);
     }
 
