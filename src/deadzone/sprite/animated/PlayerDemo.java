@@ -38,7 +38,6 @@ public class PlayerDemo extends PlayerMale{
     public void drawImage(Graphics g, float offsetX, float offsetY) {
         xx = this.getX() - offsetX;
         yy = this.getY() - offsetY;
-        
         if (visible){
             if (!this.handler.getZombies().isEmpty())
                 angleRotation(zombies.get(0).getX(),zombies.get(0).getY(),this.getX(),this.getY());

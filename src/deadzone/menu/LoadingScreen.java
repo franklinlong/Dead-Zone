@@ -16,7 +16,7 @@ import javax.swing.ImageIcon;
  * @author USER
  */
 public class LoadingScreen extends javax.swing.JFrame{
-    
+    private static LoadingScreen instanza = null;
     /**
      * Creates new form LoadingScreen
      */
@@ -26,7 +26,13 @@ public class LoadingScreen extends javax.swing.JFrame{
         return new ImageIcon(immagineScalata);
     }
     
-    public LoadingScreen(){
+    public static synchronized LoadingScreen getLoadingScreen(){
+        if(instanza==null)
+            instanza = new LoadingScreen();
+        return instanza;
+    }
+    
+    private LoadingScreen(){
         Image iconaFrame;
         iconaFrame = new ImageIcon(getClass().getResource("/images/icona_frame.png")).getImage();
         this.setIconImage(iconaFrame);
