@@ -26,11 +26,13 @@ public class MapPanel extends JPanel implements Runnable {
     private Handler handler;
     private KAdapter kAdapt;
     private MAdapter mAdapt;
-
+    private Camera camera;
+    
     public MapPanel(Handler h) {
         this.handler = h;
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize(new java.awt.Dimension((int) dim.getWidth() * 4 / 5, (int) dim.getHeight()));
+        camera = new Camera(handler.getPlayer());
         initMapPanel();
     }
 
@@ -153,14 +155,17 @@ public class MapPanel extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        float offsetX = camera.getOffset_x();
+        float offsetY = camera.getOffset_y();
+        
         drawMap(g);
-        handler.drawImage(g);
+        handler.drawImage(g, offsetX, offsetY);
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
     }
 
     public void drawMap(Graphics g) {
-        g.drawImage(mapImage, (int) -handler.getCamera().getOffset_x(), (int) -handler.getCamera().getOffset_y(), this);
+        g.drawImage(mapImage, (int) -camera.getOffset_x(), (int) -camera.getOffset_y(), this);
 
     }
 }

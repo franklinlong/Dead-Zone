@@ -71,6 +71,6 @@ public class PlayerFemale extends PlayerFactory{
     
     @Override
     public void setName(String name){
-        this.name=name + " F";
+        this.name=name;
     }
 }

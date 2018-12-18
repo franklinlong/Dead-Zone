@@ -24,7 +24,7 @@ import deadzone.trap.Trap;
  *
  * @author giova
  */
-public class Handler {
+public class Handler implements SpriteInterface{
 
     private final List<SpriteInterface> players = new ArrayList<>();
     private final List<SpriteInterface> zombies = new ArrayList<>();
@@ -35,16 +35,13 @@ public class Handler {
     private final List<SpriteInterface> bloods = new ArrayList<>();
     private final List<SpriteInterface> circle = new ArrayList<>();
     
-    private static Camera camera;
     private final PlayerFactory player;
     private final Waves waves;
 
     
     public Handler(PlayerFactory p, Waves w){
-        player = p;       
-        camera = new Camera(player);
+        player = p;              
         players.add(player);
-        
         this.waves = w;
     }
 
@@ -90,9 +87,7 @@ public class Handler {
         }
     }
 
-    public void drawImage(Graphics g) {
-        float offsetX = camera.getOffset_x();
-        float offsetY = camera.getOffset_y();
+    public void drawImage(Graphics g, float offsetX, float offsetY){
 
         //Faccio partire il draw image di tutti gli sprite della mappa
         for (int i = 0; i < bloods.size(); i++) {
@@ -210,10 +205,6 @@ public class Handler {
     
     public List<SpriteInterface> getiCircle() {
         return circle;
-    }
-
-    public Camera getCamera() {
-        return camera;
     }
 
     public PlayerFactory getPlayer() {

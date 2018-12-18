@@ -310,7 +310,7 @@ public class PlayerDemo extends PlayerFactory{
 
     @Override
     public void setName(String name) {
-        this.name = "player demo";
+        this.name = "playerDemo";
     }
     
     public void setWave(Waves wave){

@@ -760,10 +760,10 @@ public class Graph {
     }
     
     public int edge_count(){
-        int c=0;
+        int count=0;
         for (Map s: adjList.values())
-            c += s.size();
-        return c;
+            count += s.size();
+        return count;
     }
     
     public Set edges(){
