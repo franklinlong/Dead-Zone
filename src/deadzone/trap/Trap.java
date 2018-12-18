@@ -6,6 +6,7 @@
 package deadzone.trap;
 
 import deadzone.Handler;
+import deadzone.SpriteVisitor;
 import deadzone.menu.PauseMenu;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -53,12 +54,10 @@ public abstract class Trap extends Sprite{
             }
             PlayerFactory p;
             for (Iterator<SpriteInterface> it = handler.getZombies().iterator(); it.hasNext();) {
-                Sprite s =(Sprite) it.next();
-                if (s instanceof Zombie) {
-                    Rectangle z = s.getBoundsTrap();
-                    if (z.intersects(getBounds())) {
-                        ((Zombie) s).hit(damage);
-                    }
+                Zombie s = (Zombie)it.next();
+                Rectangle z = s.getBoundsTrap();
+                if (z.intersects(getBounds())) {
+                    s.hit(damage);
                 }
             }
             p = handler.getPlayer();
@@ -81,4 +80,7 @@ public abstract class Trap extends Sprite{
         return sound;
     }
     
+    public void accept(SpriteVisitor visitor){
+        visitor.visit(this);
+    }
 }

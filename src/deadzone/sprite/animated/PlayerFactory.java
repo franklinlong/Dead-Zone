@@ -14,6 +14,7 @@ import deadzone.utilities.Animation;
 import deadzone.utilities.Assets;
 import deadzone.Gun;
 import deadzone.Handler;
+import deadzone.SpriteVisitor;
 import deadzone.menu.MapFrame;
 import deadzone.utilities.Sound;
 import java.awt.Graphics;
@@ -188,11 +189,9 @@ public abstract class PlayerFactory extends AnimatedSprite {
     public void animationCycle() {
         //Controllo che sia vivo        
         if (getHealth() <= 0) {
-            for (Iterator<SpriteInterface> it = handler.getitemsAndTrap().iterator(); it.hasNext();) {
-                Sprite s =(Sprite) it.next();
-                if (s instanceof Trap) {
-                    ((Trap) s).getSound().stopSound();
-                }
+            for (Iterator<SpriteInterface> it = handler.getTraps().iterator(); it.hasNext();) {
+                Trap t = (Trap) it.next();
+                t.getSound().stopSound();
             }
             death();
         }
@@ -660,5 +659,9 @@ public abstract class PlayerFactory extends AnimatedSprite {
             return new PlayerMale(1600,1600,3,1600);
         else
             return new PlayerFemale(1600,1600,3,1600);
+    }
+    
+    public void accept(SpriteVisitor visitor){
+        visitor.visit(this);
     }
 }

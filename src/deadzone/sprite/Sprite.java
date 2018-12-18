@@ -5,6 +5,7 @@
  */
 package deadzone.sprite;
 
+import deadzone.SpriteVisitor;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -58,7 +59,7 @@ public abstract class Sprite implements SpriteInterface{
     public void death() {
     }
 
-    ;
+    public abstract void accept(SpriteVisitor visitor);
     
     //Utile per le collisioni
     public Rectangle getBounds() {

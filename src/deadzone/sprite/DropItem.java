@@ -6,6 +6,7 @@
 package deadzone.sprite;
 
 import deadzone.Handler;
+import deadzone.SpriteVisitor;
 
 /**
  *
@@ -21,4 +22,7 @@ public abstract class DropItem extends Sprite {
         return handler.getPlayer().getBounds().intersects(this.getBounds());
     }
 
+    public void accept(SpriteVisitor visitor){
+        visitor.visit(this);
+    }
 }

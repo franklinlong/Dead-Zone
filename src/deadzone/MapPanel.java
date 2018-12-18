@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import deadzone.listeners.KAdapter;
 import deadzone.listeners.MAdapter;
+import deadzone.menu.Menu;
 import deadzone.sprite.Sprite;
 import deadzone.sprite.SpriteInterface;
 import deadzone.sprite.animated.PlayerDemo;
@@ -100,7 +101,7 @@ public class MapPanel extends JPanel implements Runnable {
 
         if (handler.getPlayer().isDeath()) {
             PlayerFactory p = this.handler.getPlayer();
-            if (!(p instanceof PlayerDemo)) {
+            if (!(Menu.demo)) {
                 System.out.println("Non sono Player Demo... QUindi sono qui");
                 new Scoreboard().addScore(p.getName(), p.getPunteggioAttuale());
                 p.aggiornaDB();
@@ -139,11 +140,9 @@ public class MapPanel extends JPanel implements Runnable {
                 KAdapter.keys[KeyEvent.VK_A] = false;
                 KAdapter.keys[KeyEvent.VK_D] = false;
 
-                for (Iterator<SpriteInterface> it = handler.getitemsAndTrap().iterator(); it.hasNext();) {
+                for (Iterator<SpriteInterface> it = handler.getTraps().iterator(); it.hasNext();) {
                     Sprite s =(Sprite) it.next();
-                    if (s instanceof Trap) {
-                        s.animationCycle();
-                    }
+                    s.animationCycle();
                 }
                 first = false;
             }

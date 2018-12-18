@@ -6,6 +6,7 @@
 package deadzone.sprite;
 
 import deadzone.Handler;
+import deadzone.SpriteVisitor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import deadzone.sprite.animated.Zombie;
@@ -63,6 +64,9 @@ public class Circle extends Sprite{
         return false;
     }
     
+    public void accept(SpriteVisitor visitor){
+        visitor.visit(this);
+    }
 }
 
 

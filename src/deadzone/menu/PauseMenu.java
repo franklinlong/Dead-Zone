@@ -183,7 +183,7 @@ public class PauseMenu extends javax.swing.JDialog {
         end = true;
         setPause(false);
         if(Database.online){
-            if(!(player instanceof PlayerDemo)){
+            if(!Menu.demo){
                 Database.CancellaOnline(player.getOnlineID());
             }
         }

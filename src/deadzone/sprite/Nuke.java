@@ -8,6 +8,7 @@ package deadzone.sprite;
 import deadzone.Handler;
 import java.awt.Graphics;
 import deadzone.sprite.animated.Boss;
+import deadzone.sprite.animated.Zombie;
 import deadzone.utilities.Assets;
 import deadzone.utilities.Sound;
 
@@ -37,9 +38,9 @@ public class Nuke extends DropItem {
         if (this.isCollected(handler)) {
             explosion.playSound();
             for (int i = 0; i < handler.getZombies().size(); i++) {
-                Sprite s = (Sprite) handler.getZombies().get(i);
-                if (!(s instanceof Boss)) {
-                    s.death();
+                Zombie z = (Zombie) handler.getZombies().get(i);
+                if (!(z.getInitialVelocity() == 1)) {   //1 velocity of the boss
+                    z.death();
                 }
 
             }

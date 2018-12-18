@@ -6,6 +6,7 @@
 package deadzone.sprite.animated;
 
 import deadzone.Handler;
+import deadzone.SpriteVisitor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
@@ -70,5 +71,10 @@ public class Spittle extends Projectile {
         }
 
         return false;
+    }
+    
+    @Override
+    public void accept(SpriteVisitor visitor){
+        visitor.visit(this);
     }
 }

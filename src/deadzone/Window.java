@@ -5,6 +5,7 @@
  */
 package deadzone;
 
+import deadzone.menu.Menu;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -26,7 +27,7 @@ public class Window extends JFrame {
     }
 
     private void initUI(Board b) {
-        if (b instanceof BoardGame) {
+        if (!Menu.demo) {
             b.setWindow(this);
         }
 

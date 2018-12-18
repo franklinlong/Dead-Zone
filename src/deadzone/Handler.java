@@ -31,13 +31,16 @@ public class Handler implements SpriteInterface{
     private final List<SpriteInterface> proiettili = new ArrayList<>();
     private final List<SpriteInterface> spittles = new ArrayList<>();
     private final List<SpriteInterface> spawnSpittles = new ArrayList<>();
-    private final List<SpriteInterface> itemsAndTrap = new ArrayList<>();
+    private final List<SpriteInterface> items = new ArrayList<>();
+    private final List<SpriteInterface> traps = new ArrayList<>();
     private final List<SpriteInterface> bloods = new ArrayList<>();
     private final List<SpriteInterface> circle = new ArrayList<>();
     
     private final PlayerFactory player;
     private final Waves waves;
 
+    RemoveSpriteVisitor rsv = new RemoveSpriteVisitor(this);
+    AddSpriteVisitor asv = new AddSpriteVisitor(this);
     
     public Handler(PlayerFactory p, Waves w){
         player = p;              
@@ -72,10 +75,16 @@ public class Handler implements SpriteInterface{
             s.animationCycle();
         }
 
-        for (int i = 0; i < itemsAndTrap.size(); i++) {
-            SpriteInterface s = itemsAndTrap.get(i);
+        for (int i = 0; i < items.size(); i++) {
+            SpriteInterface s = items.get(i);
             s.animationCycle();
         }
+        
+        for (int i = 0; i < traps.size(); i++) {
+            SpriteInterface s = traps.get(i);
+            s.animationCycle();
+        }
+        
         for (int i = 0; i < circle.size(); i++) {
             SpriteInterface s = circle.get(i);
             s.animationCycle();
@@ -94,11 +103,17 @@ public class Handler implements SpriteInterface{
             SpriteInterface s = bloods.get(i);
             s.drawImage(g, offsetX, offsetY);
         }
-        for (int i = 0; i < itemsAndTrap.size(); i++) {
-            SpriteInterface s = itemsAndTrap.get(i);
+        
+        for (int i = 0; i < items.size(); i++) {
+            SpriteInterface s = items.get(i);
             s.drawImage(g, offsetX, offsetY);
         }
 
+        for (int i = 0; i < traps.size(); i++) {
+            SpriteInterface s = traps.get(i);
+            s.drawImage(g, offsetX, offsetY);
+        }
+        
         for (int i = 0; i < proiettili.size(); i++) {
             SpriteInterface s = proiettili.get(i);
             s.drawImage(g, offsetX, offsetY);
@@ -134,49 +149,12 @@ public class Handler implements SpriteInterface{
 
     public void addSprite(Sprite s) {
         //Prima di aggiungere lo sprite devo individuare in che lista aggiungerlo
-        if (s instanceof Zombie) {
-            this.zombies.add(s);
-        } else if (s instanceof PlayerFactory) {
-            this.players.add(s);
-        } else if (s instanceof Projectile) {
-            this.proiettili.add(s);
-        } else if (s instanceof DropItem || s instanceof Trap) {
-            this.itemsAndTrap.add(s);
-        } else if (s instanceof Spittle) {
-            this.spittles.add(s);
-        }else if (s instanceof SpawnSpittle) {
-            this.spawnSpittles.add(s);
-        }else if (s instanceof Circle) {
-            this.circle.add(s);
-        }else if (s instanceof Blood) {
-            this.bloods.add(s);
-        }else {
-            System.err.println("ERROREEEE, in handler add sprite");
-        }
-
+        s.accept(asv);
     }
 
     public void removeSprite(Sprite s) {
         //Prima di rimuovere lo sprite devo individuare in che lista rimuoverlo
-        if (s instanceof Zombie) {
-            this.zombies.remove(s);
-        } else if (s instanceof PlayerFactory) {
-            this.players.remove(s);
-        } else if (s instanceof Projectile) {
-            this.proiettili.remove(s);
-        } else if (s instanceof DropItem || s instanceof Trap) {
-            this.itemsAndTrap.remove(s);
-        } else if (s instanceof Spittle) {
-            this.spittles.remove(s);
-        } else if (s instanceof SpawnSpittle) {
-            this.spawnSpittles.remove(s);
-        } else if (s instanceof Circle) {
-            this.circle.remove(s);
-        } else if (s instanceof Blood) {
-            this.bloods.remove(s);
-        }else {
-            System.err.println("ERROREEEE, in handler remove sprite");
-        }
+        s.accept(rsv);
     }
 
     public List<SpriteInterface> getPlayers() {
@@ -187,7 +165,7 @@ public class Handler implements SpriteInterface{
         return zombies;
     }
 
-    public List<SpriteInterface> getProiettili() {
+    public List<SpriteInterface> getProjectiles() {
         return proiettili;
     }
 
@@ -199,11 +177,15 @@ public class Handler implements SpriteInterface{
         return spawnSpittles;
     }
     
-    public List<SpriteInterface> getitemsAndTrap() {
-        return itemsAndTrap;
+    public List<SpriteInterface> getItems() {
+        return items;
     }
     
-    public List<SpriteInterface> getiCircle() {
+    public List<SpriteInterface> getTraps() {
+        return traps;
+    }
+    
+    public List<SpriteInterface> getCircle() {
         return circle;
     }
 

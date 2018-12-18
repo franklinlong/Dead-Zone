@@ -65,7 +65,7 @@ public class GameOver extends javax.swing.JFrame {
             this.aggiornaDB();
             //this.jLabel2.setVisible(false);
         } else {
-            if (!(player instanceof PlayerDemo)) {
+            if (!Menu.demo) {
                 jLabel2.setText("OFFLINE! Impossible to send your score to Database");
             }
 
@@ -168,7 +168,7 @@ public class GameOver extends javax.swing.JFrame {
             conn = DriverManager.getConnection(Database.s1, Database.user, Database.pass);
             this.jLabel2.setText("Connection estabilished...");
             stmt = conn.createStatement();
-            if (!(player instanceof PlayerDemo)) {
+            if (!Menu.demo) {
                 this.jLabel2.setText("Sending your score to the database");
                 String query = "SELECT MAX(id) FROM scoreboard";
                 rs = stmt.executeQuery(query);

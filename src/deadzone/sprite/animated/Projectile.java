@@ -1,6 +1,7 @@
 package deadzone.sprite.animated;
 
 import deadzone.Handler;
+import deadzone.SpriteVisitor;
 import java.awt.Color;
 import java.awt.Graphics;
 import deadzone.sprite.Sprite;
@@ -36,7 +37,7 @@ public class Projectile extends AnimatedSprite {
         setY(getY() + velY);
         this.setHealth(this.getHealth() - 1);
         if (dye()) {
-            this.handler.getProiettili().remove(this);
+            this.handler.getProjectiles().remove(this);
         }
     }
     
@@ -72,5 +73,9 @@ public class Projectile extends AnimatedSprite {
         }
         
         return false;
+    }
+    
+    public void accept(SpriteVisitor visitor){
+        visitor.visit(this);
     }
 }

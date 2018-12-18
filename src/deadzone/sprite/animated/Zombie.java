@@ -6,6 +6,7 @@
 package deadzone.sprite.animated;
 
 import deadzone.Handler;
+import deadzone.SpriteVisitor;
 import java.awt.Graphics;
 import deadzone.sprite.Blood;
 import deadzone.utilities.Animation;
@@ -110,4 +111,8 @@ public abstract class Zombie extends AnimatedSprite {
     }
 
     public abstract void sound_hit();
+    
+    public void accept(SpriteVisitor visitor){
+        visitor.visit(this);
+    }
 }

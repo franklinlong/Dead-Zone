@@ -6,6 +6,7 @@
 package deadzone.sprite;
 
 import deadzone.Handler;
+import deadzone.SpriteVisitor;
 import java.awt.Graphics;
 import deadzone.utilities.Assets;
 
@@ -38,4 +39,7 @@ public class Blood extends Sprite {
         }
     }
 
+    public void accept(SpriteVisitor visitor){
+        visitor.visit(this);
+    }
 }
