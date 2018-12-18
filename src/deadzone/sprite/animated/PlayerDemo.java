@@ -55,11 +55,9 @@ public class PlayerDemo extends PlayerFactory{
     public void animationCycle() {
         //Controllo che sia vivo        
         if (getHealth() <= 0) {
-            for (Iterator<SpriteInterface> it = handler.getBloods().iterator(); it.hasNext();) {
-                Sprite s =(Sprite) it.next();
-                if (s instanceof Trap) {
-                    ((Trap) s).getSound().stopSound();
-                }
+            for (Iterator<SpriteInterface> it = handler.getTraps().iterator(); it.hasNext();) {
+                Trap t =(Trap) it.next();
+                t.getSound().stopSound();
             }
             death();
         }
