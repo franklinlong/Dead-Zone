@@ -167,6 +167,7 @@ public class OnlinePause extends JFrame {
         this.on.clear();
         this.punt.clear();
         this.jOnlinePanel.removeAll();
+        jPlayer.setText("");
         jOnlinePanel.add(jPlayer);
         this.jScorePanel.removeAll();
         this.aggiornaLabel();
@@ -218,6 +219,8 @@ public class OnlinePause extends JFrame {
                     on.get(i).setForeground(new Color(0, 204, 0));
                     jOnlinePanel.add(on.get(i));
                     i++;
+                }else{
+                    jPlayer.setText(player.getName());
                 }
                 this.jLabel4.setText("Count: " + Integer.toString(i + 1));
                 this.jOnlinePanel.repaint();
