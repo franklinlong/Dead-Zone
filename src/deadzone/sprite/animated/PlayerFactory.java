@@ -88,6 +88,7 @@ public abstract class PlayerFactory extends AnimatedSprite {
             shockTrapActive3 = false, wallTrapActive1 = false, wallTrapActive2 = false,
             fireTrapActive = false, holeTrapActive1 = false, holeTrapActive2 = false,
             flagShop = false;
+    
     private Timer shopTimer;
     
 
@@ -187,7 +188,7 @@ public abstract class PlayerFactory extends AnimatedSprite {
     public void animationCycle() {
         //Controllo che sia vivo        
         if (getHealth() <= 0) {
-            for (Iterator<SpriteInterface> it = handler.getBloods().iterator(); it.hasNext();) {
+            for (Iterator<SpriteInterface> it = handler.getitemsAndTrap().iterator(); it.hasNext();) {
                 Sprite s =(Sprite) it.next();
                 if (s instanceof Trap) {
                     ((Trap) s).getSound().stopSound();
