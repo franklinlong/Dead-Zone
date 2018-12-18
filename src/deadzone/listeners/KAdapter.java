@@ -50,11 +50,17 @@ public class KAdapter extends KeyAdapter {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        keys[e.getKeyCode()] = true;
+        try{
+            keys[e.getKeyCode()] = true;
+        }catch(Exception ex){
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        keys[e.getKeyCode()] = false;
+        try{
+            keys[e.getKeyCode()] = false;
+        }catch(Exception ex){
+        }
     }
 }

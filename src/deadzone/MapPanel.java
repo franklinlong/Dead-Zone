@@ -1,5 +1,6 @@
 package deadzone;
 
+import deadzone.listeners.FListener;
 import deadzone.menu.PauseMenu;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -28,6 +29,7 @@ public class MapPanel extends JPanel implements Runnable {
     private KAdapter kAdapt;
     private MAdapter mAdapt;
     private Camera camera;
+    private FListener fListener;
     
     public MapPanel(Handler h) {
         this.handler = h;
@@ -41,11 +43,13 @@ public class MapPanel extends JPanel implements Runnable {
         loadMap();
         kAdapt = new KAdapter();
         mAdapt = new MAdapter();
-
+        fListener = new FListener();
+        
         this.addMouseListener(mAdapt);
         this.addMouseMotionListener(mAdapt);
         this.addKeyListener(kAdapt);
-
+        this.addFocusListener(fListener);
+        
         this.setFocusable(true);
         this.requestFocusInWindow();
 

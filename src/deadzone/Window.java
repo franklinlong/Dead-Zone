@@ -24,6 +24,7 @@ public class Window extends JFrame {
         this.setIconImage(iconaFrame);
         //IF single player:
         initUI(b);
+        this.setUndecorated(true);
     }
 
     private void initUI(Board b) {

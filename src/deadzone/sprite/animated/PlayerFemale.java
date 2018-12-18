@@ -17,6 +17,7 @@ public class PlayerFemale extends PlayerFactory{
     
     public PlayerFemale(float x, float y, int vel, int health){
         super(x, y, vel, health);
+        initPlayer();
     }
     
     @Override
