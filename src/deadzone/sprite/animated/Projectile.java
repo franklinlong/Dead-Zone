@@ -50,11 +50,13 @@ public class Projectile extends AnimatedSprite {
         }
 
         //se è andato contro un muro
-        int pixel = mapRGB.getRGB((int) getX(), (int) getY());
-        int red = (pixel >> 16) & 0xff;
-        if (red == 255) {
-            return true;
-        }
+//        int pixel = mapRGB.getRGB((int) getX(), (int) getY());
+//        int red = (pixel >> 16) & 0xff;
+//        if (red == 255) {
+//            return true;
+//        }
+        int k = collision(velX, velY, this.getX(), this.getY());
+        if(k!=0) return true;
         
         //se ha colpito uno zombie
         List<SpriteInterface> list = handler.getZombies();

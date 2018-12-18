@@ -50,9 +50,11 @@ public class SpawnSpittle extends Spittle {
         if (getX() > 3200 || getX() < 0 || getY() < 0 || getY() > 3200) {
             return true;
         }
-        int pixel = mapRGB.getRGB((int) getX(), (int) getY());
-        int red = (pixel >> 16) & 0xff;
-        if(red==255){this.handler.getWaves().removeEnemy(); return true;}
+//        int pixel = mapRGB.getRGB((int) getX(), (int) getY());
+//        int red = (pixel >> 16) & 0xff;
+//        if(red==255){this.handler.getWaves().removeEnemy(); return true;}
+        int k = collision(velX, velY, this.getX(), this.getY());
+        if(k!=0) {this.handler.getWaves().removeEnemy(); return true;}
         else{zombie_x = getX(); zombie_y = getY();}
         //I proiettili hanno una portata limitata o se ha colpito il player o se è uscito dalla mappa o se è andato contro un muro
         if ((this.getHealth() == 0) ||  (handler.getPlayer().getBounds().contains(getX(), getY()))) {
