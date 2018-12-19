@@ -37,7 +37,7 @@ public class Waves implements Runnable {
     private int diffToCreate;
     protected int numZombieKilledRound;
     protected boolean allKilled;
-    protected static final Object KL = new Object(); //lock per l'allKilled
+    public static final Object KL = new Object(); //lock per l'allKilled
     private float mult;
     private final Sound endRound;
     protected Handler handler;
@@ -469,6 +469,7 @@ public class Waves implements Runnable {
         if (this.allKilled == true) {
             return 0;
         }
+
         int i = numZombieRound - numZombieKilledRound;
         if (i == 0) {
             this.numZombieKilledRound = 0;
@@ -525,4 +526,9 @@ public class Waves implements Runnable {
     public void setHandler(Handler h){
         this.handler = h;
     }
+
+    public boolean isAllKilled() {
+        return allKilled;
+    }
+    
 }

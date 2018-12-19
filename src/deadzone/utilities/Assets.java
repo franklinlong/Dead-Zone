@@ -65,6 +65,14 @@ public class Assets {
     public static BufferedImage[] fuochiR = new BufferedImage[12];
 
     public static BufferedImage[] explosion = new BufferedImage[23];
+    
+    public static BufferedImage[] demoImages = new BufferedImage[21];
+    
+    public static BufferedImage onlineImg;
+    public static BufferedImage pausaImg;
+    public static BufferedImage settingsImg;
+    public static BufferedImage unioneImg;
+    
     public static BufferedImage wall;
     public static BufferedImage hole;
     public static BufferedImage welcome;
@@ -276,9 +284,16 @@ public class Assets {
         for (int i = 0; i < explosion.length; i++) {
             explosion[i] = Utilities.loadImage("/explosion/" + i + ".png");
         }
+        
+        for (int i = 0; i < demoImages.length; i++) {
+            demoImages[i] = Utilities.loadImage("/demo/" + i + ".png");
+        }
 
         
-        welcome = Utilities.loadImage("/demo/Welcome2.png");
+        unioneImg = Utilities.loadImage("/images/unione.png");
+        onlineImg = Utilities.loadImage("/images/online.png");
+        pausaImg = Utilities.loadImage("/images/pausaimg.png");
+        settingsImg = Utilities.loadImage("/images/settingsimg.png");
         //gun skins
         shotgunSkin = Utilities.loadImage("/guns/shotgun.png");
         pistolSkin = Utilities.loadImage("/guns/pistol.png");

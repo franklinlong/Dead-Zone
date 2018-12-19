@@ -50,6 +50,9 @@ public class MapPanel extends JPanel implements Runnable {
         this.addKeyListener(kAdapt);
         this.addFocusListener(fListener);
         
+        if(Menu.demo)
+            ((PlayerDemo)handler.getPlayer()).setWindowDemo(this);
+        
         this.setFocusable(true);
         this.requestFocusInWindow();
 

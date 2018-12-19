@@ -8,6 +8,10 @@ package deadzone.sprite.animated;
 import deadzone.Gun;
 import deadzone.utilities.Animation;
 import deadzone.utilities.Assets;
+import deadzone.utilities.Database;
+import java.awt.Window;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  *

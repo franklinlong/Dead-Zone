@@ -7,8 +7,10 @@ package deadzone.sprite.animated;
 
 import deadzone.Gun;
 import deadzone.Waves;
+import deadzone.WavesDemo;
 import deadzone.graph.Graph;
 import deadzone.graph.Vertex;
+import deadzone.menu.PauseMenu;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
@@ -18,7 +20,15 @@ import deadzone.sprite.SpriteInterface;
 import deadzone.trap.Trap;
 import deadzone.utilities.Animation;
 import deadzone.utilities.Assets;
+import java.awt.Color;
+import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
@@ -26,13 +36,17 @@ import java.util.Iterator;
  */
 public class PlayerDemo extends PlayerFactory{
     
-    public static boolean visible;
+    
     private String move;
     private Waves wave;
     private List<SpriteInterface> zombies; 
+    private boolean next;
+    private Animation demoImages;
+    public static boolean FlagWaves = false;
     
     public PlayerDemo(float x, float y, int vel, int health){
         super(x, y, vel, health);
+        this.next = false;
         this.initPlayer();
     }
     
@@ -40,227 +54,63 @@ public class PlayerDemo extends PlayerFactory{
     public void drawImage(Graphics g, float offsetX, float offsetY) {
         xx = this.getX() - offsetX;
         yy = this.getY() - offsetY;
+        
+        if(!next){
+            int xScreen = Toolkit.getDefaultToolkit().getScreenSize().width*4/5;
+            int yScreen = Toolkit.getDefaultToolkit().getScreenSize().height;
+            nextScreen(g,(int)(xScreen-650),(int)(yScreen-370));
+        }
+        
         if (visible){
-            if (!this.handler.getZombies().isEmpty())
-                angleRotation(((Sprite) zombies.get(0)).getX(), ((Sprite) zombies.get(0)).getY(),this.getX(),this.getY());
-            
             at = AffineTransform.getTranslateInstance(xx, yy);
             at.rotate(angle, width / 2, height / 2);
             Graphics2D g2d = (Graphics2D) g;
             g2d.drawImage(currentGun.getCurrentAnimation().getCurrentFrame(), at, null);
         }
+        
     }
     
     @Override
     public void animationCycle() {
-        //Controllo che sia vivo        
-        if (getHealth() <= 0) {
-            for (Iterator<SpriteInterface> it = handler.getTraps().iterator(); it.hasNext();) {
-                Trap t =(Trap) it.next();
-                t.getSound().stopSound();
-            }
-            death();
-        }
-        
-        if(this.currentGun.getSkin()==Assets.pistolSkin && this.currentGun.getTotalBullets()==0) this.currentGun.setTotalBullets(2000);
-        if(this.zona.aggiorna(getX(),getY())){
-            this.camminiMinimi = Graph.BFS_complete(new Vertex(zona.getIndex()));
-        }
-
-        if (!visible)
-            showMap();
+        if(next){   
             
-        float x = getX();
-        float y = getY();
-        x += velX;
-        y += velY;
+            muovi();
 
-        setX(x);
-        setY(y);
-
-        if (visible){
-            int k = collision(velX, velY, x, y);
-            switch (k) {
-                case 1:
-                    x += velX * -1;
-                    break;
-                case 2:
-                    y += velY * -1;
-                    break;
-                case 3:
-                    y += velY * -1;
-                    x += velX * -1;
-                    break;
-                default:
-                    break;
-            }
-
-            setX(x);
-            setY(y);
-        }
-            
-        switch(move){
-            case "up":
-                velY = -initialVelocity;
-                velX = 0;
-                break;
-            case "down":
-                velY = initialVelocity;
-                velX = 0;
-                break;
-            case "left":
-                velY = 0;
-                velX = -initialVelocity;
-                break;
-            case "right":
-                velY = 0;
-                velX = initialVelocity;
-                break;
-            default:
-                velX = 0;
-                velY = 0;
-        }
-            
-
-        if (move.equalsIgnoreCase("1"))
-            currentGun = pistol;
-            
-        if (move.equalsIgnoreCase("2"))
-            currentGun = rifle;
-            
-        if (move.equalsIgnoreCase("3"))
-            currentGun = shotgun;
-
-        if (move.equalsIgnoreCase("4"))
-            currentGun = rpg;
-        
-        if (move.equalsIgnoreCase("action")){
-            int pixel = mapRGB.getRGB((int) getX() + width / 2, (int) getY() + height / 2);
-            pixel = (pixel >> 8) & 0xff;
-            activeTrap(pixel);
-        }
-            
-        if (move.equalsIgnoreCase("reload") && currentGun.getRound() != currentGun.getBulletsPerRound()
-                && currentGun.getTotalBullets() > 0)
-            currentGun.reload();
-
-        if (move.equalsIgnoreCase("shoot"))
-            currentGun.shoot((float) (angle + (Math.PI) / 30), x, y);
-
-        if (!visible){
-            velX *= 6;
-            velY *= 6;
-        }
-                
-        //aggiorno animazione del personaggio
-        currentGun.update();
-        
-    }
-    
-    public void showMap(){
-        
-        if (getX() <= 2700 && getY() <= 450)
-            this.move = "right";
-        else if (getX() >= 2700 && getY() <= 2800)
-            this.move = "down";
-        else if (getX() >= 450 && getY() >= 2700)
-            this.move = "left";
-        else
-            this.move = "up";
-        
-        if (getX() <= 1900 && getX() >= 1800 && getY() <= 450){
-            visible = true;
-            Thread t = new Thread(wave);
-            t.start();
-            move = "";
-            
-            synchronized(this.handler.getZombies()){
-                if (this.handler.getZombies().isEmpty()){
-                    try{    
-                        this.handler.getZombies().wait();
-                    }catch (InterruptedException ex){}
+            if (visible){
+                //Controllo che sia vivo        
+                if (getHealth() <= 0) {
+                    for (Iterator<SpriteInterface> it = handler.getTraps().iterator(); it.hasNext();) {
+                        Trap t =(Trap) it.next();
+                        t.getSound().stopSound();
+                    }
+                    death();
                 }
+
+                if(this.currentGun.getSkin()==Assets.pistolSkin && this.currentGun.getTotalBullets()==0) 
+                    this.currentGun.setTotalBullets(2000);
+
+                if(this.zona.aggiorna(getX(),getY()))
+                    this.camminiMinimi = Graph.BFS_complete(new Vertex(zona.getIndex()));
+            
             }
             
-            zombies = this.handler.getZombies();
-            Thread t2 = new Thread(action);
-            t2.start();
+            burattinaio();
+
+            //aggiorno animazione del personaggio
+            currentGun.update();
             
-        }
+
+        } 
     }
-    
-    Thread action = new Thread(new Runnable()
-        {
-        @Override
-        public synchronized void run() {
-            try{
-                wait(500);
-                move = "shoot";
-                wait(1500);
-                move = "up";
-                wait(700);
-                move = "right";
-                wait(1000);
-                move = "2";
-                wait(100);
-                move = "shoot";
-                wait(500);
-                move = "left";
-                wait(1200);
-                move = "down";
-                wait(1000);
-                move = "reload";
-                wait(200);
-                move = "down";
-                wait(4000);
-                move = "left";
-                wait(1100);
-                move = "up";
-                wait(1000);
-                move = "action";
-                wait(300);
-                move = "left";
-                wait(4500);
-                move = "down";
-                wait(5000);
-                move = "right";
-                wait(1000);
-                move = "down";
-                wait(1000);
-                move = "action";
-                wait(200);
-                move = "right";
-                wait(1000);
-                move = "";
-                wait(8500);
-                move = "shoot";
-                wait(5000);
-                move = "reload";
-                wait(100);
-                move = "up";
-                wait(500);
-                move = "left";
-                wait(1000);
-                move = "4";
-                wait(100);
-                move = "shoot";
-                wait(100);
-                move = "2";
-                wait(100);
-                move = "shoot";
-                
-            }catch(InterruptedException ex){}
-            
-        }
-            } 
-    );
 
     @Override
     public void initPlayer() {
-        this.coins = 40;
+        this.coins = 5;
         this.visible = false; 
         
         this.male = true;
+        
+        this.demoImages = new Animation(Assets.demoImages, 20);
         
         pistolIdle = new Animation(Assets.pistolIdle, 20);
         pistolReload = new Animation(Assets.pistolReload, 100);
@@ -291,7 +141,7 @@ public class PlayerDemo extends PlayerFactory{
         
         rpg = new Gun(Assets.rpgSkin, rpgIdle, rpgReload, rpgShoot, rpgShootSound,
                 rpgReloadSound, this, 1200,
-                1, 0, 700);
+                1, 20, 700);
         
         currentGun = pistol;
         
@@ -314,4 +164,309 @@ public class PlayerDemo extends PlayerFactory{
     public void setWave(Waves wave){
         this.wave = wave;
     }
+    
+    
+    public void setWindowDemo(JPanel window){
+        window.addKeyListener(new KeyAdapter(){
+            @Override
+            public void keyTyped(KeyEvent e){
+                if(e.getKeyChar() == ' ' && !next){
+                    next = true;
+                    demoImages.update();
+                }
+            }
+        });
+    }
+    
+    private void nextScreen(Graphics g, int x, int y){
+        Graphics2D g2d = (Graphics2D) g;
+
+        //Aggiornare x e y in base all'immagine da far uscire
+        if(demoImages.getIndex() == 0){
+            x = Toolkit.getDefaultToolkit().getScreenSize().width*4/5 *1/2 - 640/2;
+            y = Toolkit.getDefaultToolkit().getScreenSize().height/2 - 360/2;
+        }
+        else if(demoImages.getIndex() == 1){
+            x = 0;
+            y = 10;
+        }
+        else if(demoImages.getIndex() == 2 || demoImages.getIndex() == 3){
+            x = 0;
+            y = 360;
+        }
+        else if(demoImages.getIndex() == 4){
+            x = 0;
+            y = Toolkit.getDefaultToolkit().getScreenSize().height - 360;
+            g2d.drawImage(Assets.unioneImg,  0, 0, null);
+        }
+        else if(demoImages.getIndex() == 20){
+            
+        }
+        
+        
+        g2d.drawImage(demoImages.getCurrentFrame(), x,y, null);
+        
+    }
+    
+    private boolean flagTrap = false;
+    boolean waveCreata = false;
+    private void burattinaio(){
+        
+        switch(demoImages.getIndex()){
+            case 4:
+                next = false;
+                break;
+            case 5:
+                next = false;
+                break;
+            case 6:
+                this.velX = 7;
+                if(this.getX() > 2700){
+                    this.velX = 0;
+                    this.velY = 7;
+                }
+                if(this.getY() > 700){
+                    this.velY = 0;
+                    next = false;
+                }
+                break;
+            case 7:
+                next = false;
+                break;
+            case 8:
+                if(this.getY() < 2700 && this.getX() > 2700)
+                    this.velY = 7;
+                else if(this.getY() >= 2700 && this.getX() > 600){
+                    this.velX = -7;
+                    this.velY = 0;
+                } else if(this.getY() > 1670){
+                    this.velX = 0;
+                    this.velY = -7;
+                } else if(this.getY() <= 1670){
+                    this.velY = 0;
+                    next = false;
+                }
+                break;
+            case 10:
+                if(this.getY() > 600){
+                    this.velY = -7;
+                }
+                else{
+                    this.velY = 0;
+                    next = false;
+                }
+                break;
+            case 11:
+                if(this.getY() < 1600)
+                    this.velY = 7;
+                if(this.getX() < 1600)
+                    this.velX = 7;
+                
+                if(this.getX() >= 1600 && this.getY() >= 1600){
+                    this.visible = true;
+                    this.velX = 0;
+                    this.velY = 0;
+                    next = false;
+                }
+                break;
+            case 16:
+                if(!waveCreata){
+                    Waves w = handler.getWaves();
+                    Thread t = new Thread(w);
+                    t.start();
+                    waveCreata = true;
+                }
+                if(FlagWaves){
+                    this.velX = 0;
+                    this.velY = 0;
+                    next = false;
+                    waveCreata = false;
+                }
+                break;
+            case 17:
+                if(!waveCreata){
+                    currentGun = rifle;
+                    waveCreata = true;
+                    synchronized(WavesDemo.FW){
+                        FlagWaves = false;
+                        WavesDemo.FW.notifyAll();
+                    }
+                }
+                
+                if(FlagWaves){
+                    this.velX = 0;
+                    this.velY = 0;
+                    next = false;
+                    waveCreata = false;
+                }
+                break;
+            case 18:
+                if(!waveCreata){
+                    currentGun = shotgun;
+                    waveCreata = true;
+                    flagTrap = true;
+                    synchronized(WavesDemo.FW){
+                        FlagWaves = false;
+                        WavesDemo.FW.notifyAll();
+                    }
+                }
+                
+                if((this.getX() > 1445 && this.getX() < 1450) && (this.getY() < 1605 && this.getY() > 1600)){
+                    
+                    activeTrap(255);
+                    if(!this.fireTrapActive)
+                        flagTrap = false;
+                    else{
+                        this.velX = 0;
+                        this.velY = 0;
+                    }
+                        
+                }else if(flagTrap){
+                    if(this.getX() > 1448)
+                        velX = -getInitialVelocity();
+                    if(this.getX() < 1448)
+                        velX = getInitialVelocity();
+                    if(this.getY() > 1604)
+                        velY = -getInitialVelocity();
+                    if(this.getY() < 1604)
+                        velY = getInitialVelocity();
+                }
+                
+                if(FlagWaves){
+                    this.velX = 0;
+                    this.velY = 0;
+                    next = false;
+                    waveCreata = false;
+                }
+                break;
+            case 19:
+                if(!waveCreata){
+                    flagTrap = false;
+                    currentGun = rpg;
+                    waveCreata = true;
+                    synchronized(WavesDemo.FW){
+                        FlagWaves = false;
+                        WavesDemo.FW.notifyAll();
+                    }
+                }
+                
+                if(FlagWaves){
+                    this.velX = 0;
+                    this.velY = 0;
+                    next = false;
+                    waveCreata = false;
+                }
+                break;
+            case 20:
+                System.out.println("caso 20");
+                JFrame f = new JFrame();
+                f.setResizable(false);
+                f.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+                f.setBackground(Color.black);
+                f.setUndecorated(true);
+                f.setAlwaysOnTop(true);
+                f.setLocationRelativeTo(null);
+                f.setVisible(true);
+                
+                
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(PlayerDemo.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                f.setVisible(false);
+                f.dispose();
+                //akgrbe
+                break;
+            default:
+                next = false;
+                break;
+        }
+    }
+    
+    public void muovi(){
+        int x = (int)getX();
+        int y = (int)getY();
+        
+        if(handler.getZombies().size() > 0 && !flagTrap){
+            Zombie z = (Zombie) handler.getZombies().get(0);
+                        
+            float dx = ((int)z.getX() + z.width/2 ) - ((int)this.getX() + this.width/2);
+            float dy  = ((int)z.getY() + z.height/2 ) - ((int)this.getY() + this.height/2);
+
+            dx = (dx/ (float)Math.sqrt(dx*dx + dy*dy));
+            dy = (dy/ (float)Math.sqrt(dx*dx + dy*dy));
+
+            dx = dx * this.getInitialVelocity();
+            dy = dy * this.getInitialVelocity();
+
+            this.velX = dx;
+            this.velY = dy;
+            
+            angleRotation(z.getX() + z.width/2, z.getY() + z.height/2, this.getX(),this.getY());
+            float zombieX = (z.getX()+ z.width/2) - (this.getX() + this.width/2);
+            float zombieY = (z.getY() + z.height/2) - (this.getY() + this.height/2);
+            float distanceToZombieX = (float) (Math.sqrt(zombieX * zombieX + zombieY * zombieY));
+            float distanceToZombieY = (float) (Math.sqrt(zombieX * zombieX + zombieY * zombieY));
+
+            if (distanceToZombieX < 300 && distanceToZombieY < 300) {
+                this.velX = -1 * (int)this.velX;
+                this.velY = -1 * (int)this.velY;
+                if(currentGun.getRound()>0)
+                    currentGun.shoot((float) (angle + (Math.random() - 0.5) * (Math.PI) / 36), this.getX(), this.getY());
+                else
+                    currentGun.reload();
+            }
+            
+            //Velocità fittizie per capire se ci sono ostacoli
+            int vx = 0;
+            int vy = 0;
+            if (velX < 0) {
+                vx = -1*(int)this.getInitialVelocity();
+            } else if (velX > 0) {
+                vx = +1*(int)this.getInitialVelocity();
+            }
+            if (velY < 0) {
+                vy = -1*(int)this.getInitialVelocity();
+            } else if (velY > 0) {
+                vy = +1*(int)this.getInitialVelocity();
+            }
+
+            
+            x += vx;
+            y += vy;
+
+            //aggiorno le variabili dello sprite per come funziona collision
+            this.setX(x);
+            this.setY(y);
+
+            //Se c'è una collisione non posso passare
+            int k = this.collision(vx, vy,(float) x,(float) y);
+            switch (k) {
+                case 1:
+                    x -= vx;
+                    break;
+                case 2:
+                    y -= vy;
+                    break;
+                case 3:
+                    x -= vx;
+                    y -= vy;
+                    break;
+                default:
+                    x = (int) (x - vx + velX);
+                    y = (int) (y - vy + velY);
+                    break;
+            }
+  
+        }else{
+           x += (int)velX;
+           y += (int)velY;
+        }
+
+        setX(x);
+        setY(y);
+    }
+    
 }

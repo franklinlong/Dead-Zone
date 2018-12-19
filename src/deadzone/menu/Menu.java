@@ -5,6 +5,10 @@
  */
 package deadzone.menu;
 
+import deadzone.Context;
+import deadzone.ModalityDemo;
+import deadzone.ModalityGame;
+import deadzone.Window;
 import deadzone.utilities.Utilities;
 import deadzone.utilities.Assets;
 import deadzone.utilities.Sound;
@@ -227,7 +231,11 @@ public class Menu extends javax.swing.JFrame {
         demo = true;
         LoadingScreen ls = LoadingScreen.getLoadingScreen();
         ls.setVisible(true);
-        new LoadingThread(sp,ls).start();
+        
+        Context game = new Context(new ModalityDemo());
+        Window w = game.init("Demo", true);
+        new LoadingThread(sp,ls,w).start();
+
         this.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 

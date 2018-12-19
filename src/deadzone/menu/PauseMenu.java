@@ -33,13 +33,26 @@ public class PauseMenu extends javax.swing.JDialog {
     private static boolean pause;
     public static final Object PAUSELOCK = new Object();
     public static boolean end;
-    private final PlayerFactory player;
+    private PlayerFactory player;
 
+    public PauseMenu() {
+        initComponents();
+        
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
+        Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();
+        int x = (int) rect.getMaxX() / 2 - this.getWidth() / 2;
+        int y = (int) rect.getMaxY() / 2 - this.getHeight() / 2;
+        this.setLocation(x, y);
+    }
+    
     public PauseMenu(java.awt.Frame parent, boolean modal, PlayerFactory player) {
         super(parent, modal);
         this.player = player;
         initComponents();
+        
         setPause(true);
+        
         end = false;
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();

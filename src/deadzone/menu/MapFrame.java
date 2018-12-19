@@ -5,6 +5,8 @@
  */
 package deadzone.menu;
 
+import deadzone.Context;
+import deadzone.ModalityGame;
 import deadzone.Window;
 import deadzone.utilities.Sound;
 import deadzone.utilities.Utilities;
@@ -169,7 +171,10 @@ public class MapFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (jButtonStandardMap.isBorderPainted()) {
             LoadingScreen ls = LoadingScreen.getLoadingScreen();
-            new LoadingThread(sp,ls).start();
+            
+            Context game = new Context(new ModalityGame());
+            Window w = game.init(sp.getPlayerName(), sp.isMale());
+            new LoadingThread(sp,ls,w).start();
             this.setVisible(false);
 
         } else {

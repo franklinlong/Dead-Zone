@@ -89,8 +89,9 @@ public class HudPanel extends JPanel implements Runnable {
             }
 
             for (int j = 0; j < handler.getPlayers().size(); j++) {
-                Sprite i =(Sprite) handler.getPlayers().get(j);
-                drawIndicator(g, i.getX() - (i.getWidth() / 2), i.getY() - (i.getHeight() / 2), ((PlayerFactory) i).getAngle(), green_indicator);
+                PlayerFactory i =(PlayerFactory) handler.getPlayers().get(j);
+                if(i.visible)
+                    drawIndicator(g, i.getX() - (i.getWidth() / 2), i.getY() - (i.getHeight() / 2), i.getAngle(), green_indicator);
             }
 
             Toolkit.getDefaultToolkit().sync();
@@ -315,7 +316,7 @@ public class HudPanel extends JPanel implements Runnable {
                     if(this.handler.getPlayer().getCurrentGun().getSkin()==Assets.pistolSkin)
                         numBullets.setText(Integer.toString(handler.getPlayer().getCurrentGun().getRound()) + "/" + "\u221e");
                     else numBullets.setText(Integer.toString(handler.getPlayer().getCurrentGun().getRound()) + "/" + Integer.toString(handler.getPlayer().getCurrentGun().getTotalBullets())); //aggiorna numero proiettili
-                    numEnemies.setText("" + handler.getZombies().size());
+                    //numEnemies.setText("" + handler.getWaves().getNumZombieRemaining());
                     playerHealth.setHealth(this.handler.getPlayer().getHealth()); //aggiorna progressBar player
                     numWave.setText(Integer.toString(handler.getWaves().getWaveCount()) + " - \u221e");
                     numEnemies.setText(Integer.toString(handler.getWaves().getNumZombieRemaining()));

@@ -37,7 +37,7 @@ public class Projectile extends AnimatedSprite {
         setY(getY() + velY);
         this.setHealth(this.getHealth() - 1);
         if (dye()) {
-            this.handler.getProjectiles().remove(this);
+            this.handler.removeSprite(this);
         }
     }
     
@@ -45,7 +45,7 @@ public class Projectile extends AnimatedSprite {
     //Collisioni statiche implementate con la mappa RBG
     public boolean dye() {
         //Se è uscito dalla mappa
-        if (getX() > 3200 || getX() < 0 || getY() < 0 || getY() > 3200) {
+        if (getX() > 3180 || getX() < 0 || getY() < 0 || getY() > 3180) {
             return true;
         }
 

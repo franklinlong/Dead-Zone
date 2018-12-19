@@ -43,7 +43,7 @@ import javax.swing.Timer;
  * @author giova
  */
 public abstract class PlayerFactory extends AnimatedSprite {
-    
+    public boolean visible = true;
     public static final int PLAYERSIZE = 60;
     protected Zona zona;
 
@@ -74,7 +74,7 @@ public abstract class PlayerFactory extends AnimatedSprite {
     protected boolean male;
     
     private int punteggioAttuale;
-    private int onlineID;
+    protected int onlineID;
     protected String name;
     private int zombieKilled;
     private final int maximumHealth;
@@ -85,7 +85,7 @@ public abstract class PlayerFactory extends AnimatedSprite {
     private boolean trap;
     private final Graph grafo;
     
-    private boolean shockTrapActive1 = false, shockTrapActive2 = false,
+    protected boolean shockTrapActive1 = false, shockTrapActive2 = false,
             shockTrapActive3 = false, wallTrapActive1 = false, wallTrapActive2 = false,
             fireTrapActive = false, holeTrapActive1 = false, holeTrapActive2 = false,
             flagShop = false;
@@ -640,7 +640,7 @@ public abstract class PlayerFactory extends AnimatedSprite {
     public void setWindow(Window window){
         window.addWindowListener((new WindowAdapter() {
             @Override
-            public void windowClosing(WindowEvent e) {
+            public void windowClosing(WindowEvent e) {               
                 if (Database.online) {
                     Database.CancellaOnline(onlineID);
                 }
@@ -654,13 +654,14 @@ public abstract class PlayerFactory extends AnimatedSprite {
      
     public static PlayerFactory getPlayer(boolean male, boolean demo){
         if(demo)
-            return new PlayerDemo(2000,450,3,1600);
+            return new PlayerDemo(600,600,3,5000);
         if(male)
             return new PlayerMale(1600,1600,3,1600);
         else
             return new PlayerFemale(1600,1600,3,1600);
     }
     
+    @Override
     public void accept(SpriteVisitor visitor){
         visitor.visit(this);
     }

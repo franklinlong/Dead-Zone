@@ -24,14 +24,14 @@ public class Window extends JFrame {
         this.setIconImage(iconaFrame);
         //IF single player:
         initUI(b);
+        
         this.setUndecorated(true);
     }
 
     private void initUI(Board b) {
-        if (!Menu.demo) {
+        if(!Menu.demo)
             b.setWindow(this);
-        }
-
+        
         add(b);
         Dimension dimensioneSchermo = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize(dimensioneSchermo);

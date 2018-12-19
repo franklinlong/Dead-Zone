@@ -24,11 +24,12 @@ public class LoadingThread extends Thread {
 
     private SinglePlayer sp;
     private LoadingScreen ls;
-    private Context game;
+    private Window w;
     
-    public LoadingThread(SinglePlayer sp, LoadingScreen ls) {
+    public LoadingThread(SinglePlayer sp, LoadingScreen ls, Window w) {
         this.sp = sp;
         this.ls = ls;
+        this.w = w;
     }
 
     @Override
@@ -40,16 +41,7 @@ public class LoadingThread extends Thread {
             
             ls.setVisible(true);
             ls.jLabel2.setText("0%");
-            Window w;
-            if (Menu.demo){
-                game = new Context(new ModalityDemo());
-                w = game.init("Demo", true);
-            }
-            else{
-                game = new Context(new ModalityGame());
-                w = game.init(sp.getPlayerName(), sp.isMale());
-            }
-                
+            
             for(int i=0; i<100 ;i++){
                 ls.jLabel2.setText( i+ "%");
                 Thread.sleep(43);
