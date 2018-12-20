@@ -62,21 +62,8 @@ public abstract class AnimatedSprite extends Sprite {
         
         try{
             if (avanzamentoX > 0) {
-                if (avanzamentoY == 0) {
-                    //destra
-                    for (xx = x + width; xx < x + width + avanzamentoX; xx++) {
-                        for (yy = y; yy < y + height; yy++) {
-                            pixel = mapRGB.getRGB((int) xx, (int) yy);
-                            red = (pixel >> 16) & 0xff;
-                            if (red == 255) {
-                                return 1;
-                            }
-                        }
-                    }
-                } else if (avanzamentoY > 0) {
-                    //destra-sotto
-                    //controllo destra
-                    for (xx = x + width; xx < x + width + avanzamentoX; xx++) {
+                //destra
+                for (xx = x + width; xx < x + width + avanzamentoX; xx++) {
                         for (yy = y; yy < y + height; yy++) {
                             pixel = mapRGB.getRGB((int) xx, (int) yy);
                             red = (pixel >> 16) & 0xff;
@@ -85,7 +72,14 @@ public abstract class AnimatedSprite extends Sprite {
                                 break;
                             }
                         }
+                        if (collisione1) 
+                            break;
                     }
+                if (avanzamentoY == 0 && collisione1==true) {
+                    return 1;
+                } else if (avanzamentoY > 0) {
+                    //destra-sotto
+                    
                     //controllo sotto
                     for (xx = x; xx < x + width; xx++) {
                         for (yy = y + height; yy < y + height + avanzamentoY; yy++) {
@@ -96,6 +90,8 @@ public abstract class AnimatedSprite extends Sprite {
                                 break;
                             }
                         }
+                        if (collisione2) 
+                            break;
                     }
                     //controllo la diagonale
                     for (xx = x + width; xx < x + width + avanzamentoX; xx++) {
@@ -107,6 +103,8 @@ public abstract class AnimatedSprite extends Sprite {
                                 break;
                             }
                         }
+                        if (collisione3) 
+                            break;
                     }
 
                     if (collisione3 == true && collisione1 == false && collisione2 == false) {
@@ -126,17 +124,7 @@ public abstract class AnimatedSprite extends Sprite {
                     }
                 } else {
                     //destra-sopra
-                    //controllo destra
-                    for (xx = x + width; xx < x + width + avanzamentoX; xx++) {
-                        for (yy = y; yy < y + height; yy++) {
-                            pixel = mapRGB.getRGB((int) xx, (int) yy);
-                            red = (pixel >> 16) & 0xff;
-                            if (red == 255) {
-                                collisione1 = true;
-                                break;
-                            }
-                        }
-                    }
+
                     //controllo sopra
                     for (xx = x; xx < x + width; xx++) {
                         for (yy = y + avanzamentoY; yy < y; yy++) {
@@ -147,6 +135,8 @@ public abstract class AnimatedSprite extends Sprite {
                                 break;
                             }
                         }
+                        if (collisione2) 
+                            break;
                     }
                     //controllo la diagonale
                     for (xx = x + width; xx < x + width + avanzamentoX; xx++) {
@@ -158,6 +148,8 @@ public abstract class AnimatedSprite extends Sprite {
                                 break;
                             }
                         }
+                        if (collisione3) 
+                            break;
                     }
                     if (collisione3 == true && collisione1 == false && collisione2 == false) {
                         return 3;
@@ -178,21 +170,7 @@ public abstract class AnimatedSprite extends Sprite {
                 }
 
             } else if (avanzamentoX < 0) {
-                if (avanzamentoY == 0) {
-                    //sinistra 
-                    for (xx = x + avanzamentoX; xx < x; xx++) {
-                        for (yy = y; yy < y + height; yy++) {
-                            pixel = mapRGB.getRGB((int) xx, (int) yy);
-                            red = (pixel >> 16) & 0xff;
-                            if (red == 255) {
-                                return 1;
-                            }
-                        }
-                    }
-                } else if (avanzamentoY > 0) {
-                    //sinistra sotto
-                    //sinistra 
-                    for (xx = x + avanzamentoX; xx < x; xx++) {
+                for (xx = x + avanzamentoX; xx < x; xx++) {
                         for (yy = y; yy < y + height; yy++) {
                             pixel = mapRGB.getRGB((int) xx, (int) yy);
                             red = (pixel >> 16) & 0xff;
@@ -201,7 +179,14 @@ public abstract class AnimatedSprite extends Sprite {
                                 break;
                             }
                         }
+                        if (collisione1) 
+                            break;
                     }
+                if (avanzamentoY == 0 && collisione1==true) {
+                    return 1; 
+                } else if (avanzamentoY > 0) {
+                    //sinistra sotto
+
                     //sotto
                     for (xx = x; xx < x + width; xx++) {
                         for (yy = y + height; yy < y + height + avanzamentoY; yy++) {
@@ -212,6 +197,8 @@ public abstract class AnimatedSprite extends Sprite {
                                 break;
                             }
                         }
+                        if (collisione2) 
+                            break;
                     }
                     //controllo la diagonale
                     for (xx = x + avanzamentoX; xx < x; xx++) {
@@ -223,6 +210,8 @@ public abstract class AnimatedSprite extends Sprite {
                                 break;
                             }
                         }
+                        if (collisione3) 
+                            break;
                     }
                     if (collisione3 == true && collisione1 == false && collisione2 == false) {
                         return 3;
@@ -241,17 +230,7 @@ public abstract class AnimatedSprite extends Sprite {
                     }
                 } else {
                     //sinistra sopra
-                    //sinistra 
-                    for (xx = x + avanzamentoX; xx < x; xx++) {
-                        for (yy = y; yy < y + height; yy++) {
-                            pixel = mapRGB.getRGB((int) xx, (int) yy);
-                            red = (pixel >> 16) & 0xff;
-                            if (red == 255) {
-                                collisione1 = true;
-                                break;
-                            }
-                        }
-                    }
+                    
                     //controllo sopra
                     for (xx = x; xx < x + width; xx++) {
                         for (yy = y + avanzamentoY; yy < y; yy++) {
@@ -262,6 +241,8 @@ public abstract class AnimatedSprite extends Sprite {
                                 break;
                             }
                         }
+                        if (collisione2) 
+                            break;
                     }
                     //controllo la diagonale
                     for (xx = x + avanzamentoX; xx < x; xx++) {
@@ -273,6 +254,8 @@ public abstract class AnimatedSprite extends Sprite {
                                 break;
                             }
                         }
+                        if (collisione3) 
+                            break;
                     }
                     if (collisione3 == true && collisione1 == false && collisione2 == false) {
                         return 3;

@@ -67,7 +67,7 @@ public class MapPanel extends JPanel implements Runnable {
     }
 
     private void loadMap() {
-        ImageIcon map = new ImageIcon("map.png");
+        ImageIcon map = new ImageIcon(getClass().getResource("/images/map.png"));
         mapImage = map.getImage();
     }
 

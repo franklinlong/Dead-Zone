@@ -181,6 +181,7 @@ public class PauseMenu extends javax.swing.JDialog {
     private void ResumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResumeActionPerformed
         // TODO add your handling code here:
         setPause(false);
+        PauseMenu.pause=false;
         this.dispose();
     }//GEN-LAST:event_ResumeActionPerformed
 

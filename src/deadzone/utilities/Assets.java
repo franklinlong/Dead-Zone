@@ -351,21 +351,30 @@ public class Assets {
         //minimap
         int mp_h = Toolkit.getDefaultToolkit().getScreenSize().width * 18 / 100;
         int mp_w = Toolkit.getDefaultToolkit().getScreenSize().width * 18 / 100;
-        ImageIcon i = new ImageIcon("resources/images/minimappa.png");
+        
+        minimap = Utilities.loadImage("/images/minimappa.png");
+        ImageIcon i = new ImageIcon(minimap);
         minimap = i.getImage().getScaledInstance(mp_h, mp_w, Image.SCALE_FAST);
 
-        greenIndicator = new ImageIcon("resources/images/green.png").getImage();
-        redIndicator = new ImageIcon("resources/images/red.png").getImage();
+        greenIndicator = Utilities.loadImage("/images/green.png");
+        i = new ImageIcon(greenIndicator);
+        greenIndicator = i.getImage().getScaledInstance((int) mp_w / 20, (int) mp_h / 20, Image.SCALE_FAST);
 
-        redIndicator = redIndicator.getScaledInstance((int) mp_w / 20, (int) mp_h / 20, Image.SCALE_FAST);  //gli indicatori hanno come size il 5% di quelle della minimap
-        greenIndicator = greenIndicator.getScaledInstance((int) mp_w / 20, (int) mp_h / 20, Image.SCALE_FAST);
-
-        try {
-            mapRGB = ImageIO.read(new File("mapRGB.png"));
-            mapRGB2 = ImageIO.read(new File("mapRGB.png"));
-        } catch (IOException ex) {
-            Logger.getLogger(Assets.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
+        redIndicator = Utilities.loadImage("/images/red.png");
+        i = new ImageIcon(redIndicator);
+        redIndicator = i.getImage().getScaledInstance((int) mp_w / 20, (int) mp_h / 20, Image.SCALE_FAST);
+        
+        
+        mapRGB = Utilities.loadImage("/images/mapRGB.png");
+        mapRGB2 = Utilities.loadImage("/images/mapRGB.png");
+        
+//        try {
+//            mapRGB = ImageIO.read(new File("mapRGB.png"));
+//            mapRGB2 = ImageIO.read(new File("mapRGB.png"));
+//        } catch (IOException ex) {
+//            Logger.getLogger(Assets.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
         //Trap
         shockTrap1 = Utilities.LoadSound("/sound/scossa.wav");

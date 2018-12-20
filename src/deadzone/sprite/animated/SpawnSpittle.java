@@ -7,6 +7,7 @@ package deadzone.sprite.animated;
 
 import deadzone.Handler;
 import deadzone.SpriteVisitor;
+import deadzone.menu.Menu;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
@@ -64,17 +65,23 @@ public class SpawnSpittle extends Spittle {
         }
         //I proiettili hanno una portata limitata o se ha colpito il player o se è uscito dalla mappa o se è andato contro un muro
         if ((this.getHealth() == 0) ||  (handler.getPlayer().getBounds().contains(getX(), getY()))) {
-            int n = (int) (Math.random() * 10);
+            int vel=3;
+            if(Menu.demo)
+                vel = 3;
+            else
+                vel=2;
+            
+            int n = (int) (Math.random() * 10);                
             if(n>1) n=2;
             switch (n) {
                 case 2:
-                    this.handler.addSprite(new StandardZombie(zombie_x, zombie_y, 3, 200, 25, handler.getPlayer(), this.handler, 0, 60, 60, 5, new Animation(Assets.zombie, 20), new Animation(Assets.zombieAttack, 35), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
+                    this.handler.addSprite(new StandardZombie(zombie_x, zombie_y, vel, 200, 25, handler.getPlayer(), this.handler, 0, 60, 60, 5, new Animation(Assets.zombie, 20), new Animation(Assets.zombieAttack, 35), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
                     break;
                 case 0:
                     this.handler.addSprite(new StandardZombie(zombie_x, zombie_y, 4, 70, 50, handler.getPlayer(), this.handler, 0, 60, 60, 20, new Animation(Assets.zombie2, 15), new Animation(Assets.zombie2Attack, 15), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
                     break;
                 case 1:
-                    this.handler.addSprite(new SpittleZombie(zombie_x, zombie_y, 3, 500, 40, handler.getPlayer(), this.handler, 0, 60, 60, 45, new Animation(Assets.zombie3, 15), new Animation(Assets.zombie3Attack, 15), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
+                    this.handler.addSprite(new SpittleZombie(zombie_x, zombie_y, vel, 500, 40, handler.getPlayer(), this.handler, 0, 60, 60, 45, new Animation(Assets.zombie3, 15), new Animation(Assets.zombie3Attack, 15), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
                     break;
             }
             return true;

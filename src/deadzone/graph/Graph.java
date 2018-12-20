@@ -761,15 +761,15 @@ public class Graph {
     
     public int edge_count(){
         int count=0;
-        for (Map s: adjList.values())
+        for (Map<Vertex,Edge> s: adjList.values())
             count += s.size();
         return count;
     }
     
     public Set edges(){
-        Set result = new HashSet();
-        for (Map s: adjList.values())
-            result.add(s.values());
+        Set<Edge> result = new HashSet();
+        for (Map<Vertex,Edge> s: adjList.values())
+            result.addAll(s.values());
         return result;
     }
     
