@@ -18,6 +18,7 @@ import deadzone.sprite.SpriteInterface;
 import deadzone.sprite.animated.PlayerDemo;
 import deadzone.sprite.animated.PlayerFactory;
 import deadzone.trap.Trap;
+import deadzone.utilities.Assets;
 import deadzone.utilities.Scoreboard;
 import java.awt.event.KeyEvent;
 import java.util.Iterator;
@@ -113,7 +114,6 @@ public class MapPanel extends JPanel implements Runnable {
                 new Scoreboard().addScore(p.getName(), p.getPunteggioAttuale());
                 p.aggiornaDB();
             }
-
         }
 
     }
@@ -160,7 +160,6 @@ public class MapPanel extends JPanel implements Runnable {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         float offsetX = camera.getOffset_x();
         float offsetY = camera.getOffset_y();
         

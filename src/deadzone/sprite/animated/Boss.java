@@ -93,10 +93,10 @@ public class Boss extends Zombie{
                 //deathDelay.start();
             }
             currentAnimation.update();
-            System.out.println(currentAnimation.getIndex());
-            if(currentAnimation.getIndex() == 6){
+            if(currentAnimation.getIndex() == 5){
                 death();
-                this.handler.addSprite(new SpittleZombie(this.getX(), this.getY(), (float)1, 700, 50, handler.getPlayer(), this.handler, 0, 60, 60, 5, new Animation(Assets.zombie3, 15), new Animation(Assets.zombie3Attack, 15), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
+                this.handler.getWaves().addEnemy();
+                this.handler.addSprite(new SpittleZombie(this.getX(), this.getY(), (float)3, 700, 50, handler.getPlayer(), this.handler, 0, 60, 60, 5, new Animation(Assets.zombie3, 15), new Animation(Assets.zombie3Attack, 15), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
                 this.handler.getWaves().addEnemy();
                 SpawnSpittle m2 = new SpawnSpittle(this.getX() + this.width/2, this.getY() + this.height/2, 1,
                         1, (float)1, 15, this.handler);
@@ -113,7 +113,7 @@ public class Boss extends Zombie{
                 SpawnSpittle m5 = new SpawnSpittle(this.getX() + this.width/2, this.getY() + this.height/2, -1,
                         -1, (float)1, 15, this.handler);
                 this.handler.addSprite(m5);
-                this.handler.getWaves().addEnemy();
+                
             }
             
         }

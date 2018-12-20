@@ -10,24 +10,23 @@ import deadzone.Waves;
 import deadzone.WavesDemo;
 import deadzone.graph.Graph;
 import deadzone.graph.Vertex;
-import deadzone.menu.PauseMenu;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.util.List;
-import deadzone.sprite.Sprite;
 import deadzone.sprite.SpriteInterface;
 import deadzone.trap.Trap;
 import deadzone.utilities.Animation;
 import deadzone.utilities.Assets;
-import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -197,10 +196,10 @@ public class PlayerDemo extends PlayerFactory{
         else if(demoImages.getIndex() == 4){
             x = 0;
             y = Toolkit.getDefaultToolkit().getScreenSize().height - 360;
-            g2d.drawImage(Assets.unioneImg,  0, 0, null);
+            g2d.drawImage(Assets.unioneImg,  0, -160, null);
         }
-        else if(demoImages.getIndex() == 20){
-            
+        else if(this.isDeath()){
+            g2d.drawImage(Assets.demoImages[19], x,y, null);
         }
         
         
@@ -208,8 +207,9 @@ public class PlayerDemo extends PlayerFactory{
         
     }
     
+    JFrame f;
     private boolean flagTrap = false;
-    boolean waveCreata = false;
+    boolean notFirst = false;
     private void burattinaio(){
         
         switch(demoImages.getIndex()){
@@ -270,23 +270,23 @@ public class PlayerDemo extends PlayerFactory{
                 }
                 break;
             case 16:
-                if(!waveCreata){
+                if(!notFirst){
                     Waves w = handler.getWaves();
                     Thread t = new Thread(w);
                     t.start();
-                    waveCreata = true;
+                    notFirst = true;
                 }
                 if(FlagWaves){
                     this.velX = 0;
                     this.velY = 0;
                     next = false;
-                    waveCreata = false;
+                    notFirst = false;
                 }
                 break;
             case 17:
-                if(!waveCreata){
+                if(!notFirst){
                     currentGun = rifle;
-                    waveCreata = true;
+                    notFirst = true;
                     synchronized(WavesDemo.FW){
                         FlagWaves = false;
                         WavesDemo.FW.notifyAll();
@@ -297,13 +297,13 @@ public class PlayerDemo extends PlayerFactory{
                     this.velX = 0;
                     this.velY = 0;
                     next = false;
-                    waveCreata = false;
+                    notFirst = false;
                 }
                 break;
             case 18:
-                if(!waveCreata){
+                if(!notFirst){
                     currentGun = shotgun;
-                    waveCreata = true;
+                    notFirst = true;
                     flagTrap = true;
                     synchronized(WavesDemo.FW){
                         FlagWaves = false;
@@ -336,49 +336,88 @@ public class PlayerDemo extends PlayerFactory{
                     this.velX = 0;
                     this.velY = 0;
                     next = false;
-                    waveCreata = false;
+                    notFirst = false;
                 }
                 break;
             case 19:
-                if(!waveCreata){
+                if(!notFirst){
                     flagTrap = false;
                     currentGun = rpg;
-                    waveCreata = true;
+                    notFirst = true;
                     synchronized(WavesDemo.FW){
                         FlagWaves = false;
                         WavesDemo.FW.notifyAll();
                     }
                 }
                 
-                if(FlagWaves){
+                if(FlagWaves && notFirst){
+                    this.velX = 0;
+                    this.velY = 0;
+                    notFirst = false;
+                    
+                    
+                    f = new JFrame();
+                    f.setResizable(false);
+                    f.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+                    f.setUndecorated(true);
+                    f.setAlwaysOnTop(true);
+                    f.setLocationRelativeTo(null);
+                    
+                    JLabel l = new JLabel();
+                    l.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+                    l.setText("");
+                    l.setIcon(new ImageIcon(Assets.schermoNero));
+                    f.getContentPane().add(l);
+                    
+                    new Thread(new Runnable(){
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException ex) {
+                                Logger.getLogger(PlayerDemo.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            f.setVisible(true);
+                            
+                        }
+                    }).start();
+                    
+                    this.hit(this.getHealth()-200);
+                    
+                    new Thread(new Runnable(){
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(6000);
+                            } catch (InterruptedException ex) {
+                                Logger.getLogger(PlayerDemo.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            f.setVisible(false);
+                            f.dispose();
+//                            try {
+//                                new Robot().keyPress(KeyEvent.VK_SPACE);
+//                                
+//                            } catch (AWTException ex) {
+//                                Logger.getLogger(PlayerDemo.class.getName()).log(Level.SEVERE, null, ex);
+//                            }
+                        }
+                    }).start();
+
+                    synchronized(WavesDemo.FW){
+                        FlagWaves = false;
+                        WavesDemo.FW.notifyAll();
+                    }
+                }
+                
+                if(this.isDeath()){
                     this.velX = 0;
                     this.velY = 0;
                     next = false;
-                    waveCreata = false;
+                    notFirst = false;
+                    
                 }
                 break;
-            case 20:
-                System.out.println("caso 20");
-                JFrame f = new JFrame();
-                f.setResizable(false);
-                f.setSize(Toolkit.getDefaultToolkit().getScreenSize());
-                f.setBackground(Color.black);
-                f.setUndecorated(true);
-                f.setAlwaysOnTop(true);
-                f.setLocationRelativeTo(null);
-                f.setVisible(true);
-                
-                
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(PlayerDemo.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
-                f.setVisible(false);
-                f.dispose();
-                //akgrbe
-                break;
+            
             default:
                 next = false;
                 break;
@@ -468,5 +507,5 @@ public class PlayerDemo extends PlayerFactory{
         setX(x);
         setY(y);
     }
-    
+
 }

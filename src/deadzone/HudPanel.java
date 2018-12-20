@@ -2,6 +2,8 @@ package deadzone;
 
 import deadzone.menu.PauseMenu;
 import deadzone.menu.GameOver;
+import deadzone.menu.GameOverDemo;
+import deadzone.menu.Menu;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -233,13 +235,14 @@ public class HudPanel extends JPanel implements Runnable {
         pauseButton.setFont(new java.awt.Font("Comic Sans MS", 1, pauseButton.getHeight()));
         pauseButton.setLocation(minimapPanel.getX(), this.getHeight() - pauseButton.getHeight() * 2);
         this.add(pauseButton);
-
-        pauseButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pauseActionPerformed(evt);
-            }
-        });
-
+        
+        if(!Menu.demo){
+            pauseButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    pauseActionPerformed(evt);
+                }
+            });
+        }
         this.setBackground(Color.BLACK);
 
     }
@@ -342,8 +345,16 @@ public class HudPanel extends JPanel implements Runnable {
         if (!PauseMenu.end) {
             this.playerHealth.setHealth(0);
             this.playerHealth.repaint();
-            new GameOver(hudPanel,handler.getPlayer());
+            if(!Menu.demo){
+                System.out.println("1");
+                new GameOver(hudPanel,handler.getPlayer());
+            }
+            else{
+                System.out.println("2");
+                new GameOverDemo(hudPanel,handler.getPlayer());
+            }
         }
+        
         System.out.println("FINE PARTITA HUD");
     }
 }

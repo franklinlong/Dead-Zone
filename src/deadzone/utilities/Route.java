@@ -8,10 +8,12 @@ package deadzone.utilities;
 import deadzone.graph.Edge;
 import deadzone.graph.Vertex;
 import deadzone.Handler;
+import deadzone.menu.Menu;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 import deadzone.sprite.Sprite;
+import deadzone.sprite.SpriteInterface;
 import deadzone.sprite.animated.PlayerFactory;
 import deadzone.sprite.animated.Zombie;
 
@@ -99,7 +101,7 @@ public class Route {
         return a;
     }
 
-    public ArrayList<Zombie> evitaZombies(int x, int y, List<Sprite> zombies) {
+    public ArrayList<Zombie> evitaZombies(int x, int y, List<SpriteInterface> zombies) {
         ArrayList<Zombie> vicini = new ArrayList<Zombie>();
 
         //aggiorno le variabili dello zombie in modo da vedere se nella nuova posizione ci sono atri zombie
@@ -143,28 +145,29 @@ public class Route {
             vy = +1*(int)zombie.getInitialVelocity();
         }
 
-//        //Codice per ricalcolare la direzione in base alla presenza di zombie vicini
-//        ArrayList<Zombie> vicino = this.evitaZombies(vx, vy, handler.getZombies());
-//        if (!vicino.isEmpty()) {
-//            for (int i = 0; i < vicino.size(); i++) {
-//                Route r2 = new Route(this.zombie, vicino.get(i), handler);
-//                float[] a = r2.seek(this.zombie.getX(),this.zombie.getY(),this.zombie.width,this.zombie.height);
-//                velX = (velX + a[0]);
-//                velY = (velY + a[1]);
-//            }
-//            velX = velX /10;
-//            velY = velY /10;
-//            
-//            if(velX > zombie.getInitialVelocity())
-//                velX = zombie.getInitialVelocity();
-//            if(velX < -zombie.getInitialVelocity())
-//                velX = -zombie.getInitialVelocity();
-//            if(velY > zombie.getInitialVelocity())
-//                velY = zombie.getInitialVelocity();
-//            if(velY < -zombie.getInitialVelocity())
-//                velY = -zombie.getInitialVelocity();
-//        } 
-        
+        //Codice per ricalcolare la direzione in base alla presenza di zombie vicini
+        if(!Menu.demo){
+            ArrayList<Zombie> vicino = this.evitaZombies(vx, vy, handler.getZombies());
+            if (!vicino.isEmpty()) {
+                for (int i = 0; i < vicino.size(); i++) {
+                    Route r2 = new Route(this.zombie, vicino.get(i), handler);
+                    float[] a = r2.seek(this.zombie.getX(),this.zombie.getY(),this.zombie.width,this.zombie.height);
+                    velX = (velX + a[0]);
+                    velY = (velY + a[1]);
+                }
+                velX = velX /10;
+                velY = velY /10;
+
+                if(velX > zombie.getInitialVelocity())
+                    velX = zombie.getInitialVelocity();
+                if(velX < -zombie.getInitialVelocity())
+                    velX = -zombie.getInitialVelocity();
+                if(velY > zombie.getInitialVelocity())
+                    velY = zombie.getInitialVelocity();
+                if(velY < -zombie.getInitialVelocity())
+                    velY = -zombie.getInitialVelocity();
+            } 
+        }
         float x = zombie.getX();
         float y = zombie.getY();
 

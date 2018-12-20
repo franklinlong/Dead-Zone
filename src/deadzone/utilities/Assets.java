@@ -66,7 +66,7 @@ public class Assets {
 
     public static BufferedImage[] explosion = new BufferedImage[23];
     
-    public static BufferedImage[] demoImages = new BufferedImage[21];
+    public static BufferedImage[] demoImages = new BufferedImage[20];
     
     public static BufferedImage onlineImg;
     public static BufferedImage pausaImg;
@@ -76,6 +76,7 @@ public class Assets {
     public static BufferedImage wall;
     public static BufferedImage hole;
     public static BufferedImage welcome;
+    public static BufferedImage schermoNero;
     // guns skin
     public static BufferedImage pistolSkin, ak47, rpgSkin, rifleLoader, shotgunSkin;
 
@@ -289,7 +290,7 @@ public class Assets {
             demoImages[i] = Utilities.loadImage("/demo/" + i + ".png");
         }
 
-        
+        schermoNero = Utilities.loadImage("/images/schermoNero.png");
         unioneImg = Utilities.loadImage("/images/unione.png");
         onlineImg = Utilities.loadImage("/images/online.png");
         pausaImg = Utilities.loadImage("/images/pausaimg.png");
