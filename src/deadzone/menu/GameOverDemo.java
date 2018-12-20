@@ -27,7 +27,7 @@ import java.sql.Statement;
  *
  * @author giova
  */
-public class GameOver extends javax.swing.JFrame {
+public class GameOverDemo extends javax.swing.JFrame {
 
     JFrame parent;
     public static Sound soundEndGame;
@@ -39,7 +39,7 @@ public class GameOver extends javax.swing.JFrame {
      *
      * @param parent
      */
-    public GameOver(JFrame parent, PlayerFactory player) {
+    public GameOverDemo(JFrame parent, PlayerFactory player) {
 
         this.player = player;
 
@@ -52,11 +52,11 @@ public class GameOver extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.jButton1.setVisible(false);
-        this.jLabel2.setVisible(true);
+        this.jLabel2.setVisible(false);
 
-        GameOver.clipEndGame = Utilities.LoadSound("/sound/endGame.wav");
-        GameOver.soundEndGame = new Sound(clipEndGame);
-        GameOver.soundEndGame.playSound();
+        GameOverDemo.clipEndGame = Utilities.LoadSound("/sound/endGame.wav");
+        GameOverDemo.soundEndGame = new Sound(clipEndGame);
+        GameOverDemo.soundEndGame.playSound();
 
         if (Database.online) {
             this.aggiornaDB();
@@ -86,15 +86,14 @@ public class GameOver extends javax.swing.JFrame {
 
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("DEAD ZONE");
-        setMaximumSize(new java.awt.Dimension(768, 575));
-        setMinimumSize(new java.awt.Dimension(768, 575));
-        setPreferredSize(new java.awt.Dimension(768, 575));
+        setMaximumSize(new java.awt.Dimension(920, 517));
+        setMinimumSize(new java.awt.Dimension(920, 517));
         setResizable(false);
+        setSize(new java.awt.Dimension(920, 517));
         getContentPane().setLayout(null);
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
@@ -108,25 +107,20 @@ public class GameOver extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(290, 430, 200, 50);
+        jButton1.setBounds(420, 390, 200, 50);
 
         jLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(85, 460, 600, 100);
+        jLabel2.setBounds(20, 260, 600, 100);
 
-        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setFont(new java.awt.Font("Chiller", 0, 150)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("GAME OVER");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(90, 120, 600, 220);
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sfondo_senza_spari.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/demo.png"))); // NOI18N
+        jLabel3.setMaximumSize(new java.awt.Dimension(920, 517));
+        jLabel3.setMinimumSize(new java.awt.Dimension(920, 517));
+        jLabel3.setPreferredSize(new java.awt.Dimension(920, 517));
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(0, 0, 780, 590);
+        jLabel3.setBounds(0, 0, 920, 517);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -143,14 +137,13 @@ public class GameOver extends javax.swing.JFrame {
 //        }
         Menu menu = new Menu();
         menu.setVisible(true);
-        GameOver.soundEndGame.stopSound();
+        GameOverDemo.soundEndGame.stopSound();
         Menu.gameMusic.loopSound();
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
