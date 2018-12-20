@@ -44,14 +44,14 @@ public class PlayerFemale extends PlayerFactory{
         
         pistol = new Gun(Assets.pistolSkin, pistolIdle, pistolReload, pistolShoot, pistolShootSound,
                 pistolReloadSound, this, 400,
-                9, 200, 50);
+                15, 200, 50);
         rifle = new Gun(Assets.ak47, rifleIdle, rifleReload, rifleShoot, rifleShootSound,
                 rifleReloadSound, this, 100,
-                30, 200, 34);
+                35, 105, 34);
 
         shotgun = new Gun(Assets.shotgunSkin, shotgunIdle, shotgunReload, shotgunShoot, shotgunShootSound,
                 shotgunReloadSound, this, 800,
-                5, 200, 45);
+                8, 24, 45);
         
         rpg = new Gun(Assets.rpgSkin, rpgIdle, rpgReload, rpgShoot, rpgShootSound,
                 rpgReloadSound, this, 1200,
