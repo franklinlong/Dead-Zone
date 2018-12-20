@@ -8,7 +8,6 @@ package deadzone.utilities;
 import deadzone.graph.Edge;
 import deadzone.graph.Vertex;
 import deadzone.Handler;
-import deadzone.menu.Menu;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;

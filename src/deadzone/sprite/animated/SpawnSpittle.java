@@ -11,7 +11,6 @@ import deadzone.menu.Menu;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
-import static deadzone.sprite.Sprite.mapRGB;
 import deadzone.utilities.Animation;
 import deadzone.utilities.Assets;
 import deadzone.utilities.Sound;

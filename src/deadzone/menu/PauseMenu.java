@@ -5,7 +5,6 @@
  */
 package deadzone.menu;
 
-import deadzone.sprite.animated.PlayerDemo;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -16,9 +15,7 @@ import javax.swing.SwingUtilities;
 import deadzone.sprite.animated.PlayerFactory;
 import deadzone.utilities.Assets;
 import deadzone.utilities.Database;
-import java.sql.ResultSet;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**

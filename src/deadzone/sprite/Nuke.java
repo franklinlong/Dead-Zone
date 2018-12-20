@@ -7,7 +7,6 @@ package deadzone.sprite;
 
 import deadzone.Handler;
 import java.awt.Graphics;
-import deadzone.sprite.animated.Boss;
 import deadzone.sprite.animated.Zombie;
 import deadzone.utilities.Assets;
 import deadzone.utilities.Sound;

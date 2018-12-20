@@ -5,16 +5,8 @@
  */
 package deadzone;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import deadzone.listeners.KAdapter;
 import deadzone.sprite.animated.PlayerFactory;
-import deadzone.sprite.animated.PlayerFemale;
-import deadzone.sprite.animated.PlayerMale;
-import deadzone.utilities.Assets;
 import deadzone.utilities.Database;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 /**
  *
