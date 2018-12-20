@@ -116,9 +116,6 @@ public class GameOverDemo extends javax.swing.JFrame {
         jLabel2.setBounds(20, 260, 600, 100);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/demo.png"))); // NOI18N
-        jLabel3.setMaximumSize(new java.awt.Dimension(920, 517));
-        jLabel3.setMinimumSize(new java.awt.Dimension(920, 517));
-        jLabel3.setPreferredSize(new java.awt.Dimension(920, 517));
         getContentPane().add(jLabel3);
         jLabel3.setBounds(0, 0, 920, 517);
 

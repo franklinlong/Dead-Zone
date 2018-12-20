@@ -6,7 +6,6 @@
 package deadzone.sprite;
 
 import deadzone.SpriteVisitor;
-import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import deadzone.utilities.Assets;
@@ -27,10 +26,6 @@ public abstract class Sprite implements SpriteInterface{
         this.width = width;
         this.height = height;
     }
-
-    public abstract void drawImage(Graphics g, float offsetX, float offsetY);
-
-    public abstract void animationCycle();
 
     public float getX() {
         return x;

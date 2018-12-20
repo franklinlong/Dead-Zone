@@ -46,7 +46,7 @@ public abstract class AnimatedSprite extends Sprite {
     }
 
     public int collision(float velx, float vely, Float xf, Float yf) {
-        int xx, yy;
+        int xx, yy,tmp;
         //direzione
         int avanzamentoX = (int) velx;
         int avanzamentoY = (int) vely;
@@ -109,21 +109,7 @@ public abstract class AnimatedSprite extends Sprite {
                         }
                     }
 
-                    if (collisione3 == true && collisione1 == false && collisione2 == false) {
-                        return 3;
-                    } else if (collisione3 == true && collisione1 == true && collisione2 == false) {
-                        return 1;
-                    } else if (collisione3 == true && collisione2 == true && collisione1 == false) {
-                        return 2;
-                    } else if (collisione1 == true && collisione2 == true & collisione3 == true) {
-                        return 3;
-                    } else if (collisione1 == true && collisione2 == true) {
-                        return 3;
-                    } else if (collisione1 == true) {
-                        return 1;
-                    } else if (collisione2 == true) {
-                        return 2;
-                    }
+                    
                 } else {
                     //destra-sopra
                     //controllo destra
@@ -159,21 +145,10 @@ public abstract class AnimatedSprite extends Sprite {
                             }
                         }
                     }
-                    if (collisione3 == true && collisione1 == false && collisione2 == false) {
-                        return 3;
-                    } else if (collisione3 == true && collisione1 == true && collisione2 == false) {
-                        return 1;
-                    } else if (collisione3 == true && collisione2 == true && collisione1 == false) {
-                        return 2;
-                    } else if (collisione1 == true && collisione2 == true && collisione3 == true) {
-                        return 3;
-                    } else if (collisione1 == true && collisione2 == true) {
-                        return 3;
-                    } else if (collisione2 == true) {
-                        return 2;
-                    } else if (collisione1 == true) {
-                        return 1;
-                    }
+                    
+                    tmp = checkCollision(collisione1,collisione2,collisione3);
+                    if(tmp != 0)
+                        return tmp;
 
                 }
 
@@ -224,21 +199,11 @@ public abstract class AnimatedSprite extends Sprite {
                             }
                         }
                     }
-                    if (collisione3 == true && collisione1 == false && collisione2 == false) {
-                        return 3;
-                    } else if (collisione3 == true && collisione1 == true && collisione2 == false) {
-                        return 1;
-                    } else if (collisione3 == true && collisione2 == true && collisione1 == false) {
-                        return 2;
-                    } else if (collisione1 == true && collisione2 == true & collisione3 == true) {
-                        return 3;
-                    } else if (collisione1 == true && collisione2 == true) {
-                        return 3;
-                    } else if (collisione1 == true) {
-                        return 1;
-                    } else if (collisione2 == true) {
-                        return 2;
-                    }
+                    
+                    tmp = checkCollision(collisione1,collisione2,collisione3);
+                    if(tmp != 0)
+                        return tmp;                    
+                    
                 } else {
                     //sinistra sopra
                     //sinistra 
@@ -274,21 +239,10 @@ public abstract class AnimatedSprite extends Sprite {
                             }
                         }
                     }
-                    if (collisione3 == true && collisione1 == false && collisione2 == false) {
-                        return 3;
-                    } else if (collisione3 == true && collisione1 == true && collisione2 == false) {
-                        return 1;
-                    } else if (collisione3 == true && collisione2 == true && collisione1 == false) {
-                        return 2;
-                    } else if (collisione1 == true && collisione2 == true & collisione3 == true) {
-                        return 3;
-                    } else if (collisione1 == true && collisione2 == true) {
-                        return 3;
-                    } else if (collisione1 == true) {
-                        return 1;
-                    } else if (collisione2 == true) {
-                        return 2;
-                    }
+                    
+                    tmp = checkCollision(collisione1,collisione2,collisione3);
+                    if(tmp != 0)
+                        return tmp;                    
                 }
             } else {
                 if (avanzamentoY == 0) {
@@ -328,6 +282,22 @@ public abstract class AnimatedSprite extends Sprite {
         return initialVelocity;
     }
     
-    
+    public int checkCollision(boolean c1,boolean c2,boolean c3){
+        if (c3 && !c1 && !c2)
+            return 3;
+        else if (c3 && c1 && !c2)
+            return 1;
+        else if (c3 && c2 && !c1)
+            return 2;
+        else if (c1 && c2 & c3)
+            return 3;
+        else if (c1 && c2)
+            return 3;
+        else if (c1)
+            return 1;
+        else if (c2)
+             return 2;
+        return 0;
+    }
 
 }

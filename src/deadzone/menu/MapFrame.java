@@ -9,7 +9,6 @@ import deadzone.Context;
 import deadzone.ModalityGame;
 import deadzone.Window;
 import deadzone.utilities.Sound;
-import deadzone.utilities.Utilities;
 
 import java.awt.Color;
 import java.awt.Dimension;

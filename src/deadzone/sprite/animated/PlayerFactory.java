@@ -21,7 +21,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.util.Map;
-import deadzone.sprite.Sprite;
 import deadzone.sprite.SpriteInterface;
 import deadzone.trap.FireTrap;
 import deadzone.trap.HoleTrap;

@@ -5,9 +5,6 @@
  */
 package deadzone.menu;
 
-import deadzone.Context;
-import deadzone.ModalityDemo;
-import deadzone.ModalityGame;
 import deadzone.Window;
 import static deadzone.menu.MapFrame.gameClip;
 import static deadzone.menu.MapFrame.gameMusic;

@@ -6,19 +6,11 @@
 package deadzone;
 
 import deadzone.sprite.animated.PlayerFactory;
-import deadzone.sprite.animated.SpawnSpittle;
-import deadzone.sprite.animated.Projectile;
-import deadzone.sprite.animated.Spittle;
-import deadzone.sprite.animated.Zombie;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
-import deadzone.sprite.Blood;
-import deadzone.sprite.Circle;
-import deadzone.sprite.DropItem;
 import deadzone.sprite.Sprite;
 import deadzone.sprite.SpriteInterface;
-import deadzone.trap.Trap;
 
 /**
  *

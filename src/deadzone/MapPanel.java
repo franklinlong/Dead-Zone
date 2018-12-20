@@ -17,8 +17,6 @@ import deadzone.sprite.Sprite;
 import deadzone.sprite.SpriteInterface;
 import deadzone.sprite.animated.PlayerDemo;
 import deadzone.sprite.animated.PlayerFactory;
-import deadzone.trap.Trap;
-import deadzone.utilities.Assets;
 import deadzone.utilities.Scoreboard;
 import java.awt.event.KeyEvent;
 import java.util.Iterator;
