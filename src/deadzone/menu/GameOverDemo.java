@@ -107,7 +107,7 @@ public class GameOverDemo extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(420, 390, 200, 50);
+        jButton1.setBounds(580, 400, 200, 50);
 
         jLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
