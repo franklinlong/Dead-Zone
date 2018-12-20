@@ -77,7 +77,7 @@ public abstract class PlayerFactory extends AnimatedSprite {
     protected int onlineID;
     protected String name;
     private int zombieKilled;
-    private final int maximumHealth;
+    protected int maximumHealth;
     protected int coins;
     private Graphics2D g2;
     
@@ -654,7 +654,7 @@ public abstract class PlayerFactory extends AnimatedSprite {
      
     public static PlayerFactory getPlayer(boolean male, boolean demo){
         if(demo)
-            return new PlayerDemo(600,600,3,5000);
+            return new PlayerDemo(600,550,3,5000);
         if(male)
             return new PlayerMale(1600,1600,3,1600);
         else

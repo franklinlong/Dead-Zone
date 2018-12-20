@@ -116,6 +116,12 @@ public class WavesDemo extends Waves{
             }
         }
         
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(WavesDemo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         this.allKilled = false;
         this.createBoss(10, 1340, 1, (float) 1);
         this.numZombieRound = 1;
@@ -132,7 +138,63 @@ public class WavesDemo extends Waves{
         
         PlayerDemo.FlagWaves = true;
         
+        synchronized(FW){
+            while (PlayerDemo.FlagWaves) {
+                try {
+                    FW.wait(); //si aspetta che venga modificato allKilled
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Waves.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
         
+        try {
+            Thread.sleep(6000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(PlayerDemo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        this.allKilled = false;
+        this.createFastZombie(2300, 1330, 1, (float) 0);
+        this.createSpittleZombie(1900, 2200, 1, (float) 0);
+        this.createSpittleZombie(380, 1667, 1, (float) 0);
+        this.createSpittleZombie(1000, 885, 1, (float) 0);
+        this.createSpittleZombie(1885, 735, 1, (float) 0);
+        this.createSpittleZombie(1420, 1050, 1, (float) 0);
+        this.createSpittleZombie(2138, 2046, 1, (float) 0);
+        this.createSpittleZombie(1728, 2313, 1, (float) 0);
+        this.createSpittleZombie(2476, 1773, 1, (float) 0);
+        this.createSpittleZombie(850, 1480, 1, (float) 0);
+        this.createSpittleZombie(920, 1910, 1, (float) 0);
+        this.createFastZombie(87, 1310, 1, (float) 0);
+        this.createFastZombie(1200, 2533, 1, (float) 0);
+        this.createFastZombie(2198, 2350, 1, (float) 0);
+        this.createFastZombie(2812, 2254, 1, (float) 0);
+        this.createFastZombie(1883, 264, 1, (float) 0);
+        this.createFastZombie(2303, 367, 1, (float) 0);
+        this.createFastZombie(2870, 373, 1, (float) 0);
+        this.createFastZombie(3104, 2015, 1, (float) 0);
+        this.createFastZombie(486, 1871, 1, (float) 0);
+        this.createFastZombie(1475, 1826, 1, (float) 0);
+        this.createWeakZombie(370, 1090, 1, (float) 0);
+        this.createWeakZombie(840, 1105, 1, (float) 0);
+        this.createWeakZombie(107, 900, 1, (float) 0);
+        this.createWeakZombie(920, 1315, 1, (float) 0);
+        this.createWeakZombie(2150, 2876, 1, (float) 0);
+        this.numZombieRound = 27;
+        
+        
+        synchronized (KL) {
+            while (!this.allKilled) {
+                try {
+                    KL.wait(); //si aspetta che venga modificato allKilled
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Waves.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        
+        PlayerDemo.FlagWaves = true;
         
 //        this.numZombieRound += 1;
 //        this.allKilled = false;
@@ -171,7 +233,7 @@ public class WavesDemo extends Waves{
 
     @Override
     public void createFastZombie(float x, float y, float mulHealth, float prob) {
-        this.handler.addSprite(new StandardZombie(x, y, (float) 4, (int) (35 * mulHealth), 20, handler.getPlayer(), this.handler, prob, 60, 60, 20, new Animation(Assets.zombie2, 15), new Animation(Assets.zombie2Attack, 50), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
+        this.handler.addSprite(new StandardZombie(x, y, (float) 4, (int) (35 * mulHealth), 50, handler.getPlayer(), this.handler, prob, 60, 60, 20, new Animation(Assets.zombie2, 15), new Animation(Assets.zombie2Attack, 50), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
     }
 
     @Override
