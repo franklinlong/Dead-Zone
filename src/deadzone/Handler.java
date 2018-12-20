@@ -40,6 +40,7 @@ public class Handler implements SpriteInterface{
         this.waves = w;
     }
 
+    @Override
     public void animationCycle() {
         //Faccio partire l'animation cycle di tutti gli sprite della mappa
         for (int i = 0; i < players.size(); i++) {
