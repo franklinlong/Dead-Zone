@@ -6,6 +6,7 @@
 package deadzone.trap;
 
 import deadzone.Handler;
+import deadzone.menu.Settings;
 import java.awt.Graphics;
 import deadzone.sprite.animated.PlayerFactory;
 import deadzone.utilities.Animation;
@@ -28,7 +29,10 @@ public class FireTrap extends Trap{
             this.animazione = new Animation(Assets.fuochiR, 100);
         this.damage = 15;
         p = handler.getPlayer();
-        this.sound.loopSound();
+        if(Settings.soundEffects)
+            this.sound.loopSound();
+        else
+            loopSound=false;
     }
 
     @Override
@@ -42,7 +46,8 @@ public class FireTrap extends Trap{
             super.animationCycle();
         } else {
             handler.removeSprite(this);
-            this.sound.stopSound();
+            if(this.sound.isRunning())
+                this.sound.stopSound();
             p.setFireTrapActive(false);
         }
 

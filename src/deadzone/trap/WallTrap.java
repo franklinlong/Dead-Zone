@@ -7,6 +7,7 @@ package deadzone.trap;
 
 import deadzone.Handler;
 import deadzone.menu.PauseMenu;
+import deadzone.menu.Settings;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -34,7 +35,8 @@ public class WallTrap extends Trap{
         }else{
             g2dRGB.fillRect((int) getX(),(int) getY(), width, height);
         }
-        this.sound.playSound();
+        if(Settings.soundEffects)
+            this.sound.playSound();
         loopSound=false;
     }
 
@@ -68,7 +70,8 @@ public class WallTrap extends Trap{
                     p.setWallTrapActive2(false);
                     break;
             }
-            sound.playSound();
+            if(Settings.soundEffects)
+                sound.playSound();
         }
     }
 }

@@ -97,7 +97,7 @@ public abstract class PlayerFactory extends AnimatedSprite {
         
         this.punteggioAttuale = 0;
         this.maximumHealth = health;
-        this.coins = 5;
+        this.coins = 50;
         this.trap = true;
         this.zona = new Zona(getX(), getY());
         grafo = new Graph();

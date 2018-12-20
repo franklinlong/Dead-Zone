@@ -6,6 +6,7 @@
 package deadzone.trap;
 
 import deadzone.Handler;
+import deadzone.menu.Settings;
 import java.awt.Graphics;
 import deadzone.sprite.animated.PlayerFactory;
 import deadzone.utilities.Assets;
@@ -24,8 +25,10 @@ public class HoleTrap extends Trap{
         this.setY(y);
         this.index = index;
         this.damage=5000;
-        this.sound.playSound();
-        loopSound=false;
+        if(Settings.soundEffects)
+            this.sound.playSound();
+        else
+            loopSound=false;
     }
 
     @Override
@@ -39,7 +42,8 @@ public class HoleTrap extends Trap{
             super.animationCycle();
         }else{
             handler.removeSprite(this);
-            this.sound.playSound();
+            if(Settings.soundEffects)
+                this.sound.playSound();
             PlayerFactory p = handler.getPlayer();
             switch(index){
                 case 1:
