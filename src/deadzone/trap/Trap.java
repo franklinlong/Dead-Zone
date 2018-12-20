@@ -8,6 +8,7 @@ package deadzone.trap;
 import deadzone.Handler;
 import deadzone.SpriteVisitor;
 import deadzone.menu.PauseMenu;
+import deadzone.menu.Settings;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import deadzone.sprite.Sprite;
@@ -48,8 +49,10 @@ public abstract class Trap extends Sprite{
     public void animationCycle() {
         if (!PauseMenu.isPause()) {
             if(!state){
-                if(loopSound)
+                if(loopSound && Settings.soundEffects){
+                    System.out.println("ciao");
                     this.sound.loopSound();
+                }
                 state = true;
             }
             PlayerFactory p;
@@ -67,7 +70,8 @@ public abstract class Trap extends Sprite{
             durata--;
         }
         else if(PauseMenu.isPause()){
-            this.sound.stopSound();
+            if(sound.isRunning())
+                this.sound.stopSound();
             state = false;
         }
     }

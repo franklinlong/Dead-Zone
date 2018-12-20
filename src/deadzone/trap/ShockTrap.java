@@ -6,6 +6,7 @@
 package deadzone.trap;
 
 import deadzone.Handler;
+import deadzone.menu.Settings;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -14,7 +15,6 @@ import deadzone.sprite.animated.PlayerFactory;
 import deadzone.utilities.Animation;
 import deadzone.utilities.Assets;
 import deadzone.utilities.Sound;
-
 /**
  *
  * @author giova
@@ -30,7 +30,10 @@ public class ShockTrap extends Trap{
         this.orizzontale = orizzontale;
         this.index = index;
         this.damage=10;
-        this.sound.loopSound();
+        if(Settings.soundEffects)
+            this.sound.loopSound();
+        else
+            loopSound=false;
     }
 
     @Override
@@ -53,7 +56,8 @@ public class ShockTrap extends Trap{
             super.animationCycle();
         } else {
             handler.removeSprite(this);
-            this.sound.stopSound();
+            if(this.sound.isRunning())
+                this.sound.stopSound();
             PlayerFactory p = handler.getPlayer();
             switch(index){
                 case 1:
