@@ -300,6 +300,10 @@ public class Menu extends javax.swing.JFrame {
     public void setBack(boolean back) {
         this.back = back;
     }
+    
+    public void setSinglePlayer(SinglePlayer nuovo){
+        this.sp = nuovo;
+    }
 
 
 }

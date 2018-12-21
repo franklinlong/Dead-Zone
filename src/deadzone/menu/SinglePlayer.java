@@ -22,6 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import deadzone.utilities.Assets;
 import deadzone.utilities.Database;
+import javax.swing.JLabel;
 
 /**
  *
@@ -497,4 +498,8 @@ public class SinglePlayer extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel sfondo;
     // End of variables declaration//GEN-END:variables
+
+public JLabel getjLabel5() {
+        return jLabel5;
+    }
 }

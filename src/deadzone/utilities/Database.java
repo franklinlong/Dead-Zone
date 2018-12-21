@@ -142,4 +142,36 @@ public class Database {
         String query = " SELECT * FROM online ";
         return Database.dbQuery(query);
     }
+    
+    public static void checkOnline(){
+        Connection conn = null;
+        Statement stmt = null;
+        try {
+            conn = DriverManager.getConnection(s1, user, pass);
+            System.out.println("Connesso");
+            stmt = conn.createStatement();
+            online = true;
+        } catch (org.postgresql.util.PSQLException ex) {
+            online = false;
+            System.out.println("Non connesso");
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) {
+                    conn.close();
+                }
+            } catch (SQLException se) {
+            }
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+}
 }

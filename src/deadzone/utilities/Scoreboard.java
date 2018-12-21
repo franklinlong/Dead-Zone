@@ -14,7 +14,7 @@ import java.util.*;
  */
 public class Scoreboard {
 
-    private final String FILENAME = "resources/scoreboard/scores.txt";
+    private final String FILENAME = "scores.txt";
     private final int SIZE = 10;
     private LinkedList<Score> scoreboard;
 

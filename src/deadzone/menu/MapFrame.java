@@ -8,6 +8,8 @@ package deadzone.menu;
 import deadzone.Context;
 import deadzone.ModalityGame;
 import deadzone.Window;
+import deadzone.utilities.Assets;
+import deadzone.utilities.Database;
 import deadzone.utilities.Sound;
 
 import java.awt.Color;
@@ -161,9 +163,28 @@ public class MapFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
-        // TODO add your handling code here:
-        this.sp.setVisible(true);
-        this.dispose();
+        // TODO add your handling code here:                                            
+        Database.checkOnline();
+        
+        if (!Database.online){
+            SinglePlayer newsp = new SinglePlayer(this.sp.menu);
+            this.sp.menu.setSinglePlayer(newsp);
+            newsp.setVisible(true);
+            this.dispose();
+        }
+        else if (Database.online && this.sp.getjLabel5().getText() == "offline"){
+            
+            Assets.rs = Database.OttieniScoreboard();
+            SinglePlayer newsp = new SinglePlayer(this.sp.menu);
+            this.sp.menu.setSinglePlayer(newsp);
+            newsp.setVisible(true);
+            this.dispose();
+        }
+        else {
+            this.sp.setVisible(true);
+            this.dispose();
+        }
+    
     }//GEN-LAST:event_jButtonBackActionPerformed
 
     private void jButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlayActionPerformed
