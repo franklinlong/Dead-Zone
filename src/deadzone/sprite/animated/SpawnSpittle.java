@@ -48,6 +48,7 @@ public class SpawnSpittle extends Spittle {
     @Override
     public boolean dye() {
         if (getX() > 3100 || getX() < 10 || getY() < 10 || getY() > 3100) {
+            this.handler.getWaves().removeEnemy(); 
             return true;
         }
 //        int pixel = mapRGB.getRGB((int) getX(), (int) getY());

@@ -96,7 +96,9 @@ public class Boss extends Zombie{
             if(currentAnimation.getIndex() == 5){
                 death();
                 this.handler.getWaves().addEnemy();
-                this.handler.addSprite(new SpittleZombie(this.getX(), this.getY(), (float)3, 700, 50, handler.getPlayer(), this.handler, 0, 60, 60, 5, new Animation(Assets.zombie3, 15), new Animation(Assets.zombie3Attack, 15), new Sound(Assets.zombieBite), new Sound(Assets.zombieHit)));
+                SpawnSpittle m1 = new SpawnSpittle(this.getX() + this.width/2, this.getY() + this.height/2, 1,
+                        1, (float)1, 1, this.handler);
+                this.handler.addSprite(m1);
                 this.handler.getWaves().addEnemy();
                 SpawnSpittle m2 = new SpawnSpittle(this.getX() + this.width/2, this.getY() + this.height/2, 1,
                         1, (float)1, 15, this.handler);
