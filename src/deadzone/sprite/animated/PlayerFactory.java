@@ -35,6 +35,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Timer;
 
 /**
@@ -94,7 +96,6 @@ public abstract class PlayerFactory extends AnimatedSprite {
 
     public PlayerFactory(float x, float y, int vel, int health) {
         super(x, y, PLAYERSIZE, PLAYERSIZE, (float) vel, health);
-        
         this.punteggioAttuale = 0;
         this.maximumHealth = health;
         this.coins = 50;
@@ -485,6 +486,7 @@ public abstract class PlayerFactory extends AnimatedSprite {
                 break;
             case 255:
                 if (this.coins >= 5 && !this.fireTrapActive) {
+                    this.fireTrapActive = true;
                     for (int i = 0; i < 7; i++) {
                         handler.addSprite(new FireTrap((float) 170 + 110 * i, (float) 1370, 120, 66, handler, true, 740, this.fireTrapS));
                     }
@@ -504,7 +506,6 @@ public abstract class PlayerFactory extends AnimatedSprite {
                         handler.addSprite(new FireTrap((float) 170, (float) 1384 + 66 * i, 120, 66, handler, false, 840, this.fireTrapS));
                     }
                     this.updateCoins(-5);
-                    this.fireTrapActive = true;
                 }
                 break;
             case 150:
@@ -587,8 +588,23 @@ public abstract class PlayerFactory extends AnimatedSprite {
         this.wallTrapActive2 = wallTrapActive2;
     }
     
+    boolean first = true;
     public void setFireTrapActive(boolean fireTrapActive) {
-        this.fireTrapActive = fireTrapActive;
+        if(first){
+            first = false;
+            this.fireTrapActive = fireTrapActive;
+            new Thread(new Runnable(){
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(PlayerFactory.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    first = true;
+                }
+            }).start();
+        }
     }
     
     public void setHoleTrapActive1(boolean holeTrapActive1) {
